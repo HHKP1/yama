@@ -5,15 +5,26 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --no-fix",
+    "check": "vue-cli-service lint --no-fix 2>&1 >t; cat t | grep -Eo \"(No lint|[0-9]+)? error[s]? found\";rm t",
+    "deploy": "mkdir prod -p && cp dist/* -R prod/"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "materialize-css": "^1.0.0",
+    "v-mask": "^2.2.3",
+    "vue-moment": "^4.0.0",
+    "vue-mq": "^1.0.1",
+    "vue-router": "^3.4.9",
+    "vue-toasted": "^1.1.28",
+    "vuejs-datepicker": "^1.6.2",
+    "vuelidate": "^0.7.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/eslint-config-standard": "^4.0.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
@@ -27,12 +38,33 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/standard"
     ],
+    "rules": {
+      "no-console": "off",
+      "indent": [
+        "error",
+        "tab"
+      ],
+      "no-tabs": "off",
+      "semi": "off",
+      "no-template-curly-in-string": "off",
+      "quotes": "off",
+      "keyword-spacing": "off",
+      "space-before-blocks": "off",
+      "curly": "off",
+      "space-before-function-paren": "off",
+      "comma-dangle": "off",
+      "spaced-comment": "off",
+      "space-infix-ops": "off",
+      "eqeqeq": "off",
+      "no-extend-native": "off",
+      "eol-last": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
-    },
-    "rules": {}
+    }
   },
   "browserslist": [
     "> 1%",
