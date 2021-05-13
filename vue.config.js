@@ -3,7 +3,7 @@ module.exports = {
 	devServer: {
 		proxy: {
 			'^/api': {
-				target: 'https://tala.cloudi.es/',
+				target: 'https://tala.cloudi.es/routes/9373315876/front/',
 				ws: false,
 				changeOrigin: true
 			},
