@@ -1,0 +1,248 @@
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url("../font/Montserrat-Regular.ttf") format("truetype");
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Montserrat-Bold';
+    src: url("../font/Montserrat-Bold.ttf") format("truetype");
+    font-display: swap;
+  }
+  
+  /* :root {
+      color-scheme: light dark;
+  } */
+  
+  /**/
+  
+  html {
+      --button-default: rgba(227,67,61, 100%);
+      --button-hover: rgba(244,96,92, 100%);
+      --button-pressed: rgba(201,27,20, 100%);
+      --button-disabled: rgba(189,189,189, 100%);
+      --secondary-button-default: rgba(2,30,31, 100%);
+      --secondary-button-hover: rgba(244,96,92, 100%);
+      --secondary-button-pressed: rgba(201,27,20, 100%);
+      --secondary-button-disabled: rgba(189,189,189, 100%);
+
+      
+      --text-color-light: #eee;
+      --text-color-muted: rgba(29, 30, 30, .5);
+      --background-color-normal: #f8f9f8;
+      --background-color-on-normal: #f8f9f8;
+      --background-color-hover: rgba(0, 0, 0, .07);
+      --green-color-light: #34b76c;
+      --green-color-dark: #13514e;
+      --red-color-light: rgb(233, 66, 55);
+      --red-color-dark: rgb(212, 36, 24);
+      --border-color-normal: rgba(14, 69, 67, .5);
+      --border-color-hover: rgba(14, 69, 67, .7);/*#0e4543*/
+      --border-color-muted: rgba(14, 69, 67, .07);
+      --state-indicator-new: rgb(197, 197, 197);
+      --state-indicator-rejectedByBank: rgb(233, 66, 55);
+      --state-indicator-agreed: rgb(109, 210, 34);
+      --state-indicator-inProgress: rgb(36, 153, 244);
+      --state-indicator-bankRequest: rgb(243, 194, 22);
+      --state-indicator-approvDone: rgb(61, 114, 21);
+      --custom-scrollbar-color: transparent;
+      --custom-scrollbar-color-hover: rgba(14, 69, 67, .05);
+      --custom-scrollbar-color-active: rgba(14, 69, 67, .1);
+      --button-color-normal: rgb(52, 183, 108);
+      --button-color-hover: rgb(52, 183, 108);
+      --button-filter-hover: brightness(0.85) contrast(1.25);
+      --button-color-muted: rgb(216, 230, 224);
+      --popup-background-color: #f8f9f8;
+      --chat-background-color: rgba(239, 246, 239, .4);
+      --chat-mobile-background-color: rgba(239, 246, 239, .6);
+      --chat-filter: blur(3px);
+      --chat-message-color-incoming: rgb(19, 81, 78);
+      --chat-message-color-outgoing: rgb(52, 183, 108);
+      --media-filter: none;
+      font-family: "Montserrat-Regular", Arial, sans-serif;
+  }
+  
+  /**/
+  
+  *, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .margin-right {
+    margin-right: 2.5vw;
+  }
+  
+  .margin-right-5 {
+    margin-right: 5px;
+  }
+  
+  .margin-right-16 {
+    margin-right: 16px;
+  }
+  
+  .margin-right-24 {
+    margin-right: 24px;
+  }
+  
+  .margin-right-32 {
+    margin-right: 32px;
+  }
+  
+  .margin-left_last {
+    margin-left: auto;
+  }
+  
+  .margin-bottom-16 {
+    margin-bottom: 16px;
+  }
+  
+  
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+  }
+  
+  html {
+    /*height: 100%;*/
+    font-size: 14px;
+    background-color: var(--background-color-normal);
+  }
+  
+  body {
+    /*height: 100%;*/
+    line-height: 1;
+    overflow-x: hidden;
+    background-color: var(--background-color-normal);
+    color: var(--text-color-normal);
+  }
+  
+  a:active,
+  a:hover {
+    outline: 0;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  ul {
+    padding: 0;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  * {
+    outline: none;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  span,
+  a {
+    font-family: "Montserrat-regular", Arial, Helvetica, sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--text-color-normal);
+  }
+  
+  h1 .font-bolt,
+  h2 .font-bolt,
+  h3 .font-bolt,
+  h4 .font-bolt,
+  h5 .font-bolt,
+  p .font-bolt,
+  span .font-bolt,
+  a .font-bolt {
+    font-family: Arial, Helvetica, sans-serif;
+  }
