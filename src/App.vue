@@ -13,7 +13,7 @@
 				<button class="btn custom_button">Додати дефект</button>
 			</div>
 			<section>
-				<div class="head">
+				<div class="header">
 					<div class="head-container">
 						<div class="main-hero head-hero">
 							<div class="hero-title">
@@ -185,12 +185,15 @@ export default {
 		max-width: 239px;
 	}
 	.hero-btn{
-		font: 700 1.3rem 'Montserrat';
+		font: 700 1.1rem 'Montserrat';
+		width: 100%;
+		max-width: 176px;
 	}
 	.underline-btn{
 		border:none;
 		border-bottom: 2px solid var(--color-black);
 		background-color: var(--background-color-normal);
+		font: 500 .9rem 'Montserrat';
 		cursor: pointer;
 	}
 	.underline-btn:hover{
@@ -201,7 +204,7 @@ export default {
 		background-color: var(--button-hover) !important;
 	}
 
-	.head {
+	.header {
 		width: 100%;
 		height: 395px;
 		background: url(./assets/img/head_bg.png) no-repeat center;
@@ -215,6 +218,8 @@ export default {
 		justify-content: space-between;
 		position: relative;
 		top: -30px;
+		padding: 0 20px;
+		width: 100%;
 	}
 
 	.main-hero {
@@ -234,8 +239,9 @@ export default {
 		border: 1px solid var(--color-gray-light);
 		border-radius: 4px;
 		filter: dropshadow(23, 3, 3, var(--color-gray));
-		width: 60%;
-		margin: 0 auto;
+		width: 100%;
+		max-width: 239px;
+		/* margin: 0 auto; */
 		padding: 16px 20px;
 	}
 
@@ -247,6 +253,7 @@ export default {
 
 	.hero-title {
 		display: flex;
+		justify-content: center;
 	}
 
 	.hero-item {
@@ -301,7 +308,11 @@ export default {
 		padding: 45px 0;
 	}
 	.counter-item{
-		padding: 0 16px 0 0;
+		/* padding: 0 16px 0 0; */
+		flex: 1 1 33%;
+	}
+	.counter-item:hover{
+		background-color: var(--background-color-prefooter);
 	}
 	.counter-check{
 		font: 900 2.1rem 'Montserrat';
