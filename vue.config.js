@@ -1,5 +1,5 @@
 module.exports = {
-	publicPath: process.env.NODE_ENV === 'production' ? '/routes/9373315876/front/index.html' : '/',
+	publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
 	devServer: {
 		clientLogLevel: 'info',
 		proxy: 'http://localhost:8080',
@@ -11,7 +11,7 @@ module.exports = {
 		// 	},
 	},
 	outputDir: './public/',
-	assetsDir: './assets/',
+	assetsDir: './public/asstes',
 	lintOnSave: false,
 	productionSourceMap: false
 }
