@@ -1,13 +1,23 @@
 module.exports = {
-	publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
+	publicPath: process.env.NODE_ENV === 'production' ? '/' : '',
 	devServer: {
-		proxy: {
-			'^/api': {
-				target: 'https://tala.cloudi.es/routes/9373315876/front/',
-				ws: false,
-				changeOrigin: true
-			},
-		}
+		clientLogLevel: 'info',
+		proxy: 'http://localhost:8080',
+		// proxy: {
+		// 	'^/api': {
+		// 		target: 'https://tala.cloudi.es/routes/9373315876/front/',
+		// 		ws: false,
+		// 		changeOrigin: true
+		// 	},
 	},
-	productionSourceMap: false
+	outputDir: './public/',
+	assetsDir: './assets/',
+	lintOnSave: false,
+	pages: {
+		index: {
+			entry: 'src/main.js',
+			template: 'src/public/index.html',
+			filename: 'index.html',
+		},
+	},
 }

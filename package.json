@@ -5,9 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint --no-fix",
-    "check": "vue-cli-service lint --no-fix 2>&1 >t; cat t | grep -Eo \"(No lint|[0-9]+)? error[s]? found\";rm t",
-    "deploy": "mkdir prod -p && cp dist/* -R prod/"
+    "lint": "vue-cli-service lint --no-fix"
   },
   "dependencies": {
     "core-js": "^3.6.5",
