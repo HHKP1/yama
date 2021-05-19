@@ -11,7 +11,7 @@ module.exports = {
 		// 	},
 	},
 	outputDir: './public/',
-	assetsDir: './public/asstes',
+	assetsDir: './asstes',
 	lintOnSave: false,
 	productionSourceMap: false
 }
