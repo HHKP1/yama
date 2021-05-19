@@ -1,5 +1,5 @@
 module.exports = {
-	publicPath: process.env.NODE_ENV === 'production' ? '/' : '',
+	publicPath: process.env.NODE_ENV === 'production' ? 'ukr-yama' : '/',
 	devServer: {
 		clientLogLevel: 'info',
 		proxy: 'http://localhost:8080',
