@@ -1,5 +1,5 @@
 module.exports = {
-	publicPath: process.env.NODE_ENV === 'production' ? '/' : '',
+	publicPath: process.env.NODE_ENV === 'production' ? '/' : '/src/public/',
 	devServer: {
 		clientLogLevel: 'info',
 		proxy: 'http://localhost:8080',
@@ -13,11 +13,12 @@ module.exports = {
 	outputDir: './public/',
 	assetsDir: './assets/',
 	lintOnSave: false,
-	pages: {
-		index: {
-			entry: 'src/main.js',
-			template: 'src/public/index.html',
-			filename: 'index.html',
-		},
-	},
+	productionSourceMap: false
+	// pages: {
+	// 	index: {
+	// 		entry: 'src/main.js',
+	// 		template: 'src/public/index.html',
+	// 		filename: 'index.html',
+	// 	},
+	// },
 }
