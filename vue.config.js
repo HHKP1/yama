@@ -11,7 +11,7 @@ module.exports = {
 	// 	// 	},
 	// },
 	outputDir: './public/',
-	assetsDir: '/routes/9373315876/front/asstes',
+	assetsDir: './routes/9373315876/front/asstes',
 	lintOnSave: false,
 	productionSourceMap: false
 }
