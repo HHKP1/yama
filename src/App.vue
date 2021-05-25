@@ -350,7 +350,7 @@ export default {
 			},
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: 'routes/95a4b653d1/api',
+			apiURL: '/routes/95a4b653d1/api',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
