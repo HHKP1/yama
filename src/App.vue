@@ -289,7 +289,6 @@ import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
 import defectCards from './mock_data';
-// import M from 'materialize-css/dist/js/materialize.min';
 export default {
 	name: 'App',
 	components: {
@@ -366,8 +365,6 @@ export default {
 	},
 	mounted() {
 		this.loadCard(true);
-		// M.AutoInit();
-		// M.updateTextFields();
 	},
 	methods: {
 		apiGET: async function(endpoint){
@@ -420,7 +417,7 @@ export default {
 </script>
 
 <style>
-
+@import "~materialize-css/dist/css/materialize.css";
 	section {
 		width: 100%;
 		height: 100%;
