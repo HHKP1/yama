@@ -1,11 +1,9 @@
 module.exports = {
-	publicPath: process.env.NODE_ENV === 'production' ? './' : '',
+	publicPath: process.env.NODE_ENV === 'production' ? './' : './',
 	devServer: {
-		// clientLogLevel: 'info',
-		// proxy: 'http://localhost:8080',
 		proxy: {
 			'^/api': {
-				target: 'https://tala.cloudi.es/routes/95a4b653d1/',
+				target: 'https://tala.cloudi.es/',
 				ws: false,
 				changeOrigin: true
 			},
