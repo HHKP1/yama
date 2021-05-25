@@ -753,7 +753,7 @@ export default {
 		flex: 0 1 100%;
 	}
 	.grid-container {
-		width: 95%;
+		width: 85%;
 		position: relative;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
