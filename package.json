@@ -9,9 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "materialize-css": "^1.0.0",
     "v-mask": "^2.2.3",
+    "vue": "^2.6.11",
     "vue-moment": "^4.0.0",
     "vue-mq": "^1.0.1",
     "vue-router": "^3.4.9",

@@ -25,8 +25,13 @@
       --color-gray-shadow-active: rgba(0,1,0, 12%);
       --color-white: rgba(255,255,255, 100%);
 
+      /* statuses color */
+
+      --status-color: rgba(39,174,96, 100%);
+
       /* color buttons */
       --button-default: rgba(227,67,61, 100%);
+      --button-outline: rgba(255,255,255, 100%);
       --button-hover: rgba(244,96,92, 100%);
       --button-pressed: rgba(201,27,20, 100%);
       --button-disabled: rgba(189,189,189, 100%);
@@ -174,6 +179,7 @@
   }
   
   body {
+    width: 100%;
     height: 100%;
     line-height: 1;
     overflow-x: hidden;
