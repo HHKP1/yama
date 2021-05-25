@@ -289,6 +289,7 @@ import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
 import defectCards from './mock_data';
+// import M from 'materialize-css/dist/js/materialize.min';
 export default {
 	name: 'App',
 	components: {
@@ -349,7 +350,7 @@ export default {
 			},
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: '/api',
+			apiURL: 'routes/95a4b653d1/api',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -402,7 +403,7 @@ export default {
 		},
 		dfCard(){
 			return this.orgInfo.map(card => {
-				// console.log(card);
+				console.log(card);
 				return {
 					address: card.address,
 					photo: card.photos,
