@@ -402,7 +402,7 @@ export default {
 		},
 		dfCard(){
 			return this.orgInfo.map(card => {
-				console.log(card);
+				// console.log(card);
 				return {
 					address: card.address,
 					photo: card.photos,
