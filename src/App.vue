@@ -1,282 +1,608 @@
 <template>
 	<div id="app">
 		<main>
-			<div id="nav">
-				<a class="logo_lonk" href="/">
-					<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
-				</a>
-				<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
-					<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
-				</div>
-				<FormInput title="" label="" type="search" placeholder="Пошук за адресою або номером заяви"
-					class="form-control" v-model="search" />
-				<button class="btn custom_button">Додати дефект</button>
-			</div>
-			<section class="main">
-				<div class="header">
-					<div class="head-container">
-						<div class="main-hero head-hero">
-							<div class="hero-title">
-								<p class="hero-item"><strong
-										style="font:700 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
-									це інструмент громадського контролю за утриманням доріг, який ефективно працює та
-									розвивається</p>
-							</div>
-							<button class="btn custom_button hero-btn">Додати дефект</button>
-						</div>
-						<div class="main-hero">
-							<div class="hero-title">
-								<div class="hero-container">
-									<div class="hero-content">
-										<div class="hero-item">
-											<p class="p-text">Ваш код<br />для входу:</p>
-										</div>
-										<div class="hero-item">
-											<p class="p-text code">2334</p>
-										</div>
-										<div class="hero-item">
-											<div class="help-tips"
-												style="border-radius:100%;border:1px solid var(--color-gray-light);background: var(--background-color-normal)">
-											</div>
-										</div>
-									</div>
-									<div class="hero-content">
-										<div class="hero-item icon">
-											<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
-												alt="Facebook messenger">
-										</div>
-										<div class="hero-item icon">
-											<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
-										</div>
-										<div class="hero-item icon">
-											<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="main-counter">
-					<div class="counter-item">
-						<span class="counter-check">2500</span>
-						<p class="counter-title">зареєстровано в УкрЯмі</p>
-					</div>
-					<span class="counter-separator"></span>
-					<div class="counter-item">
-						<span class="counter-check">500</span>
-						<p class="counter-title">надіслано в поліцію</p>
-					</div>
-					<span class="counter-separator"></span>
-					<div class="counter-item">
-						<span class="counter-check">25700</span>
-						<p class="counter-title">виправлено</p>
-					</div>
-				</div>
-				<div class="statistc-btn">
-					<button class="underline-btn">Дивитись детальну статистику</button>
-				</div>
-			</section>
-			<section class="how_it_works">
-				<div class="container_works">
-					<h2 class="work-item">Як це працює</h2>
-					<div class="container_steps">
-						<div class="step_item">
-							<div class="step_icon">
-								<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
-							</div>
-							<p class="step_description">Додати дефект</p>
-						</div>
-						<div class="arrow_forward">
-							<img src="./assets/img/icons/Line_45.svg" alt="">
-						</div>
-						<div class="step_item">
-							<div class="step_icon">
-								<img src="./assets/img/icons/mdi_file-document-edit-outline.svg" alt="">
-							</div>
-							<p class="step_description">Надіслати заяву в поліцію<br/> та чекати відповідь</p>
-						</div>
-						<div class="arrow_fork">
-							<img src="./assets/img/icons/fork_arrow.svg" alt="">
-						</div>
-						<div class="step_item_col">
-							<div class="step_item">
-								<div class="step_icon">
-									<img src="./assets/img/icons/mdi_file-check-outline.svg" alt="">
-								</div>
-								<p class="step_description">Отримати відповідь</p>
-							</div>
-							<div class="step_item">
-								<div class="step_icon">
-									<img src="./assets/img/icons/mdi_account-multiple-remove-outline.svg" alt="">
-								</div>
-								<p class="step_description">Немає відповіді</p>
-							</div>
-						</div>
-						<div class="arrow_fork_up">
-							<img src="./assets/img/icons/fork_arrow_up.svg" alt="">
-						</div>
-						<div class="step_item">
-							<div class="step_icon">
-								<img src="./assets/img/icons/bx_bx-traffic-cone.svg" alt="">
-							</div>
-							<p class="step_description">Ремонт ділянки</p>
-						</div>
-						<div class="arrow_fork_down">
-							<img src="./assets/img/icons/Line_50.svg" alt="">
-						</div>
-						<div class="step_item_col">
-							<div class="step_item">
-								<div class="step_icon">
-									<img src="./assets/img/icons/mdi_alert-octagon-outline.svg" alt="">
-								</div>
-								<p class="step_description">Відмова</p>
-							</div>
-							<div class="step_item">
-								<div class="step_icon">
-									<img src="./assets/img/icons/mdi_alert_sign-octagon-outline.svg" alt="">
-								</div>
-								<p class="step_description">Скарга до вищестоячої<br/> інстанції</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<section class="collection_defects">
-				<div class="container_works">
-					<h2 class="work-item">Як це працює</h2>
-					<div class="container_defects">
-						<div class="defect_filters">
-							<p class="filter_title" style="text-align:left;">фільтри</p>
-							<div class="filters_block">
-								<FormInput
-									prefix=""
-									title=""
-									label=""
-									placeholder="Пошук дефектів за адресою"
-									v-model="search_by_adress"
-									class="form-control"
-									type="search"
-								/>
-								<FormInput
-									title=""
-									label=""
-									placeholder="Дата розміщення дефекту"
-									v-model="search_by_date"
-									class="form-control"
-									type="date"
-								/>
-								<FormInput
-									title=""
-									label=""
-									placeholder="Тип дефекту"
-									v-model="search_by_type"
-									class="form-control"
-									type="text"
-								/>
-								<FormInput
-									title=""
-									label=""
-									placeholder="Місце розташування дефекту"
-									v-model="search_by_location_place"
-									class="form-control"
-									type="text"
-								/>
-								<FormInput
-									title=""
-									label=""
-									placeholder="Статус дефекту"
-									v-model="search_by_status"
-									class="form-control"
-									type="text"
-								/>
-								<div class="input_group">
-									<p>
-										<label for="customcheck">
-											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
-											<span class="custom_checkbox">Показувати тільки мої дефекти</span>
-										</label>
-									</p>
-								</div>
-								<button class="btn outline_button">Показати на мапі</button>
-								<button class="btn custom_button">Показати</button>
-							</div>
-						</div>
-						<div class="defect_content">
-							<div class="defect_filter_count">
-								<div class="defect_filter_item">
-									<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
-									<p class="defect_title">Кількість регіонів: <span>{{ dfCard.region_id }}</span></p>
-								</div>
-							</div>
-							<div class="sorted_item">
-								<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
-								<FormSelect
-									title=""
-									label=""
-									placeholder=""
-									:options="options.sort_by_options"
-									v-model="sort_by"
-									class="form-control_outline"
-									type="search"
-								/>
-							</div>
-							<div class="grid-container">
-								<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
-									<div class="defect_image">
-										<img class="card_image" :src="card.photo[0].url" alt="">
-										<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
-									</div>
-									<div class="defect_info">
-										<div class="defect_status">
-											<div class="status_item">
-												<span>Новий</span>
-											</div>
-											<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-												<p class="status_count">{{ card.comment.length }}</p>
-												<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
-											</div>
-										</div>
-										<p class="defect_adress" :title="card.address">{{ card.address }}</p>
-									</div>
-								</div>
-							</div>
-							<!-- <div class="card_pagination">
-								<div class="pagination_control">
-
-								</div>
-							</div> -->
-						</div>
-					</div>
-				</div>
-			</section>
-			<section class="pre_footer">
-				<div class="footer_container">
-					<div class="main-hero head-hero">
-						<div class="hero-title">
-							<p class="hero-item">Дороги – наша відповідальність, контролюй це!</p>
-						</div>
-					</div>
-					<div class="button_container">
-						<button class="btn outline_button">Допомогти проєкту</button>
-						<button class="btn custom_button">Додати дефект</button>
-					</div>
-				</div>
-			</section>
-			<section class="footer">
-				<div id="footer_nav">
-					<div class="footer_logo">
-						<a href="/">
-							<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
-						</a>
-						<p class="trade_mark">УкрЯма&copy;{{ new Date() | moment("YYYY") }}</p>
-					</div>
-					<div class="footer_links">
-						<div class='nav_links' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
+			<mq-layout mq="md+">
+				<div id="nav">
+					<a class="logo_link" href="/">
+						<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+					</a>
+					<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
 						<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 					</div>
+					<FormInput
+						title=""
+						label=""
+						placeholder="Пошук за адресою або номером заяви"
+						class="form-control"
+						v-model="search"
+						/>
+					<button class="btn custom_button">Додати дефект</button>
+				</div>
+			</mq-layout>
+			<mq-layout mq="sm">
+				<div id="nav">
+					<div class="logo_container">
+						<a class="logo_link" href="/">
+							<img id="logo" src="./assets/img/icons/Logo_mobile.svg" alt="Logo">
+						</a>
+						<div class="nav_button" @click="isOpen = !isOpen">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+								<g id="uil_subject" transform="translate(-648 -893)">
+									<rect id="Rectangle_4" data-name="Rectangle 4" width="24" height="24" transform="translate(648 893)" fill="none"/>
+									<line ref="Line_1" :class="{open: isOpen}" id="Line_1" data-name="Line 1" x2="15" transform="translate(655.5 898.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+									<line ref="Line_3" :class="{open: isOpen}" id="Line_3" data-name="Line 3" x2="21" transform="translate(649.5 904.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+									<line ref="Line_2" :class="{open: isOpen}" id="Line_2" data-name="Line 2" x2="12" transform="translate(658.5 910.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+								</g>
+							</svg>
+						</div>
+					</div>
+					<div class="nav_links-container" :class="{open: isOpen}">
+						<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
+							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
+						</div>
 					</div>
 				</div>
+			</mq-layout>
+			<section class="main">
+				<mq-layout mq="md+">
+					<div class="header">
+						<div class="head-container">
+							<div class="main-hero head-hero">
+								<div class="hero-title">
+									<p class="hero-item"><strong
+											style="font:700 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
+										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
+										розвивається</p>
+								</div>
+								<button class="btn custom_button hero-btn">Додати дефект</button>
+							</div>
+							<div class="main-hero">
+								<div class="hero-title">
+									<div class="hero-container">
+										<div class="hero-content">
+											<div class="hero-item">
+												<p class="p-text">Ваш код<br />для входу:</p>
+											</div>
+											<div class="hero-item">
+												<p class="p-text code">2334</p>
+											</div>
+											<div class="hero-item">
+												<div class="help-tips"
+													style="border-radius:100%;border:1px solid var(--color-gray-light);background: var(--background-color-normal)">
+												</div>
+											</div>
+										</div>
+										<div class="hero-content">
+											<div class="hero-item icon">
+												<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
+													alt="Facebook messenger">
+											</div>
+											<div class="hero-item icon">
+												<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
+											</div>
+											<div class="hero-item icon">
+												<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm">
+					<div class="header_mb">
+						<div class="head-container_mb">
+							<div class="main-hero head-hero_mb">
+								<div class="hero-title_mb">
+									<p class="hero-item"><strong
+											style="font:700 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
+										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
+										розвивається</p>
+								</div>
+								<button class="btn custom_button hero-btn_mb">Додати дефект</button>
+							</div>
+							<div class="main-hero">
+								<div class="hero-title">
+									<div class="hero-container_mb">
+										<div class="hero-content">
+											<div class="hero-item">
+												<p class="p-text">Для входу надішліть цей<br/>код боту у відповідному месенджері</p>
+											</div>
+											<div class="hero-item">
+												<p class="p-text code">2334</p>
+											</div>
+										</div>
+										<div class="hero-content">
+											<div class="icon_container_mb">
+												<div class="hero-item icon">
+													<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
+														alt="Facebook messenger">
+												</div>
+												<p class="chat_icon_description_mb">
+													@Facebook
+												</p>
+											</div>
+											<div class="icon_container_mb">
+												<div class="hero-item icon">
+													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
+												</div>
+												<p class="chat_icon_description_mb">
+													@Telegram
+												</p>
+											</div>
+											<div class="icon_container_mb">
+												<div class="hero-item icon">
+													<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+												</div>
+												<p class="chat_icon_description_mb">
+														@Viber
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="md+">
+					<div class="main-counter">
+						<div class="counter-item">
+							<span class="counter-check">2500</span>
+							<p class="counter-title">зареєстровано в УкрЯмі</p>
+						</div>
+						<span class="counter-separator"></span>
+						<div class="counter-item">
+							<span class="counter-check">500</span>
+							<p class="counter-title">надіслано в поліцію</p>
+						</div>
+						<span class="counter-separator"></span>
+						<div class="counter-item">
+							<span class="counter-check">25700</span>
+							<p class="counter-title">виправлено</p>
+						</div>
+					</div>
+					<div class="statistc-btn">
+						<button class="underline-btn">Дивитись детальну статистику</button>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm">
+					<div class="main-counter_mb">
+						<div class="counter-item_mb">
+							<span class="counter-check">2500</span>
+							<p class="counter-title">зареєстровано в УкрЯмі</p>
+						</div>
+						<div class="counter-item_mb">
+							<span class="counter-check">500</span>
+							<p class="counter-title">надіслано в поліцію</p>
+						</div>
+						<div class="counter-item_mb">
+							<span class="counter-check">25700</span>
+							<p class="counter-title">виправлено</p>
+						</div>
+					</div>
+				</mq-layout>
+			</section>
+			<section class="how_it_works">
+				<mq-layout mq="md+">
+					<div class="container_works">
+						<h2 class="section_title">Як це працює</h2>
+						<div class="container_steps">
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
+								</div>
+								<p class="step_description">Додати дефект</p>
+							</div>
+							<div class="arrow_forward">
+								<img src="./assets/img/icons/Line_45.svg" alt="">
+							</div>
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/mdi_file-document-edit-outline.svg" alt="">
+								</div>
+								<p class="step_description">Надіслати заяву в поліцію<br/> та чекати відповідь</p>
+							</div>
+							<div class="arrow_fork">
+								<img src="./assets/img/icons/fork_arrow.svg" alt="">
+							</div>
+							<div class="step_item_col">
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_file-check-outline.svg" alt="">
+									</div>
+									<p class="step_description">Отримати відповідь</p>
+								</div>
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_account-multiple-remove-outline.svg" alt="">
+									</div>
+									<p class="step_description">Немає відповіді</p>
+								</div>
+							</div>
+							<div class="arrow_fork_up">
+								<img src="./assets/img/icons/fork_arrow_up.svg" alt="">
+							</div>
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/bx_bx-traffic-cone.svg" alt="">
+								</div>
+								<p class="step_description">Ремонт ділянки</p>
+							</div>
+							<div class="arrow_fork_down">
+								<img src="./assets/img/icons/Line_50.svg" alt="">
+							</div>
+							<div class="step_item_col">
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_alert-octagon-outline.svg" alt="">
+									</div>
+									<p class="step_description">Відмова</p>
+								</div>
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_alert_sign-octagon-outline.svg" alt="">
+									</div>
+									<p class="step_description">Скарга до вищестоячої<br/> інстанції</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm">
+					<div class="container_works">
+						<h2 class="section_title">Як це працює</h2>
+						<div class="container_steps_mb">
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
+								</div>
+								<p class="step_description">Додати дефект</p>
+							</div>
+							<div class="arrow_forward">
+								<img src="./assets/img/icons/Line_45.svg" alt="">
+							</div>
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/mdi_file-document-edit-outline.svg" alt="">
+								</div>
+								<p class="step_description">Надіслати заяву в поліцію<br/> та чекати відповідь</p>
+							</div>
+							<div class="arrow_fork">
+								<img src="./assets/img/icons/fork_arrow.svg" alt="">
+							</div>
+							<div class="step_item_col">
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_file-check-outline.svg" alt="">
+									</div>
+									<p class="step_description">Отримати відповідь</p>
+								</div>
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_account-multiple-remove-outline.svg" alt="">
+									</div>
+									<p class="step_description">Немає відповіді</p>
+								</div>
+							</div>
+							<div class="arrow_fork_up">
+								<img src="./assets/img/icons/fork_arrow_up.svg" alt="">
+							</div>
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/bx_bx-traffic-cone.svg" alt="">
+								</div>
+								<p class="step_description">Ремонт ділянки</p>
+							</div>
+							<div class="arrow_fork_down">
+								<img src="./assets/img/icons/Line_50.svg" alt="">
+							</div>
+							<div class="step_item_col">
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_alert-octagon-outline.svg" alt="">
+									</div>
+									<p class="step_description">Відмова</p>
+								</div>
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_alert_sign-octagon-outline.svg" alt="">
+									</div>
+									<p class="step_description">Скарга до вищестоячої<br/> інстанції</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+			</section>
+			<section class="collection_defects">
+				<mq-layout mq="md+">
+					<div class="container_works">
+						<h2 class="section_title">Колекція дефектів</h2>
+						<div class="container_defects">
+							<div class="defect_filters">
+								<p class="filter_title" style="text-align:left;">фільтри</p>
+								<div class="filters_block">
+									<FormInput
+										title=""
+										label=""
+										prefix=""
+										placeholder="Пошук дефектів за адресою"
+										v-model="search_by_adress"
+										class="form-control"
+									/>
+									<FormInput
+										title=""
+										label=""
+										placeholder="Дата розміщення дефекту"
+										v-model="search_by_date"
+										class="form-control"
+										type="date"
+									/>
+									<FormSelect
+										title=""
+										label=""
+										placeholder="Тип дефекту"
+										:options="options.options_filter_by_def_type"
+										v-model="search_by_type"
+										class="form-control"
+									/>
+									<FormSelect
+										title=""
+										label=""
+										placeholder="Місце розташування дефекту"
+										:options="options.options_filter_by_def_location"
+										v-model="search_by_location_place"
+										class="form-control"
+									/>
+									<FormSelect
+										title=""
+										label=""
+										placeholder="Статус дефекту"
+										:options="options.options_filter_by_def_status"
+										v-model="search_by_status"
+										class="form-control"
+									/>
+									<div class="input_group">
+										<p>
+											<label for="customcheck">
+												<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
+												<span class="custom_checkbox">Показувати тільки мої дефекти</span>
+											</label>
+										</p>
+									</div>
+									<button class="btn outline_button">Показати на мапі</button>
+									<button class="btn custom_button">Показати</button>
+								</div>
+							</div>
+							<div class="defect_content">
+								<div class="defect_filter_count">
+									<div class="defect_filter_item">
+										<p class="defect_title">Загалом дефектів знайдено: <span>{{ defectCard.length }}</span></p>
+										<p class="defect_title">Кількість регіонів: <span v-for="(f, idx) in defectCard" :key="idx">{{ [...defectCard.photos].reduce(reducer) }}</span></p>
+									</div>
+								</div>
+								<div class="sorted_item">
+									<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
+									<FormSelect
+										title="Сортування"
+										label=""
+										placeholder=""
+										:options="options.options_sort_by"
+										v-model="sort_by"
+										class="form-control_outline"
+										type="search"
+									/>
+								</div>
+								<div class="grid-container">
+									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
+										<div class="my-container" style="width: 100%;display: block;height: 100%;">
+											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+											<div class="defect_image">
+												<img class="card_image" :src="card.photo[0].url" alt="">
+												<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+											</div>
+											<div class="defect_info">
+												<div class="defect_status">
+													<div class="status_item">
+														<span>Новий</span>
+													</div>
+													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
+														<p class="status_count">{{ card.comment.length }}</p>
+														<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
+													</div>
+												</div>
+												<p class="defect_adress" :title="card.address">{{ card.address }}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card_pagination">
+									<div class="pagination_control">
+										<ul class="pagination">
+											<li class="disabled"><a href="#!"> < </a></li>
+											<li class="active"><a href="#!">1</a></li>
+											<li class="waves-effect"><a href="#!">2</a></li>
+											<li class="waves-effect"><a href="#!">3</a></li>
+											<li class="waves-effect"><a href="#!"> > </a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm">
+					<div class="container_works_mb">
+						<h2 class="section_title">Колекція дефектів</h2>
+						<div class="container_defects_mb">
+							<div class="defect_filters">
+								<p class="filter_title" style="text-align:left;">фільтри</p>
+								<div class="filters_block">
+									<FormInput
+										title=""
+										label=""
+										prefix=""
+										placeholder="Пошук дефектів за адресою"
+										v-model="search_by_adress"
+										class="form-control"
+									/>
+									<FormInput
+										title=""
+										label=""
+										placeholder="Дата розміщення дефекту"
+										v-model="search_by_date"
+										class="form-control"
+										type="date"
+									/>
+									<FormSelect
+										title=""
+										label=""
+										placeholder="Тип дефекту"
+										:options="options.options_filter_by_def_type"
+										v-model="search_by_type"
+										class="form-control"
+									/>
+									<FormSelect
+										title=""
+										label=""
+										placeholder="Місце розташування дефекту"
+										:options="options.options_filter_by_def_location"
+										v-model="search_by_location_place"
+										class="form-control"
+									/>
+									<FormSelect
+										title=""
+										label=""
+										placeholder="Статус дефекту"
+										:options="options.options_filter_by_def_status"
+										v-model="search_by_status"
+										class="form-control"
+									/>
+									<div class="input_group">
+										<p>
+											<label for="customcheck">
+												<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
+												<span class="custom_checkbox">Показувати тільки мої дефекти</span>
+											</label>
+										</p>
+									</div>
+									<button class="btn outline_button">Показати на мапі</button>
+									<button class="btn custom_button">Показати</button>
+								</div>
+							</div>
+							<div class="defect_content_mb">
+								<div class="sorted_item_mb">
+									<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
+									<FormSelect
+										title="Сортування"
+										label=""
+										placeholder=""
+										:options="options.options_sort_by"
+										v-model="sort_by"
+										class="form-control_outline"
+										type="search"
+									/>
+								</div>
+								<div class="grid-container_mb">
+									<div class="defect_card" v-for='(card, idx) of defectCard' :key='idx'>
+										<div class="my-container" style="width: 100%;display: block;height: 100%;">
+											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+											<div class="defect_image">
+												<img class="card_image" :src="card.photo[0].url" alt="">
+												<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+											</div>
+											<div class="defect_info">
+												<div class="defect_status">
+													<div class="status_item">
+														<span>Новий</span>
+													</div>
+													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
+														<p class="status_count">{{ card.comment.length }}</p>
+														<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
+													</div>
+												</div>
+												<p class="defect_adress" :title="card.address">{{ card.address }}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card_pagination">
+									<div class="pagination_control">
+										<ul class="pagination">
+											<li class="disabled"><a href="#!"> < </a></li>
+											<li class="active"><a href="#!">1</a></li>
+											<li class="waves-effect"><a href="#!">2</a></li>
+											<li class="waves-effect"><a href="#!">3</a></li>
+											<li class="waves-effect"><a href="#!"> > </a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+			</section>
+			<section class="pre_footer">
+				<mq-layout mq="md+">
+					<div class="footer_container">
+						<div class="main-hero head-hero">
+							<div class="hero-title">
+								<p class="prefooter_title">Дороги – наша відповідальність, контролюй це!</p>
+							</div>
+						</div>
+						<div class="button_container">
+							<button class="btn outline_button footer-btn">Допомогти проєкту</button>
+							<button class="btn custom_button footer-btn">Додати дефект</button>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm">
+					<div class="footer_container_mb">
+						<div class="main-hero head-hero_mb">
+							<div class="hero-title">
+								<p class="prefooter_title_mb">Дороги – наша відповідальність, контролюй це!</p>
+							</div>
+						</div>
+						<div class="button_container">
+							<button class="btn outline_button footer-btn_mb">Допомогти проєкту</button>
+							<button class="btn custom_button footer-btn_mb">Додати дефект</button>
+						</div>
+					</div>
+				</mq-layout>
+			</section>
+			<section class="footer">
+				<mq-layout mq="md+">
+					<div id="footer_nav">
+						<div class="footer_logo">
+							<a href="/">
+								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+							</a>
+							<p class="trade_mark">УкрЯма &copy;{{ new Date() | moment("YYYY") }}</p>
+						</div>
+						<div class="footer_links">
+							<div class='nav_links' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
+							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
+						</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm">
+					<div id="footer_nav_mb">
+						<div class="footer_logo_mb">
+							<a href="/">
+								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+							</a>
+							<p class="trade_mark">УкрЯма &copy;{{ new Date() | moment("YYYY") }}</p>
+						</div>
+						<div class="footer_links_mb">
+							<div class='nav_links_mb' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
+							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
+						</div>
+						</div>
+					</div>
+				</mq-layout>
 			</section>
 			<router-view></router-view>
 		</main>
@@ -285,14 +611,26 @@
 
 <script>
 import Vue from 'vue';
+import VueMq from 'vue-mq';
+import VueElementLoading from 'vue-element-loading';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
 import defectCards from './mock_data';
-// import M from 'materialize-css/dist/js/materialize.min';
+
+Vue.use(VueMq, {
+	breakpoints: {
+		sm: 450,
+		md: 1135,
+		lg: Infinity,
+	},
+	defaultBreakpoint: 'lg'
+});
+
 export default {
 	name: 'App',
 	components: {
+		VueElementLoading,
 		FormInput,
 		FormSelect
 	},
@@ -343,11 +681,28 @@ export default {
 				},
 			],
 			options: {
-				sort_by_options: [
+				options_sort_by: [
+					{ label: 'Найновіщі', value: 'newest' },
+					{ label: 'Старіщі', value: 'oldest' },
+				],
+				options_filter_by_def_type: [
+					{ label: 'Тип дефекту', value: '', disabled: 'disabled' },
+					{ label: 'Найновіщі', value: 'newest' },
+					{ label: 'Старіщі', value: 'oldest' },
+				],
+				options_filter_by_def_location: [
+					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },
+					{ label: 'Найновіщі', value: 'newest' },
+					{ label: 'Старіщі', value: 'oldest' },
+				],
+				options_filter_by_def_status: [
+					{ label: 'Статус дефекту', value: '', disabled: 'disabled' },
 					{ label: 'Найновіщі', value: 'newest' },
 					{ label: 'Старіщі', value: 'oldest' },
 				],
 			},
+			isOpen: false,
+			isActive: false,
 			orgInfo: [],
 			cardCount: 10,
 			apiURL: '/routes/95a4b653d1/api',
@@ -366,6 +721,7 @@ export default {
 	},
 	mounted() {
 		this.loadCard(true);
+		this.isActive=true;
 	},
 	methods: {
 		apiGET: async function(endpoint){
@@ -381,34 +737,41 @@ export default {
 			let data = await response.json();
 			return data;
 		},
+		reducer: (acc, curr) => acc + curr,
 		async loadCard(change){
 			this.pendingUpdate = this.$API.apiGET("/defects?limit=8");
 			let result = await this.pendingUpdate;
+			this.isActive=false;
 			console.log(result);
-			this.orgInfo=result;
+			if(!result){
+				this.isActive=true;
+			}
+			this.isActive=false;
 			return this.orgInfo;
-		}
+		},
 	},
 	computed: {
 		defectCard(){
 			return defectCards.map(card => {
-				// console.log(card);
+			// console.log(card);
 				return {
 					address: card.address,
 					photo: card.photos,
-					// status: card.case_status,
+					status: card.case_status,
 					comment: card.comments,
+					region_id: card.region_id,
 				}
 			})
 		},
 		dfCard(){
 			return this.orgInfo.map(card => {
-				console.log(card);
+				// console.log(card);
 				return {
 					address: card.address,
-					photo: card.photos,
-					// status: card.case_status,
+					photo: card.photos[0].url,
+					status: card.case_status,
 					comment: card.comments[0].text,
+					region_id: card[0].region_id,
 				}
 			});
 		},
@@ -418,12 +781,19 @@ export default {
 </script>
 
 <style>
-@import "~materialize-css/dist/css/materialize.css";
 	section {
 		width: 100%;
 		height: 100%;
 		display: block;
 		position: relative;
+	}
+
+	optgroup {
+		color: red;
+	}
+
+	.velmld-overlay{
+		z-index: 1 !important;
 	}
 
 	#app {
@@ -441,12 +811,89 @@ export default {
 		align-items: center;
 		height: 90px;
 		width: 100%;
-		border-bottom: 1px solid #BDBDBD;
+	}
+	@media screen and (max-width:450px) {
+		#nav {
+			padding: 5px 15px;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			height: auto;
+			width: 100%;
+		}
+		.head-container_mb {
+			display: flex;
+			justify-content: space-between;
+			flex-flow: column-reverse;
+			position: relative;
+			top: 0;
+			padding: 0 20px;
+			width: 100%;
+		}
+		.header_mb{
+			width: 100%;
+			height: 100%;
+			background: var(--background-color-normal);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.hero-item {
+			font: 500 1.2rem 'Montserrat' !important;
+			cursor: text;
+		}
 	}
 
 	.nav_links {
 		margin: 0 15px !important;
 		white-space: nowrap;
+	}
+
+	.nav_button{
+		outline: none;
+		z-index: 6;
+	}
+
+	.nav_links-container{
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		position: fixed;
+		width: 101%;
+		height: 100%;
+		align-items: center;
+		background: #fff;
+		z-index: 2;
+		bottom: 0;
+		left: 0;
+		font: 700 1.6rem 'Montserrat';
+		transform: translateX(100%);
+		transition: transform cubic-bezier(0.77, 0, 0.175, 1) 0.8s;
+	}
+
+	.nav_links-container.open{
+		transform:translateX(0)
+	}
+	#Line_1{
+		transform: translate(655.5 898.5) rotate(-45deg);
+	}
+	#Line_2{
+		transform: translate(649.5 904.5) rotate(45deg);
+	}
+	#Line_3{
+		transform: translate(658.5 910.5) rotate(45deg);
+	}
+	#Line_1.open{
+		transform-origin: center;
+		transform: translate(655.5 898.5) rotate(45);
+	}
+	#Line_2.open{
+		transform-origin: center;
+		transform: translate(649.5 904.5) rotate(-45);
+	}
+	#Line_3.open{
+		transform-origin: center;
+		transform: translate(658.5 910.5) rotate(-45);
 	}
 
 	a {
@@ -457,11 +904,19 @@ export default {
 	}
 
 	#nav a.router-link-exact-active {
-		color: #42b983;
+		color: var(--status-color);
+		border-bottom: 2px solid var(--border-bottom-red);
 	}
 
 	#logo {
 		margin: 0 45px 0 0;
+	}
+
+	.logo_container{
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	.custom_button {
@@ -470,9 +925,10 @@ export default {
 		font-size: .9rem;
 		font-weight: bold;
 		text-transform: none;
-		max-width: 239px;
+		max-width: 340px;
 		width: 100%;
 		margin:10px 0;
+		border-radius: 4px;
 	}
 	.outline_button{
 		font: 700 1.1rem 'Montserrat';
@@ -480,17 +936,21 @@ export default {
 		font-size: .9rem;
 		font-weight: bold;
 		text-transform: none;
-		max-width: 239px;
+		max-width: 340px;
 		width: 100%;
 		color: var(--color-black);
 		border: 1px solid var(--color-black);
 		margin:5px 0;
+		border-radius: 4px;
 	}
 	.hero-btn{
 		font: 700 1.1rem 'Montserrat';
 		width: 100%;
 		max-width: 176px;
 		text-transform: none;
+	}
+	.footer-btn{
+		max-width:240px;
 	}
 	.underline-btn{
 		border:none;
@@ -537,6 +997,140 @@ export default {
 		text-align: left;
 	}
 
+	@media all and (max-width:450px){
+		.icon_container_mb{
+			display: flex;
+			flex-flow: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.chat_icon_description_mb{
+			margin: 12px 0;
+			font: 500 .8rem 'Montserrat'
+		}
+		.head-hero_mb{
+			justify-content: space-between;
+			display: flex;
+			flex-flow: column;
+			padding: 0 4px;
+			text-align: left;
+			margin: 8px 0;
+		}
+		.prefooter_title_mb{
+			font: 700 1.15rem 'Montserrat'
+		}
+		.hero-container_mb{
+			background-color: var(--background-color-normal);
+			border: none !important;
+			width: 100% !important;
+			position: relative;
+			/* margin: 0 auto; */
+			padding: 16px 0;
+		}
+		.main-counter_mb{
+			display: flex;
+			justify-content: space-evenly;
+			flex-flow: column-reverse;
+			background: #fff;
+			margin: 15px 0 0 0;
+			padding: 45px 0;
+		}
+		.counter-item_mb{
+			margin: 18px 0;
+		}
+		.hero-btn_mb{
+			font: 700 1.1rem 'Montserrat';
+			width: 100%;
+			text-transform: none;
+		}
+		.hero-title_mb {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			position: relative;
+			padding: 18px 0;
+		}
+		.container_steps_mb{
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+			flex-flow:column;
+			width: 75%;
+			margin: 0 auto;
+			padding: 20px 0;
+		}
+		.container_works_mb{
+			padding: 0 6px;
+		}
+		.container_defects{
+			display: flex;
+			flex-flow:column;
+		}
+		.grid-container_mb {
+			width: 100%;
+			position: relative;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+			/* grid-template-rows: 1fr 1fr; */
+			gap: 18px 8px;
+		}
+		.defect_content_mb{
+			padding: 0;
+		}
+		.footer_container_mb{
+			display: flex;
+			justify-content: space-between;
+			flex-flow: column;
+			padding: 20px 8px;
+		}
+		.footer_logo_mb{
+			display: flex;
+			align-items: flex-start;
+			flex-flow: column;
+		}
+		.footer_links_mb{
+			display: flex;
+			justify-content: center;
+			flex-flow: column;
+			flex: 1 1 auto;
+		}
+		#footer_nav_mb{
+			padding: 15px 15px;
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			width: 100%;
+		}
+		.footer-btn_mb{
+			max-width: 180px;
+			margin: 0 4px;
+			font: 500 .8rem 'Montserrat';
+		}
+		.nav_links_mb{
+			margin: 0 0 20px 15px !important;
+			white-space: nowrap;
+		}
+		.sorted_item_mb{
+			display: flex;
+			justify-content: flex-start;
+			/* align-items: center; */
+			flex-flow: column-reverse;
+			width: 100%;
+			padding: 0;
+		}
+		.sorted_title_mb{
+			font: 600 .8rem 'Montserrat';
+			text-align: left;
+			margin: 12px 0;
+			padding: 0 4px;
+		}
+		.nav_links_mb > a:hover{
+			transition: all .4s ease-in-out;
+			text-decoration: none;
+			border-bottom: 1px solid var(--color-red);
+		}
+	}
+
 	.hero-container {
 		background-color: var(--background-color-normal);
 		border: 1px solid var(--color-gray-light);
@@ -557,10 +1151,12 @@ export default {
 	.hero-title {
 		display: flex;
 		justify-content: center;
+		width: 100%;
+		position: relative;
 	}
 
 	.hero-item {
-		font: 500 24px 'Montserrat';
+		font: 500 1.8rem 'Montserrat';
 		cursor: text;
 	}
 
@@ -569,7 +1165,7 @@ export default {
 	}
 
 	.hero-item .p-text {
-		font: 500 1rem 'Montserrat';
+		font: 500 .8rem 'Montserrat';
 		text-align: left;
 	}
 
@@ -649,7 +1245,7 @@ export default {
 		margin: 0 auto;
 		padding: 20px 0;
 	}
-	.work-item{
+	.section_title{
 		font: 700 1.4rem 'Montserrat', arial, helvetica;
 		text-align: left;
 	}
@@ -728,9 +1324,10 @@ export default {
 		flex-wrap: wrap;
 		width: 100%;
 		padding: 0 10px;
+		height: 100%
 	}
 	.defect_filters{
-		flex: 0 1 30%;
+		flex: 0 1 45%;
 	}
 	.sorted_item{
 		display: flex;
@@ -753,7 +1350,7 @@ export default {
 		flex: 0 1 100%;
 	}
 	.grid-container {
-		width: 85%;
+		width: 95%;
 		position: relative;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
@@ -764,7 +1361,7 @@ export default {
 		display: flex;
 		flex-flow: column;
 		width: 100%;
-		max-width: 160px;
+		max-width: 165px;
 		border: 1px solid var(--color-gray);
 		border-radius: 4px;
 		min-height: 200px;
@@ -848,7 +1445,7 @@ export default {
 	.footer_container{
 		display: flex;
 		justify-content: space-between;
-		padding: 40px 20px;
+		padding: 20px 20px;
 	}
 	.pre_footer{
 		margin: 20px 0;
@@ -856,9 +1453,9 @@ export default {
 	}
 	.button_container{
 		display: flex;
-		flex: 0 1 44%;
+		flex: 0 1 50%;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: space-evenly;
 		width: 100%;
 		flex-flow: row-reverse;
 	}
@@ -880,6 +1477,88 @@ export default {
 	}
 	.nav_links > a:hover{
 		transition: all .4s ease-in-out;
-		border-bottom: 2px solid var(--color-red);
+		text-decoration: none;
+		border-bottom: 1px solid var(--color-red);
+	}
+	.trade_mark{
+		font: 400 .85rem 'Montserrat';
+	}
+	.prefooter_title{
+		font: 500 1.6rem 'Montserrat';
+	}
+	.form-control > select{
+        flex-flow: row wrap;
+        flex: 1 1 50%;
+        display: flex;
+		max-height: 2.5rem !important;
+		border: 1px solid #ccc !important;
+		border-radius: 4px !important;
+    }
+	.form-control_outline > select{
+        flex-flow: row wrap;
+        flex: 1 1 30%;
+        display: flex;
+		max-height: 1.5rem !important;
+        width: 250px !important;
+	}
+	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
+		height: 16px;
+		width: 16px;
+		background-color: transparent;
+		border: 1px solid var(--color-gray);
+		top: 0px;
+		z-index: 0;
+	}
+	[type="checkbox"].filled-in:checked + span:not(.lever):before {
+		top: -3px;
+		left: 0px;
+		width: 8px;
+		height: 13px;
+		border-top: 2px solid transparent;
+		border-left: 2px solid transparent;
+		border-right: 2px solid #fff;
+		border-bottom: 2px solid #fff;
+		transform: rotateZ(37deg);
+		transform-origin: 100% 100%;
+	}
+	[type="checkbox"].filled-in:checked + span:not(.lever):after {
+		top: 0;
+		width: 16px;
+		height: 16px;
+		border: 2px solid #26a69a;
+		background-color: #26a69a;
+		z-index: 0;
+	}
+	.pagination li.active {
+		background-color: var(--color-white);
+		border: 1px solid var(--color-gray);
+	}
+	.pagination li.active a {
+		color: var(--color-gray-light);
+	}
+	.card_pagination{
+		position: relative;
+		width: 100%;
+		margin: 40px 0;
+	}
+	.pagination li{
+		display: inline-block;
+		border-radius: 2px;
+		text-align: center;
+		vertical-align: top;
+		font: 500 .8rem 'Montserrat';
+		margin: 8px;
+		height: 32px;
+		width: 32px;
+		border-radius: 4px;
+		border: 1px solid var(--color-gray-light);
+	}
+	.pagination li a{
+		color: #444;
+		display: inline-block;
+		font-size: .8rem;
+		padding: 0 10px;
+		line-height: 30px;
+		color: var(--color-gray);
 	}
 </style>

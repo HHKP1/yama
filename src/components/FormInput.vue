@@ -6,8 +6,7 @@
 			:data-error="dataError"
 			:class="{'active': 'active' , 'retail-input': 'retail-input', 'form-input': 'form-input'}"
 			@input="$emit('input', $event.target.value)">
-			<span :class="{
-		   'prefix': 'prefix' }">{{ prefix }}</span>
+			<!-- <span :class="{ 'prefix': 'prefix' }">{{ prefix }}</span> -->
 	</div>
 </template>
 <script>
@@ -22,9 +21,9 @@ export default {
 		type: {
 			type: String,
 			default: 'text',
-			// validator(value) {
-			// 	return ['text', 'email', 'password', 'tel', 'date', 'select', 'checkbox', 'number', 'file'].includes(value);
-			// }
+			validator(value) {
+				return ['text', 'email', 'password', 'tel', 'date', 'select', 'checkbox', 'number', 'file'].includes(value);
+			}
 		},
 		max: { type: String, required: false },
 		min: { type: String, required: false },
@@ -58,19 +57,36 @@ export default {
 	.input-field > input{
 		font-size: .9rem !important;
 		font-family: "Montserrat-regular", Arial, sans-serif !important;
-		padding: 6px 50px 6px 14px;
+		padding: 6px 50px 6px 6px;
+	}
+	.input-field > input:not([type="date"]){
+		position: relative;
+		top: 0;
+		right: 0;
+		cursor: pointer;
+		background: url(../assets/img/search_icon.png) no-repeat center right !important;
+		/* clip-path: polygon(100% 0%, 0 0%, 50% 100%) !important; */
 	}
 	input {
 		border: 1px solid #ccc !important;
 		margin: 0 !important;
 	}
 	input::-webkit-input-placeholder{
-		margin: 0 14px;
+		padding: 0 8px 0 0;
+		color: var(--color-gray) !important;
 	}
 	input[type="text"]::-webkit-input-placeholder{
 		text-indent: 4% !important;
 		font-size: 12px;
 		opacity: 1;
+	}
+	input[type="text"]::-webkit-input-placeholder{
+		text-indent: 4% !important;
+		font-size: 12px;
+		opacity: 1;
+		position: relative;
+		top: 0px;
+		right: 10px;
 	}
 	.input-field > label#currency {
 		-webkit-transform: translateY(8px) translateX(16px) scale(0.8) !important;
@@ -79,7 +95,7 @@ export default {
 		transform-origin: 0 0 !important;
 	}
 	.input-field > label {
-		color: #9e9e9e;
+		color: var(--color-gray);
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -90,21 +106,23 @@ export default {
 		text-align: initial;
 		transform: translateY(9px) !important;
 	}
-	input[type="date"]::-webkit-calendar-picker-indicator {
+	::-webkit-calendar-picker-indicator {
 		color: rgba(0, 0, 0, 0);
 		opacity: 1;
 		display: block;
 		background-size: cover;
 		position: absolute;
-		right: 20px;
+		right: 2px;
 		top: 30%;
 	}
 	.input-field label input[type="date"]{
 		-webkit-transform: translateY(8px) translateX(16px) scale(0.8) !important;
-		transform: translateY(8px) translateX(16px) scale(0.8) !important;
+		transform: translateY(8px) translateX(26px) scale(0.8) !important;
 		-webkit-transform-origin: 0 0 !important;
 		transform-origin: 0 0 !important;
-		color: #1D1E1E !important;
+	}
+	.input-field input[type="date"]{
+		color: var(--color-gray) !important;
 	}
 	.input-field #prefix{
 		padding: 40px 0 17px 55px!important;
@@ -154,9 +172,10 @@ export default {
 	}
 	.form-control{
 		flex-flow: row wrap;
-		flex: 1 1 50%;
+		flex: 0 0 50%;
 		display: flex;
 		/* padding: 0 0 0 80px; */
+		justify-content: center;
 	}
 	.form-control_outline{
 		flex-flow: row wrap;
@@ -206,14 +225,11 @@ export default {
 	/*    display: none;*/
 	/*}*/
 	.prefix{
-		/* content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAE/SURBVHgBrVLdbYMwELYB8cwIjJBuYAS8Z4M0E2SEthNUnSB0gvYNiR9BJki6Ad2g7/z1O8tIFjiJkHKS8XE+f/fdd+ZMs6qqvK7rNnCFCtVxHNfshvHJyfNcWJb1Bdeb5TSIB7DGBGDRpyiKLZIq8odheOv7/gl7MI7jB0I+/DPY+SYAR9Lg/H2qFIZho53XYPZN4AA74j9YMKDqVAVJryaapAEuf2KJNE39BQAOSDTWtu0Pu2JgWNPuuq5YAGD9sTsGDTy1NyaAi6qyZdcZSJaO4ywBqEckXKDBIcuyzTwB6h9wvoObmDSSU8Dj2du2XWGdy7JMEDqpyjvQFirXqBHXKvmY/xGXhJ4AkWkKJzB8IRYY894IMAOSrYBRDdpSZIw7mVrRQThbYSaQVQAmEGvlfRZF0TO9TIj7yx5h/9cKmXh3IwY5AAAAAElFTkSuQmCC); */
-		position: relative;
 		top: 0px;
-		right: 28px;
-		color: #1D1E1E !important;
-		object-fit: scale-down;
-		width: 20px;
+		width: 25px;
 		cursor: pointer;
+		background: url(../assets/img/search_icon.png) no-repeat center center !important;
+		/* clip-path: polygon(100% 0%, 0 0%, 50% 100%) !important; */
 	}
 	@media (max-width: 450px) {
 	.prefix{
