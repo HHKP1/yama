@@ -770,8 +770,8 @@ export default {
 					address: card.address,
 					photo: card.photos[0].url,
 					status: card.case_status,
-					comment: card.comments[0].text,
-					region_id: card[0].region_id,
+					// comment: card.comments[0].text,
+					region_id: card.photos[0].region_id,
 				}
 			});
 		},
