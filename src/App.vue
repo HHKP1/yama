@@ -20,7 +20,7 @@
 				</div>
 			</mq-layout>
 			<mq-layout mq="sm">
-				<div id="nav">
+				<div id="nav_mb">
 					<div class="logo_container">
 						<a class="logo_link" href="/">
 							<img id="logo" src="./assets/img/icons/Logo_mobile.svg" alt="Logo">
@@ -741,7 +741,6 @@ export default {
 		async loadCard(change){
 			this.pendingUpdate = this.$API.apiGET("/defects?limit=8");
 			let result = await this.pendingUpdate;
-			this.isActive=false;
 			console.log(result);
 			if(!result){
 				this.isActive=true;
@@ -759,7 +758,7 @@ export default {
 					photo: card.photos,
 					status: card.case_status,
 					comment: card.comments,
-					region_id: card.region_id,
+					// region_id: card.region_id,
 				}
 			})
 		},
@@ -771,7 +770,7 @@ export default {
 					photo: card.photos[0].url,
 					status: card.case_status,
 					// comment: card.comments[0].text,
-					region_id: card.photos[0].region_id,
+					// region_id: card.photos[0].region_id,
 				}
 			});
 		},
@@ -813,13 +812,14 @@ export default {
 		width: 100%;
 	}
 	@media screen and (max-width:450px) {
-		#nav {
+		#nav_mb {
 			padding: 5px 15px;
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
 			height: auto;
 			width: 100%;
+			border-bottom: 1px solid var(--color-gray-light);
 		}
 		.head-container_mb {
 			display: flex;
