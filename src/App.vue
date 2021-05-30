@@ -9,14 +9,16 @@
 					<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
 						<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 					</div>
-					<FormInput
+					<div class="nav_btn_block">
+						<FormInput
 						title=""
 						label=""
 						placeholder="Пошук за адресою або номером заяви"
 						class="form-control"
 						v-model="search"
 						/>
-					<button class="btn custom_button">Додати дефект</button>
+						<button class="btn custom_button_nav">Додати дефект</button>
+					</div>
 				</div>
 			</mq-layout>
 			<mq-layout mq="sm">
@@ -194,18 +196,15 @@
 									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
 								</div>
 								<p class="step_description">Додати дефект</p>
-							</div>
-							<div class="arrow_forward">
+								<div class="arrow_forward">
 								<img src="./assets/img/icons/Line_45.svg" alt="">
+							</div>
 							</div>
 							<div class="step_item">
 								<div class="step_icon">
 									<img src="./assets/img/icons/mdi_file-document-edit-outline.svg" alt="">
 								</div>
 								<p class="step_description">Надіслати заяву в поліцію<br/> та чекати відповідь</p>
-							</div>
-							<div class="arrow_fork">
-								<img src="./assets/img/icons/fork_arrow.svg" alt="">
 							</div>
 							<div class="step_item_col">
 								<div class="step_item">
@@ -214,6 +213,9 @@
 									</div>
 									<p class="step_description">Отримати відповідь</p>
 								</div>
+								<div class="arrow_fork">
+									<img src="./assets/img/icons/fork_arrow.svg" alt="">
+								</div>
 								<div class="step_item">
 									<div class="step_icon">
 										<img src="./assets/img/icons/mdi_account-multiple-remove-outline.svg" alt="">
@@ -221,17 +223,17 @@
 									<p class="step_description">Немає відповіді</p>
 								</div>
 							</div>
-							<div class="arrow_fork_up">
-								<img src="./assets/img/icons/fork_arrow_up.svg" alt="">
-							</div>
 							<div class="step_item">
+								<div class="arrow_fork_up">
+									<img src="./assets/img/icons/fork_arrow_up.svg" alt="">
+								</div>
 								<div class="step_icon">
 									<img src="./assets/img/icons/bx_bx-traffic-cone.svg" alt="">
 								</div>
 								<p class="step_description">Ремонт ділянки</p>
-							</div>
-							<div class="arrow_fork_down">
-								<img src="./assets/img/icons/Line_50.svg" alt="">
+								<div class="arrow_fork_down">
+									<img src="./assets/img/icons/Line_50.svg" alt="">
+								</div>
 							</div>
 							<div class="step_item_col">
 								<div class="step_item">
@@ -239,6 +241,9 @@
 										<img src="./assets/img/icons/mdi_alert-octagon-outline.svg" alt="">
 									</div>
 									<p class="step_description">Відмова</p>
+								</div>
+								<div class="arrow_down">
+									<img src="./assets/img/icons/arrow_down.svg" alt="">
 								</div>
 								<div class="step_item">
 									<div class="step_icon">
@@ -254,62 +259,65 @@
 					<div class="container_works">
 						<h2 class="section_title">Як це працює</h2>
 						<div class="container_steps_mb">
-							<div class="step_item">
+							<div class="step_item_mb">
 								<div class="step_icon">
 									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
 								</div>
-								<p class="step_description">Додати дефект</p>
+								<p class="step_description_mb">Додати дефект</p>
 							</div>
-							<div class="arrow_forward">
+							<div class="arrow_forward_mb">
 								<img src="./assets/img/icons/Line_45.svg" alt="">
 							</div>
-							<div class="step_item">
+							<div class="step_item_mb">
 								<div class="step_icon">
 									<img src="./assets/img/icons/mdi_file-document-edit-outline.svg" alt="">
 								</div>
-								<p class="step_description">Надіслати заяву в поліцію<br/> та чекати відповідь</p>
+								<p class="step_description_mb">Надіслати заяву в поліцію<br/> та чекати відповідь</p>
 							</div>
-							<div class="arrow_fork">
+							<div class="arrow_fork_mb">
 								<img src="./assets/img/icons/fork_arrow.svg" alt="">
 							</div>
-							<div class="step_item_col">
-								<div class="step_item">
+							<div class="step_item_col_mb">
+								<div class="step_item_mb">
 									<div class="step_icon">
 										<img src="./assets/img/icons/mdi_file-check-outline.svg" alt="">
 									</div>
-									<p class="step_description">Отримати відповідь</p>
+									<p class="step_description_mb">Отримати відповідь</p>
 								</div>
-								<div class="step_item">
+								<div class="step_item_mb">
 									<div class="step_icon">
 										<img src="./assets/img/icons/mdi_account-multiple-remove-outline.svg" alt="">
 									</div>
-									<p class="step_description">Немає відповіді</p>
+									<p class="step_description_mb">Немає відповіді</p>
 								</div>
 							</div>
-							<div class="arrow_fork_up">
+							<div class="arrow_fork_up_mb">
 								<img src="./assets/img/icons/fork_arrow_up.svg" alt="">
 							</div>
-							<div class="step_item">
+							<div class="step_item_mb">
 								<div class="step_icon">
 									<img src="./assets/img/icons/bx_bx-traffic-cone.svg" alt="">
 								</div>
-								<p class="step_description">Ремонт ділянки</p>
+								<p class="step_description_mb">Ремонт ділянки</p>
 							</div>
-							<div class="arrow_fork_down">
+							<div class="arrow_fork_down_mb">
 								<img src="./assets/img/icons/Line_50.svg" alt="">
 							</div>
-							<div class="step_item_col">
-								<div class="step_item">
+							<div class="step_item_col_mb">
+								<div class="step_item_mb_reject">
 									<div class="step_icon">
 										<img src="./assets/img/icons/mdi_alert-octagon-outline.svg" alt="">
 									</div>
-									<p class="step_description">Відмова</p>
+									<p class="step_description_mb">Відмова</p>
 								</div>
-								<div class="step_item">
+								<div class="arrow_down_mb">
+									<img src="./assets/img/icons/arrow_down_mb.svg" alt="">
+								</div>
+								<div class="step_item_mb">
 									<div class="step_icon">
 										<img src="./assets/img/icons/mdi_alert_sign-octagon-outline.svg" alt="">
 									</div>
-									<p class="step_description">Скарга до вищестоячої<br/> інстанції</p>
+									<p class="step_description_mb">Скарга до вищестоячої<br/> інстанції</p>
 								</div>
 							</div>
 						</div>
@@ -379,8 +387,8 @@
 							<div class="defect_content">
 								<div class="defect_filter_count">
 									<div class="defect_filter_item">
-										<p class="defect_title">Загалом дефектів знайдено: <span>{{ defectCard.length }}</span></p>
-										<p class="defect_title">Кількість регіонів: <span v-for="(f, idx) in defectCard" :key="idx">{{ [...defectCard.photos].reduce(reducer) }}</span></p>
+										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
+										<!-- <p class="defect_title"  v-for="(f, idx) of dfCard" :key="idx">Кількість регіонів: <span>{{ f.address}}</span></p> -->
 									</div>
 								</div>
 								<div class="sorted_item">
@@ -396,7 +404,7 @@
 									/>
 								</div>
 								<div class="grid-container">
-									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
+									<div class="defect_card" v-for='(card, idx) in dfCard' :key='idx'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 											<div class="defect_image">
@@ -421,7 +429,7 @@
 								<div class="card_pagination">
 									<div class="pagination_control">
 										<ul class="pagination">
-											<li class="disabled"><a href="#!"> < </a></li>
+											<li class="disabled"><a href="#!">F</a></li>
 											<li class="active"><a href="#!">1</a></li>
 											<li class="waves-effect"><a href="#!">2</a></li>
 											<li class="waves-effect"><a href="#!">3</a></li>
@@ -506,7 +514,7 @@
 									/>
 								</div>
 								<div class="grid-container_mb">
-									<div class="defect_card" v-for='(card, idx) of defectCard' :key='idx'>
+									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 											<div class="defect_image">
@@ -531,7 +539,7 @@
 								<div class="card_pagination">
 									<div class="pagination_control">
 										<ul class="pagination">
-											<li class="disabled"><a href="#!"> < </a></li>
+											<li class="disabled"><a href="#!">F</a></li>
 											<li class="active"><a href="#!">1</a></li>
 											<li class="waves-effect"><a href="#!">2</a></li>
 											<li class="waves-effect"><a href="#!">3</a></li>
@@ -616,7 +624,7 @@ import VueElementLoading from 'vue-element-loading';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
-import defectCards from './mock_data';
+// import defectCards from './mock_data';
 
 Vue.use(VueMq, {
 	breakpoints: {
@@ -703,9 +711,10 @@ export default {
 			},
 			isOpen: false,
 			isActive: false,
+			appsLoaded: false,
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: '/routes/95a4b653d1/api',
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -714,14 +723,14 @@ export default {
 			search_by_status: '',
 			sort_by: '',
 			selfFilters: false,
+			pendingUpdate: null,
 		}
 	},
-	created() {
+	async created() {
 		Vue.prototype.$API = this;
+		this.loadCard(true);
 	},
 	mounted() {
-		this.loadCard(true);
-		this.isActive=true;
 	},
 	methods: {
 		apiGET: async function(endpoint){
@@ -739,37 +748,44 @@ export default {
 		},
 		reducer: (acc, curr) => acc + curr,
 		async loadCard(change){
-			this.pendingUpdate = this.$API.apiGET("/defects?limit=8");
-			let result = await this.pendingUpdate;
-			console.log(result);
-			if(!result){
-				this.isActive=true;
+			this.isActive=true;
+			try{
+				this.pendingUpdate = await this.apiGET("/defects");
+				if(!this.pendingUpdate)
+					this.isActive=true;
+				let result = await this.pendingUpdate;
+				this.orgInfo=result;
+				this.isActive=false;
+				return this.orgInfo;
+			}catch(e){
+				console.log(e);
+				this.isActive=false;
 			}
-			this.isActive=false;
-			return this.orgInfo;
 		},
 	},
 	computed: {
-		defectCard(){
-			return defectCards.map(card => {
-			// console.log(card);
+		// Mock Data
+		// defectCard(){
+		// 	return defectCards.map(card => {
+		// 	// console.log(card);
+		// 		return {
+		// 			address: card.address,
+		// 			photo: card.photos,
+		// 			status: card.case_status,
+		// 			comment: card.comments,
+		// 			// region_id: card.region_id,
+		// 		}
+		// 	})
+		// },
+
+		//API Data
+		dfCard(){
+			return this.$API.orgInfo.map(card => {
 				return {
 					address: card.address,
 					photo: card.photos,
-					status: card.case_status,
+					// status: card.case_status,
 					comment: card.comments,
-					// region_id: card.region_id,
-				}
-			})
-		},
-		dfCard(){
-			return this.orgInfo.map(card => {
-				// console.log(card);
-				return {
-					address: card.address,
-					photo: card.photos[0].url,
-					status: card.case_status,
-					// comment: card.comments[0].text,
 					// region_id: card.photos[0].region_id,
 				}
 			});
@@ -930,6 +946,26 @@ export default {
 		margin:10px 0;
 		border-radius: 4px;
 	}
+	.nav_btn_block{
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		flex: 1 1 50%;
+	}
+	.custom_button_nav {
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-default);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		max-width: 155px;
+		width: 100%;
+		margin:10px 0;
+		border-radius: 4px;
+	}
+	.custom_button_nav:hover{
+		background-color: var(--button-hover) !important;
+	}
 	.outline_button{
 		font: 700 1.1rem 'Montserrat';
 		background-color: var(--button-outline);
@@ -940,6 +976,23 @@ export default {
 		width: 100%;
 		color: var(--color-black);
 		border: 1px solid var(--color-black);
+		margin:5px 0;
+		border-radius: 4px;
+	}
+	.outline_button:hover{
+		background-color: var(--button-outline);
+		border: 1px solid var(--status-color);
+	}
+	.footer-btn:hover{
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-outline);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		max-width: 240px;
+		width: 100%;
+		color: var(--color-black);
+		border: 1px solid var(--status-color);
 		margin:5px 0;
 		border-radius: 4px;
 	}
@@ -995,6 +1048,51 @@ export default {
 		flex-flow: column;
 		padding: 0 0 0 20px;
 		text-align: left;
+	}
+
+	@media all and (max-width:768px){
+		.arrow_forward{
+			position: absolute;
+			left: 75%!important;
+			width: 85%!important;
+		}
+		.arrow_fork{
+			position: absolute;
+			left: 38%!important;
+			top: 47%!important;
+			width: 13%!important;
+		}
+		.arrow_fork_down_mb{
+			position: absolute;
+			left: 7%;
+			bottom: 30%;
+			width: 25%;
+			transform: rotate(90deg);
+		}
+		.arrow_down{
+			position: absolute;
+			right: 14% !important;
+			/* height: 8%; */
+			top: 50%;
+			width: 3%;
+			/* transform: rotate(0deg); */
+		}
+		.footer-btn{
+			max-width: 179px!important;
+			margin: 0 2px!important;
+		}
+		.sorted_item{
+			justify-content: flex-start!important;
+			flex-flow: column!important;
+		}
+		.sorted_title{
+			font: 500 .8rem "Montserrat-regular", Arial, Helvetica, sans-serif!important;
+			text-align: left!important;
+			width: 100%!important;
+		}
+		.hero-item {
+			font: 500 1.2rem "Montserrat-regular", Arial, Helvetica, sans-serif!important;
+		}
 	}
 
 	@media all and (max-width:450px){
@@ -1055,8 +1153,8 @@ export default {
 			justify-content: space-evenly;
 			align-items: center;
 			flex-flow:column;
-			width: 75%;
-			margin: 0 auto;
+			width: 100%;
+			/* margin: 0 auto; */
 			padding: 20px 0;
 		}
 		.container_works_mb{
@@ -1065,6 +1163,12 @@ export default {
 		.container_defects{
 			display: flex;
 			flex-flow:column;
+		}
+		.step_item_col_mb {
+			justify-content: space-between;
+			display: flex;
+			flex-flow: row;
+			width: 100%;
 		}
 		.grid-container_mb {
 			width: 100%;
@@ -1128,6 +1232,60 @@ export default {
 			transition: all .4s ease-in-out;
 			text-decoration: none;
 			border-bottom: 1px solid var(--color-red);
+		}
+		.step_description_mb{
+			font: 500 .7rem 'Montserrat', Arial, sans-serif;
+		}
+		.arrow_fork_up_mb{
+			position: absolute;
+			left: 60%;
+			top: 65%;
+			width: 30%;
+			transform: rotate(85deg);
+		}
+		.arrow_forward_mb{
+			position: absolute;
+			left: 37%;
+			bottom: 15%;
+			width: 25%;
+			height: 2%;
+			transform: rotate(-180deg);
+		}
+		.arrow_fork_mb{
+			position: absolute;
+			left: 39%;
+			top: 42%;
+			width: 24%;
+			transform: rotate(90deg);
+		}
+		.arrow_fork_down_mb{
+			position: absolute;
+			left: 7%;
+			bottom: 30%;
+			width: 25%;
+			transform: rotate(90deg);
+		}
+		.arrow_down_mb{
+			position: absolute;
+			right: 48%;
+			/* height: 8%; */
+			top: 21%;
+			width: 3%;
+			/* transform: rotate(0deg); */
+		}
+		.step_item_mb{
+			min-height: 120px;
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+		}
+		.step_item_mb_reject{
+			min-height: 120px;
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+			position: relative;
+			left: 35px;
 		}
 	}
 
@@ -1287,26 +1445,32 @@ export default {
 	}
 	.arrow_forward{
 		position: absolute;
-		left: 23%;
-		margin: 0 0 25px;
-		width: 10%;
+		left: 75%;
+		width: 94%;
 	}
 	.arrow_fork{
 		position: absolute;
 		left: 40%;
-		width: 10%;
+		top: 43%;
+		width: 11%;
 	}
 	.arrow_fork_up{
 		position: absolute;
-		left: 61%;
-		top: 35%;
-		width: 9%;
+		left: 22%;
+		top: 0%;
+		width: 100%;
 	}
 	.arrow_fork_down{
 		position: absolute;
-		left: 58%;
-		bottom: 22%;
-		width: 10%;
+		left: 0%;
+		bottom: 0%;
+		width: 100%;
+	}
+	.arrow_down{
+		position: absolute;
+		right: 21%;
+		bottom: 40%;
+		width: 4%;
 	}
 	.justify_start{
 		justify-content: flex-start !important;
@@ -1485,6 +1649,9 @@ export default {
 	}
 	.prefooter_title{
 		font: 500 1.6rem 'Montserrat';
+	}
+	.form-control{
+		cursor: pointer;
 	}
 	.form-control > select{
         flex-flow: row wrap;
