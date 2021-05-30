@@ -714,7 +714,7 @@ export default {
 			appsLoaded: false,
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
+			apiURL: '/routes/95a4b653d1/api',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -1491,7 +1491,8 @@ export default {
 		height: 100%
 	}
 	.defect_filters{
-		flex: 0 1 45%;
+		flex: 1 1 40%;
+		max-width: 350px;
 	}
 	.sorted_item{
 		display: flex;
