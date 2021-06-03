@@ -48,6 +48,7 @@
       --background-color-normal: rgba(255,255,255, 100%);
       --media-filter: none;
       font-family: "Montserrat-Regular", Arial, sans-serif;
+      font-size: calc(100vw / 1920) * 10;
   }
   
   /**/
@@ -174,7 +175,7 @@
   }
   
   html {
-    font-size: 14px;
+    /* font-size: calc(100vw / 1920 * 20) !important; */
     background-color: var(--background-color-normal);
   }
   

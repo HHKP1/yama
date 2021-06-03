@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<main>
+		<main :class="{open: isOpen}">
 			<mq-layout mq="md+">
 				<div id="nav">
 					<a class="logo_link" href="/">
@@ -349,7 +349,6 @@
 										type="date"
 									/>
 									<FormSelect
-										title=""
 										label=""
 										placeholder="Тип дефекту"
 										:options="options.options_filter_by_def_type"
@@ -357,7 +356,6 @@
 										class="form-control"
 									/>
 									<FormSelect
-										title=""
 										label=""
 										placeholder="Місце розташування дефекту"
 										:options="options.options_filter_by_def_location"
@@ -365,7 +363,6 @@
 										class="form-control"
 									/>
 									<FormSelect
-										title=""
 										label=""
 										placeholder="Статус дефекту"
 										:options="options.options_filter_by_def_status"
@@ -394,7 +391,6 @@
 								<div class="sorted_item">
 									<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
 									<FormSelect
-										title="Сортування"
 										label=""
 										placeholder=""
 										:options="options.options_sort_by"
@@ -404,7 +400,7 @@
 									/>
 								</div>
 								<div class="grid-container">
-									<div class="defect_card" v-for='(card, idx) in dfCard' :key='idx'>
+									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 											<div class="defect_image">
@@ -414,7 +410,8 @@
 											<div class="defect_info">
 												<div class="defect_status">
 													<div class="status_item">
-														<span>Новий</span>
+														<span v-if="card.status=='new'">Новий</span>
+														<span v-if="card.status=='in_progress'">В процесі</span>
 													</div>
 													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
 														<p class="status_count">{{ card.comment.length }}</p>
@@ -426,17 +423,14 @@
 										</div>
 									</div>
 								</div>
-								<div class="card_pagination">
-									<div class="pagination_control">
-										<ul class="pagination">
-											<li class="disabled"><a href="#!">F</a></li>
-											<li class="active"><a href="#!">1</a></li>
-											<li class="waves-effect"><a href="#!">2</a></li>
-											<li class="waves-effect"><a href="#!">3</a></li>
-											<li class="waves-effect"><a href="#!"> > </a></li>
-										</ul>
-									</div>
-								</div>
+								<Pagination
+									:maxVisibleButtons="7"
+									:data="orgInfo"
+									:total="8"
+									:perPage="8"
+									:currentPage="0"
+									:totalPages="dfCard.length"
+								/>
 							</div>
 						</div>
 					</div>
@@ -445,9 +439,21 @@
 					<div class="container_works_mb">
 						<h2 class="section_title">Колекція дефектів</h2>
 						<div class="container_defects_mb">
-							<div class="defect_filters">
-								<p class="filter_title" style="text-align:left;">фільтри</p>
-								<div class="filters_block">
+							<div class="filters_controls_mb">
+										<p class="filter_title_mb" :class="{expand: isExpand}" @click="isExpand = !isExpand" style="text-align:left;">фільтри</p>
+										<div class="sorted_item_mb">
+											<FormSelect
+												label="Сортування"
+												placeholder=""
+												:options="options.options_sort_by"
+												v-model="sort_by"
+												class="form-control_outline_mb"
+												type="search"
+											/>
+										</div>
+									</div>
+							<div class="defect_filters_mb">
+								<div class="filters_block_mb" :class="{expand: isExpand}">
 									<FormInput
 										title=""
 										label=""
@@ -465,7 +471,6 @@
 										type="date"
 									/>
 									<FormSelect
-										title=""
 										label=""
 										placeholder="Тип дефекту"
 										:options="options.options_filter_by_def_type"
@@ -473,7 +478,6 @@
 										class="form-control"
 									/>
 									<FormSelect
-										title=""
 										label=""
 										placeholder="Місце розташування дефекту"
 										:options="options.options_filter_by_def_location"
@@ -481,7 +485,6 @@
 										class="form-control"
 									/>
 									<FormSelect
-										title=""
 										label=""
 										placeholder="Статус дефекту"
 										:options="options.options_filter_by_def_status"
@@ -501,18 +504,7 @@
 								</div>
 							</div>
 							<div class="defect_content_mb">
-								<div class="sorted_item_mb">
-									<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
-									<FormSelect
-										title="Сортування"
-										label=""
-										placeholder=""
-										:options="options.options_sort_by"
-										v-model="sort_by"
-										class="form-control_outline"
-										type="search"
-									/>
-								</div>
+								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb">
 									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
@@ -573,7 +565,7 @@
 								<p class="prefooter_title_mb">Дороги – наша відповідальність, контролюй це!</p>
 							</div>
 						</div>
-						<div class="button_container">
+						<div class="button_container_mb">
 							<button class="btn outline_button footer-btn_mb">Допомогти проєкту</button>
 							<button class="btn custom_button footer-btn_mb">Додати дефект</button>
 						</div>
@@ -606,8 +598,8 @@
 						</div>
 						<div class="footer_links_mb">
 							<div class='nav_links_mb' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
-							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
-						</div>
+								<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
+							</div>
 						</div>
 					</div>
 				</mq-layout>
@@ -624,6 +616,7 @@ import VueElementLoading from 'vue-element-loading';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
+import Pagination from './components/Pagination.vue';
 // import defectCards from './mock_data';
 
 Vue.use(VueMq, {
@@ -640,7 +633,8 @@ export default {
 	components: {
 		VueElementLoading,
 		FormInput,
-		FormSelect
+		FormSelect,
+		Pagination
 	},
 	data() {
 		return {
@@ -711,10 +705,17 @@ export default {
 			},
 			isOpen: false,
 			isActive: false,
+			isExpand: false,
 			appsLoaded: false,
+			data: [],
+			currentPage: null,
+			totalPages: null,
+			perPage: null,
+			startPage: null,
+			endPage: null,
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: '/routes/95a4b653d1/api',
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -731,6 +732,11 @@ export default {
 		this.loadCard(true);
 	},
 	mounted() {
+		Object.entries(this.$route.query).forEach(([key, value]) => {
+			if(key in this.$API.appsFilters[this.listType]) {
+				this.$API.appsFilters[this.listType][key] = value;
+			}
+		});
 	},
 	methods: {
 		apiGET: async function(endpoint){
@@ -784,18 +790,30 @@ export default {
 				return {
 					address: card.address,
 					photo: card.photos,
-					// status: card.case_status,
+					status: card.case_status,
 					comment: card.comments,
 					// region_id: card.photos[0].region_id,
 				}
 			});
 		},
+		statusList(){
+			let caseStatuses = [
+				{ value: 'new', label: 'Новий' },
+				{ value: 'in_progress', label: 'В процесі' }
+			]
+			return caseStatuses;
+		}
 	},
 	watch: {}
 }
 </script>
 
 <style>
+	main {
+		width: 100%;
+		max-width: 1440px;
+		margin: 0 auto;
+	}
 	section {
 		width: 100%;
 		height: 100%;
@@ -1096,6 +1114,11 @@ export default {
 	}
 
 	@media all and (max-width:450px){
+		main.open {
+			width: 100%;
+			position: fixed;
+			top: 0;
+		}
 		.icon_container_mb{
 			display: flex;
 			flex-flow: column;
@@ -1164,6 +1187,12 @@ export default {
 			display: flex;
 			flex-flow:column;
 		}
+		.container_defects_mb{
+			padding: 8px 0;
+		}
+		.button_container_mb{
+			flex-flow: column-reverse;
+		}
 		.step_item_col_mb {
 			justify-content: space-between;
 			display: flex;
@@ -1206,13 +1235,26 @@ export default {
 			width: 100%;
 		}
 		.footer-btn_mb{
-			max-width: 180px;
-			margin: 0 4px;
+			/* max-width: 180px; */
+			margin: 6px 4px;
 			font: 500 .8rem 'Montserrat';
 		}
 		.nav_links_mb{
 			margin: 0 0 20px 15px !important;
 			white-space: nowrap;
+		}
+		.form-control_outline_mb{
+			width: 100%;
+			border: 1px solid var(--color-gray-light);
+			border-radius: 4px;
+		}
+		.form-control_outline_mb>select{
+			width: 100%;
+		}
+		.form-control_outline_mb>label{
+			background-color: var(--color-white);
+			transform: translate(8px, -6px);
+			font-size: 0.8rem !important;
 		}
 		.sorted_item_mb{
 			display: flex;
@@ -1221,6 +1263,11 @@ export default {
 			flex-flow: column-reverse;
 			width: 100%;
 			padding: 0;
+		}
+		.filters_controls_mb{
+			display: flex;
+			justify-content: space-between;
+			max-height: 35px;
 		}
 		.sorted_title_mb{
 			font: 600 .8rem 'Montserrat';
@@ -1490,9 +1537,47 @@ export default {
 		padding: 0 10px;
 		height: 100%
 	}
+	.filter_title_mb{
+		text-align: left;
+		background: var(--color-red);
+		color: white;
+		padding: 8px 6px 12px;
+		border-radius: 4px;
+		flex: 0 0 48%;
+		display: flex;
+		justify-content: space-between;
+	}
+	.filter_title_mb::after{
+		content: '';
+		background: url(./assets/img/icons/arrow_Stroke.svg) no-repeat center left;
+		width: 14px;
+		display: flex;
+		position: relative;
+		transition: transform .2s ease-out;
+	}
+	.filter_title_mb.expand::after{
+		content: '';
+		transform: rotate(-180deg);
+		transition: transform .2s ease-out;
+	}
 	.defect_filters{
 		flex: 1 1 40%;
 		max-width: 350px;
+	}
+	.defect_filters_mb{
+		flex: 1 1 40%;
+		max-width: 350px;
+		display: flex;
+		flex-flow: column-reverse;
+		overflow: hidden;
+	}
+	.filters_block_mb{
+		margin: -345px 0;
+		transition: all .4s ease-out;
+	}
+	.filters_block_mb.expand{
+		margin: 0 !important;
+		transition: all .4s ease-out;
 	}
 	.sorted_item{
 		display: flex;
@@ -1500,6 +1585,15 @@ export default {
 		align-items: center;
 		width: 100%;
 		padding: 0 16px;
+	}
+	.sorted_item_mb{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-flow: column-reverse;
+		/* width: 100%; */
+		padding: 0;
+		flex: 0 0 48%;
 	}
 	.defect_adress{
 		font: 400 .8rem 'Montserrat', sans-serif;

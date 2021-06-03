@@ -51,9 +51,9 @@ export default {
 </script>
 <style scoped>
 @import "~materialize-css/dist/css/materialize.css";
-	.input-field > label{
+	/* .input-field > label{
 		font-size: .9rem !important;
-	}
+	} */
 	.input-field > input{
 		font-size: .9rem !important;
 		font-family: "Montserrat-regular", Arial, sans-serif !important;
@@ -196,7 +196,7 @@ export default {
 			display: flex;
 		}
 		.input-field > label{
-			font-size: 1rem !important;
+			font-size: 1rem;
 		}
 		.prefix{
 			position: absolute !important;
