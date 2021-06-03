@@ -423,14 +423,17 @@
 										</div>
 									</div>
 								</div>
-								<Pagination
-									:maxVisibleButtons="7"
-									:data="orgInfo"
-									:total="8"
-									:perPage="8"
-									:currentPage="0"
-									:totalPages="dfCard.length"
-								/>
+								<div class="card_pagination">
+									<div class="pagination_control">
+										<ul class="pagination">
+											<li class="disabled"><a href="#!">F</a></li>
+											<li class="active"><a href="#!">1</a></li>
+											<li class="waves-effect"><a href="#!">2</a></li>
+											<li class="waves-effect"><a href="#!">3</a></li>
+											<li class="waves-effect"><a href="#!"> > </a></li>
+										</ul>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -616,7 +619,7 @@ import VueElementLoading from 'vue-element-loading';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
-import Pagination from './components/Pagination.vue';
+// import Pagination from './components/Pagination.vue';
 
 // import defectCards from './mock_data';
 
@@ -635,7 +638,6 @@ export default {
 		VueElementLoading,
 		FormInput,
 		FormSelect,
-		Pagination
 	},
 	data() {
 		return {
@@ -733,11 +735,6 @@ export default {
 		this.loadCard(true);
 	},
 	mounted() {
-		Object.entries(this.$route.query).forEach(([key, value]) => {
-			if(key in this.$API.appsFilters[this.listType]) {
-				this.$API.appsFilters[this.listType][key] = value;
-			}
-		});
 	},
 	methods: {
 		apiGET: async function(endpoint){
@@ -825,7 +822,7 @@ export default {
 <style>
 	main {
 		width: 100%;
-		max-width: 1440px;
+		max-width: 1280px;
 		margin: 0 auto;
 	}
 	section {
