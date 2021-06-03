@@ -1,12 +1,14 @@
 <template>
 	<div class="input-field">
+		<label :for="id">{{label}}</label>
 		<input :id="id" :title="title" :placeholder="placeholder" :disabled="disabled" :prefix="prefix" :accept="accept" :value="value" :type="type" :ref="refs" :min="min" :max="max" :step="step"
 			:data-length="dataLength"
 			:data-success="dataSuccess"
 			:data-error="dataError"
-			:class="{'active': 'active' , 'retail-input': 'retail-input', 'form-input': 'form-input'}"
+			:class="{'retail-input': 'retail-input', 'form-input': 'form-input'}"
 			@input="$emit('input', $event.target.value)">
 			<!-- <span :class="{ 'prefix': 'prefix' }">{{ prefix }}</span> -->
+			<!-- <label :for="id">{{label}}</label> -->
 	</div>
 </template>
 <script>
@@ -88,6 +90,19 @@ export default {
 		top: 0px;
 		right: 10px;
 	}
+	.input-field>label{
+		display: none;
+	}
+	.input-field>label.active{
+		display: block;
+		background: var(--color-white);
+		background-color: var(--color-white);
+		padding: 0 6px;
+		transform-origin: 0 0;
+		transform: translate(14px, -6px);
+		font-size: 0.8rem !important;
+		z-index: 1;
+	}
 	.input-field > label#currency {
 		-webkit-transform: translateY(8px) translateX(16px) scale(0.8) !important;
 		transform: translateY(8px) translateX(16px) scale(0.8) !important;
@@ -104,7 +119,7 @@ export default {
 		transition: transform .2s ease-out, color .2s ease-out;
 		transform-origin: 0% 100%;
 		text-align: initial;
-		transform: translateY(9px) !important;
+		/* transform: translateY(9px) !important; */
 	}
 	::-webkit-calendar-picker-indicator {
 		color: rgba(0, 0, 0, 0);
@@ -182,9 +197,10 @@ export default {
 		flex: 0 1 30%;
 		display: flex;
 	}
-	.input-field > label:not(.label-icon).active {
-		color: #34B76C;
-	}
+	/* .input-field > label:not(.label-icon).active {
+		background-color: var(--color-white);
+		padding: 0 6px;
+	} */
 	.input-field > label:not(.label-icon).is-invalid,.invalid {
 		color: red;
 		/*border-color: red;*/
@@ -213,7 +229,7 @@ export default {
 		transition: transform .2s ease-out, color .2s ease-out;
 		transform-origin: 0% 100%;
 		text-align: initial;
-		transform: translateY(9px) !important;
+		/* transform: translateY(9px) !important; */
 }
 	label#date{
 		-webkit-transform: translateY(8px) translateX(16px) scale(0.8);

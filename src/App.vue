@@ -28,12 +28,12 @@
 							<img id="logo" src="./assets/img/icons/Logo_mobile.svg" alt="Logo">
 						</a>
 						<div class="nav_button" @click="isOpen = !isOpen">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<svg  @click="openMenu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 								<g id="uil_subject" transform="translate(-648 -893)">
 									<rect id="Rectangle_4" data-name="Rectangle 4" width="24" height="24" transform="translate(648 893)" fill="none"/>
-									<line ref="Line_1" :class="{open: isOpen}" id="Line_1" data-name="Line 1" x2="15" transform="translate(655.5 898.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
-									<line ref="Line_3" :class="{open: isOpen}" id="Line_3" data-name="Line 3" x2="21" transform="translate(649.5 904.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
-									<line ref="Line_2" :class="{open: isOpen}" id="Line_2" data-name="Line 2" x2="12" transform="translate(658.5 910.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+									<line ref="Line_1" id="Line_1" data-name="Line 1" x2="15" transform="translate(655.5 898.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+									<line ref="Line_3" id="Line_3" data-name="Line 3" x2="21" transform="translate(649.5 904.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+									<line ref="Line_2" id="Line_2" data-name="Line 2" x2="12" transform="translate(658.5 910.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
 								</g>
 							</svg>
 						</div>
@@ -456,7 +456,7 @@
 								<div class="filters_block_mb" :class="{expand: isExpand}">
 									<FormInput
 										title=""
-										label=""
+										label="Адреса"
 										prefix=""
 										placeholder="Пошук дефектів за адресою"
 										v-model="search_by_adress"
@@ -464,14 +464,14 @@
 									/>
 									<FormInput
 										title=""
-										label=""
+										label="Дата розміщення"
 										placeholder="Дата розміщення дефекту"
 										v-model="search_by_date"
 										class="form-control"
 										type="date"
 									/>
 									<FormSelect
-										label=""
+										label="Тип дефекту"
 										placeholder="Тип дефекту"
 										:options="options.options_filter_by_def_type"
 										v-model="search_by_type"
@@ -617,6 +617,8 @@ import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
 import Pagination from './components/Pagination.vue';
+import M from 'materialize-css/dist/js/materialize.min';
+
 // import defectCards from './mock_data';
 
 Vue.use(VueMq, {
@@ -732,6 +734,8 @@ export default {
 		this.loadCard(true);
 	},
 	mounted() {
+		M.AutoInit();
+		M.updateTextFields();
 		Object.entries(this.$route.query).forEach(([key, value]) => {
 			if(key in this.$API.appsFilters[this.listType]) {
 				this.$API.appsFilters[this.listType][key] = value;
@@ -751,6 +755,19 @@ export default {
 			});
 			let data = await response.json();
 			return data;
+		},
+		openMenu(){
+			if(!this.isOpen){
+				this.$refs.Line_1.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')
+				this.$refs.Line_2.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')
+				this.$refs.Line_3.setAttribute('x2', '15')
+				this.$refs.Line_3.setAttribute('style', 'transform: translate(658.5px, 900.5px) rotate(45deg);transition: transform .2s ease-out')
+			} else if(this.isOpen) {
+				this.$refs.Line_1.setAttribute('style', 'transform: translate(655.5px, 898.5px) rotate(0);transition: transform .2s ease-out')
+				this.$refs.Line_2.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(0);transition: transform .2s ease-out')
+				this.$refs.Line_3.setAttribute('x2', '21')
+				this.$refs.Line_3.setAttribute('style', 'transform: translate(649.5px, 904.5px) rotate(0);transition: transform .2s ease-out')
+			}
 		},
 		reducer: (acc, curr) => acc + curr,
 		async loadCard(change){
@@ -908,19 +925,19 @@ export default {
 	.nav_links-container.open{
 		transform:translateX(0)
 	}
-	#Line_1{
+	/* #Line_1{
 		transform: translate(655.5 898.5) rotate(-45deg);
-	}
-	#Line_2{
+	} */
+	/* #Line_2{
 		transform: translate(649.5 904.5) rotate(45deg);
 	}
 	#Line_3{
 		transform: translate(658.5 910.5) rotate(45deg);
-	}
-	#Line_1.open{
+	} */
+	/* #Line_1.open{
+		content: '("attr(transform(translate(655.5 898.5) rotate(45deg)))")';
 		transform-origin: center;
-		transform: translate(655.5 898.5) rotate(45);
-	}
+	} */
 	#Line_2.open{
 		transform-origin: center;
 		transform: translate(649.5 904.5) rotate(-45);
@@ -1255,6 +1272,31 @@ export default {
 			background-color: var(--color-white);
 			transform: translate(8px, -6px);
 			font-size: 0.8rem !important;
+			display: block !important;
+		}
+		.input-field > label:not(.label-icon){
+			display: none;
+		}
+		/* .input-field>label{
+			background: var(--color-white);
+			display: none;
+		} */
+		.input-field > label {
+			/* display: none; */
+			background: var(--color-white);
+			background-color: var(--color-white);
+			padding: 0 6px;
+			transform-origin: 0 0;
+			transform: translate(14px, -6px);
+			font-size: 0.8rem !important;
+			z-index: 1;
+		}
+		.input-field > label.active {
+			display: block;
+			background: var(--color-white);
+			transform-origin: 0 0;
+			transform: translate(8px, -6px) !important;
+			font-size: 0.8rem !important;
 		}
 		.sorted_item_mb{
 			display: flex;
@@ -1559,6 +1601,7 @@ export default {
 		content: '';
 		transform: rotate(-180deg);
 		transition: transform .2s ease-out;
+		transition-delay: .15s;
 	}
 	.defect_filters{
 		flex: 1 1 40%;
@@ -1566,7 +1609,7 @@ export default {
 	}
 	.defect_filters_mb{
 		flex: 1 1 40%;
-		max-width: 350px;
+		/* max-width: 350px; */
 		display: flex;
 		flex-flow: column-reverse;
 		overflow: hidden;
