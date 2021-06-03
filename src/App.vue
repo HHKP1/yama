@@ -617,7 +617,6 @@ import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
 import Pagination from './components/Pagination.vue';
-import M from 'materialize-css/dist/js/materialize.min';
 
 // import defectCards from './mock_data';
 
@@ -734,8 +733,6 @@ export default {
 		this.loadCard(true);
 	},
 	mounted() {
-		M.AutoInit();
-		M.updateTextFields();
 		Object.entries(this.$route.query).forEach(([key, value]) => {
 			if(key in this.$API.appsFilters[this.listType]) {
 				this.$API.appsFilters[this.listType][key] = value;
