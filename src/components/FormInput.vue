@@ -52,7 +52,7 @@ export default {
 };
 </script>
 <style scoped>
-@import "~materialize-css/dist/css/materialize.css";
+/* @import "~materialize-css/dist/css/materialize.css"; */
 	/* .input-field > label{
 		font-size: .9rem !important;
 	} */
