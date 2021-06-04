@@ -361,7 +361,7 @@
 								<div class="filters_block">
 									<FormInput
 										title=""
-										label=""
+										label="Адреса"
 										prefix=""
 										placeholder="Пошук дефектів за адресою"
 										v-model="search_by_adress"
@@ -369,28 +369,28 @@
 									/>
 									<FormInput
 										title=""
-										label=""
+										label="Дата розміщення"
 										placeholder="Дата розміщення дефекту"
 										v-model="search_by_date"
 										class="form-control"
 										type="date"
 									/>
 									<FormSelect
-										label=""
+										label="Тип дефекту"
 										placeholder="Тип дефекту"
 										:options="options.options_filter_by_def_type"
 										v-model="search_by_type"
 										class="form-control"
 									/>
 									<FormSelect
-										label=""
+										label="Розташування"
 										placeholder="Місце розташування дефекту"
 										:options="options.options_filter_by_def_location"
 										v-model="search_by_location_place"
 										class="form-control"
 									/>
 									<FormSelect
-										label=""
+										label="Статус"
 										placeholder="Статус дефекту"
 										:options="options.options_filter_by_def_status"
 										v-model="search_by_status"
@@ -508,14 +508,14 @@
 										class="form-control"
 									/>
 									<FormSelect
-										label=""
+										label="Розташування"
 										placeholder="Місце розташування дефекту"
 										:options="options.options_filter_by_def_location"
 										v-model="search_by_location_place"
 										class="form-control"
 									/>
 									<FormSelect
-										label=""
+										label="Статус"
 										placeholder="Статус дефекту"
 										:options="options.options_filter_by_def_status"
 										v-model="search_by_status"
@@ -1134,6 +1134,17 @@ export default {
 		align-items: center;
 	}
 
+	.input-field > label:not(.label-icon) {
+		display: inline-block;
+		background-color: var(--color-white);
+		color: var(--color-gray-light);
+		padding: 0 6px;
+		transform-origin: 0 0;
+		transform: translate(14px, -6px);
+		font-size: 0.8rem !important;
+		z-index: 1;
+	}
+
 	.head-container {
 		display: flex;
 		justify-content: space-between;
@@ -1393,15 +1404,15 @@ export default {
 			font-size: 0.8rem !important;
 			display: block !important;
 		}
-		.input-field > label:not(.label-icon){
+		/* .input-field > label:not(.label-icon){
 			display: none;
-		}
+		} */
 		/* .input-field>label{
 			background: var(--color-white);
 			display: none;
 		} */
-		.input-field > label {
-			/* display: none; */
+		.input-field > label:not(.label-icon) {
+			display: inline-block;
 			background: var(--color-white);
 			background-color: var(--color-white);
 			padding: 0 6px;

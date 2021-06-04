@@ -90,8 +90,10 @@ export default {
 		top: 0px;
 		right: 10px;
 	}
-	.input-field>label{
-		display: none;
+	.input-field{
+		position: relative;
+		margin-top: .9rem !important;
+		margin-bottom: .9rem !important;
 	}
 	.input-field>label.active{
 		display: block;
