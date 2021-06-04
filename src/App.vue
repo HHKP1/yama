@@ -546,7 +546,8 @@
 											<div class="defect_info">
 												<div class="defect_status">
 													<div class="status_item">
-														<span>Новий</span>
+														<span v-if="card.status=='new'">Новий</span>
+														<span v-if="card.status=='in_progress'">В процесі</span>
 													</div>
 													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
 														<p class="status_count">{{ card.comment.length }}</p>
@@ -794,7 +795,7 @@ export default {
 		async loadCard(change){
 			this.isActive=true;
 			try{
-				this.pendingUpdate = await this.apiGET("/defects");
+				this.pendingUpdate = await this.apiGET("/defects?limit=8");
 				if(!this.pendingUpdate)
 					this.isActive=true;
 				let result = await this.pendingUpdate;
@@ -1002,6 +1003,9 @@ export default {
 		margin:10px 0;
 		border-radius: 4px;
 	}
+	.custom_button:hover{
+		background-color: var(--button-hover);
+	}
 	.custom_button:focus{
 		background-color: var(--button-default);
 	}
@@ -1023,7 +1027,7 @@ export default {
 		border-radius: 4px;
 	}
 	.custom_button_nav:hover{
-		background-color: var(--button-hover) !important;
+		background-color: var(--button-hover);
 	}
 	.custom_button_nav:focus{
 		background-color: var(--button-default);
@@ -1047,9 +1051,9 @@ export default {
 		color: var(--color-gray-light);
 	}
 	.outline_button:focus{
+		color: var(--color-gray);
+		border: 1px solid var(--color-gray);
 		background-color: var(--button-outline);
-		color: var(--color-gray-light);
-		border: 1px solid var(--color-gray-light);
 	}
 	.footer-outline_button{
 		font: 700 1.1rem 'Montserrat';
@@ -1082,7 +1086,7 @@ export default {
 		border: 1px solid var(--color-gray);
 		background-color: var(--button-outline);
 	}
-	.footer-btn:hover{
+	/* .footer-btn:hover{
 		font: 700 1.1rem 'Montserrat';
 		background-color: var(--button-outline);
 		font-size: .9rem;
@@ -1094,13 +1098,12 @@ export default {
 		border: 1px solid var(--status-white);
 		margin:5px 0;
 		border-radius: 4px;
-	}
-	.footer-btn:focus{
+	} */
+	/* .footer-btn:focus{
 		background-color: var(--button-default);
 		max-width: 240px;
-		width: 100%;
 		color: var(--color-white);
-	}
+	} */
 	.hero-btn{
 		font: 700 1.1rem 'Montserrat';
 		width: 100%;
@@ -1119,10 +1122,6 @@ export default {
 	}
 	.underline-btn:hover{
 		border-bottom: 2px solid var(--color-red);
-	}
-
-	.custom_button:hover {
-		background-color: var(--button-hover) !important;
 	}
 
 	.header {
