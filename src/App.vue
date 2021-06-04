@@ -583,7 +583,7 @@
 							</div>
 						</div>
 						<div class="button_container">
-							<button class="btn outline_button footer-btn">Допомогти проєкту</button>
+							<button class="btn footer-outline_button">Допомогти проєкту</button>
 							<button class="btn custom_button footer-btn">Додати дефект</button>
 						</div>
 					</div>
@@ -1002,6 +1002,9 @@ export default {
 		margin:10px 0;
 		border-radius: 4px;
 	}
+	.custom_button:focus{
+		background-color: var(--button-default);
+	}
 	.nav_btn_block{
 		display: flex;
 		align-items: center;
@@ -1022,6 +1025,9 @@ export default {
 	.custom_button_nav:hover{
 		background-color: var(--button-hover) !important;
 	}
+	.custom_button_nav:focus{
+		background-color: var(--button-default);
+	}
 	.outline_button{
 		font: 700 1.1rem 'Montserrat';
 		background-color: var(--button-outline);
@@ -1037,7 +1043,44 @@ export default {
 	}
 	.outline_button:hover{
 		background-color: var(--button-outline);
-		border: 1px solid var(--status-color);
+		border: 1px solid var(--color-gray-light);
+		color: var(--color-gray-light);
+	}
+	.outline_button:focus{
+		background-color: var(--button-outline);
+		color: var(--color-gray-light);
+		border: 1px solid var(--color-gray-light);
+	}
+	.footer-outline_button{
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-outline);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		max-width: 240px;
+		width: 100%;
+		color: var(--color-gray);
+		border: 1px solid var(--color-gray);
+		margin:5px 0;
+		border-radius: 4px;
+	}
+	.footer-outline_button:hover{
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-outline);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		max-width: 240px;
+		width: 100%;
+		color: var(--color-gray-light);
+		border: 1px solid var(--color-gray-light);
+		margin:5px 0;
+		border-radius: 4px;
+	}
+	.footer-outline_button:focus{
+		color: var(--color-gray);
+		border: 1px solid var(--color-gray);
+		background-color: var(--button-outline);
 	}
 	.footer-btn:hover{
 		font: 700 1.1rem 'Montserrat';
@@ -1047,10 +1090,16 @@ export default {
 		text-transform: none;
 		max-width: 240px;
 		width: 100%;
-		color: var(--color-black);
-		border: 1px solid var(--status-color);
+		color: var(--color-white);
+		border: 1px solid var(--status-white);
 		margin:5px 0;
 		border-radius: 4px;
+	}
+	.footer-btn:focus{
+		background-color: var(--button-default);
+		max-width: 240px;
+		width: 100%;
+		color: var(--color-white);
 	}
 	.hero-btn{
 		font: 700 1.1rem 'Montserrat';
