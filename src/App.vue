@@ -70,20 +70,38 @@
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
-													style="border-radius:100%;border:1px solid var(--color-gray-light);background: var(--background-color-normal)">
+													style="border-radius:100%;background: var(--background-color-normal)" title="Є питання?">
 												</div>
 											</div>
 										</div>
 										<div class="hero-content">
-											<div class="hero-item icon">
+											<div class="hero-content_block">
+												<div class="hero-item icon">
 												<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
 													alt="Facebook messenger">
+												</div>
+												<div class="hero-item_message" title="QR Code для входу">
+													<p class="message_title">UkrYama_bot</p>
+													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
+												</div>
 											</div>
-											<div class="hero-item icon">
-												<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
+											<div class="hero-content_block">
+												<div class="hero-item icon">
+													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
+												</div>
+												<div class="hero-item_message" title="QR Code для входу">
+													<p class="message_title">UkrYama_bot</p>
+													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
+												</div>
 											</div>
-											<div class="hero-item icon">
-												<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+											<div class="hero-content_block">
+												<div class="hero-item icon">
+													<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+												</div>
+												<div class="hero-item_message" title="QR Code для входу">
+													<p class="message_title">UkrYama_bot</p>
+													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -122,7 +140,10 @@
 														alt="Facebook messenger">
 												</div>
 												<p class="chat_icon_description_mb">
-													@Facebook
+													@UkrYama
+												</p>
+												<p class="chat_icon_description_mb">
+													Facebook
 												</p>
 											</div>
 											<div class="icon_container_mb">
@@ -130,7 +151,10 @@
 													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
 												</div>
 												<p class="chat_icon_description_mb">
-													@Telegram
+													@UkrYamaBot
+												</p>
+												<p class="chat_icon_description_mb">
+													Telegram
 												</p>
 											</div>
 											<div class="icon_container_mb">
@@ -138,7 +162,10 @@
 													<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
 												</div>
 												<p class="chat_icon_description_mb">
-														@Viber
+													@UkrYama
+												</p>
+												<p class="chat_icon_description_mb">
+													Viber
 												</p>
 											</div>
 										</div>
@@ -718,7 +745,7 @@ export default {
 			endPage: null,
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: '/routes/95a4b653d1/api',
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -1079,6 +1106,55 @@ export default {
 		text-align: left;
 	}
 
+	.hero-item_message{
+		display: none;
+	}
+
+	.hero-item:hover + .hero-item_message{
+		display: flex !important;
+		flex-flow: column;
+		position: absolute;
+		background-color: var(--background-color-normal);
+		border-radius: 4px;
+		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
+		/* width: 100%; */
+		max-width: 100px;
+		padding: 16px 14px;
+		left: -27px;
+	}
+	.hero-item_message:hover{
+		display: flex !important;
+		flex-flow: column;
+		position: absolute;
+		background-color: var(--background-color-normal);
+		border-radius: 4px;
+		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
+		/* width: 100%; */
+		max-width: 100px;
+		padding: 16px 14px;
+		left: -27px;
+	}
+
+	.hero-item_message::after{
+		content: "";
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: transparent transparent var(--background-color-normal) transparent;
+		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
+	}
+
+	.hero-content_block{
+		position: relative;
+	}
+
+	.message_title{
+		font: 500 .6rem 'Montserrat';
+	}
+
 	@media all and (max-width:768px){
 		.arrow_forward{
 			position: absolute;
@@ -1381,6 +1457,7 @@ export default {
 		max-width: 239px;
 		/* margin: 0 auto; */
 		padding: 16px 20px;
+		position: relative;
 	}
 
 	.hero-content {
@@ -1423,7 +1500,7 @@ export default {
 		/* border: 1px solid var(--background-color-normal); */
 		background: var(--background-color-normal);
 		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
-		width: 30px;
+		width: 33px;
 	}
 
 	.help-tips:hover {
