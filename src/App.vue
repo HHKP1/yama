@@ -543,6 +543,7 @@
 											<div class="defect_image">
 												<img class="card_image" :src="card.photo[0].url" alt="">
 												<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+												<div class="defect_color"></div>
 											</div>
 											<div class="defect_info">
 												<div class="defect_status">
@@ -1350,7 +1351,7 @@ export default {
 			width: 100%;
 			position: relative;
 			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 			/* grid-template-rows: 1fr 1fr; */
 			gap: 18px 8px;
 		}
@@ -1505,6 +1506,14 @@ export default {
 			align-items: center;
 			position: relative;
 			left: 35px;
+		}
+		.card_image{
+			object-fit: cover;
+			width: 100%;
+			max-width: 125px;
+			max-height: 120px;
+			min-width: 125px;
+			min-height: 120px;
 		}
 	}
 
@@ -1867,7 +1876,7 @@ export default {
 		width: 100%;
 		max-width: 140px;
 		max-height: 120px;
-		min-width: 140px;
+		min-width: 125px;
 		min-height: 120px;
 	}
 	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
@@ -1945,6 +1954,15 @@ export default {
         display: flex;
 		max-height: 1.5rem !important;
         width: 250px !important;
+		text-indent: 75px;
+		border: 1px solid var(--color-white)
+	}
+	.form-control_outline::before{
+		content: 'Сортування:';
+		font-size: .8rem;
+		position: absolute;
+		left: 0;
+		top: 25%;
 	}
 	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
 		height: 16px;
