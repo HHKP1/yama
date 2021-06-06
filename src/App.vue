@@ -433,6 +433,7 @@
 											<div class="defect_image">
 												<img class="card_image" :src="card.photo[0].url" alt="">
 												<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+												<div class="defect_color"></div>
 											</div>
 											<div class="defect_info">
 												<div class="defect_status">
@@ -1848,9 +1849,18 @@ export default {
 		color: white;
 		position: absolute;
 		display: flex;
-		font-size: .8rem;
+		font-size: .65rem;
 		left: 4%;
 		bottom: 4%;
+	}
+	.defect_color{
+		background: var(--color-white);
+		border-radius: 100%;
+		position: absolute;
+		right: 7px;
+		bottom: 5px;
+		width: 16px;
+		height: 16px;
 	}
 	.card_image{
 		object-fit: cover;
