@@ -4,7 +4,7 @@ module.exports = {
 		// headers: { "Access-Control-Allow-Origin": "*" },
 		proxy: {
 			'^/api': {
-				target: 'https://tala.cloudi.es/routes/95a4b653d1/',
+				target: 'https://tala.cloudi.es/',
 				ws: false,
 				changeOrigin: true,
 				// secure: true,

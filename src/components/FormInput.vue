@@ -24,7 +24,7 @@ export default {
 			type: String,
 			default: 'text',
 			validator(value) {
-				return ['text', 'email', 'password', 'tel', 'date', 'select', 'checkbox', 'number', 'file'].includes(value);
+				return ['text', 'email', 'password', 'tel', 'search', 'date', 'select', 'checkbox', 'number', 'file'].includes(value);
 			}
 		},
 		max: { type: String, required: false },
@@ -61,7 +61,7 @@ export default {
 		font-family: "Montserrat-regular", Arial, sans-serif !important;
 		padding: 6px 50px 6px 6px;
 	}
-	.input-field > input:not([type="date"]){
+	.input-field > input:not([type="date"]):not([type="text"]){
 		position: relative;
 		top: 0;
 		right: 0;

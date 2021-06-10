@@ -16,6 +16,7 @@
 						placeholder="Пошук за адресою або номером заяви"
 						class="form-control"
 						v-model="search"
+						type="search"
 						/>
 						<button class="btn custom_button_nav">Додати дефект</button>
 					</div>
@@ -408,7 +409,7 @@
 									<button class="btn custom_button">Показати</button>
 								</div>
 							</div>
-							<div class="defect_content">
+							<div class="defect_content" v-show="appsLoaded">
 								<div class="defect_filter_count">
 									<div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
@@ -461,6 +462,231 @@
 											<li class="waves-effect"><a href="#!"> > </a></li>
 										</ul>
 									</div>
+								</div>
+							</div>
+							<div class="defect_content" v-show="!appsLoaded">
+								<router-link class="defect_links" to="/">
+									<p>&lt; Назад до повного списку</p>
+								</router-link>
+								<carousel :navigationEnabled="true" :perPage="4" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+									<slide v-for='(card, idx) of dfCard' :key='idx'>
+										<div class="defect_card">
+											<div class="my-container" style="width: 100%;display: block;height: 100%;">
+												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+												<div class="defect_image">
+													<img class="card_image" :src="card.photo[0].url" alt="">
+													<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+													<div class="defect_color"></div>
+												</div>
+												<div class="defect_info">
+													<div class="defect_status">
+														<div class="status_item">
+															<span v-if="card.status=='new'">Новий</span>
+															<span v-if="card.status=='in_progress'">В процесі</span>
+														</div>
+														<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
+															<p class="status_count">{{ card.comment.length }}</p>
+															<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
+														</div>
+													</div>
+													<p class="defect_adress" :title="card.address">{{ card.address }}</p>
+												</div>
+											</div>
+										</div>
+									</slide>
+								</carousel>
+								<div class="defect_nav_container">
+									<div class="defect_nav">
+										<div class="defect_nav_item"><p>Детальна інформація</p></div>
+										<div class="defect_nav_item"><p>Коментарі</p></div>
+										<div class="defect_nav_item"><p>Документи</p></div>
+									</div>
+								</div>
+								<div class="defect_info_content">
+									<div class="defect_description_info">
+										<div class="defect_detail">
+											<div class="defect_title_container">
+												<h3 class="defect_detail_title">Яма</h3>
+												<p class="defect_description">на лівій смузі</p>
+											</div>
+										</div>
+										<div class="defect_detail">
+											<div class="detail_defect_status">
+												<div class="status_item_id">
+													<span class="defect_id">#fdsfsfds</span>
+												</div>
+												<div class="defect_status_item">
+													<span>Новий</span>
+												</div>
+											</div>
+										</div>
+										<div class="defect_detail">
+											<div class="detail_defect_info">
+											<div class="defect_title_container">
+												<p class="defect_description">Фото</p>
+											</div>
+											<carousel :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
+												<slide v-for="(p, idx) in dfCard[0].photo" :key="idx" class="VueCarousel-slide_defect">
+													<div class="defect_card_detail">
+														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
+															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+															<div class="defect_image_detail">
+																<img class="card_image_detail" :src="p.url" alt="">
+															</div>
+														</div>
+													</div>
+												</slide>
+											</carousel>
+											<div class="defect_detail_info">
+												<div class="info_item">
+													<p class="author_item">Автор</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<p class="author_name">{{ dfCard[0].author }}</p>
+														</div>
+														<div class="author_chat">Написати автору</div>
+													</div>
+												</div>
+											</div>
+											<div class="defect_detail_info">
+												<div class="info_item">
+													<p class="author_item">Адреса</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<p class="author_name">{{ dfCard[0].address }}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="defect_detail_info" v-if="dfCard[0].comment[0].text.length!=0">
+												<div class="info_item">
+													<p class="author_item">Опис</p>
+													<div class="author_info">
+														<div class="author_content">
+															<p class="author_name">{{ dfCard[0].comment[0].text }}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="defect_share">
+												<button class="btn outline_button_share">Надіслати в поліцію</button>
+												<button class="btn custom_button_share">
+													<img class="share_icon" src="./assets/img/icons/bx_bx-share-alt.svg" alt="" >
+													Поділитись
+												</button>
+											</div>
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info" v-show="!appsLoaded">
+										<div class="defect_title_container">
+											<p class="defect_description">Коментарі</p>
+										</div>
+										<div class="chat_input">
+											<div class="author_info_chat">
+												<div class="author_content">
+													<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+													<p class="author_name">{{ dfCard[0].author }}</p>
+												</div>
+											</div>
+											<FormInput
+												title=""
+												label=""
+												placeholder="залишити коментар"
+												class="form-control"
+												v-model="comment"
+											/>
+										</div>
+										<div class="chat_area">
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box replies_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box replies_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info" v-show="appsLoaded">
+										<div class="defect_title_container">
+											<p class="defect_description">Документи</p>
+										</div>
+										<div class="chat_area">
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.03.2021</p>
+													</div>
+												</div>
+												<div class="doc_box">
+													<p class="message_content">Звернення до Управління патрульної поліції в Київській області</p>
+													<img class="doc_icon" src="./assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
+													<img class="doc_icon" title="Завантажити документ" src="./assets/img/icons/feather_download.svg" alt="feather download">
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.03.2021</p>
+													</div>
+												</div>
+												<div class="doc_box">
+													<p class="message_content">Відповідь від Управління патрульної поліції в Київській області</p>
+													<img class="doc_icon" src="./assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
+													<img class="doc_icon" src="./assets/img/icons/feather_download.svg" alt="feather download">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="detail_pagination">
+									<button class="btn outline_button btn_outline">&lt; Попередній</button>
+									<button class="btn outline_button btn_outline">Наступний &gt;</button>
 								</div>
 							</div>
 						</div>
@@ -645,6 +871,7 @@
 <script>
 import Vue from 'vue';
 import VueMq from 'vue-mq';
+import { Carousel, Slide } from 'vue-carousel';
 import VueElementLoading from 'vue-element-loading';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
@@ -668,6 +895,8 @@ export default {
 		VueElementLoading,
 		FormInput,
 		FormSelect,
+		Carousel,
+		Slide
 	},
 	data() {
 		return {
@@ -736,6 +965,7 @@ export default {
 					{ label: 'Старіщі', value: 'oldest' },
 				],
 			},
+			comment: '',
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
@@ -748,7 +978,7 @@ export default {
 			endPage: null,
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
+			apiURL: '/routes/95a4b653d1/api',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -797,7 +1027,7 @@ export default {
 		async loadCard(change){
 			this.isActive=true;
 			try{
-				this.pendingUpdate = await this.apiGET("/defects?limit=8");
+				this.pendingUpdate = await this.apiGET("/defects?");
 				if(!this.pendingUpdate)
 					this.isActive=true;
 				let result = await this.pendingUpdate;
@@ -833,6 +1063,7 @@ export default {
 					photo: card.photos,
 					status: card.case_status,
 					comment: card.comments,
+					author: card.author.name,
 					// region_id: card.photos[0].region_id,
 				}
 			});
@@ -949,23 +1180,67 @@ export default {
 	.nav_links-container.open{
 		transform:translateX(0)
 	}
-	/* #Line_1{
-		transform: translate(655.5 898.5) rotate(-45deg);
-	} */
-	/* #Line_2{
-		transform: translate(649.5 904.5) rotate(45deg);
+	/* Carousel style START*/
+
+	.VueCarousel-slide{
+		max-width: 170px;
 	}
-	#Line_3{
-		transform: translate(658.5 910.5) rotate(45deg);
-	} */
-	/* #Line_1.open{
-		content: '("attr(transform(translate(655.5 898.5) rotate(45deg)))")';
-		transform-origin: center;
-	} */
+
+	.VueCarousel {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		width: 100%;
+		max-width: 680px;
+	}
+
+	.VueCarousel-navigation-next{
+		right: 0;
+		transform: translateY(-160%) translateX(-10%) !important;
+		font-family: "system" !important;
+		background: var(--color-white) !important;
+		border-radius: 4px !important;
+	}
+
+	.VueCarousel-navigation-prev{
+		left: 0;
+		transform: translateY(-160%) translateX(-5%) !important;
+		font-family: "system" !important;
+		background: var(--color-white) !important;
+		border-radius: 4px !important;
+	}
+
+	.VueCarousel-dot{
+		margin: 0 !important;
+	}
+
+	.VueCarousel-dot--active{
+		margin-top: 20px;
+		padding: 1px !important;
+		width: 10px;
+		height: 10px;
+		background-color: #fff !important;
+		border: 1px solid rgb(0, 0, 0) !important;
+	}
+
+	.VueCarousel_detail_photo{
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		width: 100%;
+		max-width: 350px;
+	}
+	.VueCarousel-slide_defect{
+		max-width: 100%;
+	}
+
+	/* Carousel style END*/
+
 	#Line_2.open{
 		transform-origin: center;
 		transform: translate(649.5 904.5) rotate(-45);
 	}
+
 	#Line_3.open{
 		transform-origin: center;
 		transform: translate(658.5 910.5) rotate(-45);
@@ -1009,6 +1284,26 @@ export default {
 		background-color: var(--button-hover);
 	}
 	.custom_button:focus{
+		background-color: var(--button-default);
+	}
+	.custom_button_share {
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-default);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		max-width: 160px;
+		width: 100%;
+		margin:10px 0;
+		border-radius: 4px;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+	.custom_button_share:hover{
+		background-color: var(--button-hover);
+	}
+	.custom_button_share:focus{
 		background-color: var(--button-default);
 	}
 	.nav_btn_block{
@@ -1056,6 +1351,36 @@ export default {
 		color: var(--color-gray);
 		border: 1px solid var(--color-gray);
 		background-color: var(--button-outline);
+	}
+	.outline_button_share{
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-outline);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		max-width: 180px;
+		width: 100%;
+		padding: 4px 6px;
+		color: var(--color-black);
+		border: 1px solid var(--color-black);
+		margin:5px 0;
+		border-radius: 4px;
+	}
+	.outline_button_share:hover{
+		background-color: var(--button-outline);
+		border: 1px solid var(--color-gray-light);
+		color: var(--color-gray-light);
+	}
+	.outline_button_share:focus{
+		color: var(--color-gray);
+		border: 1px solid var(--color-gray);
+		background-color: var(--button-outline);
+	}
+	.defect_share{
+		display: flex;
+		width: 350px;
+		justify-content: space-between;
+		align-items: center;
 	}
 	.footer-outline_button{
 		font: 700 1.1rem 'Montserrat';
@@ -1717,7 +2042,131 @@ export default {
 		flex-wrap: wrap;
 		width: 100%;
 		padding: 0 10px;
-		height: 100%
+		height: 100%;
+		flex: 1 1 60%;
+	}
+	.defect_links{
+		width: 100%;
+		position: relative;
+		text-align: left;
+		margin: 0 0 12px 0;
+		display: inline-block;
+	}
+	.defect_nav_container{
+		position: relative;
+		width: 100%;
+		display: block;
+	}
+	.defect_nav{
+		display: flex;
+		padding: 1px;
+		height: auto;
+		position: relative;
+		max-height: 43px;
+	}
+	.defect_info_content{
+		width: 100%;
+		display: flex;
+		padding: 20px 0
+	}
+	.defect_description_info{
+		flex: 1 1 50%;
+		position: relative;
+		padding: 12px;
+	}
+	.defect_nav_item p{
+		margin: 0 15px 0 0;
+		padding: 12px 0;
+		color: var(--color-gray);
+		cursor: pointer;
+		display: inline-block;
+		font: 500;
+	}
+	.defect_nav_item p:hover{
+		color: var(--color-black);
+		border-bottom: 2px solid var(--color-gray);
+		font: 700;
+	}
+	.defect_detail{
+		position: relative;
+		width: 100%;
+	}
+	.defect_title_container{
+		position: relative;
+		width: 100%;
+		text-align: left;
+	}
+	.defect_detail_title{
+		font: 700 2.8rem 'Montserrat', sans-serif !important;
+		margin: 0;
+	}
+	.defect_description{
+		font: 700 1.2rem 'Montserrat', sans-serif;
+	}
+	.info_item{
+		display: flex;
+		flex-flow: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		padding: 12px 0;
+		font: 700 .8rem 'Montserrat';
+	}
+	.author_item{
+		margin: 10px 0;
+	}
+	.author_icon{
+		margin: 0 5px 0 0;
+	}
+	.author_info{
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+	}
+	.author_info_chat{
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		margin: 8px 0;
+	}
+	.author_chat_info{
+		display: flex;
+	}
+	.author_content{
+		display: flex;
+		justify-content: space-between;
+	}
+	.author_name, .author_chat{
+		font: 500 .7rem 'Montserrat';
+		text-align: left;
+	}
+	.detail_defect_status{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	.status_item_id{
+		background: var(--color-gray);
+		border-radius: 4px;
+		color: var(--color-white);
+		padding: 3px 4px;
+		font-size: .8rem;
+		margin: 18px 4px;
+	}
+	.detail_pagination{
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+	.btn_outline{
+		max-width: 140px;
+	}
+	.defect_status_item{
+		background: var(--status-color);
+		border-radius: 4px;
+		color: var(--color-white);
+		padding: 3px 4px;
+		font-size: .8rem;
+		margin: 18px 4px;
 	}
 	.filter_title_mb{
 		text-align: left;
@@ -1811,6 +2260,57 @@ export default {
 		padding: 10px;
 		place-self: center;
 	}
+	.defect_card_detail{
+		display: flex;
+		flex-flow: column;
+		width: 175px;
+		/* max-width: 165px; */
+		border-radius: 4px;
+		padding: 0 5px;
+		place-self: center;
+	}
+	.chat_area{
+		padding: 20px 12px;
+		margin: 22px 0;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		max-height: 400px;
+		overflow-y: auto;
+	}
+	.message_box{
+		text-align: left;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		padding: 6px;
+		margin: 8px 0;
+		width: 90%;
+		display: flex;
+	}
+	.doc_box{
+		text-align: left;
+		padding: 0 4px;
+		margin: 8px 0;
+		width: 100%;
+		display: flex;
+	}
+	.doc_icon{
+		margin: 0 6px;
+		cursor: pointer;
+	}
+	.message_box.replies_box{
+		display: flex;
+		align-self: flex-end;
+	}
+	.message_content{
+		font: 500 .8rem 'Montserrat';
+	}
+	.incoming_container{
+		position: relative;
+		display: flex;
+		flex-flow: column;
+		margin: 20px 0;
+	}
 	.defect_filter_count{
 		width: 100%;
 		position: relative;
@@ -1849,6 +2349,9 @@ export default {
 	.defect_image{
 		position: relative;
 	}
+	.defect_image_detail{
+		position: relative;
+	}
 	.defect_status{
 		display: flex;
 		align-items: center;
@@ -1870,6 +2373,13 @@ export default {
 		bottom: 5px;
 		width: 16px;
 		height: 16px;
+	}
+	.card_image_detail{
+		object-fit: cover;
+		width: 100%;
+		min-height: 130px;
+		max-width: 170px;
+		/* height: 100%; */
 	}
 	.card_image{
 		object-fit: cover;
