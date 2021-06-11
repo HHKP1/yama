@@ -468,7 +468,7 @@
 								<router-link class="defect_links" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
-								<carousel :navigationEnabled="true" :perPage="4" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+								<carousel :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="4" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 									<slide v-for='(card, idx) of dfCard' :key='idx'>
 										<div class="defect_card">
 											<div class="my-container" style="width: 100%;display: block;height: 100%;">
@@ -545,7 +545,7 @@
 															<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
 															<p class="author_name">{{ dfCard[0].author }}</p>
 														</div>
-														<div class="author_chat">Написати автору</div>
+														<button class="author_chat underline-btn">Написати автору</button>
 													</div>
 												</div>
 											</div>
@@ -621,7 +621,7 @@
 													<p class="author_chat message_date">23.03.2021</p>
 												</div>
 												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній"</p>
 												</div>
 											</div>
 											<div class="incoming_container">
@@ -633,7 +633,7 @@
 													<p class="author_chat message_date">23.03.2021</p>
 												</div>
 												<div class="message_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+													<p class="message_content">Поліція каже, що дефекти розташовані</p>
 												</div>
 											</div>
 											<div class="incoming_container">
@@ -645,12 +645,12 @@
 													<p class="author_chat message_date">23.03.2021</p>
 												</div>
 												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+													<p class="message_content">Поліція каже, що дефекти розташовані. Інформацію направили до іншого органу.</p>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info" v-show="appsLoaded">
+									<div class="defect_description_info" v-show="!appsLoaded">
 										<div class="defect_title_container">
 											<p class="defect_description">Документи</p>
 										</div>
@@ -708,8 +708,8 @@
 												type="search"
 											/>
 										</div>
-									</div>
-							<div class="defect_filters_mb">
+							</div>
+							<div class="defect_filters_mb" v-show="appsLoaded">
 								<div class="filters_block_mb" :class="{expand: isExpand}">
 									<FormInput
 										title=""
@@ -760,9 +760,64 @@
 									<button class="btn custom_button">Показати</button>
 								</div>
 							</div>
-							<div class="defect_content_mb">
+							<div class="defect_content_mb" v-show="appsLoaded">
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb">
+									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
+										<div class="my-container" style="width: 100%;display: block;height: 100%;">
+											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+											<div class="defect_image">
+												<img class="card_image_mb" :src="card.photo[0].url" alt="">
+												<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+												<div class="defect_color"></div>
+											</div>
+											<div class="defect_info">
+												<div class="defect_status">
+													<div class="status_item">
+														<span v-if="card.status=='new'">Новий</span>
+														<span v-if="card.status=='in_progress'">В процесі</span>
+													</div>
+													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
+														<p class="status_count">{{ card.comment.length }}</p>
+														<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
+													</div>
+												</div>
+												<p class="defect_adress" :title="card.address">{{ card.address }}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card_pagination">
+									<div class="pagination_control">
+										<ul class="pagination">
+											<li class="disabled"><a href="#!">F</a></li>
+											<li class="active"><a href="#!">1</a></li>
+											<li class="waves-effect"><a href="#!">2</a></li>
+											<li class="waves-effect"><a href="#!">3</a></li>
+											<li class="waves-effect"><a href="#!"> > </a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="defect_content" v-show="appsLoaded">
+								<div class="defect_filter_count">
+									<div class="defect_filter_item">
+										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
+										<!-- <p class="defect_title"  v-for="(f, idx) of dfCard" :key="idx">Кількість регіонів: <span>{{ f.address}}</span></p> -->
+									</div>
+								</div>
+								<div class="sorted_item">
+									<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
+									<FormSelect
+										label=""
+										placeholder=""
+										:options="options.options_sort_by"
+										v-model="sort_by"
+										class="form-control_outline"
+										type="search"
+									/>
+								</div>
+								<div class="grid-container">
 									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
@@ -797,6 +852,231 @@
 											<li class="waves-effect"><a href="#!"> > </a></li>
 										</ul>
 									</div>
+								</div>
+							</div>
+							<div class="defect_content_mb" v-show="!appsLoaded">
+								<router-link class="defect_links_mb" to="/">
+									<p>&lt; Назад до повного списку</p>
+								</router-link>
+								<carousel :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+									<slide v-for='(card, idx) of dfCard' :key='idx'>
+										<div class="defect_card_mb">
+											<div class="my-container" style="width: 100%;display: block;height: 100%;">
+												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+												<div class="defect_image">
+													<img class="card_image" :src="card.photo[0].url" alt="">
+													<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+													<div class="defect_color"></div>
+												</div>
+												<div class="defect_info">
+													<div class="defect_status">
+														<div class="status_item">
+															<span v-if="card.status=='new'">Новий</span>
+															<span v-if="card.status=='in_progress'">В процесі</span>
+														</div>
+														<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
+															<p class="status_count">{{ card.comment.length }}</p>
+															<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
+														</div>
+													</div>
+													<p class="defect_adress" :title="card.address">{{ card.address }}</p>
+												</div>
+											</div>
+										</div>
+									</slide>
+								</carousel>
+								<div class="defect_nav_container">
+									<div class="defect_nav">
+										<div class="defect_nav_item_mb"><p>Детальна інформація</p></div>
+										<div class="defect_nav_item_mb" @click="isComments = !isComments"><p>Коментарі</p></div>
+										<div class="defect_nav_item_mb"><p>Документи</p></div>
+									</div>
+								</div>
+								<div class="defect_info_content_mb">
+									<div class="defect_description_info">
+										<div class="defect_detail">
+											<div class="defect_title_container">
+												<h3 class="defect_detail_title">Яма</h3>
+												<p class="defect_description">на лівій смузі</p>
+											</div>
+										</div>
+										<div class="defect_detail">
+											<div class="detail_defect_status">
+												<div class="status_item_id">
+													<span class="defect_id">#fdsfsfds</span>
+												</div>
+												<div class="defect_status_item">
+													<span>Новий</span>
+												</div>
+											</div>
+										</div>
+										<div class="defect_detail">
+											<div class="detail_defect_info">
+											<div class="defect_title_container">
+												<p class="defect_description">Фото</p>
+											</div>
+											<carousel :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
+												<slide v-for="(p, idx) in dfCard[0].photo" :key="idx" class="VueCarousel-slide_defect">
+													<div class="defect_card_detail_mb">
+														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
+															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+															<div class="defect_image_detail_mb">
+																<img class="card_image_detail" :src="p.url" alt="">
+															</div>
+														</div>
+													</div>
+												</slide>
+											</carousel>
+											<div class="defect_detail_info">
+												<div class="info_item">
+													<p class="author_item">Автор</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<p class="author_name">{{ dfCard[0].author }}</p>
+														</div>
+														<button class="author_chat underline-btn">Написати автору</button>
+													</div>
+												</div>
+											</div>
+											<div class="defect_detail_info">
+												<div class="info_item">
+													<p class="author_item">Адреса</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<p class="author_name">{{ dfCard[0].address }}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="defect_detail_info" v-if="dfCard[0].comment[0].text.length!=0">
+												<div class="info_item">
+													<p class="author_item">Опис</p>
+													<div class="author_info">
+														<div class="author_content">
+															<p class="author_name">{{ dfCard[0].comment[0].text }}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="defect_share_mb">
+												<button class="btn outline_button_share_mb">Надіслати в поліцію</button>
+												<button class="btn custom_button_share_mb">
+													<img class="share_icon" src="./assets/img/icons/bx_bx-share-alt.svg" alt="" >
+													Поділитись
+												</button>
+											</div>
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info_mb" :class="{open: isComments}" v-if="!appsLoaded">
+										<div class="defect_title_container">
+											<p class="defect_description">Коментарі</p>
+										</div>
+										<div class="chat_input">
+											<div class="author_info_chat">
+												<div class="author_content">
+													<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+													<p class="author_name">{{ dfCard[0].author }}</p>
+												</div>
+											</div>
+											<FormInput
+												title=""
+												label=""
+												placeholder="залишити коментар"
+												class="form-control"
+												v-model="comment"
+											/>
+										</div>
+										<div class="chat_area">
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box replies_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній"</p>
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані</p>
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ dfCard[0].author }}</p>
+													</div>
+													<p class="author_chat message_date">23.03.2021</p>
+												</div>
+												<div class="message_box replies_box">
+													<p class="message_content">Поліція каже, що дефекти розташовані. Інформацію направили до іншого органу.</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info_mb" v-if="appsLoaded">
+										<div class="defect_title_container">
+											<p class="defect_description">Документи</p>
+										</div>
+										<div class="chat_area">
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.03.2021</p>
+													</div>
+												</div>
+												<div class="doc_box">
+													<p class="message_content">Звернення до Управління патрульної поліції в Київській області</p>
+													<img class="doc_icon" src="./assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
+													<img class="doc_icon" title="Завантажити документ" src="./assets/img/icons/feather_download.svg" alt="feather download">
+												</div>
+											</div>
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="./assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.03.2021</p>
+													</div>
+												</div>
+												<div class="doc_box">
+													<p class="message_content">Відповідь від Управління патрульної поліції в Київській області</p>
+													<img class="doc_icon" src="./assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
+													<img class="doc_icon" src="./assets/img/icons/feather_download.svg" alt="feather download">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="detail_pagination_mb">
+									<button class="btn outline_button btn_outline">&lt; Попередній</button>
+									<button class="btn outline_button btn_outline">Наступний &gt;</button>
 								</div>
 							</div>
 						</div>
@@ -966,6 +1246,7 @@ export default {
 				],
 			},
 			comment: '',
+			isComments: false,
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
@@ -978,7 +1259,7 @@ export default {
 			endPage: null,
 			orgInfo: [],
 			cardCount: 10,
-			apiURL: '/routes/95a4b653d1/api',
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api/',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -1136,6 +1417,38 @@ export default {
 			padding: 0 20px;
 			width: 100%;
 		}
+		.VueCarousel {
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			width: 100%;
+			max-width: 350px;
+		}
+		.VueCarousel-slide {
+			max-width: 170px;
+		}
+		.defect_card{
+			display: flex;
+			flex-flow: column;
+			width: 100%;
+			max-width: 155px;
+			border: 1px solid var(--color-gray);
+			border-radius: 4px;
+			min-height: 200px;
+			max-height: 200px;
+			padding: 10px;
+			place-self: center;
+			transition: all 0.2s ease-in-out;
+		}
+		.card_image {
+			-o-object-fit: cover;
+			object-fit: cover;
+			width: 100%;
+			max-width: 135px;
+			max-height: 120px;
+			min-width: 125px;
+			min-height: 120px;
+		}
 		.header_mb{
 			width: 100%;
 			height: 100%;
@@ -1183,7 +1496,11 @@ export default {
 	/* Carousel style START*/
 
 	.VueCarousel-slide{
-		max-width: 170px;
+		max-width: 190px;
+	}
+
+	.VueCarousel-inner{
+		flex-basis: 190px;
 	}
 
 	.VueCarousel {
@@ -1191,7 +1508,7 @@ export default {
 		flex-direction: column;
 		position: relative;
 		width: 100%;
-		max-width: 680px;
+		max-width: 760px;
 	}
 
 	.VueCarousel-navigation-next{
@@ -1300,6 +1617,20 @@ export default {
 		align-items: center;
 		justify-content: space-around;
 	}
+	.custom_button_share_mb {
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-default);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		/* max-width: 160px; */
+		width: 100%;
+		margin:10px 0;
+		border-radius: 4px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 	.custom_button_share:hover{
 		background-color: var(--button-hover);
 	}
@@ -1366,6 +1697,20 @@ export default {
 		margin:5px 0;
 		border-radius: 4px;
 	}
+	.outline_button_share_mb{
+		font: 700 1.1rem 'Montserrat';
+		background-color: var(--button-outline);
+		font-size: .9rem;
+		font-weight: bold;
+		text-transform: none;
+		/* max-width: 180px; */
+		width: 100%;
+		padding: 4px 6px;
+		color: var(--color-black);
+		border: 1px solid var(--color-black);
+		margin:5px 0;
+		border-radius: 4px;
+	}
 	.outline_button_share:hover{
 		background-color: var(--button-outline);
 		border: 1px solid var(--color-gray-light);
@@ -1381,6 +1726,13 @@ export default {
 		width: 350px;
 		justify-content: space-between;
 		align-items: center;
+	}
+	.defect_share_mb{
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
 	}
 	.footer-outline_button{
 		font: 700 1.1rem 'Montserrat';
@@ -1447,6 +1799,9 @@ export default {
 		font: 500 .9rem 'Montserrat';
 		cursor: pointer;
 	}
+	.underline-btn:focus{
+		background-color: var(--background-color-prefooter);
+	}
 	.underline-btn:hover{
 		border-bottom: 2px solid var(--color-red);
 	}
@@ -1494,6 +1849,10 @@ export default {
 
 	.hero-item_message{
 		display: none;
+	}
+
+	.qr_message{
+		object-fit: cover;
 	}
 
 	.hero-item:hover + .hero-item_message{
@@ -1662,6 +2021,8 @@ export default {
 		}
 		.container_defects_mb{
 			padding: 8px 0;
+			overflow: hidden;
+			position: relative;
 		}
 		.button_container_mb{
 			flex-flow: column-reverse;
@@ -1682,6 +2043,7 @@ export default {
 		}
 		.defect_content_mb{
 			padding: 0;
+			overflow: hidden;
 		}
 		.footer_container_mb{
 			display: flex;
@@ -1832,13 +2194,16 @@ export default {
 			position: relative;
 			left: 35px;
 		}
-		.card_image{
+		.card_image_mb{
 			object-fit: cover;
 			width: 100%;
-			max-width: 125px;
+			max-width: 140px;
 			max-height: 120px;
 			min-width: 125px;
 			min-height: 120px;
+		}
+		.VueCarousel-slide{
+			max-width: 165px;
 		}
 	}
 
@@ -2044,12 +2409,31 @@ export default {
 		padding: 0 10px;
 		height: 100%;
 		flex: 1 1 60%;
+		overflow: hidden;
+	}
+	.defect_content_mb{
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		width: 100%;
+		padding: 0 10px;
+		height: 100%;
+		/* flex: 1 1 60%; */
+		overflow: hidden;
 	}
 	.defect_links{
 		width: 100%;
 		position: relative;
 		text-align: left;
 		margin: 0 0 12px 0;
+		display: inline-block;
+	}
+	.defect_links_mb{
+		width: 100%;
+		position: relative;
+		text-align: left;
+		margin: 18px 0;
 		display: inline-block;
 	}
 	.defect_nav_container{
@@ -2069,10 +2453,34 @@ export default {
 		display: flex;
 		padding: 20px 0
 	}
+	.defect_info_content_mb{
+		display: flex;
+		padding: 20px 0;
+	}
 	.defect_description_info{
-		flex: 1 1 50%;
+		flex: 1 0 50%;
 		position: relative;
 		padding: 12px;
+	}
+	.defect_description_info_mb{
+		position: absolute;
+		left: 0;
+		transform: translateX(360px);
+		transition: transform .3s ease-out;
+		background: #fff;
+		padding: 8px;
+		height: 50%;
+		/* display: none; */
+	}
+	.defect_description_info_mb.open{
+		position: absolute;
+		left: 0;
+		transform: translateX(0);
+		transition: transform .3s ease-out;
+		background: #fff;
+		padding: 8px;
+		height: 55%;
+		/* display: block; */
 	}
 	.defect_nav_item p{
 		margin: 0 15px 0 0;
@@ -2081,6 +2489,14 @@ export default {
 		cursor: pointer;
 		display: inline-block;
 		font: 500;
+	}
+	.defect_nav_item_mb p{
+		margin: 0 15px 0 0;
+		padding: 12px 0;
+		color: var(--color-gray);
+		cursor: pointer;
+		display: inline-block;
+		font: 500 .8rem 'Montserrat';
 	}
 	.defect_nav_item p:hover{
 		color: var(--color-black);
@@ -2138,6 +2554,7 @@ export default {
 	.author_name, .author_chat{
 		font: 500 .7rem 'Montserrat';
 		text-align: left;
+		white-space: nowrap;
 	}
 	.detail_defect_status{
 		display: flex;
@@ -2157,8 +2574,14 @@ export default {
 		display: flex;
 		justify-content: space-between;
 	}
+	.detail_pagination_mb{
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		margin: 65px 0 0;
+	}
 	.btn_outline{
-		max-width: 140px;
+		max-width: 141px;
 	}
 	.defect_status_item{
 		background: var(--status-color);
@@ -2252,19 +2675,48 @@ export default {
 		display: flex;
 		flex-flow: column;
 		width: 100%;
-		max-width: 165px;
+		max-width: 185px;
 		border: 1px solid var(--color-gray);
 		border-radius: 4px;
 		min-height: 200px;
 		max-height: 200px;
 		padding: 10px;
 		place-self: center;
+		transition: all 0.2s ease-in-out;
+	}
+	.defect_card_mb{
+		display: flex;
+		flex-flow: column;
+		width: 100%;
+		max-width: 155px;
+		border: 1px solid var(--color-gray);
+		border-radius: 4px;
+		min-height: 200px;
+		max-height: 200px;
+		padding: 10px;
+		place-self: center;
+		transition: all 0.2s ease-in-out;
+	}
+	.defect_card:hover{
+		background: var(--background-color-prefooter);
+		border: 1px solid var(--color-black);
+		filter: drop-shadow(2px 3px 3px var(--color-gray-light));
+		cursor: pointer;
 	}
 	.defect_card_detail{
 		display: flex;
 		flex-flow: column;
 		width: 175px;
 		/* max-width: 165px; */
+		border-radius: 4px;
+		padding: 0 5px;
+		place-self: center;
+	}
+	.defect_card_detail_mb{
+		display: flex;
+		flex-flow: column;
+		width: 100%;
+		max-width: 165px;
 		border-radius: 4px;
 		padding: 0 5px;
 		place-self: center;
@@ -2286,6 +2738,9 @@ export default {
 		margin: 8px 0;
 		width: 90%;
 		display: flex;
+	}
+	.message_box:hover{
+		background: var(--background-color-prefooter);
 	}
 	.doc_box{
 		text-align: left;
@@ -2381,10 +2836,17 @@ export default {
 		max-width: 170px;
 		/* height: 100%; */
 	}
+	.card_image_detail_mb{
+		object-fit: cover;
+		width: 100%;
+		min-height: 130px;
+		max-width: 150px;
+		/* height: 100%; */
+	}
 	.card_image{
 		object-fit: cover;
 		width: 100%;
-		max-width: 140px;
+		/* max-width: 140px; */
 		max-height: 120px;
 		min-width: 125px;
 		min-height: 120px;

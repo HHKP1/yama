@@ -66,8 +66,14 @@ export default {
 		top: 0;
 		right: 0;
 		cursor: pointer;
-		background: url(../assets/img/search_icon.png) no-repeat center right !important;
-		/* clip-path: polygon(100% 0%, 0 0%, 50% 100%) !important; */
+		background: url(../assets/img/search_icon.png) no-repeat 95% 60%;
+	}
+	.input-field > input:not([type="date"]):not([placeholder="Пошук дефектів за адресою"]):not([type="search"]){
+		position: relative;
+		top: 0;
+		right: 0;
+		cursor: pointer;
+		background: url(../assets/img/icons/send_icon.svg) no-repeat 95% 60%;
 	}
 	input {
 		border: 1px solid #ccc !important;
