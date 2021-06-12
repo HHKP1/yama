@@ -697,19 +697,19 @@
 						<h2 class="section_title">Колекція дефектів</h2>
 						<div class="container_defects_mb">
 							<div class="filters_controls_mb">
-										<p class="filter_title_mb" :class="{expand: isExpand}" @click="isExpand = !isExpand" style="text-align:left;">фільтри</p>
-										<div class="sorted_item_mb">
-											<FormSelect
-												label="Сортування"
-												placeholder=""
-												:options="options.options_sort_by"
-												v-model="sort_by"
-												class="form-control_outline_mb"
-												type="search"
-											/>
-										</div>
+								<p class="filter_title_mb" :class="{expand: isExpand}" @click="isExpand = !isExpand" style="text-align:left;">фільтри</p>
+								<div class="sorted_item_mb">
+									<FormSelect
+										label="Сортування"
+										placeholder=""
+										:options="options.options_sort_by"
+										v-model="sort_by"
+										class="form-control_outline_mb"
+										type="search"
+									/>
+								</div>
 							</div>
-							<div class="defect_filters_mb" v-show="appsLoaded">
+							<div class="defect_filters_mb">
 								<div class="filters_block_mb" :class="{expand: isExpand}">
 									<FormInput
 										title=""
@@ -858,7 +858,7 @@
 								<router-link class="defect_links_mb" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
-								<carousel :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+								<carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 									<slide v-for='(card, idx) of dfCard' :key='idx'>
 										<div class="defect_card_mb">
 											<div class="my-container" style="width: 100%;display: block;height: 100%;">
@@ -886,7 +886,7 @@
 									</slide>
 								</carousel>
 								<div class="defect_nav_container">
-									<div class="defect_nav">
+									<div class="defect_nav_mb">
 										<div class="defect_nav_item_mb"><p>Детальна інформація</p></div>
 										<div class="defect_nav_item_mb" @click="isComments = !isComments"><p>Коментарі</p></div>
 										<div class="defect_nav_item_mb"><p>Документи</p></div>
@@ -2447,6 +2447,15 @@ export default {
 		height: auto;
 		position: relative;
 		max-height: 43px;
+	}
+	.defect_nav_mb{
+		display: flex;
+		padding: 1px;
+		height: auto;
+		position: relative;
+		max-height: 43px;
+		margin: 20px 0;
+		justify-content: space-between;
 	}
 	.defect_info_content{
 		width: 100%;
