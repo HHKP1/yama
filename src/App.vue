@@ -779,7 +779,6 @@
 
 <script>
 import Vue from 'vue';
-// import VueMq from 'vue-mq';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
@@ -889,17 +888,17 @@ export default {
 	},
 	mounted() {},
 	methods: {
-		eventHandler(data) {
-			if(data.events.length > 0) {
-				data.events.forEach((e, i) => {
-					if(process.env.NODE_ENV !== 'production') {
-						console.log('eventHandler | Received event:');
-						console.log(e);
-					}
-					this.$eventBus.$emit(e.type, e);
-				});
-			}
-		},
+		// eventHandler(data) {
+		// 	if(data.events.length > 0) {
+		// 		data.events.forEach((e, i) => {
+		// 			if(process.env.NODE_ENV !== 'production') {
+		// 				console.log('eventHandler | Received event:');
+		// 				console.log(e);
+		// 			}
+		// 			this.$eventBus.$emit(e.type, e);
+		// 		});
+		// 	}
+		// },
 		abortableFetch(request, opts, raw = false) {
 			const controller = new AbortController();
 			const signal = controller.signal;
