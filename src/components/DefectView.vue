@@ -7,7 +7,6 @@
 								<router-link class="defect_links" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
-								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 								<DefectSortedGrid />
 								<div class="defect_nav_container">
 									<div class="defect_nav">
@@ -17,6 +16,7 @@
 									</div>
 								</div>
 								<div class="defect_info_content">
+								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 									<div class="defect_description_info">
 										<div class="defect_detail">
 											<div class="defect_title_container">
@@ -27,10 +27,11 @@
 										<div class="defect_detail">
 											<div class="detail_defect_status">
 												<div class="status_item_id">
-													<span class="defect_id">#fdsfsfds</span>
+													<span class="defect_id">#{{defect.id}}</span>
 												</div>
 												<div class="defect_status_item">
-													<span>Новий</span>
+													<span v-if="defect.case_status=='new'">Новий</span>
+													<span v-if="defect.case_status=='in_progress'">В процесі</span>
 												</div>
 											</div>
 										</div>
@@ -584,7 +585,7 @@ export default {
 	beforeDestroy() {
 		this.$eventBus.$off('applicationUpdated');
 	},
-	async mounted() {
+	mounted() {
 		this.$API.title = "Дефект";
 		this.$API.page = "DefectView";
 		this.loadCard(true);
@@ -614,9 +615,9 @@ export default {
 				this.isActive=false;
 			}
 		},
-		async reloadCollection() {
-			this.loadDefect(this.defect.id);
-		},
+		// async reloadCollection() {
+		// 	this.loadDefect(this.defect.id);
+		// },
 		async loadCard(change){
 			this.isActive=true;
 			try{

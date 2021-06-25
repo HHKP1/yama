@@ -27,12 +27,12 @@ Vue.use(require('vue-moment'), {
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
 
 const routes = [
-	{ path: './', component: CollectionList },
+	{ path: '/', component: CollectionList },
 	// { path: '/collections', component: CollectionList },
 	// { path: '/collections/:listType', component: CollectionList },
-	{ path: './defect/:id', component: DefectView, name: 'DefectView' },
+	{ path: '/defect/:id', component: DefectView, name: 'DefectView' },
 	// { path: '/defect/', components: DefectSortedGrid, name: 'DefectSortedGrid' },
-	{ path: './404', component: NotFoundPage },
+	{ path: '/404', component: NotFoundPage },
 ]
 
 const router = new VueRouter({

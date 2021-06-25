@@ -748,7 +748,8 @@
 							<a href="/">
 								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
 							</a>
-							<p class="trade_mark">УкрЯма &copy;{{ new Date() | moment("YYYY") }}</p>
+							<p class="trade_mark" v-html="htmlEntities"></p>
+							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
 						</div>
 						<div class="footer_links">
 							<div class='nav_links' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
@@ -763,7 +764,8 @@
 							<a href="/">
 								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
 							</a>
-							<p class="trade_mark">УкрЯма &copy;{{ new Date() | moment("YYYY") }}</p>
+							<p class="trade_mark" v-html="htmlEntities"></p>
+							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
 						</div>
 						<div class="footer_links_mb">
 							<div class='nav_links_mb' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
@@ -859,6 +861,7 @@ export default {
 				],
 			},
 			comment: '',
+			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
 			isOpen: false,
 			isActive: false,

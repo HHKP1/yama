@@ -236,27 +236,27 @@ export default {
 		}
 	},
 	created() {
-		this.$eventBus.$on('applicationUpdated', async (event) => {
-			if(this.$route.params.id) {
-				if(this.$route.params.id == event.payload.id) {
-					await this.reloadApplication();
-				}
-			}
-		});
+		// this.$eventBus.$on('applicationUpdated', async (event) => {
+		// 	if(this.$route.params.id) {
+		// 		if(this.$route.params.id == event.payload.id) {
+		// 			await this.reloadApplication();
+		// 		}
+		// 	}
+		// });
 	},
 	beforeDestroy() {
-		this.$eventBus.$off('applicationUpdated');
+		// this.$eventBus.$off('applicationUpdated');
 	},
 	async mounted() {
 		this.$API.title = "Дефекти";
 		this.$API.page = "DefectSortedGrid";
 		this.loadCard(true);
-		let id = this.$route.params.id;
-		if(!id) {
-			this.router.push("/404");
-			return;
-		}
-		this.loadDefect(id);
+		// let id = this.$route.params.id;
+		// if(!id) {
+		// 	this.router.push("/404");
+		// 	return;
+		// }
+		// this.loadDefect(id);
 	},
 	methods: {
 		reducer: (acc, curr) => acc + curr,
