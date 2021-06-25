@@ -1,5 +1,5 @@
 module.exports = {
-	publicPath: process.env.NODE_ENV === 'production' ? './' : './',
+	publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
 	devServer: {
 		// headers: { "Access-Control-Allow-Origin": "*" },
 		proxy: {
@@ -13,8 +13,8 @@ module.exports = {
 			},
 		}
 	},
-	outputDir: './public/',
-	assetsDir: './assets',
+	// outputDir: './public/',
+	// assetsDir: './assets',
 	// lintOnSave: false,
 	productionSourceMap: false
 }

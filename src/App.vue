@@ -409,62 +409,8 @@
 									<button class="btn custom_button">Показати</button>
 								</div>
 							</div>
-							<div class="defect_content" v-show="appsLoaded">
-								<div class="defect_filter_count">
-									<div class="defect_filter_item">
-										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
-										<!-- <p class="defect_title"  v-for="(f, idx) of dfCard" :key="idx">Кількість регіонів: <span>{{ f.address}}</span></p> -->
-									</div>
-								</div>
-								<div class="sorted_item">
-									<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
-									<FormSelect
-										label=""
-										placeholder=""
-										:options="options.options_sort_by"
-										v-model="sort_by"
-										class="form-control_outline"
-										type="search"
-									/>
-								</div>
-								<div class="grid-container">
-									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
-										<div class="my-container" style="width: 100%;display: block;height: 100%;">
-											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-											<div class="defect_image">
-												<img class="card_image" :src="card.photo[0].url" alt="">
-												<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
-												<div class="defect_color"></div>
-											</div>
-											<div class="defect_info">
-												<div class="defect_status">
-													<div class="status_item">
-														<span v-if="card.status=='new'">Новий</span>
-														<span v-if="card.status=='in_progress'">В процесі</span>
-													</div>
-													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-														<p class="status_count">{{ card.comment.length }}</p>
-														<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
-													</div>
-												</div>
-												<p class="defect_adress" :title="card.address">{{ card.address }}</p>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="card_pagination">
-									<div class="pagination_control">
-										<ul class="pagination">
-											<li class="disabled"><a href="#!">F</a></li>
-											<li class="active"><a href="#!">1</a></li>
-											<li class="waves-effect"><a href="#!">2</a></li>
-											<li class="waves-effect"><a href="#!">3</a></li>
-											<li class="waves-effect"><a href="#!"> > </a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="defect_content" v-show="!appsLoaded">
+							<router-view v-if="!appsLoaded"></router-view>
+							<!-- <div class="defect_content" v-if="appsLoaded">
 								<router-link class="defect_links" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -688,7 +634,7 @@
 									<button class="btn outline_button btn_outline">&lt; Попередній</button>
 									<button class="btn outline_button btn_outline">Наступний &gt;</button>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</mq-layout>
@@ -760,7 +706,10 @@
 									<button class="btn custom_button">Показати</button>
 								</div>
 							</div>
-							<div class="defect_content_mb" v-show="appsLoaded">
+							<router-view v-if="!appsLoaded">
+								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+							</router-view>
+							<!-- <div class="defect_content_mb" v-if="!appsLoaded">
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb">
 									<div class="defect_card" v-for='(card, idx) of dfCard' :key='idx'>
@@ -798,12 +747,11 @@
 										</ul>
 									</div>
 								</div>
-							</div>
-							<div class="defect_content" v-show="appsLoaded">
+							</div> -->
+							<!-- <div class="defect_content" v-if="!appsLoaded">
 								<div class="defect_filter_count">
 									<div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
-										<!-- <p class="defect_title"  v-for="(f, idx) of dfCard" :key="idx">Кількість регіонів: <span>{{ f.address}}</span></p> -->
 									</div>
 								</div>
 								<div class="sorted_item">
@@ -853,8 +801,8 @@
 										</ul>
 									</div>
 								</div>
-							</div>
-							<div class="defect_content_mb" v-show="!appsLoaded">
+							</div> -->
+							<!-- <div class="defect_content_mb" v-if="!appsLoaded">
 								<router-link class="defect_links_mb" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -1078,7 +1026,7 @@
 									<button class="btn outline_button btn_outline">&lt; Попередній</button>
 									<button class="btn outline_button btn_outline">Наступний &gt;</button>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</mq-layout>
@@ -1143,40 +1091,24 @@
 					</div>
 				</mq-layout>
 			</section>
-			<router-view></router-view>
 		</main>
 	</div>
 </template>
 
 <script>
 import Vue from 'vue';
-import VueMq from 'vue-mq';
-import { Carousel, Slide } from 'vue-carousel';
-import VueElementLoading from 'vue-element-loading';
+// import VueMq from 'vue-mq';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
-// import Pagination from './components/Pagination.vue';
 
 // import defectCards from './mock_data';
 
-Vue.use(VueMq, {
-	breakpoints: {
-		sm: 450,
-		md: 1135,
-		lg: Infinity,
-	},
-	defaultBreakpoint: 'lg'
-});
-
 export default {
-	name: 'App',
+	name: 'app',
 	components: {
-		VueElementLoading,
 		FormInput,
 		FormSelect,
-		Carousel,
-		Slide
 	},
 	data() {
 		return {
@@ -1210,7 +1142,7 @@ export default {
 				},
 				{
 					name: 'Dowloads',
-					text: 'завантаження',
+					text: 'Завантаження',
 					path: '/downloads'
 				},
 				{
@@ -1251,15 +1183,13 @@ export default {
 			isActive: false,
 			isExpand: false,
 			appsLoaded: false,
-			data: [],
 			currentPage: null,
 			totalPages: null,
 			perPage: null,
 			startPage: null,
 			endPage: null,
-			orgInfo: [],
 			cardCount: 10,
-			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api/',
+			apiURL: '/api/',
 			search: '',
 			search_by_adress: '',
 			search_by_date: '',
@@ -1273,11 +1203,52 @@ export default {
 	},
 	async created() {
 		Vue.prototype.$API = this;
-		this.loadCard(true);
+		// this.loadCard(true);
 	},
-	mounted() {
-	},
+	mounted() {},
 	methods: {
+		eventHandler(data) {
+			if(data.events.length > 0) {
+				data.events.forEach((e, i) => {
+					if(process.env.NODE_ENV !== 'production') {
+						console.log('eventHandler | Received event:');
+						console.log(e);
+					}
+					this.$eventBus.$emit(e.type, e);
+				});
+			}
+		},
+		abortableFetch(request, opts, raw = false) {
+			const controller = new AbortController();
+			const signal = controller.signal;
+			if(raw) {
+				return {
+					abort: () => controller.abort(),
+					ready: fetch(request, {
+						...opts,
+						signal
+					}).then((response) => response)
+				};
+			} else {
+				return {
+					abort: () => controller.abort(),
+					ready: fetch(request, {
+						...opts,
+						signal
+					}).then((response) => {
+						return response.json().then((data) => {
+							if(response.status == 401) {
+								console.log("Unauthorized:", request);
+								// this.doLogout();
+								// this.dirtyExit = true;
+								throw Error("Logging out");
+							}
+							return data;
+						});
+					})
+				};
+			}
+		},
 		apiGET: async function(endpoint){
 			let headers={
 				'Accept': 'application/json',
@@ -1290,6 +1261,17 @@ export default {
 			});
 			let data = await response.json();
 			return data;
+		},
+		apiGETv2: function(endpoint, raw = false) {
+			let headers = {
+				'Accept': 'application/json',
+			};
+			// if(auth)
+			// 	headers["Authorization"] = `Bearer ${this.token}`;
+			return this.abortableFetch(this.apiURL + endpoint, {
+				method: 'GET',
+				headers: headers
+			}, raw);
 		},
 		openMenu(){
 			if(!this.isOpen){
@@ -1305,58 +1287,8 @@ export default {
 			}
 		},
 		reducer: (acc, curr) => acc + curr,
-		async loadCard(change){
-			this.isActive=true;
-			try{
-				this.pendingUpdate = await this.apiGET("/defects?");
-				if(!this.pendingUpdate)
-					this.isActive=true;
-				let result = await this.pendingUpdate;
-				this.orgInfo=result;
-				this.isActive=false;
-				return this.orgInfo;
-			}catch(e){
-				console.log(e);
-				this.isActive=false;
-			}
-		},
 	},
-	computed: {
-		// Mock Data
-		// defectCard(){
-		// 	return defectCards.map(card => {
-		// 	// console.log(card);
-		// 		return {
-		// 			address: card.address,
-		// 			photo: card.photos,
-		// 			status: card.case_status,
-		// 			comment: card.comments,
-		// 			// region_id: card.region_id,
-		// 		}
-		// 	})
-		// },
-
-		//API Data
-		dfCard(){
-			return this.$API.orgInfo.map(card => {
-				return {
-					address: card.address,
-					photo: card.photos,
-					status: card.case_status,
-					comment: card.comments,
-					author: card.author.name,
-					// region_id: card.photos[0].region_id,
-				}
-			});
-		},
-		statusList(){
-			let caseStatuses = [
-				{ value: 'new', label: 'Новий' },
-				{ value: 'in_progress', label: 'В процесі' }
-			]
-			return caseStatuses;
-		}
-	},
+	computed: {},
 	watch: {}
 }
 </script>
@@ -1496,7 +1428,7 @@ export default {
 	/* Carousel style START*/
 
 	.VueCarousel-slide{
-		max-width: 190px;
+		max-width: 175px;
 	}
 
 	.VueCarousel-inner{
@@ -1508,7 +1440,7 @@ export default {
 		flex-direction: column;
 		position: relative;
 		width: 100%;
-		max-width: 760px;
+		max-width: 700px;
 	}
 
 	.VueCarousel-navigation-next{
@@ -1727,6 +1659,9 @@ export default {
 		justify-content: space-between;
 		align-items: center;
 	}
+	.just-text{
+		width: 100%;
+	}
 	.defect_share_mb{
 		display: flex;
 		width: 100%;
@@ -1805,1061 +1740,6 @@ export default {
 	.underline-btn:hover{
 		border-bottom: 2px solid var(--color-red);
 	}
-
-	.header {
-		width: 100%;
-		height: 395px;
-		background: url(./assets/img/head_bg.png) no-repeat center;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.input-field > label:not(.label-icon) {
-		display: inline-block;
-		background-color: var(--color-white);
-		color: var(--color-gray-light);
-		padding: 0 6px;
-		transform-origin: 0 0;
-		transform: translate(14px, -6px);
-		font-size: 0.8rem !important;
-		z-index: 1;
-	}
-
-	.head-container {
-		display: flex;
-		justify-content: space-between;
-		position: relative;
-		top: -30px;
-		padding: 0 20px;
-		width: 100%;
-	}
-
-	.main-hero {
-		flex: 0 1 40%;
-	}
-
-	.head-hero {
-		justify-content: space-between;
-		display: flex;
-		flex-flow: column;
-		padding: 0 0 0 20px;
-		text-align: left;
-	}
-
-	.hero-item_message{
-		display: none;
-	}
-
-	.qr_message{
-		object-fit: cover;
-	}
-
-	.hero-item:hover + .hero-item_message{
-		display: flex !important;
-		flex-flow: column;
-		position: absolute;
-		background-color: var(--background-color-normal);
-		border-radius: 4px;
-		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
-		/* width: 100%; */
-		max-width: 100px;
-		padding: 16px 14px;
-		left: -27px;
-	}
-	.hero-item_message:hover{
-		display: flex !important;
-		flex-flow: column;
-		position: absolute;
-		background-color: var(--background-color-normal);
-		border-radius: 4px;
-		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
-		/* width: 100%; */
-		max-width: 100px;
-		padding: 16px 14px;
-		left: -27px;
-	}
-
-	.hero-item_message::after{
-		content: "";
-		position: absolute;
-		bottom: 100%;
-		left: 50%;
-		margin-left: -5px;
-		border-width: 5px;
-		border-style: solid;
-		border-color: transparent transparent var(--background-color-normal) transparent;
-		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
-	}
-
-	.hero-content_block{
-		position: relative;
-	}
-
-	.message_title{
-		font: 500 .6rem 'Montserrat';
-	}
-
-	@media all and (max-width:768px){
-		.arrow_forward{
-			position: absolute;
-			left: 75%!important;
-			width: 85%!important;
-		}
-		.arrow_fork{
-			position: absolute;
-			left: 38%!important;
-			top: 47%!important;
-			width: 13%!important;
-		}
-		.arrow_fork_down_mb{
-			position: absolute;
-			left: 7%;
-			bottom: 30%;
-			width: 25%;
-			transform: rotate(90deg);
-		}
-		.arrow_down{
-			position: absolute;
-			right: 14% !important;
-			/* height: 8%; */
-			top: 50%;
-			width: 3%;
-			/* transform: rotate(0deg); */
-		}
-		.footer-btn{
-			max-width: 179px!important;
-			margin: 0 2px!important;
-		}
-		.sorted_item{
-			justify-content: flex-start!important;
-			flex-flow: column!important;
-		}
-		.sorted_title{
-			font: 500 .8rem "Montserrat-regular", Arial, Helvetica, sans-serif!important;
-			text-align: left!important;
-			width: 100%!important;
-		}
-		.hero-item {
-			font: 500 1.2rem "Montserrat-regular", Arial, Helvetica, sans-serif!important;
-		}
-	}
-
-	@media all and (max-width:450px){
-		main.open {
-			width: 100%;
-			position: fixed;
-			top: 0;
-		}
-		.icon_container_mb{
-			display: flex;
-			flex-flow: column;
-			justify-content: center;
-			align-items: center;
-		}
-		.chat_icon_description_mb{
-			margin: 12px 0;
-			font: 500 .8rem 'Montserrat'
-		}
-		.head-hero_mb{
-			justify-content: space-between;
-			display: flex;
-			flex-flow: column;
-			padding: 0 4px;
-			text-align: left;
-			margin: 8px 0;
-		}
-		.prefooter_title_mb{
-			font: 700 1.15rem 'Montserrat'
-		}
-		.hero-container_mb{
-			background-color: var(--background-color-normal);
-			border: none !important;
-			width: 100% !important;
-			position: relative;
-			/* margin: 0 auto; */
-			padding: 16px 0;
-		}
-		.main-counter_mb{
-			display: flex;
-			justify-content: space-evenly;
-			flex-flow: column-reverse;
-			background: #fff;
-			margin: 15px 0 0 0;
-			padding: 45px 0;
-		}
-		.counter-item_mb{
-			margin: 18px 0;
-		}
-		.hero-btn_mb{
-			font: 700 1.1rem 'Montserrat';
-			width: 100%;
-			text-transform: none;
-		}
-		.hero-title_mb {
-			display: flex;
-			justify-content: center;
-			width: 100%;
-			position: relative;
-			padding: 18px 0;
-		}
-		.container_steps_mb{
-			display: flex;
-			justify-content: space-evenly;
-			align-items: center;
-			flex-flow:column;
-			width: 100%;
-			/* margin: 0 auto; */
-			padding: 20px 0;
-		}
-		.container_works_mb{
-			padding: 0 6px;
-		}
-		.container_defects{
-			display: flex;
-			flex-flow:column;
-		}
-		.container_defects_mb{
-			padding: 8px 0;
-			overflow: hidden;
-			position: relative;
-		}
-		.button_container_mb{
-			flex-flow: column-reverse;
-		}
-		.step_item_col_mb {
-			justify-content: space-between;
-			display: flex;
-			flex-flow: row;
-			width: 100%;
-		}
-		.grid-container_mb {
-			width: 100%;
-			position: relative;
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-			/* grid-template-rows: 1fr 1fr; */
-			gap: 18px 8px;
-		}
-		.defect_content_mb{
-			padding: 0;
-			overflow: hidden;
-		}
-		.footer_container_mb{
-			display: flex;
-			justify-content: space-between;
-			flex-flow: column;
-			padding: 20px 8px;
-		}
-		.footer_logo_mb{
-			display: flex;
-			align-items: flex-start;
-			flex-flow: column;
-		}
-		.footer_links_mb{
-			display: flex;
-			justify-content: center;
-			flex-flow: column;
-			flex: 1 1 auto;
-		}
-		#footer_nav_mb{
-			padding: 15px 15px;
-			display: flex;
-			justify-content: space-between;
-			align-items: flex-start;
-			width: 100%;
-		}
-		.footer-btn_mb{
-			/* max-width: 180px; */
-			margin: 6px 4px;
-			font: 500 .8rem 'Montserrat';
-		}
-		.nav_links_mb{
-			margin: 0 0 20px 15px !important;
-			white-space: nowrap;
-		}
-		.form-control_outline_mb{
-			width: 100%;
-			border: 1px solid var(--color-gray-light);
-			border-radius: 4px;
-		}
-		.form-control_outline_mb>select{
-			width: 100%;
-		}
-		.form-control_outline_mb>label{
-			background-color: var(--color-white);
-			transform: translate(8px, -6px);
-			font-size: 0.8rem !important;
-			display: block !important;
-		}
-		/* .input-field > label:not(.label-icon){
-			display: none;
-		} */
-		/* .input-field>label{
-			background: var(--color-white);
-			display: none;
-		} */
-		.input-field > label:not(.label-icon) {
-			display: inline-block;
-			background: var(--color-white);
-			background-color: var(--color-white);
-			padding: 0 6px;
-			transform-origin: 0 0;
-			transform: translate(14px, -6px);
-			font-size: 0.8rem !important;
-			z-index: 1;
-		}
-		.input-field > label.active {
-			display: block;
-			background: var(--color-white);
-			transform-origin: 0 0;
-			transform: translate(8px, -6px) !important;
-			font-size: 0.8rem !important;
-		}
-		.sorted_item_mb{
-			display: flex;
-			justify-content: flex-start;
-			/* align-items: center; */
-			flex-flow: column-reverse;
-			width: 100%;
-			padding: 0;
-		}
-		.filters_controls_mb{
-			display: flex;
-			justify-content: space-between;
-			max-height: 35px;
-		}
-		.sorted_title_mb{
-			font: 600 .8rem 'Montserrat';
-			text-align: left;
-			margin: 12px 0;
-			padding: 0 4px;
-		}
-		.nav_links_mb > a:hover{
-			transition: all .4s ease-in-out;
-			text-decoration: none;
-			border-bottom: 1px solid var(--color-red);
-		}
-		.step_description_mb{
-			font: 500 .7rem 'Montserrat', Arial, sans-serif;
-		}
-		.arrow_fork_up_mb{
-			position: absolute;
-			left: 60%;
-			top: 65%;
-			width: 30%;
-			transform: rotate(85deg);
-		}
-		.arrow_forward_mb{
-			position: absolute;
-			left: 37%;
-			bottom: 15%;
-			width: 25%;
-			height: 2%;
-			transform: rotate(-180deg);
-		}
-		.arrow_fork_mb{
-			position: absolute;
-			left: 39%;
-			top: 42%;
-			width: 24%;
-			transform: rotate(90deg);
-		}
-		.arrow_fork_down_mb{
-			position: absolute;
-			left: 7%;
-			bottom: 30%;
-			width: 25%;
-			transform: rotate(90deg);
-		}
-		.arrow_down_mb{
-			position: absolute;
-			right: 48%;
-			/* height: 8%; */
-			top: 21%;
-			width: 3%;
-			/* transform: rotate(0deg); */
-		}
-		.step_item_mb{
-			min-height: 120px;
-			display: flex;
-			flex-flow: column;
-			align-items: center;
-		}
-		.step_item_mb_reject{
-			min-height: 120px;
-			display: flex;
-			flex-flow: column;
-			align-items: center;
-			position: relative;
-			left: 35px;
-		}
-		.card_image_mb{
-			object-fit: cover;
-			width: 100%;
-			max-width: 140px;
-			max-height: 120px;
-			min-width: 125px;
-			min-height: 120px;
-		}
-		.VueCarousel-slide{
-			max-width: 165px;
-		}
-	}
-
-	.hero-container {
-		background-color: var(--background-color-normal);
-		border: 1px solid var(--color-gray-light);
-		border-radius: 4px;
-		filter: dropshadow(23, 3, 3, var(--color-gray));
-		width: 100%;
-		max-width: 239px;
-		/* margin: 0 auto; */
-		padding: 16px 20px;
-		position: relative;
-	}
-
-	.hero-content {
-		display: flex;
-		justify-content: space-evenly;
-		margin: 0 0 20px;
-	}
-
-	.hero-title {
-		display: flex;
-		justify-content: center;
-		width: 100%;
-		position: relative;
-	}
-
-	.hero-item {
-		font: 500 1.8rem 'Montserrat';
-		cursor: text;
-	}
-
-	.hero-item .help-tips{
-		cursor: pointer;
-	}
-
-	.hero-item .p-text {
-		font: 500 .8rem 'Montserrat';
-		text-align: left;
-	}
-
-	.help-tips::after {
-		content: '?';
-	}
-
-	.hero-item .code {
-		font: 900 1.5rem 'Montserrat';
-	}
-
-	.help-tips {
-		border-radius: 100%;
-		/* border: 1px solid var(--background-color-normal); */
-		background: var(--background-color-normal);
-		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
-		width: 33px;
-	}
-
-	.help-tips:hover {
-		filter: drop-shadow(1px 2px 9px var(--color-gray-shadow-active));
-		transition: all .3s ease-out;
-	}
-
-	.hero-title .icon {
-		border: 1px solid var(--background-color-normal);
-		background: var(--background-color-normal);
-		border-radius: 100%;
-		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
-		padding: 9px;
-		display: flex;
-		cursor: pointer;
-	}
-
-	.hero-title .icon:hover {
-		filter: drop-shadow(1px 2px 9px var(--color-gray-shadow-active));
-		transition: all .3s ease-out;
-	}
-	.main-counter{
-		display: flex;
-		justify-content: space-evenly;
-		background: #fff;
-		margin: 15px 0 0 0;
-		padding: 45px 0;
-	}
-	.counter-item{
-		/* padding: 0 16px 0 0; */
-		flex: 1 1 33%;
-	}
-	.counter-item:hover{
-		background-color: var(--background-color-prefooter);
-	}
-	.counter-check{
-		font: 900 2.1rem 'Montserrat';
-		color: var(--color-red);
-	}
-	.counter-title{
-		font: 500 1.2rem 'Montserrat';
-		color: var(-text-color-bolder);
-	}
-	.counter-separator{
-		height: 90px;
-		background: black;
-		width: 1px;
-	}
-
-	/* Section How it works   */
-
-	.container_works{
-		padding: 0 20px;
-	}
-	.container_steps{
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		width: 75%;
-		margin: 0 auto;
-		padding: 20px 0;
-	}
-	.section_title{
-		font: 700 1.4rem 'Montserrat', arial, helvetica;
-		text-align: left;
-	}
-	.step_item_col{
-		justify-content: space-between;
-		display: flex;
-		flex-flow: column;
-	}
-	.step_item{
-		position: relative;
-		height: 100%;
-		min-height: 200px;
-		display: flex;
-		flex-flow: column;
-		align-items: center;
-		justify-content: center;
-		padding: 0 10px;
-		white-space: nowrap;
-	}
-	.step_description{
-		font: 500 .8rem 'Montserrat', Arial, sans-serif;
-	}
-	.step_icon{
-		border-radius: 100%;
-		border:0 solid transparent;
-		padding: 9px;
-		transition: all .3s ease-in-out;
-		display: flex;
-	}
-	.step_icon:hover{
-		border: 0 solid var(--background-color-normal);
-		background: var(--background-color-normal);
-		border-radius: 100%;
-		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
-		padding: 9px;
-		display: flex;
-		cursor: pointer;
-		font: 500 .8rem 'Montserrat', Arial, sans-serif;
-	}
-	.arrow_forward{
-		position: absolute;
-		left: 75%;
-		width: 94%;
-	}
-	.arrow_fork{
-		position: absolute;
-		left: 40%;
-		top: 43%;
-		width: 11%;
-	}
-	.arrow_fork_up{
-		position: absolute;
-		left: 22%;
-		top: 0%;
-		width: 100%;
-	}
-	.arrow_fork_down{
-		position: absolute;
-		left: 0%;
-		bottom: 0%;
-		width: 100%;
-	}
-	.arrow_down{
-		position: absolute;
-		right: 21%;
-		bottom: 40%;
-		width: 4%;
-	}
-	.justify_start{
-		justify-content: flex-start !important;
-	}
-	.justify_end{
-		justify-content: flex-end !important;
-	}
-	.container_defects{
-		display: flex;
-	}
-	.defect_content{
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
-		flex-wrap: wrap;
-		width: 100%;
-		padding: 0 10px;
-		height: 100%;
-		flex: 1 1 60%;
-		overflow: hidden;
-	}
-	.defect_content_mb{
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
-		flex-wrap: wrap;
-		width: 100%;
-		padding: 0 10px;
-		height: 100%;
-		/* flex: 1 1 60%; */
-		overflow: hidden;
-	}
-	.defect_links{
-		width: 100%;
-		position: relative;
-		text-align: left;
-		margin: 0 0 12px 0;
-		display: inline-block;
-	}
-	.defect_links_mb{
-		width: 100%;
-		position: relative;
-		text-align: left;
-		margin: 18px 0;
-		display: inline-block;
-	}
-	.defect_nav_container{
-		position: relative;
-		width: 100%;
-		display: block;
-	}
-	.defect_nav{
-		display: flex;
-		padding: 1px;
-		height: auto;
-		position: relative;
-		max-height: 43px;
-	}
-	.defect_nav_mb{
-		display: flex;
-		padding: 1px;
-		height: auto;
-		position: relative;
-		max-height: 43px;
-		margin: 20px 0;
-		justify-content: space-between;
-	}
-	.defect_info_content{
-		width: 100%;
-		display: flex;
-		padding: 20px 0
-	}
-	.defect_info_content_mb{
-		display: flex;
-		padding: 20px 0;
-	}
-	.defect_description_info{
-		flex: 1 0 50%;
-		position: relative;
-		padding: 12px;
-	}
-	.defect_description_info_mb{
-		position: absolute;
-		left: 0;
-		transform: translateX(360px);
-		transition: transform .3s ease-out;
-		background: #fff;
-		padding: 8px;
-		height: 50%;
-		/* display: none; */
-	}
-	.defect_description_info_mb.open{
-		position: absolute;
-		left: 0;
-		transform: translateX(0);
-		transition: transform .3s ease-out;
-		background: #fff;
-		padding: 8px;
-		height: 55%;
-		/* display: block; */
-	}
-	.defect_nav_item p{
-		margin: 0 15px 0 0;
-		padding: 12px 0;
-		color: var(--color-gray);
-		cursor: pointer;
-		display: inline-block;
-		font: 500;
-	}
-	.defect_nav_item_mb p{
-		margin: 0 15px 0 0;
-		padding: 12px 0;
-		color: var(--color-gray);
-		cursor: pointer;
-		display: inline-block;
-		font: 500 .8rem 'Montserrat';
-	}
-	.defect_nav_item p:hover{
-		color: var(--color-black);
-		border-bottom: 2px solid var(--color-gray);
-		font: 700;
-	}
-	.defect_detail{
-		position: relative;
-		width: 100%;
-	}
-	.defect_title_container{
-		position: relative;
-		width: 100%;
-		text-align: left;
-	}
-	.defect_detail_title{
-		font: 700 2.8rem 'Montserrat', sans-serif !important;
-		margin: 0;
-	}
-	.defect_description{
-		font: 700 1.2rem 'Montserrat', sans-serif;
-	}
-	.info_item{
-		display: flex;
-		flex-flow: column;
-		justify-content: flex-start;
-		align-items: flex-start;
-		padding: 12px 0;
-		font: 700 .8rem 'Montserrat';
-	}
-	.author_item{
-		margin: 10px 0;
-	}
-	.author_icon{
-		margin: 0 5px 0 0;
-	}
-	.author_info{
-		display: flex;
-		width: 100%;
-		justify-content: space-between;
-	}
-	.author_info_chat{
-		display: flex;
-		width: 100%;
-		justify-content: space-between;
-		margin: 8px 0;
-	}
-	.author_chat_info{
-		display: flex;
-	}
-	.author_content{
-		display: flex;
-		justify-content: space-between;
-	}
-	.author_name, .author_chat{
-		font: 500 .7rem 'Montserrat';
-		text-align: left;
-		white-space: nowrap;
-	}
-	.detail_defect_status{
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-	}
-	.status_item_id{
-		background: var(--color-gray);
-		border-radius: 4px;
-		color: var(--color-white);
-		padding: 3px 4px;
-		font-size: .8rem;
-		margin: 18px 4px;
-	}
-	.detail_pagination{
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-	}
-	.detail_pagination_mb{
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		margin: 65px 0 0;
-	}
-	.btn_outline{
-		max-width: 141px;
-	}
-	.defect_status_item{
-		background: var(--status-color);
-		border-radius: 4px;
-		color: var(--color-white);
-		padding: 3px 4px;
-		font-size: .8rem;
-		margin: 18px 4px;
-	}
-	.filter_title_mb{
-		text-align: left;
-		background: var(--color-red);
-		color: white;
-		padding: 8px 6px 12px;
-		border-radius: 4px;
-		flex: 0 0 48%;
-		display: flex;
-		justify-content: space-between;
-	}
-	.filter_title_mb::after{
-		content: '';
-		background: url(./assets/img/icons/arrow_Stroke.svg) no-repeat center left;
-		width: 14px;
-		display: flex;
-		position: relative;
-		transition: transform .2s ease-out;
-	}
-	.filter_title_mb.expand::after{
-		content: '';
-		transform: rotate(-180deg);
-		transition: transform .2s ease-out;
-		transition-delay: .15s;
-	}
-	.defect_filters{
-		flex: 1 1 40%;
-		max-width: 350px;
-	}
-	.defect_filters_mb{
-		flex: 1 1 40%;
-		/* max-width: 350px; */
-		display: flex;
-		flex-flow: column-reverse;
-		overflow: hidden;
-	}
-	.filters_block_mb{
-		margin: -345px 0;
-		transition: all .4s ease-out;
-	}
-	.filters_block_mb.expand{
-		margin: 0 !important;
-		transition: all .4s ease-out;
-	}
-	.sorted_item{
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		width: 100%;
-		padding: 0 16px;
-	}
-	.sorted_item_mb{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-flow: column-reverse;
-		/* width: 100%; */
-		padding: 0;
-		flex: 0 0 48%;
-	}
-	.defect_adress{
-		font: 400 .8rem 'Montserrat', sans-serif;
-		text-align: left;
-		/* text-overflow: ellipsis; */
-		/* white-space: nowrap; */
-		max-height: 40px;
-		overflow: hidden;
-		cursor: pointer;
-	}
-	.input_group{
-		display: flex;
-		flex: 0 1 100%;
-	}
-	.grid-container {
-		width: 95%;
-		position: relative;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-		/* grid-template-rows: 1fr 1fr; */
-		gap: 18px 8px;
-	}
-	.defect_card{
-		display: flex;
-		flex-flow: column;
-		width: 100%;
-		max-width: 185px;
-		border: 1px solid var(--color-gray);
-		border-radius: 4px;
-		min-height: 200px;
-		max-height: 200px;
-		padding: 10px;
-		place-self: center;
-		transition: all 0.2s ease-in-out;
-	}
-	.defect_card_mb{
-		display: flex;
-		flex-flow: column;
-		width: 100%;
-		max-width: 155px;
-		border: 1px solid var(--color-gray);
-		border-radius: 4px;
-		min-height: 200px;
-		max-height: 200px;
-		padding: 10px;
-		place-self: center;
-		transition: all 0.2s ease-in-out;
-	}
-	.defect_card:hover{
-		background: var(--background-color-prefooter);
-		border: 1px solid var(--color-black);
-		filter: drop-shadow(2px 3px 3px var(--color-gray-light));
-		cursor: pointer;
-	}
-	.defect_card_detail{
-		display: flex;
-		flex-flow: column;
-		width: 175px;
-		/* max-width: 165px; */
-		border-radius: 4px;
-		padding: 0 5px;
-		place-self: center;
-	}
-	.defect_card_detail_mb{
-		display: flex;
-		flex-flow: column;
-		width: 100%;
-		max-width: 165px;
-		border-radius: 4px;
-		padding: 0 5px;
-		place-self: center;
-	}
-	.chat_area{
-		padding: 20px 12px;
-		margin: 22px 0;
-		position: relative;
-		width: 100%;
-		height: 100%;
-		max-height: 400px;
-		overflow-y: auto;
-	}
-	.message_box{
-		text-align: left;
-		border-radius: 4px;
-		border: 1px solid #ccc;
-		padding: 6px;
-		margin: 8px 0;
-		width: 90%;
-		display: flex;
-	}
-	.message_box:hover{
-		background: var(--background-color-prefooter);
-	}
-	.doc_box{
-		text-align: left;
-		padding: 0 4px;
-		margin: 8px 0;
-		width: 100%;
-		display: flex;
-	}
-	.doc_icon{
-		margin: 0 6px;
-		cursor: pointer;
-	}
-	.message_box.replies_box{
-		display: flex;
-		align-self: flex-end;
-	}
-	.message_content{
-		font: 500 .8rem 'Montserrat';
-	}
-	.incoming_container{
-		position: relative;
-		display: flex;
-		flex-flow: column;
-		margin: 20px 0;
-	}
-	.defect_filter_count{
-		width: 100%;
-		position: relative;
-		padding: 0 16px;
-	}
-	.defect_filter_item{
-		display: flex;
-		flex-flow: row wrap;
-		white-space: nowrap;
-		width: 100%;
-	}
-	.defect_title{
-		font: 700 1rem 'Montserrat', sans-serif;
-		margin: 0 6px;
-	}
-	.defect_title > span{
-		font: 400 1.2rem 'Montserrat', sans-serif;
-		color: var(--color-gray);
-	}
-	.status_item{
-		background: var(--status-color);
-		border-radius: 4px;
-		color: var(--color-white);
-		padding: 0 4px;
-		font-size: .8rem;
-		margin: 4px 0;
-	}
-	.status_comments{
-		display: flex;
-		cursor: pointer;
-	}
-	.status_count{
-		font: 400 .8rem 'Montserrat', sans-serif;
-		margin: 0 4px 0 0;
-	}
-	.defect_image{
-		position: relative;
-	}
-	.defect_image_detail{
-		position: relative;
-	}
-	.defect_status{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	.defect_date{
-		color: white;
-		position: absolute;
-		display: flex;
-		font-size: .65rem;
-		left: 4%;
-		bottom: 4%;
-	}
-	.defect_color{
-		background: var(--color-white);
-		border-radius: 100%;
-		position: absolute;
-		right: 7px;
-		bottom: 5px;
-		width: 16px;
-		height: 16px;
-	}
-	.card_image_detail{
-		object-fit: cover;
-		width: 100%;
-		min-height: 130px;
-		max-width: 170px;
-		/* height: 100%; */
-	}
-	.card_image_detail_mb{
-		object-fit: cover;
-		width: 100%;
-		min-height: 130px;
-		max-width: 150px;
-		/* height: 100%; */
-	}
-	.card_image{
-		object-fit: cover;
-		width: 100%;
-		/* max-width: 140px; */
-		max-height: 120px;
-		min-width: 125px;
-		min-height: 120px;
-	}
 	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
 		height: 20px;
 		width: 20px;
@@ -2918,17 +1798,6 @@ export default {
 	.prefooter_title{
 		font: 500 1.6rem 'Montserrat';
 	}
-	.form-control{
-		cursor: pointer;
-	}
-	.form-control > select{
-        flex-flow: row wrap;
-        flex: 1 1 50%;
-        display: flex;
-		max-height: 2.5rem !important;
-		border: 1px solid #ccc !important;
-		border-radius: 4px !important;
-    }
 	.form-control_outline > select{
         flex-flow: row wrap;
         flex: 1 1 30%;
