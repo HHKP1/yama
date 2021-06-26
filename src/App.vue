@@ -409,7 +409,7 @@
 									<button class="btn custom_button">Показати</button>
 								</div>
 							</div>
-							<router-view></router-view>
+							<router-view name="CollectionList" />
 							<!-- <div class="defect_content" v-if="appsLoaded">
 								<router-link class="defect_links" to="/">
 									<p>&lt; Назад до повного списку</p>

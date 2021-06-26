@@ -3,7 +3,7 @@
 		<mq-layout mq="md+">
 			<div class="container_works">
 				<div class="container_defects">
-					<div class="defect_content" v-if="!appsLoaded">
+					<div class="defect_content">
 								<router-link class="defect_links" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -95,7 +95,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info" v-show="!appsLoaded">
+									<div class="defect_description_info">
 										<div class="defect_title_container">
 											<p class="defect_description">Коментарі</p>
 										</div>
@@ -534,7 +534,6 @@
 						</div>
 			</div>
 		</mq-layout>
-		<!-- <router-view></router-view> -->
 	</section>
 </template>
 

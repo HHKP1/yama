@@ -14,9 +14,12 @@ import CollectionList from './components/CollectionList.vue';
 import DefectView from './components/DefectView.vue';
 import NotFoundPage from './components/404.vue';
 
-// Uses
-Vue.use(VueRouter)
+// Register Components
+Vue.component('FormInput', FormInput);
+Vue.component('FormSelect', FormSelect);
+Vue.component('DefectSortedGrid', DefectSortedGrid);
 
+// Uses
 const moment = require('moment');
 require('moment/locale/uk');
 
@@ -24,10 +27,11 @@ Vue.use(require('vue-moment'), {
 	moment
 });
 
+Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
 
 const routes = [
-	{ path: '/', component: CollectionList },
+	{ path: '/', component: CollectionList, name: 'CollectionList' },
 	// { path: '/collections', component: CollectionList },
 	// { path: '/collections/:listType', component: CollectionList },
 	{ path: '/defect/:id', component: DefectView, name: 'DefectView' },
@@ -42,11 +46,6 @@ const router = new VueRouter({
 
 Vue.config.productionTip = false;
 Vue.prototype.$eventBus = new Vue();
-
-// Register Components
-Vue.component('FormInput', FormInput);
-Vue.component('FormSelect', FormSelect);
-Vue.component('DefectSortedGrid', DefectSortedGrid);
 
 new Vue({
 	render: h => h(App),
