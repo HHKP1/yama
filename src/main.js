@@ -31,7 +31,7 @@ Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
 
 const routes = [
-	{ path: '', component: CollectionList, name: 'CollectionList' },
+	{ path: '/', component: CollectionList, name: 'CollectionList' },
 	// { path: '/collections', component: CollectionList },
 	// { path: '/collections/:listType', component: CollectionList },
 	{ path: '/defect/:id', component: DefectView, name: 'DefectView' },
