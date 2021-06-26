@@ -7,9 +7,9 @@ module.exports = {
 				target: 'https://tala.cloudi.es/routes/95a4b653d1/',
 				ws: false,
 				changeOrigin: true,
-				secure: true,
-				pathRewrite: { '^/api': 'https://tala.cloudi.es/routes/95a4b653d1/api' },
-				logLevel: 'debug'
+				// secure: true,
+				// pathRewrite: { '^/api': 'https://tala.cloudi.es/routes/95a4b653d1/api' },
+				// logLevel: 'debug'
 			},
 		}
 	},
