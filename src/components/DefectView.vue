@@ -4,7 +4,7 @@
 			<div class="container_works">
 				<div class="container_defects">
 					<div class="defect_content">
-								<router-link class="defect_links" to="/">
+								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
 								<DefectSortedGrid />

@@ -459,6 +459,20 @@ export default {
 		this.$API.page = "collection";
 	},
 	methods: {
+		addQueryParam(param, value) {
+			let query = Object.assign({}, this.$route.query);
+			query[param] = value;
+			this.$router.replace({
+				query
+			}, e => {});
+		},
+		removeQueryParam(param) {
+			let query = Object.assign({}, this.$route.query);
+			delete query[param];
+			this.$router.replace({
+				query
+			}, e => {});
+		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
 				e.preventDefault(true);
