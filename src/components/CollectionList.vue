@@ -5,12 +5,12 @@
 				<div class="container_defects">
 					<div class="defect_content">
 						<router-view></router-view>
-								<div class="defect_filter_count">
+						<div class="defect_filter_count">
 									<div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
 									</div>
-								</div>
-								<div class="sorted_item">
+						</div>
+						<div class="sorted_item">
 									<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
 									<FormSelect
 										label=""
@@ -20,8 +20,8 @@
 										class="form-control_outline"
 										type="search"
 									/>
-								</div>
-								<div class="grid-container">
+						</div>
+						<div class="grid-container">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
 										<router-link :to="'/defect/'+card.id">
 											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
@@ -47,8 +47,8 @@
 											</div>
 										</router-link>
 									</div>
-								</div>
-								<div class="card_pagination">
+						</div>
+						<div class="card_pagination">
 									<div class="pagination_control">
 										<ul class="pagination">
 											<li class="disabled"><a href="#!">F</a></li>
@@ -58,7 +58,7 @@
 											<li class="waves-effect"><a href="#!"> > </a></li>
 										</ul>
 									</div>
-							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -399,7 +399,7 @@ import VueElementLoading from 'vue-element-loading';
 // import defectCards from './mock_data';
 
 export default {
-	name: 'CollectionList',
+	name: 'collectionList',
 	components: {
 		VueElementLoading,
 	},
@@ -412,8 +412,14 @@ export default {
 				],
 				options_filter_by_def_type: [
 					{ label: 'Тип дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Найновіщі', value: 'newest' },
-					{ label: 'Старіщі', value: 'oldest' },
+					{ label: 'Яма', value: 'hole' },
+					{ label: 'Ремонтується', value: 'manually' },
+					{ label: 'Розмітка', value: 'Markup' },
+					{ label: 'Не якісний ремонт', value: 'PoorQualityRepair' },
+					{ label: 'Сніг', value: 'Snow' },
+					{ label: 'Інородний об\'єкт', value: 'ForeignObj' },
+					{ label: 'Яма у дворі', value: 'yard_hole' },
+					{ label: 'Руйнування', value: 'ruined' },
 				],
 				options_filter_by_def_location: [
 					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },
@@ -422,8 +428,14 @@ export default {
 				],
 				options_filter_by_def_status: [
 					{ label: 'Статус дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Найновіщі', value: 'newest' },
-					{ label: 'Старіщі', value: 'oldest' },
+					{ label: 'Найновіщі', value: 'new' },
+					{ label: 'Старіщі', value: 'in_progress' },
+				],
+				options_filter_by_date: [
+					{ id: 0, label: 'по дням', value: '1' },
+					{ id: 1, label: 'по тижням', value: '7' },
+					{ id: 2, label: 'по місяцям', value: '30' },
+					{ id: 3, label: 'по рокам', value: '365' },
 				],
 			},
 			comment: '',
@@ -433,6 +445,7 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			data: [],
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api/',
 			currentPage: null,
 			totalPages: null,
 			perPage: null,
@@ -445,10 +458,14 @@ export default {
 			search_by_date: '',
 			search_by_location_place: '',
 			search_by_type: '',
-			search_by_status: '',
+			selectedStatus: '',
+			selectedType: '',
 			sort_by: '',
 			selfFilters: false,
 			pendingUpdate: null,
+			dateRangeFilterShown: false,
+			appsUpdateInterval: null,
+			page: '',
 		}
 	},
 	created() {
@@ -459,27 +476,12 @@ export default {
 		this.$API.page = "collection";
 	},
 	methods: {
-		addQueryParam(param, value) {
-			let query = Object.assign({}, this.$route.query);
-			query[param] = value;
-			this.$router.replace({
-				query
-			}, e => {});
-		},
-		removeQueryParam(param) {
-			let query = Object.assign({}, this.$route.query);
-			delete query[param];
-			this.$router.replace({
-				query
-			}, e => {});
-		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
 				e.preventDefault(true);
 				window.open(url, "_new");
 			}
 		},
-		reducer: (acc, curr) => acc + curr,
 		async loadCard(change){
 			this.isActive=true;
 			try{
@@ -494,6 +496,7 @@ export default {
 				console.log(e);
 				this.isActive=false;
 			}
+			this.pendingUpdate = null;
 		},
 	},
 	computed: {
@@ -507,21 +510,15 @@ export default {
 					status: card.case_status,
 					comment: card.comments,
 					author: card.author.name,
+					defect_type: card.defect_type,
 					// region_id: card.photos[0].region_id,
 				}
 			});
 		},
-		statusList(){
-			let caseStatuses = [
-				{ value: 'new', label: 'Новий' },
-				{ value: 'in_progress', label: 'В процесі' }
-			]
-			return caseStatuses;
-		}
 	},
 	watch: {}
 }
 </script>
 
-<style scoped>
+<style>
 </style>

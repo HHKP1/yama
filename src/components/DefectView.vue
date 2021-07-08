@@ -10,9 +10,9 @@
 								<DefectSortedGrid />
 								<div class="defect_nav_container">
 									<div class="defect_nav">
-										<div class="defect_nav_item"><p>Детальна інформація</p></div>
-										<div class="defect_nav_item"><p>Коментарі</p></div>
-										<div class="defect_nav_item"><p>Документи</p></div>
+										<div class="defect_nav_item_mb" @click="isCommentsMd = 1" :style="{'border-bottom': isCommentsMd === 1 ? '2px solid var(--color-red)' : ''}"><p>Детальна інформація</p></div>
+										<div class="defect_nav_item_mb" @click="isCommentsMd = 2" :style="{'border-bottom': isCommentsMd === 2 ? '2px solid var(--color-red)' : ''}"><p>Коментарі</p></div>
+										<div class="defect_nav_item_mb" @click="isCommentsMd = 3" :style="{'border-bottom': isCommentsMd === 3 ? '2px solid var(--color-red)' : ''}"><p>Документи</p></div>
 									</div>
 								</div>
 								<div class="defect_info_content">
@@ -20,8 +20,15 @@
 									<div class="defect_description_info">
 										<div class="defect_detail">
 											<div class="defect_title_container">
-												<h3 class="defect_detail_title">Яма</h3>
-												<p class="defect_description">на лівій смузі</p>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='hole'">Яма</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='ruined'">Руйнування</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='manually'">Ремонтується</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='Markup'">Розмітка</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='PoorQualityRepair'">Не якісний ремонт</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='Snow'">Сніг</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='ForeignObj'">Інородний об'єкт</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='yard_hole'">Яма у дворі</h3>
+												<!-- <p class="defect_description">{{ defect.comment }}</p> -->
 											</div>
 										</div>
 										<div class="defect_detail">
@@ -75,16 +82,16 @@
 													</div>
 												</div>
 											</div>
-											<!-- <div class="defect_detail_info" v-if="dfCard[0].comment[0].text.length!=0">
+											<div class="defect_detail_info" v-for="comm in defect.comments" :key="comm.id">
 												<div class="info_item">
 													<p class="author_item">Опис</p>
 													<div class="author_info">
 														<div class="author_content">
-															<p class="author_name">{{ dfCard[0].comment[0].text }}</p>
+															<p class="author_name">{{ comm.text }}</p>
 														</div>
 													</div>
 												</div>
-											</div> -->
+											</div>
 											<div class="defect_share">
 												<button class="btn outline_button_share">Надіслати в поліцію</button>
 												<button class="btn custom_button_share">
@@ -95,7 +102,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info">
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 1}" :style="{'color': isCommentsMd === 1 ? 'red' : 'green'}">
 										<div class="defect_title_container">
 											<p class="defect_description">Коментарі</p>
 										</div>
@@ -114,90 +121,80 @@
 												v-model="comment"
 											/>
 										</div>
-										<div class="chat_area">
+										<div class="chat_area" v-for="comment in defect.comments" :key="comment.id">
 											<div class="incoming_container">
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
+														<p class="author_name">{{ comment.author.name }}</p>
 													</div>
-													<p class="author_chat message_date">23.03.2021</p>
+													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 												</div>
 												<div class="message_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній"</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані. Інформацію направили до іншого органу.</p>
+													<p class="message_content">{{ comment.text }}</p>
 												</div>
 											</div>
 										</div>
 									</div>
-									<!-- <div class="defect_description_info" v-show="appsLoaded">
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 2}">
+										<div class="defect_title_container">
+											<p class="defect_description">Коментарі</p>
+										</div>
+										<div class="chat_input">
+											<div class="author_info_chat">
+												<div class="author_content">
+													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+													<p class="author_name">{{ defect.author.name }}</p>
+												</div>
+											</div>
+											<FormInput
+												title=""
+												label=""
+												placeholder="залишити коментар"
+												class="form-control"
+												v-model="comment"
+											/>
+										</div>
+										<div class="chat_area" v-for="comment in defect.comments" :key="comment.id">
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ comment.author.name }}</p>
+													</div>
+													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
+												</div>
+												<div class="message_box">
+													<p class="message_content">{{ comment.text }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 3}">
 										<div class="defect_title_container">
 											<p class="defect_description">Документи</p>
 										</div>
 										<div class="chat_area">
-											<div class="incoming_container">
+											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.03.2021</p>
+														<p class="author_chat message_date">{{ claim.delivery_date }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
-													<p class="message_content">Звернення до Управління патрульної поліції в Київській області</p>
-													<img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
-													<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.03.2021</p>
+													<p class="message_content">{{ claim.comment }}</p>
+													<div class="doc_images">
+														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
 													</div>
-												</div>
-												<div class="doc_box">
-													<p class="message_content">Відповідь від Управління патрульної поліції в Київській області</p>
-													<img class="doc_icon" src="./../assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
-													<img class="doc_icon" src="./../assets/img/icons/feather_download.svg" alt="feather download">
 												</div>
 											</div>
 										</div>
-									</div> -->
+										<div class="chat_area" v-if="!defect.claims" style="display:flex;justify-content:center;align-items:center;background: var(--background-color-prefooter);position:absolute;top:0;">
+											<h6>Поки немає файлів</h6>
+										</div>
+									</div>
 								</div>
 								<div class="detail_pagination">
 									<button class="btn outline_button btn_outline">&lt; Попередній</button>
@@ -210,7 +207,7 @@
 		<mq-layout mq="sm">
 			<div class="container_works_mb">
 						<div class="container_defects_mb">
-							<div class="defect_content_mb" v-if="appsLoaded">
+							<div class="defect_content_mb" v-if="!appsLoaded">
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
@@ -249,7 +246,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="defect_content" v-if="appsLoaded">
+							<div class="defect_content" v-if="!appsLoaded">
 								<div class="defect_filter_count">
 									<div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
@@ -303,7 +300,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="defect_content_mb" v-if="!appsLoaded">
+							<div class="defect_content_mb">
 								<router-link class="defect_links_mb" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -339,26 +336,34 @@
 								</carousel>
 								<div class="defect_nav_container">
 									<div class="defect_nav_mb">
-										<div class="defect_nav_item_mb"><p>Детальна інформація</p></div>
-										<div class="defect_nav_item_mb" @click="isComments = !isComments"><p>Коментарі</p></div>
-										<div class="defect_nav_item_mb"><p>Документи</p></div>
+										<div class="defect_nav_item_mb" @click="isComments = 1" :style="{'border-bottom': isComments === 1 ? '2px solid var(--color-red)' : ''}"><p>Детальна інформація</p></div>
+										<div class="defect_nav_item_mb" @click="isComments = 2" :style="{'border-bottom': isComments === 2 ? '2px solid var(--color-red)' : ''}"><p>Коментарі</p></div>
+										<div class="defect_nav_item_mb" @click="isComments = 3" :style="{'border-bottom': isComments === 3 ? '2px solid var(--color-red)' : ''}"><p>Документи</p></div>
 									</div>
 								</div>
 								<div class="defect_info_content_mb">
 									<div class="defect_description_info">
 										<div class="defect_detail">
 											<div class="defect_title_container">
-												<h3 class="defect_detail_title">Яма</h3>
-												<p class="defect_description">на лівій смузі</p>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='hole'">Яма</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='ruined'">Руйнування</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='manually'">Ремонтується</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='Markup'">Розмітка</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='PoorQualityRepair'">Не якісний ремонт</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='Snow'">Сніг</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='ForeignObj'">Інородний об'єкт</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='yard_hole'">Яма у дворі</h3>
+												<!-- <p class="defect_description">{{ defect.comment }}</p> -->
 											</div>
 										</div>
 										<div class="defect_detail">
 											<div class="detail_defect_status">
 												<div class="status_item_id">
-													<span class="defect_id">#fdsfsfds</span>
+													<span class="defect_id">#{{ defect.id }}</span>
 												</div>
 												<div class="defect_status_item">
-													<span>Новий</span>
+													<span v-if="defect.case_status=='new'">Новий</span>
+													<span v-if="defect.case_status=='in_progress'">В процесі</span>
 												</div>
 											</div>
 										</div>
@@ -396,22 +401,22 @@
 													<p class="author_item">Адреса</p>
 													<div class="author_info">
 														<div class="author_content">
-															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/feather_map-pin.svg" alt="User avatar" class="author_icon">
 															<p class="author_name">{{ defect.address }}</p>
 														</div>
 													</div>
 												</div>
 											</div>
-											<!-- <div class="defect_detail_info" v-if="dfCard[0].comment[0].text.length!=0">
+											<div class="defect_detail_info" v-for="comm in defect.comments" :key="comm.id">
 												<div class="info_item">
 													<p class="author_item">Опис</p>
 													<div class="author_info">
 														<div class="author_content">
-															<p class="author_name">{{ dfCard[0].comment[0].text }}</p>
+															<p class="author_name">{{ comm.text }}</p>
 														</div>
 													</div>
 												</div>
-											</div> -->
+											</div>
 											<div class="defect_share_mb">
 												<button class="btn outline_button_share_mb">Надіслати в поліцію</button>
 												<button class="btn custom_button_share_mb">
@@ -422,9 +427,10 @@
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info_mb" :class="{open: isComments}" v-if="!appsLoaded">
-										<div class="defect_title_container">
+									<div class="defect_description_info_mb" :class="{open: isComments === 1}">
+										<div class="defect_detail_title_container">
 											<p class="defect_description">Коментарі</p>
+											<span class="close_button" @click="toggleClass()">&times;</span>
 										</div>
 										<div class="chat_input">
 											<div class="author_info_chat">
@@ -441,86 +447,75 @@
 												v-model="comment"
 											/>
 										</div>
-										<div class="chat_area">
+										<div class="chat_area" v-for="comment in defect.comments" :key="comment.id">
 											<div class="incoming_container">
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
+														<p class="author_name">{{ comment.author.name }}</p>
 													</div>
-													<p class="author_chat message_date">23.03.2021</p>
+													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 												</div>
 												<div class="message_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній"</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ defect.author.name }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані. Інформацію направили до іншого органу.</p>
+													<p class="message_content">{{ comment.text }}</p>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info_mb" v-if="appsLoaded">
-										<div class="defect_title_container">
-											<p class="defect_description">Документи</p>
+									<div class="defect_description_info_mb" :class="{open: isComments === 2}" @click="toggleClass()">
+										<div class="defect_detail_title_container">
+											<p class="defect_description">Коментарі</p>
+											<span class="close_button" @click="toggleClass()">&times;</span>
 										</div>
-										<div class="chat_area">
-											<div class="incoming_container">
+										<div class="chat_input">
+											<div class="author_info_chat">
 												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.03.2021</p>
-													</div>
-												</div>
-												<div class="doc_box">
-													<p class="message_content">Звернення до Управління патрульної поліції в Київській області</p>
-													<img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
-													<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+													<p class="author_name">{{ defect.author.name }}</p>
 												</div>
 											</div>
+											<FormInput
+												title=""
+												label=""
+												placeholder="залишити коментар"
+												class="form-control"
+												v-model="comment"
+											/>
+										</div>
+										<div class="chat_area" v-for="comment in defect.comments" :key="comment.id">
 											<div class="incoming_container">
 												<div class="author_content">
 													<div class="author_chat_info">
+														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ comment.author.name }}</p>
+													</div>
+													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
+												</div>
+												<div class="message_box">
+													<p class="message_content">{{ comment.text }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info_mb" :class="{open: isComments === 3}" @click="toggleClass()">
+										<div class="defect_detail_title_container">
+											<p class="defect_description">Документи</p>
+											<span class="close_button" @click="toggleClass()">&times;</span>
+										</div>
+										<div class="chat_area">
+											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
+												<div class="author_content">
+													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.03.2021</p>
+														<!-- <p class="author_chat message_date">{{ info.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p> -->
 													</div>
 												</div>
 												<div class="doc_box">
-													<p class="message_content">Відповідь від Управління патрульної поліції в Київській області</p>
-													<img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
-													<img class="doc_icon" src="../assets/img/icons/feather_download.svg" alt="feather download">
+													<p class="message_content">{{ claim.comment }}</p>
+													<div class="doc_images">
+														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+													</div>
 												</div>
 											</div>
 										</div>
@@ -546,7 +541,6 @@ import DefectSortedGrid from '../components/DefectSortedGrid';
 // import defectCards from './mock_data';
 
 export default {
-	name: 'DefectView',
 	components: {
 		VueElementLoading,
 		Carousel,
@@ -556,7 +550,9 @@ export default {
 	data() {
 		return {
 			comment: '',
-			isComments: false,
+			isComments: null,
+			isCommentsMd: 1,
+			isDocs: false,
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
@@ -573,16 +569,6 @@ export default {
 	},
 	created() {
 		this.isActive=true;
-		this.$eventBus.$on('applicationUpdated', async (event) => {
-			if(this.$route.params.id) {
-				if(this.$route.params.id == event.payload.id) {
-					await this.reloadApplication();
-				}
-			}
-		});
-	},
-	beforeDestroy() {
-		this.$eventBus.$off('applicationUpdated');
 	},
 	mounted() {
 		this.$API.title = "Дефект";
@@ -596,7 +582,14 @@ export default {
 		this.loadDefect(id);
 	},
 	methods: {
+		openClaim(url){
+			window.open(url, '_blank');
+		},
 		reducer: (acc, curr) => acc + curr,
+		toggleClass: function(event){
+			if(this.isComments)
+				this.isComments = null;
+		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
 				e.preventDefault(true);
@@ -643,7 +636,7 @@ export default {
 					photo: card.photos,
 					status: card.case_status,
 					comment: card.comments,
-					// author: card.author.name,
+					author: card.author.name,
 					// region_id: card.photos[0].region_id,
 				}
 			});
@@ -665,6 +658,9 @@ export default {
 			}
 			if(this.defect && id != this.defect.id)
 				this.loadDefect(id);
+		},
+		'isComments'() {
+
 		}
 	}
 }
@@ -1093,6 +1089,18 @@ export default {
 		position: relative;
 		padding: 0 12px;
 	}
+	.defect_description_info_tab{
+		flex: 1 0 50%;
+		position: relative;
+		padding: 0 12px;
+		display: none;
+	}
+	.defect_description_info_tab.openActive{
+		flex: 1 0 50%;
+		position: relative;
+		padding: 0 12px;
+		display: block;
+	}
 	.defect_description_info_mb{
 		position: absolute;
 		left: 0;
@@ -1101,6 +1109,7 @@ export default {
 		background: #fff;
 		padding: 8px;
 		height: 50%;
+		width: 100%;
 		/* display: none; */
 	}
 	.defect_description_info_mb.open{
@@ -1143,8 +1152,15 @@ export default {
 		width: 100%;
 		text-align: left;
 	}
+	.defect_detail_title_container{
+		position: relative;
+		width: 100%;
+		text-align: left;
+		display: flex;
+		justify-content: space-between;
+	}
 	.defect_detail_title{
-		font: 700 2.8rem 'Montserrat', sans-serif !important;
+		font: 700 2.4rem 'Montserrat', sans-serif !important;
 		margin: 0;
 	}
 	.defect_description{
@@ -1349,6 +1365,10 @@ export default {
 		padding: 0 5px;
 		place-self: center;
 	}
+	.close_button{
+		font-size: 1.8rem;
+		line-height: .8;
+	}
 	.chat_area{
 		padding: 20px 12px;
 		margin: 22px 0;
@@ -1366,6 +1386,7 @@ export default {
 		margin: 8px 0;
 		width: 90%;
 		display: flex;
+		min-height: 35px;
 	}
 	.message_box:hover{
 		background: var(--background-color-prefooter);
@@ -1375,6 +1396,10 @@ export default {
 		padding: 0 4px;
 		margin: 8px 0;
 		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+	.doc_images{
 		display: flex;
 	}
 	.doc_icon{

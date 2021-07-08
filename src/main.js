@@ -31,11 +31,10 @@ Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
 
 const routes = [
-	{ path: '/', component: CollectionList, name: 'CollectionList', props: true },
-	{ path: '/collections', component: CollectionList, name: 'collections', props: true },
+	{ path: '/', component: CollectionList, props: true },
+	{ path: '/collections', component: CollectionList, props: true },
 	// { path: '/collections/:listType', component: CollectionList },
-	{ path: '/defect/:id', component: DefectView, name: 'DefectView', props: true },
-	// { path: '/defect/', components: DefectSortedGrid, name: 'DefectSortedGrid' },
+	{ path: '/defect/:id', component: DefectView, props: true },
 	{ path: '/404', component: NotFoundPage },
 ]
 

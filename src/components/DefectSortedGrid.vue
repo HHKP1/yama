@@ -210,7 +210,7 @@ import VueElementLoading from 'vue-element-loading';
 // import defectCards from './mock_data';
 
 export default {
-	name: 'DefectView',
+	name: 'sorted_defects',
 	components: {
 		VueElementLoading,
 		Carousel,
@@ -313,9 +313,9 @@ export default {
 		max-width: 155px;
 		margin: 0 2px;
 	} */
-	/* .VueCarousel-navigation-next{
+	.VueCarousel-navigation-next{
 		right: 0;
-		transform: translateY(160%) translateX(-10%) !important;
+		transform: translateY(260%) translateX(-10%) !important;
 		font-family: "system" !important;
 		background: var(--color-white) !important;
 		border-radius: 4px !important;
@@ -327,7 +327,7 @@ export default {
 		font-family: "system" !important;
 		background: var(--color-white) !important;
 		border-radius: 4px !important;
-	} */
+	}
 	@media all and (max-width:450px) {
 		#nav_mb {
 			padding: 5px 15px;
@@ -737,6 +737,9 @@ export default {
 	div.VueCarousel-navigation{
 		position: relative !important;
 		bottom: 30px !important;
+	}
+	.VueCarousel-navigation > .VueCarousel-dot-container{
+		margin-top: 6px !important;
 	}
 	a.router-link-exact-active.router-link-active > .defect_card{
 		background: var(--background-color-prefooter);

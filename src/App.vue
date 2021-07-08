@@ -357,284 +357,83 @@
 					<div class="container_works">
 						<h2 class="section_title">Колекція дефектів</h2>
 						<div class="container_defects">
-							<div class="defect_filters">
-								<p class="filter_title" style="text-align:left;">фільтри</p>
-								<div class="filters_block">
-									<FormInput
-										title=""
-										label="Адреса"
-										prefix=""
-										placeholder="Пошук дефектів за адресою"
-										v-model="search_by_adress"
-										class="form-control"
-									/>
-									<FormInput
-										title=""
-										label="Дата розміщення"
-										placeholder="Дата розміщення дефекту"
-										v-model="search_by_date"
-										class="form-control"
-										type="date"
-									/>
-									<FormSelect
-										label="Тип дефекту"
-										placeholder="Тип дефекту"
-										:options="options.options_filter_by_def_type"
-										v-model="search_by_type"
-										class="form-control"
-									/>
-									<FormSelect
-										label="Розташування"
-										placeholder="Місце розташування дефекту"
-										:options="options.options_filter_by_def_location"
-										v-model="search_by_location_place"
-										class="form-control"
-									/>
-									<FormSelect
-										label="Статус"
-										placeholder="Статус дефекту"
-										:options="options.options_filter_by_def_status"
-										v-model="search_by_status"
-										class="form-control"
-									/>
-									<div class="input_group">
-										<p>
-											<label for="customcheck">
-												<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
-												<span class="custom_checkbox">Показувати тільки мої дефекти</span>
-											</label>
-										</p>
-									</div>
-									<button class="btn outline_button">Показати на мапі</button>
-									<button class="btn custom_button">Показати</button>
+							<div class="filters_block">
+								<div class="defect_filters">
+										<p class="filter_title" style="text-align:left;">фільтри</p>
 								</div>
+								<FormInput
+									title=""
+									label="Адреса"
+									prefix=""
+									placeholder="Пошук дефектів за адресою"
+									v-model="search_by_adress"
+									class="form-control"
+								/>
+								<!-- <div class="input-field form-control">
+									<label>Дата розміщення</label>
+									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
+										<div class="form__wrapper interval table-sort__select">
+											<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
+												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
+													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
+														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
+														<span class="calendar__icon" v-if="periodShow == ''"></span>
+													</p>
+												</div>
+											</div>
+											<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
+												<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
+												<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
+												<div class="calendar__container">
+													<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
+														<p class="calendar__heading">Начало периода</p>
+														<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
+													</div>
+													<label class="calendar__label" for="calendarSwitch">
+														<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
+													</label>
+													<div class="calendar__end">
+														<p class="calendar__heading">Окончание периода</p>
+														<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> -->
+								<FormSelect
+									label="Тип дефекту"
+									placeholder="Тип дефекту"
+									:options="options.options_filter_by_def_type"
+									v-model="selectedType"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Розташування"
+									placeholder="Місце розташування дефекту"
+									:options="options.options_filter_by_def_location"
+									v-model="search_by_location_place"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Статус"
+									placeholder="Статус дефекту"
+									:options="options.options_filter_by_def_status"
+									v-model="selectedStatus"
+									class="form-control"
+								/>
+								<div class="input_group">
+									<p>
+										<label for="customcheck">
+											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
+											<span class="custom_checkbox">Показувати тільки мої дефекти</span>
+										</label>
+									</p>
+								</div>
+								<button class="btn outline_button">Показати на мапі</button>
+								<button class="btn custom_button">Показати</button>
 							</div>
 							<router-view></router-view>
-							<!-- <div class="defect_content" v-if="appsLoaded">
-								<router-link class="defect_links" to="/">
-									<p>&lt; Назад до повного списку</p>
-								</router-link>
-								<carousel :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="4" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
-									<slide v-for='(card, idx) of dfCard' :key='idx'>
-										<div class="defect_card">
-											<div class="my-container" style="width: 100%;display: block;height: 100%;">
-												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-												<div class="defect_image">
-													<img class="card_image" :src="card.photo[0].url" alt="">
-													<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
-													<div class="defect_color"></div>
-												</div>
-												<div class="defect_info">
-													<div class="defect_status">
-														<div class="status_item">
-															<span v-if="card.status=='new'">Новий</span>
-															<span v-if="card.status=='in_progress'">В процесі</span>
-														</div>
-														<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-															<p class="status_count">{{ card.comment.length }}</p>
-															<img src="./assets/img/icons/bx_bx-comment-detail.svg" alt="">
-														</div>
-													</div>
-													<p class="defect_adress" :title="card.address">{{ card.address }}</p>
-												</div>
-											</div>
-										</div>
-									</slide>
-								</carousel>
-								<div class="defect_nav_container">
-									<div class="defect_nav">
-										<div class="defect_nav_item"><p>Детальна інформація</p></div>
-										<div class="defect_nav_item"><p>Коментарі</p></div>
-										<div class="defect_nav_item"><p>Документи</p></div>
-									</div>
-								</div>
-								<div class="defect_info_content">
-									<div class="defect_description_info">
-										<div class="defect_detail">
-											<div class="defect_title_container">
-												<h3 class="defect_detail_title">Яма</h3>
-												<p class="defect_description">на лівій смузі</p>
-											</div>
-										</div>
-										<div class="defect_detail">
-											<div class="detail_defect_status">
-												<div class="status_item_id">
-													<span class="defect_id">#fdsfsfds</span>
-												</div>
-												<div class="defect_status_item">
-													<span>Новий</span>
-												</div>
-											</div>
-										</div>
-										<div class="defect_detail">
-											<div class="detail_defect_info">
-											<div class="defect_title_container">
-												<p class="defect_description">Фото</p>
-											</div>
-											<carousel :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
-												<slide v-for="(p, idx) in dfCard[0].photo" :key="idx" class="VueCarousel-slide_defect">
-													<div class="defect_card_detail">
-														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
-															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-															<div class="defect_image_detail">
-																<img class="card_image_detail" :src="p.url" alt="">
-															</div>
-														</div>
-													</div>
-												</slide>
-											</carousel>
-											<div class="defect_detail_info">
-												<div class="info_item">
-													<p class="author_item">Автор</p>
-													<div class="author_info">
-														<div class="author_content">
-															<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-															<p class="author_name">{{ dfCard[0].author }}</p>
-														</div>
-														<button class="author_chat underline-btn">Написати автору</button>
-													</div>
-												</div>
-											</div>
-											<div class="defect_detail_info">
-												<div class="info_item">
-													<p class="author_item">Адреса</p>
-													<div class="author_info">
-														<div class="author_content">
-															<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-															<p class="author_name">{{ dfCard[0].address }}</p>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="defect_detail_info" v-if="dfCard[0].comment[0].text.length!=0">
-												<div class="info_item">
-													<p class="author_item">Опис</p>
-													<div class="author_info">
-														<div class="author_content">
-															<p class="author_name">{{ dfCard[0].comment[0].text }}</p>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="defect_share">
-												<button class="btn outline_button_share">Надіслати в поліцію</button>
-												<button class="btn custom_button_share">
-													<img class="share_icon" src="./assets/img/icons/bx_bx-share-alt.svg" alt="" >
-													Поділитись
-												</button>
-											</div>
-											</div>
-										</div>
-									</div>
-									<div class="defect_description_info" v-show="!appsLoaded">
-										<div class="defect_title_container">
-											<p class="defect_description">Коментарі</p>
-										</div>
-										<div class="chat_input">
-											<div class="author_info_chat">
-												<div class="author_content">
-													<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name">{{ dfCard[0].author }}</p>
-												</div>
-											</div>
-											<FormInput
-												title=""
-												label=""
-												placeholder="залишити коментар"
-												class="form-control"
-												v-model="comment"
-											/>
-										</div>
-										<div class="chat_area">
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ dfCard[0].author }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній", тобто не на дорозі. Інформацію направили до іншого органу.</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ dfCard[0].author }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані за межами "червоних ліній"</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ dfCard[0].author }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані</p>
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ dfCard[0].author }}</p>
-													</div>
-													<p class="author_chat message_date">23.03.2021</p>
-												</div>
-												<div class="message_box replies_box">
-													<p class="message_content">Поліція каже, що дефекти розташовані. Інформацію направили до іншого органу.</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="defect_description_info" v-show="!appsLoaded">
-										<div class="defect_title_container">
-											<p class="defect_description">Документи</p>
-										</div>
-										<div class="chat_area">
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="./assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.03.2021</p>
-													</div>
-												</div>
-												<div class="doc_box">
-													<p class="message_content">Звернення до Управління патрульної поліції в Київській області</p>
-													<img class="doc_icon" src="./assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
-													<img class="doc_icon" title="Завантажити документ" src="./assets/img/icons/feather_download.svg" alt="feather download">
-												</div>
-											</div>
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="./assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.03.2021</p>
-													</div>
-												</div>
-												<div class="doc_box">
-													<p class="message_content">Відповідь від Управління патрульної поліції в Київській області</p>
-													<img class="doc_icon" src="./assets/img/icons/carbon_document-pdf.svg" alt="document pdf">
-													<img class="doc_icon" src="./assets/img/icons/feather_download.svg" alt="feather download">
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="detail_pagination">
-									<button class="btn outline_button btn_outline">&lt; Попередній</button>
-									<button class="btn outline_button btn_outline">Наступний &gt;</button>
-								</div>
-							</div> -->
 						</div>
 					</div>
 				</mq-layout>
@@ -658,42 +457,66 @@
 							<div class="defect_filters_mb">
 								<div class="filters_block_mb" :class="{expand: isExpand}">
 									<FormInput
-										title=""
-										label="Адреса"
-										prefix=""
-										placeholder="Пошук дефектів за адресою"
-										v-model="search_by_adress"
-										class="form-control"
-									/>
-									<FormInput
-										title=""
-										label="Дата розміщення"
-										placeholder="Дата розміщення дефекту"
-										v-model="search_by_date"
-										class="form-control"
-										type="date"
-									/>
-									<FormSelect
-										label="Тип дефекту"
-										placeholder="Тип дефекту"
-										:options="options.options_filter_by_def_type"
-										v-model="search_by_type"
-										class="form-control"
-									/>
-									<FormSelect
-										label="Розташування"
-										placeholder="Місце розташування дефекту"
-										:options="options.options_filter_by_def_location"
-										v-model="search_by_location_place"
-										class="form-control"
-									/>
-									<FormSelect
-										label="Статус"
-										placeholder="Статус дефекту"
-										:options="options.options_filter_by_def_status"
-										v-model="search_by_status"
-										class="form-control"
-									/>
+									title=""
+									label="Адреса"
+									prefix=""
+									placeholder="Пошук дефектів за адресою"
+									v-model="search_by_adress"
+									class="form-control"
+								/>
+								<!-- <div class="input-field form-control">
+									<label>Дата розміщення</label>
+									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
+										<div class="form__wrapper interval table-sort__select">
+											<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
+												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
+													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
+														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
+														<span class="calendar__icon" v-if="periodShow == ''"></span>
+													</p>
+												</div>
+											</div>
+											<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
+												<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
+												<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
+												<div class="calendar__container">
+													<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
+														<p class="calendar__heading">Начало периода</p>
+														<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
+													</div>
+													<label class="calendar__label" for="calendarSwitch">
+														<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
+													</label>
+													<div class="calendar__end">
+														<p class="calendar__heading">Окончание периода</p>
+														<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> -->
+								<FormSelect
+									label="Тип дефекту"
+									placeholder="Тип дефекту"
+									:options="options.options_filter_by_def_type"
+									v-model="selectedType"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Розташування"
+									placeholder="Місце розташування дефекту"
+									:options="options.options_filter_by_def_location"
+									v-model="search_by_location_place"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Статус"
+									placeholder="Статус дефекту"
+									:options="options.options_filter_by_def_status"
+									v-model="selectedStatus"
+									class="form-control"
+								/>
 									<div class="input_group">
 										<p>
 											<label for="customcheck">
@@ -784,6 +607,7 @@ import Vue from 'vue';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
+// import Datepicker from 'vuejs-datepicker';
 
 // import defectCards from './mock_data';
 
@@ -792,6 +616,7 @@ export default {
 	components: {
 		FormInput,
 		FormSelect,
+		// Datepicker
 	},
 	data() {
 		return {
@@ -841,25 +666,33 @@ export default {
 			],
 			options: {
 				options_sort_by: [
-					{ label: 'Найновіщі', value: 'newest' },
-					{ label: 'Старіщі', value: 'oldest' },
+					{ label: 'Нові', value: 'new' },
+					{ label: 'В процесі', value: 'in_progress' },
 				],
 				options_filter_by_def_type: [
 					{ label: 'Тип дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Найновіщі', value: 'newest' },
-					{ label: 'Старіщі', value: 'oldest' },
+					{ label: 'Яма', value: 'hole' },
+					{ label: 'Ремонтується', value: 'manually' },
+					{ label: 'Розмітка', value: 'Markup' },
+					{ label: 'Не якісний ремонт', value: 'PoorQualityRepair' },
+					{ label: 'Сніг', value: 'Snow' },
+					{ label: 'Інородний об\'єкт', value: 'ForeignObj' },
+					{ label: 'Яма у дворі', value: 'yard_hole' },
+					{ label: 'Руйнування', value: 'ruined' },
 				],
 				options_filter_by_def_location: [
 					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Найновіщі', value: 'newest' },
-					{ label: 'Старіщі', value: 'oldest' },
+					{ label: 'Місто', value: 'city' },
+					{ label: 'Шосе', value: 'highway' },
+					{ label: 'У дворі', value: 'back_yard' },
 				],
 				options_filter_by_def_status: [
 					{ label: 'Статус дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Найновіщі', value: 'newest' },
-					{ label: 'Старіщі', value: 'oldest' },
+					{ label: 'Нові', value: 'new' },
+					{ label: 'В процесі', value: 'in_progress' },
 				],
 			},
+			loggedIn: false,
 			comment: '',
 			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
@@ -875,64 +708,50 @@ export default {
 			cardCount: 10,
 			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api/',
 			search: '',
+			listType: '',
 			search_by_adress: '',
 			search_by_date: '',
 			search_by_location_place: '',
 			search_by_type: '',
-			search_by_status: '',
+			selectedStatus: '',
+			selectedType: '',
 			sort_by: '',
 			selfFilters: false,
 			pendingUpdate: null,
+			periodStart: '',
+			periodEnd: '',
+			dateRangeFilterShown: false,
+			constants: {},
+			user: {},
+			// appListType: 'hole',
 		}
 	},
 	async created() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
 	},
-	mounted() {},
-	methods: {
-		// eventHandler(data) {
-		// 	if(data.events.length > 0) {
-		// 		data.events.forEach((e, i) => {
-		// 			if(process.env.NODE_ENV !== 'production') {
-		// 				console.log('eventHandler | Received event:');
-		// 				console.log(e);
-		// 			}
-		// 			this.$eventBus.$emit(e.type, e);
-		// 		});
+	mounted() {
+		this.$API.title = "Аплікація";
+		this.$API.page = "app";
+		// if(this.$route.params.listType && ['manually', 'hole', 'Markup', 'PoorQualityRepair', 'Snow', 'ForeignObj', 'yard_hole', 'ruined'].indexOf(this.$route.params.listType) > -1)
+		// 	this.listType = this.$route.params.listType;
+		// else
+		// 	this.listType = "hole";
+		//query params values
+		// Object.entries(this.$route.query).forEach(([key, value]) => {
+		// 	if(key in this.$API.appsFilters[this.listType]) {
+		// 		this.$API.appsFilters[this.listType][key] = value;
 		// 	}
-		// },
-		abortableFetch(request, opts, raw = false) {
-			const controller = new AbortController();
-			const signal = controller.signal;
-			if(raw) {
-				return {
-					abort: () => controller.abort(),
-					ready: fetch(request, {
-						...opts,
-						signal
-					}).then((response) => response)
-				};
-			} else {
-				return {
-					abort: () => controller.abort(),
-					ready: fetch(request, {
-						...opts,
-						signal
-					}).then((response) => {
-						return response.json().then((data) => {
-							if(response.status == 401) {
-								console.log("Unauthorized:", request);
-								// this.doLogout();
-								// this.dirtyExit = true;
-								throw Error("Logging out");
-							}
-							return data;
-						});
-					})
-				};
-			}
-		},
+		// });
+		// this.selectedStatus = this.$API.appsFilters[this.listType].selectedStatus;
+		// this.selectedType = this.$API.appsFilters[this.listType].selectedType;
+
+		// this.periodStart = this.$API.appsFilters[this.listType].periodStart;
+		// this.periodEnd = this.$API.appsFilters[this.listType].periodEnd;
+
+		// this.appsUpdateInterval = setInterval(this.loadCard, 1000);
+	},
+	methods: {
 		apiGET: async function(endpoint){
 			let headers={
 				'Accept': 'application/json',
@@ -945,17 +764,6 @@ export default {
 			});
 			let data = await response.json();
 			return data;
-		},
-		apiGETv2: function(endpoint, raw = false) {
-			let headers = {
-				'Accept': 'application/json',
-			};
-			// if(auth)
-			// 	headers["Authorization"] = `Bearer ${this.token}`;
-			return this.abortableFetch(this.apiURL + endpoint, {
-				method: 'GET',
-				headers: headers
-			}, raw);
 		},
 		openMenu(){
 			if(!this.isOpen){
@@ -970,10 +778,24 @@ export default {
 				this.$refs.Line_3.setAttribute('style', 'transform: translate(649.5px, 904.5px) rotate(0);transition: transform .2s ease-out')
 			}
 		},
-		reducer: (acc, curr) => acc + curr,
 	},
-	computed: {},
-	watch: {}
+	computed: {
+		//API Data
+		// dfCard(){
+		// 	return this.orgInfo.map(card => {
+		// 		return {
+		// 			id: card.id,
+		// 			address: card.address,
+		// 			photo: card.photos,
+		// 			status: card.case_status,
+		// 			comment: card.comments,
+		// 			author: card.author.name,
+		// 			// region_id: card.photos[0].region_id,
+		// 		}
+		// 	});
+		// },
+	},
+	watch: {},
 }
 </script>
 
@@ -1056,6 +878,7 @@ export default {
 			place-self: center;
 			transition: all 0.2s ease-in-out;
 		}
+
 		.card_image {
 			-o-object-fit: cover;
 			object-fit: cover;
@@ -1168,6 +991,59 @@ export default {
 	}
 
 	/* Carousel style END*/
+
+	.select-item_choosen:hover {
+		border: solid 1px var(--border-color-hover);
+	}
+
+	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-right.svg');
+	}
+
+	#calendarSwitch:checked~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-left.svg');
+	}
+
+	#calendarSwitch:checked~.calendar__container {
+		transform: translateX(-310px);
+		transition: all .3s;
+	}
+
+	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-right.svg');
+	}
+
+	#calendarSwitch:checked~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-left.svg');
+	}
+
+	#calendarSwitch:checked~.calendar__container {
+		transform: translateX(-310px);
+		transition: all .3s;
+	}
+
+	#lupd_calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-right.svg');
+	}
+
+	#lupd_calendarSwitch:checked~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-left.svg');
+	}
+
+	#lupd_calendarSwitch:checked~.calendar__container {
+		transform: translateX(-310px);
+		transition: all .3s;
+	}
+	.calendar__start,
+	.calendar__end {
+		align-self: flex-start;
+	}
 
 	#Line_2.open{
 		transform-origin: center;
