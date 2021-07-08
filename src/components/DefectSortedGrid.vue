@@ -4,9 +4,9 @@
 			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 			<carousel class="VueCarousel-fullwidth_lg" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="5" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 				<slide class="slide-detail" v-for='card in dfCard' :key='card.id'>
-					<router-link :to="'/defect/'+card.id">
+					<router-link :to="'/collections/defect/'+card.id">
 						<div class="defect_card">
-							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							<div class="defect_image">
 								<img class="card_image" :src="card.photo[0].url" alt="">

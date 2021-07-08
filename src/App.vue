@@ -733,23 +733,6 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		// if(this.$route.params.listType && ['manually', 'hole', 'Markup', 'PoorQualityRepair', 'Snow', 'ForeignObj', 'yard_hole', 'ruined'].indexOf(this.$route.params.listType) > -1)
-		// 	this.listType = this.$route.params.listType;
-		// else
-		// 	this.listType = "hole";
-		//query params values
-		// Object.entries(this.$route.query).forEach(([key, value]) => {
-		// 	if(key in this.$API.appsFilters[this.listType]) {
-		// 		this.$API.appsFilters[this.listType][key] = value;
-		// 	}
-		// });
-		// this.selectedStatus = this.$API.appsFilters[this.listType].selectedStatus;
-		// this.selectedType = this.$API.appsFilters[this.listType].selectedType;
-
-		// this.periodStart = this.$API.appsFilters[this.listType].periodStart;
-		// this.periodEnd = this.$API.appsFilters[this.listType].periodEnd;
-
-		// this.appsUpdateInterval = setInterval(this.loadCard, 1000);
 	},
 	methods: {
 		apiGET: async function(endpoint){
@@ -781,19 +764,6 @@ export default {
 	},
 	computed: {
 		//API Data
-		// dfCard(){
-		// 	return this.orgInfo.map(card => {
-		// 		return {
-		// 			id: card.id,
-		// 			address: card.address,
-		// 			photo: card.photos,
-		// 			status: card.case_status,
-		// 			comment: card.comments,
-		// 			author: card.author.name,
-		// 			// region_id: card.photos[0].region_id,
-		// 		}
-		// 	});
-		// },
 	},
 	watch: {},
 }

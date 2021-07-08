@@ -3,7 +3,7 @@
 		<mq-layout mq="md+">
 			<div class="container_works">
 				<div class="container_defects">
-					<div class="defect_content">
+					<div class="defect_content" v-if="!appsLoaded">
 						<router-view></router-view>
 						<div class="defect_filter_count">
 									<div class="defect_filter_item">
@@ -23,8 +23,8 @@
 						</div>
 						<div class="grid-container">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
-										<router-link :to="'/defect/'+card.id">
-											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+										<router-link :to="'/collections/defect/'+card.id">
+											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
 												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 												<div class="defect_image">
 													<img class="card_image" :src="card.photo[0].url" alt="">

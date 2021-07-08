@@ -1650,7 +1650,7 @@
 	}
 	.filters_block{
 		flex: 1 1 40%;
-		max-width: 300px;
+		max-width: 350px;
 	}
 	.filters_block_mb{
 		margin: -345px 0;
