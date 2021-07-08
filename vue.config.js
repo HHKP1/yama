@@ -14,7 +14,7 @@ module.exports = {
 		}
 	},
 	outputDir: './dist/',
-	assetsDir: './assets',
+	// assetsDir: './assets',
 	// lintOnSave: false,
 	productionSourceMap: false
 }
