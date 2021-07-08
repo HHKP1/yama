@@ -41,7 +41,7 @@ const routes = [
 const router = new VueRouter({
 	routes, // short for `routes: routes`
 	mode: 'history',
-	base: '/ukr-yama/public/index.html',
+	base: './',
 });
 
 Vue.config.productionTip = false;
