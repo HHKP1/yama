@@ -1639,7 +1639,7 @@
 	}
 	.defect_filters{
 		flex: 1 1 40%;
-		max-width: 350px;
+		max-width: 300px;
 	}
 	.defect_filters_mb{
 		flex: 1 1 40%;
@@ -1650,7 +1650,7 @@
 	}
 	.filters_block{
 		flex: 1 1 40%;
-		max-width: 350px;
+		max-width: 300px;
 	}
 	.filters_block_mb{
 		margin: -345px 0;

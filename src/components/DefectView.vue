@@ -207,7 +207,7 @@
 		<mq-layout mq="sm">
 			<div class="container_works_mb">
 						<div class="container_defects_mb">
-							<div class="defect_content_mb" v-if="!appsLoaded">
+							<div class="defect_content_mb" v-if="appsLoaded">
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
@@ -246,7 +246,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="defect_content" v-if="!appsLoaded">
+							<div class="defect_content" v-if="appsLoaded">
 								<div class="defect_filter_count">
 									<div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
@@ -549,6 +549,12 @@ export default {
 	},
 	data() {
 		return {
+			options: {
+				options_sort_by: [
+					{ label: 'Нові', value: 'new' },
+					{ label: 'В процесі', value: 'in_progress' },
+				],
+			},
 			comment: '',
 			isComments: null,
 			isCommentsMd: 1,
@@ -564,6 +570,7 @@ export default {
 			startPage: null,
 			endPage: null,
 			defect: {},
+			sort_by: '',
 			pendingUpdate: null,
 		}
 	},
@@ -572,7 +579,7 @@ export default {
 	},
 	mounted() {
 		this.$API.title = "Дефект";
-		this.$API.page = "DefectView";
+		// this.$API.page = "DefectView";
 		this.loadCard(true);
 		let id = this.$route.params.id;
 		if(!id) {
