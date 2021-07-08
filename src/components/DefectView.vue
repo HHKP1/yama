@@ -3,7 +3,7 @@
 		<mq-layout mq="md+">
 			<div class="container_works">
 				<div class="container_defects">
-					<div class="defect_content">
+					<div class="defect_content" v-if="!appsLoaded">
 								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
