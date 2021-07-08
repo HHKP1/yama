@@ -13,8 +13,8 @@ module.exports = {
 			},
 		}
 	},
-	// outputDir: './public/',
-	// assetsDir: './assets',
+	outputDir: './dist/',
+	assetsDir: './assets',
 	// lintOnSave: false,
 	productionSourceMap: false
 }
