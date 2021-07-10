@@ -706,7 +706,7 @@ export default {
 			startPage: null,
 			endPage: null,
 			cardCount: 10,
-			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api/',
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
 			search: '',
 			listType: '',
 			search_by_adress: '',

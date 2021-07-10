@@ -23,8 +23,8 @@
 						</div>
 						<div class="grid-container">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
-										<router-link :to="'collections/defect/'+card.id">
-											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, 'collections/defect/'+card.id )">
+										<router-link :to="'/defect/'+card.id">
+											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
 												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 												<div class="defect_image">
 													<img class="card_image" :src="card.photo[0].url" alt="">
@@ -445,7 +445,6 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			data: [],
-			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api/',
 			currentPage: null,
 			totalPages: null,
 			perPage: null,
