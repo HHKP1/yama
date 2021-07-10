@@ -1959,7 +1959,7 @@
 		border: 1px solid var(--color-white)
 	}
 	.form-control_outline::before{
-		content: 'Сортування:';
+		content: "'Сортування:'";
 		font-size: .8rem;
 		position: absolute;
 		left: 0;
