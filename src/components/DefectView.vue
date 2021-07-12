@@ -102,36 +102,162 @@
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 1}" :style="{'color': isCommentsMd === 1 ? 'red' : 'green'}">
-										<div class="defect_title_container">
-											<p class="defect_description">Коментарі</p>
-										</div>
-										<div class="chat_input">
-											<div class="author_info_chat">
-												<div class="author_content">
-													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name">{{ defect.author.name }}</p>
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 1}">
+										<div class="progress_container">
+											<div class="progress_item">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/mdi_camera-plus-outline.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title">Дефект додано</p>
+												</div>
+											</div><div class="progress_item_reverse">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item_reverse">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title_reverse">Коментарі</p>
+													<!-- <p class="progress_title">Коментарі</p> -->
 												</div>
 											</div>
-											<FormInput
-												title=""
-												label=""
-												placeholder="залишити коментар"
-												class="form-control"
-												v-model="comment"
-											/>
-										</div>
-										<div class="chat_area" v-for="comment in defect.comments" :key="comment.id">
-											<div class="incoming_container">
-												<div class="author_content">
-													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ comment.author.name }}</p>
+											<div class="progress_item">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 												</div>
-												<div class="message_box">
-													<p class="message_content">{{ comment.text }}</p>
+												<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title">Реакція на відповідь</p>
+												</div>
+											</div>
+											<div class="progress_item_reverse">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item_reverse">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title_reverse">Звернення надіслано</p>
+													<p class="progress_title_reverse">Звернення надіслано</p>
+												</div>
+											</div>
+											<div class="progress_item">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/mdi_file-check-outline.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title">Відповідь отримано</p>
+												</div>
+											</div>
+											<div class="progress_item_reverse">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item_reverse">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title_reverse">Коментарі</p>
+													<!-- <p class="progress_title">Коментарі</p> -->
+												</div>
+											</div>
+											<div class="progress_item">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title">Реакція на відповідь</p>
+												</div>
+											</div>
+											<div class="progress_item_reverse">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/si-glyph_arrow-reload.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item_reverse">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title_reverse">Дані оновлено</p>
+													<!-- <p class="progress_title">Звернення надіслано</p> -->
+												</div>
+											</div>
+											<div class="progress_item">
+												<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/bx_bx-traffic-cone.svg" class="progress_icon" alt="">
+														</div>
+													</div>
+												</div>
+												<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title">Дефект усунуто</p>
+													<!-- <p class="progress_title">Звернення надіслано</p> -->
 												</div>
 											</div>
 										</div>
@@ -1107,6 +1233,7 @@ export default {
 		position: relative;
 		padding: 0 12px;
 		display: block;
+		overflow: hidden;
 	}
 	.defect_description_info_mb{
 		position: absolute;
@@ -1128,6 +1255,56 @@ export default {
 		padding: 8px;
 		height: 55%;
 		/* display: block; */
+	}
+	.progress_container{
+		padding: 12px 40px;
+		max-height: 550px;
+		overflow: auto;
+	}
+	.progress_item{
+		display: flex;
+		justify-content: flex-end;
+	}
+	.progress_item_reverse{
+		flex-flow: row-reverse;
+		display: flex;
+		justify-content: flex-end;
+	}
+	.progress_icons_block{
+		margin: 0;
+	}
+	.progress_info_block{
+		min-width: 140px;
+		display: block;
+	}
+	.progress_icon{
+		width: 22px;
+	}
+	.progress_title{
+		font: 500 .8rem 'Montserrat';
+		text-align: left;
+	}
+	.progress_title_reverse{
+		font: 500 .8rem 'Montserrat';
+		text-align: right;
+	}
+	.progress_icons{}
+	.progress_indicator{
+		width: 35px;
+		margin: 8px 0;
+	}
+	.progress_info_block{
+		display: flex;
+		flex-flow: column;
+	}
+	.progress_info_item{
+		display: flex;
+		padding: 4px 0;
+	}
+	.progress_info_item_reverse{
+		display: flex;
+		padding: 4px 0;
+		justify-content: flex-end;
 	}
 	.defect_nav_item p{
 		margin: 0 15px 0 0;
