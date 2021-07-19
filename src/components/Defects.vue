@@ -233,7 +233,7 @@ export default {
 			appsUpdating: false,
 			selectedStatus: '',
 			selectedType: '',
-			listType: 'ruined',
+			listType: '',
 			selfFilters: false,
 			pendingUpdate: null,
 			appsUpdateInterval: null,
@@ -241,12 +241,6 @@ export default {
 	},
 	async created() {
 		Vue.prototype.$API2 = this;
-		// this.loadDefects(true);
-		// this.$eventBus.$on('applicationUpdated', async (event) => {
-		// 	if(this.$API2.orgInfo) {
-		// 		await this.reloadApplication();
-		// 	}
-		// });
 	},
 	mounted() {
 		this.$API.title = "Дефекти";
@@ -255,7 +249,7 @@ export default {
 		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
 			this.listType = this.$route.params.listType;
 		else
-			this.listType = 'ruined';
+			this.listType = '';
 
 		this.loadDefects(true);
 		this.appsUpdateInterval = setInterval(this.loadDefects, 10);
@@ -290,7 +284,7 @@ export default {
 		},
 		appQuery() {
 			let loadingParams = {};
-			// loadingParams.type = this.listType;
+			loadingParams.type = this.listType;
 			// if(this.selectedStatus)
 			// 	loadingParams.case_status = this.selectedStatus;
 			if(this.selectedType)
@@ -326,20 +320,20 @@ export default {
 	},
 	computed: {
 		//API Data
-		dfCard(){
-			return this.orgInfo.map(card => {
-				return {
-					id: card.id,
-					address: card.address,
-					photo: card.photos,
-					status: card.case_status,
-					comment: card.comments,
-					author: card.author.name,
-					defect_type: card.defect_type,
-					// region_id: card.photos[0].region_id,
-				}
-			});
-		},
+		// dfCard(){
+		// 	return this.orgInfo.map(card => {
+		// 		return {
+		// 			id: card.id,
+		// 			address: card.address,
+		// 			photo: card.photos,
+		// 			status: card.case_status,
+		// 			comment: card.comments,
+		// 			author: card.author.name,
+		// 			defect_type: card.defect_type,
+		// 			// region_id: card.photos[0].region_id,
+		// 		}
+		// 	});
+		// },
 	},
 	watch: {
 		selectedType() {
@@ -365,9 +359,9 @@ export default {
 			this.resetApps();
 		},
 	},
-	beforeDestroy() {
-		clearInterval(this.appsUpdateInterval);
-	}
+	// beforeDestroy() {
+	// 	clearInterval(this.appsUpdateInterval);
+	// }
 }
 </script>
 

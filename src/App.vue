@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">2334</p>
+												<p class="p-text code">{{ status.code }}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -131,7 +131,7 @@
 												<p class="p-text">Для входу надішліть цей<br/>код боту у відповідному месенджері</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">2334</p>
+												<p class="p-text code">{{ status.code }}</p>
 											</div>
 										</div>
 										<div class="hero-content">
@@ -517,7 +517,6 @@ export default {
 					path: '/contacts'
 				},
 			],
-			loggedIn: false,
 			status: [],
 			login: false,
 			comment: '',
@@ -538,11 +537,6 @@ export default {
 			page: '',
 			listType: 'ruined',
 			profileLoaded: false,
-			searchAuthorFilter: '',
-			search_by_author: '',
-			search_by_date: '',
-			search_by_location_place: '',
-			search_by_type: '',
 			sort_by: '',
 			appsFilters: {
 				hole: {
@@ -572,10 +566,10 @@ export default {
 	created: function() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
-		this.prefix = "";
-		if (document.URL.slice(-1) == '/') {
-			this.prefix = '../'
-		}
+		// this.prefix = "";
+		// if (document.URL.slice(-1) == '/') {
+		// 	this.prefix = '../'
+		// }
 		this.status.push({ "cookies": document.cookie });
 		this.checkCode();
 		this.startTimer();
@@ -585,16 +579,9 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		this.checkCode();
-		this.startTimer();
 		// if(!Object.keys(this.user).length){
 		// this.loadProfile();
 		// }
-
-		// if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
-		// 	this.listType = this.$route.params.listType;
-		// else
-		// 	this.listType = "ruined";
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
