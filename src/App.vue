@@ -66,8 +66,8 @@
 											<div class="hero-item">
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
-											<div class="hero-item" v-for="state in status" :key="state.id">
-												<p class="p-text code">{{ state.code }}</p>
+											<div class="hero-item">
+												<p class="p-text code">4545</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -130,8 +130,8 @@
 											<div class="hero-item">
 												<p class="p-text">Для входу надішліть цей<br/>код боту у відповідному месенджері</p>
 											</div>
-											<div class="hero-item" v-for="state in status" :key="state.id">
-												<p class="p-text code">{{ state.code }}</p>
+											<div class="hero-item">
+												<p class="p-text code">4545</p>
 											</div>
 										</div>
 										<div class="hero-content">
