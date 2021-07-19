@@ -353,188 +353,14 @@
 				</mq-layout>
 			</section>
 			<section class="collection_defects">
-				<mq-layout mq="md+">
-					<div class="container_works">
-						<h2 class="section_title">Колекція дефектів</h2>
-						<div class="container_defects">
-							<div class="filters_block">
-								<div class="defect_filters">
-										<p class="filter_title" style="text-align:left;">фільтри</p>
-								</div>
-								<FormInput
-									title=""
-									label="Адреса"
-									prefix=""
-									placeholder="Пошук дефектів за адресою"
-									v-model="search_by_adress"
-									class="form-control"
-								/>
-								<!-- <div class="input-field form-control">
-									<label>Дата розміщення</label>
-									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
-										<div class="form__wrapper interval table-sort__select">
-											<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
-												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
-													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
-														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
-														<span class="calendar__icon" v-if="periodShow == ''"></span>
-													</p>
-												</div>
-											</div>
-											<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
-												<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
-												<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
-												<div class="calendar__container">
-													<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
-														<p class="calendar__heading">Начало периода</p>
-														<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
-													</div>
-													<label class="calendar__label" for="calendarSwitch">
-														<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
-													</label>
-													<div class="calendar__end">
-														<p class="calendar__heading">Окончание периода</p>
-														<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div> -->
-								<FormSelect
-									label="Тип дефекту"
-									placeholder="Тип дефекту"
-									:options="options.options_filter_by_def_type"
-									v-model="selectedType"
-									class="form-control"
-								/>
-								<FormSelect
-									label="Розташування"
-									placeholder="Місце розташування дефекту"
-									:options="options.options_filter_by_def_location"
-									v-model="search_by_location_place"
-									class="form-control"
-								/>
-								<FormSelect
-									label="Статус"
-									placeholder="Статус дефекту"
-									:options="options.options_filter_by_def_status"
-									v-model="selectedStatus"
-									class="form-control"
-								/>
-								<div class="input_group">
-									<p>
-										<label for="customcheck">
-											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
-											<span class="custom_checkbox">Показувати тільки мої дефекти</span>
-										</label>
-									</p>
-								</div>
-								<button class="btn outline_button">Показати на мапі</button>
-								<button class="btn custom_button">Показати</button>
-							</div>
-							<router-view></router-view>
-						</div>
+				<div class="container_works">
+					<h2 class="section_title">Колекція дефектів</h2>
+					<div class="container_defects">
+						<Defects />
+						<router-view></router-view>
+						<!-- <CollectionList /> -->
 					</div>
-				</mq-layout>
-				<mq-layout mq="sm">
-					<div class="container_works_mb">
-						<h2 class="section_title">Колекція дефектів</h2>
-						<div class="container_defects_mb">
-							<div class="filters_controls_mb">
-								<p class="filter_title_mb" :class="{expand: isExpand}" @click="isExpand = !isExpand" style="text-align:left;">фільтри</p>
-								<div class="sorted_item_mb">
-									<FormSelect
-										label="Сортування"
-										placeholder=""
-										:options="options.options_sort_by"
-										v-model="sort_by"
-										class="form-control_outline_mb"
-										type="search"
-									/>
-								</div>
-							</div>
-							<div class="defect_filters_mb">
-								<div class="filters_block_mb" :class="{expand: isExpand}">
-									<FormInput
-									title=""
-									label="Адреса"
-									prefix=""
-									placeholder="Пошук дефектів за адресою"
-									v-model="search_by_adress"
-									class="form-control"
-								/>
-								<!-- <div class="input-field form-control">
-									<label>Дата розміщення</label>
-									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
-										<div class="form__wrapper interval table-sort__select">
-											<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
-												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
-													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
-														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
-														<span class="calendar__icon" v-if="periodShow == ''"></span>
-													</p>
-												</div>
-											</div>
-											<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
-												<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
-												<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
-												<div class="calendar__container">
-													<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
-														<p class="calendar__heading">Начало периода</p>
-														<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
-													</div>
-													<label class="calendar__label" for="calendarSwitch">
-														<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
-													</label>
-													<div class="calendar__end">
-														<p class="calendar__heading">Окончание периода</p>
-														<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div> -->
-								<FormSelect
-									label="Тип дефекту"
-									placeholder="Тип дефекту"
-									:options="options.options_filter_by_def_type"
-									v-model="selectedType"
-									class="form-control"
-								/>
-								<FormSelect
-									label="Розташування"
-									placeholder="Місце розташування дефекту"
-									:options="options.options_filter_by_def_location"
-									v-model="search_by_location_place"
-									class="form-control"
-								/>
-								<FormSelect
-									label="Статус"
-									placeholder="Статус дефекту"
-									:options="options.options_filter_by_def_status"
-									v-model="selectedStatus"
-									class="form-control"
-								/>
-									<div class="input_group">
-										<p>
-											<label for="customcheck">
-												<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
-												<span class="custom_checkbox">Показувати тільки мої дефекти</span>
-											</label>
-										</p>
-									</div>
-									<button class="btn outline_button">Показати на мапі</button>
-									<button class="btn custom_button">Показати</button>
-								</div>
-							</div>
-							<router-view v-if="!appsLoaded">
-								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-							</router-view>
-						</div>
-					</div>
-				</mq-layout>
+				</div>
 			</section>
 			<section class="pre_footer">
 				<mq-layout mq="md+">
@@ -606,8 +432,7 @@
 import Vue from 'vue';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
-import FormSelect from './components/FormSelect';
-// import Datepicker from 'vuejs-datepicker';
+import Defects from './components/Defects';
 
 // import defectCards from './mock_data';
 
@@ -615,11 +440,39 @@ export default {
 	name: 'app',
 	components: {
 		FormInput,
-		FormSelect,
+		Defects
 		// Datepicker
 	},
 	data() {
 		return {
+			options: {
+				options_sort_by: [
+					{ label: 'Нові', value: 'new' },
+					{ label: 'В процесі', value: 'in_progress' },
+				],
+				options_filter_by_def_type: [
+					{ label: 'Тип дефекту', value: '', disabled: 'disabled' },
+					{ label: 'Яма', value: 'hole', },
+					{ label: 'Ремонтується', value: 'manually', },
+					{ label: 'Розмітка', value: 'Markup' },
+					{ label: 'Не якісний ремонт', value: 'PoorQualityRepair', },
+					{ label: 'Сніг', value: 'Snow', },
+					{ label: 'Інородний об\'єкт', value: 'ForeignObj', },
+					{ label: 'Яма у дворі', value: 'yard_hole', },
+					{ label: 'Руйнування', value: 'ruined', },
+				],
+				options_filter_by_def_location: [
+					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },
+					{ label: 'Місто', value: 'city' },
+					{ label: 'Шосе', value: 'highway' },
+					{ label: 'У дворі', value: 'back_yard' },
+				],
+				options_filter_by_def_status: [
+					{ label: 'Статус дефекту', value: '', disabled: 'disabled' },
+					{ label: 'Нові', value: 'new' },
+					{ label: 'В процесі', value: 'in_progress' },
+				],
+			},
 			navItems: [
 				{
 					name: 'About',
@@ -664,35 +517,9 @@ export default {
 					path: '/contacts'
 				},
 			],
-			options: {
-				options_sort_by: [
-					{ label: 'Нові', value: 'new' },
-					{ label: 'В процесі', value: 'in_progress' },
-				],
-				options_filter_by_def_type: [
-					{ label: 'Тип дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Яма', value: 'hole' },
-					{ label: 'Ремонтується', value: 'manually' },
-					{ label: 'Розмітка', value: 'Markup' },
-					{ label: 'Не якісний ремонт', value: 'PoorQualityRepair' },
-					{ label: 'Сніг', value: 'Snow' },
-					{ label: 'Інородний об\'єкт', value: 'ForeignObj' },
-					{ label: 'Яма у дворі', value: 'yard_hole' },
-					{ label: 'Руйнування', value: 'ruined' },
-				],
-				options_filter_by_def_location: [
-					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Місто', value: 'city' },
-					{ label: 'Шосе', value: 'highway' },
-					{ label: 'У дворі', value: 'back_yard' },
-				],
-				options_filter_by_def_status: [
-					{ label: 'Статус дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Нові', value: 'new' },
-					{ label: 'В процесі', value: 'in_progress' },
-				],
-			},
 			loggedIn: false,
+			status: [],
+			login: false,
 			comment: '',
 			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
@@ -700,41 +527,133 @@ export default {
 			isActive: false,
 			isExpand: false,
 			appsLoaded: false,
-			currentPage: null,
-			totalPages: null,
-			perPage: null,
-			startPage: null,
-			endPage: null,
-			cardCount: 10,
 			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
 			search: '',
-			listType: '',
-			search_by_adress: '',
+			selfFilters: false,
+			dateRangeFilterShown: false,
+			token: "",
+			id: '7383202a-177c-444c-a4da-0e984e274580',
+			dirtyExit: false,
+			user: {},
+			page: '',
+			listType: 'ruined',
+			profileLoaded: false,
+			selectedStatus: '',
+			selectedType: '',
+			searchAuthorFilter: '',
+			search_by_author: '',
 			search_by_date: '',
 			search_by_location_place: '',
 			search_by_type: '',
-			selectedStatus: '',
-			selectedType: '',
 			sort_by: '',
-			selfFilters: false,
-			pendingUpdate: null,
-			periodStart: '',
-			periodEnd: '',
-			dateRangeFilterShown: false,
-			constants: {},
-			user: {},
-			// appListType: 'hole',
+			appsFilters: {
+				hole: {
+					selectedType: ''
+				},
+				manually: {
+					selectedType: ''
+				},
+				PoorQualityRepair: {
+					selectedType: ''
+				},
+				yard_hole: {
+					selectedType: ''
+				},
+				Snow: {
+					selectedType: ''
+				},
+				ForeignObj: {
+					selectedType: ''
+				},
+				ruined: {
+					selectedType: ''
+				},
+			},
 		}
 	},
-	async created() {
+	created: function() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
+		this.prefix = "";
+		if (document.URL.slice(-1) == '/') {
+			this.prefix = '../'
+		}
+		this.status.push({ "cookies": document.cookie });
+		this.checkCode();
+		this.startTimer();
+	},
+	beforeMount: function() {
 	},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
+		this.checkCode();
+		this.startTimer();
+		// if(!Object.keys(this.user).length){
+		// this.loadProfile();
+		// }
+
+		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
+			this.listType = this.$route.params.listType;
+		else
+			this.listType = "ruined";
 	},
 	methods: {
+		abortableFetch(request, opts, raw = false) {
+			const controller = new AbortController();
+			const signal = controller.signal;
+			if(raw) {
+				return {
+					abort: () => controller.abort(),
+					ready: fetch(request, {
+						...opts,
+						signal
+					}).then((response) => response)
+				};
+			} else {
+				return {
+					abort: () => controller.abort(),
+					ready: fetch(request, {
+						...opts,
+						signal
+					}).then((response) => {
+						return response.json().then((data) => {
+							if(response.status == 401) {
+								console.log("Unauthorized:", request);
+								// this.doLogout();
+								this.dirtyExit = true;
+								throw Error("Logging out");
+							}
+							return data;
+						});
+					})
+				};
+			}
+		},
+		apiPOST: async function(endpoint, requestData, rawFetch = false) {
+			let headers = {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			};
+			// if(auth)
+			// 	headers["Authorization"] = `Bearer ${this.token}`;
+			let response = await fetch(this.apiURL + endpoint, {
+				method: 'POST',
+				headers: headers,
+				body: JSON.stringify(requestData)
+			});
+			if(response.status == 401) {
+				console.log("Unauthorized:", endpoint);
+				// this.doLogout();
+				this.dirtyExit = true;
+				throw Error("Logging out");
+			}
+			if(rawFetch) return response;
+			let data = await response.json();
+			return data;
+			// let data = await response.json();
+			// return data;
+		},
 		apiGET: async function(endpoint){
 			let headers={
 				'Accept': 'application/json',
@@ -745,9 +664,38 @@ export default {
 				method: 'GET',
 				headers: headers
 			});
+			if(response.status == 401) {
+				console.log("Unauthorized:", endpoint);
+				// this.doLogout();
+				this.dirtyExit = true;
+				throw Error("Logging out");
+			}
 			let data = await response.json();
 			return data;
 		},
+		apiGETv2: function(endpoint, raw = false) {
+			let headers = {
+				'Accept': 'application/json',
+			};
+			// if(auth)
+			// 	headers["Authorization"] = `Bearer ${this.token}`;
+			return this.abortableFetch(this.apiURL + endpoint, {
+				method: 'GET',
+				headers: headers
+			}, raw);
+		},
+		// async loadProfile(id) {
+		// 	let resp = await this.apiGET('/me' /*+ `?id=${this.id}`*/, false).then(response => {
+		// 		console.log(resp);
+		// 		if(!id) {
+		// 			this.user = response;
+		// 		}
+		// 		this.profileLoaded = true;
+		// 		return response;
+		// 	}).catch(() => {});
+		// 	this.profileLoaded = true;
+		// 	return resp;
+		// },
 		openMenu(){
 			if(!this.isOpen){
 				this.$refs.Line_1.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')
@@ -761,11 +709,35 @@ export default {
 				this.$refs.Line_3.setAttribute('style', 'transform: translate(649.5px, 904.5px) rotate(0);transition: transform .2s ease-out')
 			}
 		},
+		checkCode: function () {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', ('https://tala.cloudi.es/routes/00d3928bf3/api/code'))
+			xhr.send();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState != 4) return;
+				if (xhr.status != 200) {
+					alert(xhr.status + ': ' + xhr.statusText);
+				} else {
+					this.status.push(JSON.parse(xhr.responseText));
+					if (this.status[this.status.length - 1].status === "login-ok") {
+						clearInterval(this.timer);
+						this.login = true;
+					}
+				}
+			}.bind(this).bind(this)
+		},
+		startTimer: function () {
+			this.timer = setInterval(this.checkCode, 5200);
+		}
 	},
 	computed: {
 		//API Data
 	},
-	watch: {},
+	watch: {
+		// token: function(value) {
+		// 	localStorage.setItem("token", value);
+		// },
+	},
 }
 </script>
 

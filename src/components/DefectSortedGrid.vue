@@ -1,5 +1,5 @@
 <template>
-	<section class="collection_defects">
+	<div style="flex: 0 0 100%">
 		<mq-layout mq="lg">
 			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 			<carousel class="VueCarousel-fullwidth_lg" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="5" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
@@ -198,8 +198,7 @@
 						</div>
 			</div>
 		</mq-layout>
-		<!-- <router-view></router-view> -->
-	</section>
+	</div>
 </template>
 
 <script>
@@ -218,43 +217,31 @@ export default {
 	},
 	data() {
 		return {
-			comment: '',
-			isComments: false,
-			isOpen: false,
 			isActive: false,
-			isExpand: false,
 			appsLoaded: false,
-			orgInfo: [],
-			currentPage: null,
-			totalPages: null,
-			perPage: null,
-			startPage: null,
-			endPage: null,
 			defect: {},
-			selfFilters: false,
-			pendingUpdate: null,
+			orgInfo: [],
 		}
 	},
 	created() {
-		this.$eventBus.$on('applicationUpdated', async (event) => {
-			if(this.$route.params.id) {
-				if(this.$route.params.id == event.payload.id) {
-					await this.reloadApplication();
-				}
-			}
-		});
+		// this.$eventBus.$on('applicationUpdated', (e) => {
+		// 	this.orgInfo=this.$API2.orgInfo;
+		// });
 	},
-	beforeDestroy() {
-		this.$eventBus.$off('applicationUpdated');
+	beforeUpdate() {
+		this.orgInfo = this.$API2.orgInfo;
 	},
+	// beforeDestroy() {
+	// 	this.$eventBus.$off('applicationUpdated');
+	// },
 	async mounted() {
-		this.$API.title = "Дефекти";
+		this.$API.title = "Сортовані дефекти";
 		this.$API.page = "DefectSortedGrid";
-		this.loadCard(true);
 		let id = this.$route.params.id;
 		if(!id) {
 			this.router.push("/404");
 		}
+		// this.orgInfo = this.$API2.orgInfo;
 		// this.loadDefect(id);
 	},
 	methods: {
@@ -265,20 +252,9 @@ export default {
 				window.open(url, "_new");
 			}
 		},
-		async loadCard(change){
-			this.isActive=true;
-			try{
-				this.pendingUpdate = await this.$API.apiGET("/defects?");
-				if(!this.pendingUpdate)
-					this.isActive=true;
-				let result = await this.pendingUpdate;
-				console.log(result);
-				this.orgInfo=result;
-				this.isActive=false;
-			}catch(e){
-				console.log(e);
-				this.isActive=false;
-			}
+		async reloadApplication() {
+			await this.$API2.orgInfo;
+			this.orgInfo=this.$API2.orgInfo;
 		},
 	},
 	computed: {
@@ -291,20 +267,16 @@ export default {
 					photo: card.photos,
 					status: card.case_status,
 					comment: card.comments,
-					// author: card.author.name,
-					// region_id: card.photos[0].region_id,
 				}
 			});
 		},
-		statusList(){
-			let caseStatuses = [
-				{ value: 'new', label: 'Новий' },
-				{ value: 'in_progress', label: 'В процесі' }
-			]
-			return caseStatuses;
-		}
 	},
-	watch: {}
+	watch: {
+		'$API2.orgInfo'(){
+			if(this.$API2.orgInfo)
+				this.orgInfo=this.$API2.orgInfo;
+		}
+	}
 }
 </script>
 

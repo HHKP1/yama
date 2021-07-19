@@ -1132,6 +1132,10 @@
 			width: 100%;
 			padding: 0;
 		}
+		.filters_box{
+			width: 100%;
+			max-width: 350px;
+		}
 		.filters_controls_mb{
 			display: flex;
 			justify-content: space-between;
@@ -1697,6 +1701,7 @@
 		grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
 		/* grid-template-rows: 1fr 1fr; */
 		gap: 18px 8px;
+		place-content: baseline;
 	}
 	.defect_card{
 		display: flex;

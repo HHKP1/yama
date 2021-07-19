@@ -10,11 +10,13 @@ import FormSelect from './components/FormSelect';
 import DefectSortedGrid from './components/DefectSortedGrid.vue';
 
 // Pages
+import Defects from './components/Defects.vue';
 import CollectionList from './components/CollectionList.vue';
 import DefectView from './components/DefectView.vue';
 import NotFoundPage from './components/404.vue';
 
 // Register Components
+Vue.component('Defects', Defects);
 Vue.component('FormInput', FormInput);
 Vue.component('FormSelect', FormSelect);
 Vue.component('DefectSortedGrid', DefectSortedGrid);
@@ -31,6 +33,7 @@ Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
 
 const routes = [
+	// { path: '/collections', component: Defects, props: true },
 	{ path: '/', component: CollectionList, props: true },
 	{ path: '/collections', component: CollectionList, props: true },
 	// { path: '/collections/:listType', component: CollectionList },

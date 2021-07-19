@@ -1,9 +1,7 @@
 <template>
-	<section class="collection_defects">
+	<div style="flex: 1 1 60%">
 		<mq-layout mq="md+">
-			<div class="container_works">
-				<div class="container_defects">
-					<div class="defect_content" v-if="!appsLoaded">
+			<div class="defect_content">
 								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -105,159 +103,178 @@
 									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 1}">
 										<div class="progress_container">
 											<div class="progress_item">
-												<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/mdi_camera-plus-outline.svg" class="progress_icon" alt="">
+												<div class="progress_content">
+													<div class="progress_icons_block">
+														<div class="progress_icons">
+															<div class="progress_indicator">
+																<img src="../assets/img/icons/mdi_camera-plus-outline.svg" class="progress_icon" alt="">
+															</div>
+															<img src="../assets/img/icons/arrow_down.svg" alt="">
 														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+													<div class="progress_info_block">
+														<div class="progress_info_item">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<p class="author_chat message_date">23.04.2021</p>
+														</div>
+														<p class="progress_title">Дефект додано</p>
 													</div>
 												</div>
-												<div class="progress_info_block">
-													<div class="progress_info_item">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title">Дефект додано</p>
-												</div>
-											</div><div class="progress_item_reverse">
-												<div class="progress_icons_block">
+											</div>
+											<div class="progress_item_reverse">
+												<div class="progress_content_reverse">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
 														</div>
 														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item_reverse">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title_reverse">Коментарі</p>
 													<!-- <p class="progress_title">Коментарі</p> -->
+													</div>
 												</div>
 											</div>
 											<div class="progress_item">
-												<div class="progress_icons_block">
+												<div class="progress_content">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
 														</div>
 														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title">Реакція на відповідь</p>
+													</div>
 												</div>
 											</div>
 											<div class="progress_item_reverse">
-												<div class="progress_icons_block">
+												<div class="progress_content_reverse">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
 														</div>
 														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item_reverse">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title_reverse">Звернення надіслано</p>
 													<p class="progress_title_reverse">Звернення надіслано</p>
+													</div>
 												</div>
 											</div>
 											<div class="progress_item">
-												<div class="progress_icons_block">
+												<div class="progress_content">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/mdi_file-check-outline.svg" class="progress_icon" alt="">
 														</div>
 														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title">Відповідь отримано</p>
+													</div>
 												</div>
 											</div>
 											<div class="progress_item_reverse">
-												<div class="progress_icons_block">
+												<div class="progress_content_reverse">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
 														</div>
 														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item_reverse">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title_reverse">Коментарі</p>
 													<!-- <p class="progress_title">Коментарі</p> -->
+													</div>
 												</div>
 											</div>
 											<div class="progress_item">
-												<div class="progress_icons_block">
+												<div class="progress_content">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
 														</div>
 														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title">Реакція на відповідь</p>
+													</div>
 												</div>
 											</div>
 											<div class="progress_item_reverse">
-												<div class="progress_icons_block">
+												<div class="progress_content_reverse">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/si-glyph_arrow-reload.svg" class="progress_icon" alt="">
 														</div>
 														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item_reverse">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title_reverse">Дані оновлено</p>
 													<!-- <p class="progress_title">Звернення надіслано</p> -->
+													</div>
 												</div>
 											</div>
 											<div class="progress_item">
-												<div class="progress_icons_block">
+												<div class="progress_content">
+													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
 															<img src="../assets/img/icons/bx_bx-traffic-cone.svg" class="progress_icon" alt="">
 														</div>
 													</div>
-												</div>
-												<div class="progress_info_block">
+													</div>
+													<div class="progress_info_block">
 													<div class="progress_info_item">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">23.04.2021</p>
 													</div>
 													<p class="progress_title">Дефект усунуто</p>
 													<!-- <p class="progress_title">Звернення надіслано</p> -->
+													</div>
 												</div>
 											</div>
 										</div>
@@ -270,7 +287,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name">{{ defect.author.name }}</p>
+													<p class="author_name" :title="this.$API.user.first_name+' '+this.$API.user.last_name+' '+this.$API.user.patronymic">{{ this.$API.user.first_name }} {{ this.$API.user.last_name }}</p>
 												</div>
 											</div>
 											<FormInput
@@ -326,8 +343,6 @@
 									<button class="btn outline_button btn_outline">&lt; Попередній</button>
 									<button class="btn outline_button btn_outline">Наступний &gt;</button>
 								</div>
-					</div>
-				</div>
 			</div>
 		</mq-layout>
 		<mq-layout mq="sm">
@@ -336,7 +351,7 @@
 							<div class="defect_content_mb" v-if="appsLoaded">
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb">
-									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
+									<!-- <div class="defect_card" v-for='card in dfCard' :key='card.id'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 											<div class="defect_image">
@@ -358,7 +373,7 @@
 												<p class="defect_adress" :title="card.address">{{ card.address }}</p>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="card_pagination">
 									<div class="pagination_control">
@@ -374,9 +389,9 @@
 							</div>
 							<div class="defect_content" v-if="appsLoaded">
 								<div class="defect_filter_count">
-									<div class="defect_filter_item">
+									<!-- <div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
-									</div>
+									</div> -->
 								</div>
 								<div class="sorted_item">
 									<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
@@ -431,7 +446,7 @@
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
 								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-								<carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+								<!-- <carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 									<slide v-for='card in dfCard' :key='card.id'>
 										<div class="defect_card_mb">
 											<router-link :to="'/defect/'+card.id">
@@ -459,7 +474,7 @@
 											</router-link>
 										</div>
 									</slide>
-								</carousel>
+								</carousel> -->
 								<div class="defect_nav_container">
 									<div class="defect_nav_mb">
 										<div class="defect_nav_item_mb" @click="isComments = 1" :style="{'border-bottom': isComments === 1 ? '2px solid var(--color-red)' : ''}"><p>Детальна інформація</p></div>
@@ -479,7 +494,6 @@
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='Snow'">Сніг</h3>
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='ForeignObj'">Інородний об'єкт</h3>
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='yard_hole'">Яма у дворі</h3>
-												<!-- <p class="defect_description">{{ defect.comment }}</p> -->
 											</div>
 										</div>
 										<div class="defect_detail">
@@ -655,7 +669,7 @@
 						</div>
 			</div>
 		</mq-layout>
-	</section>
+	</div>
 </template>
 
 <script>
@@ -689,12 +703,6 @@ export default {
 			isActive: false,
 			isExpand: false,
 			appsLoaded: false,
-			orgInfo: [],
-			currentPage: null,
-			totalPages: null,
-			perPage: null,
-			startPage: null,
-			endPage: null,
 			defect: {},
 			sort_by: '',
 			pendingUpdate: null,
@@ -703,16 +711,15 @@ export default {
 	created() {
 		this.isActive=true;
 	},
-	mounted() {
+	async mounted() {
 		this.$API.title = "Дефект";
-		// this.$API.page = "DefectView";
-		this.loadCard(true);
+		this.$API.page = "DefectView";
 		let id = this.$route.params.id;
 		if(!id) {
 			this.router.push("/404");
 			return;
 		}
-		this.loadDefect(id);
+		await this.loadDefect(id);
 	},
 	methods: {
 		openClaim(url){
@@ -740,47 +747,9 @@ export default {
 				this.isActive=false;
 			}
 		},
-		// async reloadCollection() {
-		// 	this.loadDefect(this.defect.id);
-		// },
-		async loadCard(change){
-			this.isActive=true;
-			try{
-				this.pendingUpdate = await this.$API.apiGET("/defects?");
-				if(!this.pendingUpdate)
-					this.isActive=true;
-				let result = await this.pendingUpdate;
-				console.log(result);
-				this.orgInfo=result;
-				this.isActive=false;
-			}catch(e){
-				console.log(e);
-				this.isActive=false;
-			}
-		},
 	},
 	computed: {
 		//API Data
-		dfCard(){
-			return this.orgInfo.map(card => {
-				return {
-					id: card.id,
-					address: card.address,
-					photo: card.photos,
-					status: card.case_status,
-					comment: card.comments,
-					author: card.author.name,
-					// region_id: card.photos[0].region_id,
-				}
-			});
-		},
-		statusList(){
-			let caseStatuses = [
-				{ value: 'new', label: 'Новий' },
-				{ value: 'in_progress', label: 'В процесі' }
-			]
-			return caseStatuses;
-		}
 	},
 	watch: {
 		'$route.path'() {
@@ -1261,14 +1230,25 @@ export default {
 		max-height: 550px;
 		overflow: auto;
 	}
+	@media all and (min-width:968px){
+		.progress_container{
+		padding: 12px 0;
+		max-height: 550px;
+		overflow: auto;
+	}
+	}
 	.progress_item{
 		display: flex;
 		justify-content: flex-end;
+		max-width: 316px;
 	}
-	.progress_item_reverse{
+	.progress_content_reverse{
 		flex-flow: row-reverse;
 		display: flex;
 		justify-content: flex-end;
+	}
+	.progress_content{
+		display: flex;
 	}
 	.progress_icons_block{
 		margin: 0;
