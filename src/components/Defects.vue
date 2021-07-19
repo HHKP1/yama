@@ -185,8 +185,8 @@ import Vue from 'vue';
 export default {
 	name: 'defects',
 	components: {
+		// CollectionList
 	},
-	// props: ['orgInfo'],
 	data() {
 		return {
 			options: {
@@ -236,18 +236,17 @@ export default {
 			listType: 'ruined',
 			selfFilters: false,
 			pendingUpdate: null,
-			dateRangeFilterShown: false,
 			appsUpdateInterval: null,
 		}
 	},
 	async created() {
 		Vue.prototype.$API2 = this;
 		// this.loadDefects(true);
-		this.$eventBus.$on('applicationUpdated', async (event) => {
-			if(this.$API2.orgInfo) {
-				await this.reloadApplication();
-			}
-		});
+		// this.$eventBus.$on('applicationUpdated', async (event) => {
+		// 	if(this.$API2.orgInfo) {
+		// 		await this.reloadApplication();
+		// 	}
+		// });
 	},
 	mounted() {
 		this.$API.title = "Дефекти";
@@ -256,10 +255,10 @@ export default {
 		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
 			this.listType = this.$route.params.listType;
 		else
-			this.listType = this.$route.params.listType;
+			this.listType = 'ruined';
 
 		this.loadDefects(true);
-		// this.appsUpdateInterval = setInterval(this.loadDefects, 10);
+		this.appsUpdateInterval = setInterval(this.loadDefects, 10);
 	},
 	methods: {
 		listClick(e, url) {
@@ -268,17 +267,15 @@ export default {
 				window.open(url, "_new");
 			}
 		},
-		async loadDefects(change){
-			if(this.appsUpdating) return;
+		async loadDefects(change) {
+			if (this.appsUpdating) return;
 			this.appsUpdating = true;
-			try{
+			try {
 				this.pendingUpdate = await this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded ? '&forceUpdate=true' : ''), false);
-				let result = await this.pendingUpdate.ready;
-				console.log(result);
-				this.orgInfo=result;
-				if(!this.appsLoaded)
+				this.orgInfo = await this.pendingUpdate.ready;
+				if (!this.appsLoaded)
 					this.appsLoaded = true;
-			}catch(e){
+			} catch (e) {
 				console.log(e);
 			}
 			this.appsUpdating = false;
@@ -306,9 +303,7 @@ export default {
 			if(this.searchAuthorFilter.length > 0) {
 				show = app.author.name && app.author.name.toLowerCase().includes(this.author.name.toLowerCase());
 			}
-			if(!show) return false;
-
-			return true;
+			return show;
 		},
 		addQueryParam(param, value) {
 			let query = Object.assign({}, this.$route.query);
@@ -324,10 +319,10 @@ export default {
 				query
 			}, e => {});
 		},
-		changeOrgInfo() {
-			// this.orgInfo = [];
-			this.$eventBus.$emit('applicationUpdated', this.orgInfo)
-		}
+		// changeOrgInfo() {
+		// 	this.orgInfo = [];
+		// 	this.$eventBus.$emit('applicationUpdated', this.orgInfo)
+		// }
 	},
 	computed: {
 		//API Data
@@ -348,7 +343,7 @@ export default {
 	},
 	watch: {
 		selectedType() {
-			if(this.selectedType ==null) {
+			if(this.selectedType === null) {
 				this.removeQueryParam('type');
 			} else {
 				this.addQueryParam('type', this.selectedType);
@@ -356,11 +351,11 @@ export default {
 			this.resetApps();
 		},
 		'$route.params'(type) {
-			if(!type)
-				type = "hole";
+			// if(!type)
+			// 	type = "hole";
 			// this.$API.appListType = type;
 			// this.$API2.selectedStatus = this.selectedStatus;
-			this.$API2.selectedType = this.selectedType;
+			// this.$API2.selectedType = this.selectedType;
 			// this.$API2.searchAuthorFilter = this.searchAuthorFilter;
 			// this.listType = type;
 			// if(this.$refs.typesFilter)

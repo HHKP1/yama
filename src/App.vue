@@ -538,8 +538,6 @@ export default {
 			page: '',
 			listType: 'ruined',
 			profileLoaded: false,
-			selectedStatus: '',
-			selectedType: '',
 			searchAuthorFilter: '',
 			search_by_author: '',
 			search_by_date: '',
@@ -593,10 +591,10 @@ export default {
 		// this.loadProfile();
 		// }
 
-		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
-			this.listType = this.$route.params.listType;
-		else
-			this.listType = "ruined";
+		// if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
+		// 	this.listType = this.$route.params.listType;
+		// else
+		// 	this.listType = "ruined";
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -618,11 +616,11 @@ export default {
 						signal
 					}).then((response) => {
 						return response.json().then((data) => {
-							if(response.status == 401) {
-								console.log("Unauthorized:", request);
+							if(response.status == 200) {
+								// console.log("Unauthorized:", request);
 								// this.doLogout();
 								this.dirtyExit = true;
-								throw Error("Logging out");
+								// throw Error("Logging out");
 							}
 							return data;
 						});

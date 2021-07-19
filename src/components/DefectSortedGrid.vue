@@ -260,7 +260,7 @@ export default {
 	computed: {
 		//API Data
 		dfCard(){
-			return this.orgInfo.map(card => {
+			return this.$API2.orgInfo.map(card => {
 				return {
 					id: card.id,
 					address: card.address,

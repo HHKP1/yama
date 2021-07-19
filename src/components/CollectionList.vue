@@ -472,7 +472,7 @@ export default {
 					photo: card.photos,
 					status: card.case_status,
 					comment: card.comments,
-					author: card.author.name,
+					// author: card.author.name,
 					defect_type: card.defect_type,
 					// region_id: card.photos[0].region_id,
 				}
