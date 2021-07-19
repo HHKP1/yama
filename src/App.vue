@@ -66,8 +66,8 @@
 											<div class="hero-item">
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
-											<div class="hero-item">
-												<p class="p-text code">{{ status.code }}</p>
+											<div class="hero-item" v-for="state in status" :key="state.id">
+												<p class="p-text code">{{ state.code }}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -130,8 +130,8 @@
 											<div class="hero-item">
 												<p class="p-text">Для входу надішліть цей<br/>код боту у відповідному месенджері</p>
 											</div>
-											<div class="hero-item">
-												<p class="p-text code">{{ status.code }}</p>
+											<div class="hero-item" v-for="state in status" :key="state.id">
+												<p class="p-text code">{{ state.code }}</p>
 											</div>
 										</div>
 										<div class="hero-content">
@@ -579,9 +579,9 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		// if(!Object.keys(this.user).length){
-		// this.loadProfile();
-		// }
+		if(!Object.keys(this.user).length){
+			this.loadProfile();
+		}
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -669,18 +669,18 @@ export default {
 				headers: headers
 			}, raw);
 		},
-		// async loadProfile(id) {
-		// 	let resp = await this.apiGET('/me' /*+ `?id=${this.id}`*/, false).then(response => {
-		// 		console.log(resp);
-		// 		if(!id) {
-		// 			this.user = response;
-		// 		}
-		// 		this.profileLoaded = true;
-		// 		return response;
-		// 	}).catch(() => {});
-		// 	this.profileLoaded = true;
-		// 	return resp;
-		// },
+		async loadProfile() {
+			let resp = await this.apiGET('/me' /*+ `?id=${this.id}`*/, false).then(response => {
+				console.log(response);
+				if(response.status=='fail') return;
+				else
+					this.user = response;
+				this.profileLoaded = true;
+				return response;
+			}).catch(() => {});
+			this.profileLoaded = true;
+			return resp;
+		},
 		openMenu(){
 			if(!this.isOpen){
 				this.$refs.Line_1.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')

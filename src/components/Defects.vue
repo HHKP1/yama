@@ -276,7 +276,7 @@ export default {
 			this.pendingUpdate = null;
 		},
 		resetApps() {
-			// this.orgInfo=[];
+			this.orgInfo=[];
 			this.appsLoaded = false;
 			if(this.pendingUpdate) {
 				this.pendingUpdate.abort();
@@ -351,17 +351,17 @@ export default {
 			// this.$API2.selectedStatus = this.selectedStatus;
 			// this.$API2.selectedType = this.selectedType;
 			// this.$API2.searchAuthorFilter = this.searchAuthorFilter;
-			// this.listType = type;
-			// if(this.$refs.typesFilter)
-			// 	this.$refs.typesFilter.reset();
+			this.listType = type;
+			if(this.$refs.typesFilter)
+				this.$refs.typesFilter.reset();
 			// if(this.$refs.statusFilter)
 			// 	this.$refs.statusFilter.reset();
 			this.resetApps();
 		},
 	},
-	// beforeDestroy() {
-	// 	clearInterval(this.appsUpdateInterval);
-	// }
+	beforeDestroy() {
+		clearInterval(this.appsUpdateInterval);
+	}
 }
 </script>
 
