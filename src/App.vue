@@ -730,6 +730,7 @@ export default {
 					this.status.push(JSON.parse(xhr.responseText));
 					if (this.status[this.status.length - 1].status === "login-ok") {
 						clearInterval(this.timer);
+						this.getMe();
 						this.login = true;
 					}
 				}
