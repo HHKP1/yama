@@ -665,25 +665,25 @@ export default {
 			let data = await response.json();
 			return data;
 		},
-		async loadProfile() {
-			let resp = await this.apiGET('/me').then(response => {
-				console.log(response);
-				if (response.status != 200) {
-					// this.doLogout();
-					alert(response.status + ': ' + response.details);
-				} else {
-					console.log(response);
-					this.me = JSON.parse(response);
-					console.log(this.me);
-				}
-				// this.profileLoaded = true;
-				return response;
-			}).catch((e) => {
-				console.log(e);
-			});
-			this.profileLoaded = true;
-			return resp;
-		},
+		// async loadProfile() {
+		// 	let resp = await this.apiGET('/me').then(response => {
+		// 		console.log(response);
+		// 		if (response.status != 200) {
+		// 			// this.doLogout();
+		// 			alert(response.status + ': ' + response.details);
+		// 		} else {
+		// 			console.log(response);
+		// 			this.me = JSON.parse(response);
+		// 			console.log(this.me);
+		// 		}
+		// 		// this.profileLoaded = true;
+		// 		return response;
+		// 	}).catch((e) => {
+		// 		console.log(e);
+		// 	});
+		// 	this.profileLoaded = true;
+		// 	return resp;
+		// },
 		openMenu(){
 			if(!this.isOpen){
 				this.$refs.Line_1.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')
@@ -702,6 +702,20 @@ export default {
 			//this.$router.push("/logout");
 			// this.$eventBus.$emit('appsUpdateInterval', { payload: 'destroy' });
 			this.$router.push("/logout");
+		},
+		getMe: function () {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', ('https://tala.cloudi.es/routes/95a4b653d1/api/me'))
+			xhr.send();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState != 4) return;
+				if (xhr.status != 200) {
+					alert(xhr.status + ': ' + xhr.statusText);
+				} else {
+					this.me = JSON.parse(xhr.responseText);
+					console.log(this.me);
+				}
+			}.bind(this).bind(this)
 		},
 		checkCode: function () {
 			var xhr = new XMLHttpRequest();
