@@ -224,19 +224,18 @@ export default {
 		}
 	},
 	created() {
-		// this.$eventBus.$on('applicationUpdated', (e) => {
-		// 	this.orgInfo=this.$API2.orgInfo;
-		// });
+		this.$eventBus.$on('applicationUpdated', (e) => {
+			this.orgInfo=this.$API2.orgInfo;
+		});
 	},
 	beforeUpdate() {
 		this.orgInfo = this.$API2.orgInfo;
 	},
-	// beforeDestroy() {
-	// 	this.$eventBus.$off('applicationUpdated');
-	// },
+	beforeDestroy() {
+		this.$eventBus.$off('applicationUpdated');
+	},
 	async mounted() {
 		this.$API.title = "Сортовані дефекти";
-		this.$API.page = "DefectSortedGrid";
 		let id = this.$route.params.id;
 		if(!id) {
 			this.router.push("/404");

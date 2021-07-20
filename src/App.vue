@@ -445,34 +445,7 @@ export default {
 	},
 	data() {
 		return {
-			options: {
-				options_sort_by: [
-					{ label: 'Нові', value: 'new' },
-					{ label: 'В процесі', value: 'in_progress' },
-				],
-				options_filter_by_def_type: [
-					{ label: 'Тип дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Яма', value: 'hole', },
-					{ label: 'Ремонтується', value: 'manually', },
-					{ label: 'Розмітка', value: 'Markup' },
-					{ label: 'Не якісний ремонт', value: 'PoorQualityRepair', },
-					{ label: 'Сніг', value: 'Snow', },
-					{ label: 'Інородний об\'єкт', value: 'ForeignObj', },
-					{ label: 'Яма у дворі', value: 'yard_hole', },
-					{ label: 'Руйнування', value: 'ruined', },
-				],
-				options_filter_by_def_location: [
-					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Місто', value: 'city' },
-					{ label: 'Шосе', value: 'highway' },
-					{ label: 'У дворі', value: 'back_yard' },
-				],
-				options_filter_by_def_status: [
-					{ label: 'Статус дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Нові', value: 'new' },
-					{ label: 'В процесі', value: 'in_progress' },
-				],
-			},
+			options: {},
 			navItems: [
 				{
 					name: 'About',
@@ -518,7 +491,7 @@ export default {
 				},
 			],
 			status: [],
-			login: false,
+			login: true,
 			comment: '',
 			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
@@ -527,6 +500,7 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
+			apiURL2: 'https://tala.cloudi.es/routes/00d3928bf3/api',
 			search: '',
 			selfFilters: false,
 			dateRangeFilterShown: false,
@@ -534,6 +508,7 @@ export default {
 			id: '7383202a-177c-444c-a4da-0e984e274580',
 			dirtyExit: false,
 			user: {},
+			me: {},
 			page: '',
 			listType: 'ruined',
 			profileLoaded: false,
@@ -566,10 +541,10 @@ export default {
 	created: function() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
-		// this.prefix = "";
-		// if (document.URL.slice(-1) == '/') {
-		// 	this.prefix = '../'
-		// }
+		this.prefix = "";
+		if (document.URL.slice(-1) == '/') {
+			this.prefix = '../'
+		}
 		this.status.push({ "cookies": document.cookie });
 		this.checkCode();
 		this.startTimer();
@@ -603,11 +578,12 @@ export default {
 						signal
 					}).then((response) => {
 						return response.json().then((data) => {
-							if(response.status == 200) {
-								// console.log("Unauthorized:", request);
-								// this.doLogout();
+							// console.log(response);
+							if(response.status != 200) {
+								console.log("Unauthorized:", request);
+								this.doLogout();
 								this.dirtyExit = true;
-								// throw Error("Logging out");
+								throw Error("Logging out");
 							}
 							return data;
 						});
@@ -649,9 +625,10 @@ export default {
 				method: 'GET',
 				headers: headers
 			});
+			// console.log(response);
 			if(response.status == 401) {
 				console.log("Unauthorized:", endpoint);
-				// this.doLogout();
+				this.doLogout();
 				this.dirtyExit = true;
 				throw Error("Logging out");
 			}
@@ -669,15 +646,41 @@ export default {
 				headers: headers
 			}, raw);
 		},
+		apiGETv3: async function(endpoint){
+			let headers={
+				'Accept': 'application/json',
+			};
+			// if(auth)
+			// 	headers["Authorization"]=`Bearer ${this.token}`;
+			let response = await fetch(this.apiURL2 + endpoint, {
+				method: 'GET',
+				headers: headers
+			});
+			if(response.status == 401) {
+				console.log("Unauthorized:", endpoint);
+				// this.doLogout();
+				this.dirtyExit = true;
+				throw Error("Logging out");
+			}
+			let data = await response.json();
+			return data;
+		},
 		async loadProfile() {
-			let resp = await this.apiGET('/me' /*+ `?id=${this.id}`*/, false).then(response => {
+			let resp = await this.apiGET('/me').then(response => {
 				console.log(response);
-				if(response.status=='fail') return;
-				else
-					this.user = response;
-				this.profileLoaded = true;
+				if (response.status != 200) {
+					// this.doLogout();
+					alert(response.status + ': ' + response.details);
+				} else {
+					console.log(response);
+					this.me = JSON.parse(response);
+					console.log(this.me);
+				}
+				// this.profileLoaded = true;
 				return response;
-			}).catch(() => {});
+			}).catch((e) => {
+				console.log(e);
+			});
 			this.profileLoaded = true;
 			return resp;
 		},
@@ -694,11 +697,18 @@ export default {
 				this.$refs.Line_3.setAttribute('style', 'transform: translate(649.5px, 904.5px) rotate(0);transition: transform .2s ease-out')
 			}
 		},
+		doLogout() {
+			if(!this.login) return;
+			//this.$router.push("/logout");
+			// this.$eventBus.$emit('appsUpdateInterval', { payload: 'destroy' });
+			this.$router.push("/logout");
+		},
 		checkCode: function () {
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', ('https://tala.cloudi.es/routes/00d3928bf3/api/code'))
 			xhr.send();
 			xhr.onreadystatechange = function () {
+				// console.log(xhr);
 				if (xhr.readyState != 4) return;
 				if (xhr.status != 200) {
 					alert(xhr.status + ': ' + xhr.statusText);
@@ -718,11 +728,7 @@ export default {
 	computed: {
 		//API Data
 	},
-	watch: {
-		// token: function(value) {
-		// 	localStorage.setItem("token", value);
-		// },
-	},
+	watch: {},
 }
 </script>
 

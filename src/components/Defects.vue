@@ -2,81 +2,81 @@
 	<div style="flex: 0 0 25%">
 		<mq-layout mq="md+">
 			<div class="filters_block">
-				<div class="defect_filters">
-						<p class="filter_title" style="text-align:left;">фільтри</p>
-				</div>
-				<FormInput
-					title=""
-					label="Автор"
-					prefix=""
-					placeholder="Пошук дефектів за адресою"
-					v-model="search_by_author"
-					class="form-control"
-				/>
-				<!-- <div class="input-field form-control">
-							<label>Дата розміщення</label>
-							<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
-								<div class="form__wrapper interval table-sort__select">
-									<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
-										<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
-											<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
-												<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
-												<span class="calendar__icon" v-if="periodShow == ''"></span>
-											</p>
-										</div>
-									</div>
-									<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
-										<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
-										<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
-										<div class="calendar__container">
-											<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
-												<p class="calendar__heading">Начало периода</p>
-												<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
-											</div>
-											<label class="calendar__label" for="calendarSwitch">
-												<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
-											</label>
-											<div class="calendar__end">
-												<p class="calendar__heading">Окончание периода</p>
-												<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
-											</div>
-										</div>
-									</div>
+								<div class="defect_filters">
+										<p class="filter_title" style="text-align:left;">фільтри</p>
 								</div>
-							</div>
-						</div> -->
-				<FormSelect
-					label="Тип дефекту"
-					ref="typesFilter"
-					placeholder="Тип дефекту"
-					:options="options.options_filter_by_def_type"
-					v-model="selectedType"
-					class="form-control"
-				/>
-				<FormSelect
-					label="Розташування"
-					placeholder="Місце розташування дефекту"
-					:options="options.options_filter_by_def_location"
-					v-model="search_by_location_place"
-					class="form-control"
-				/>
-				<FormSelect
-					label="Статус"
-					placeholder="Статус дефекту"
-					:options="options.options_filter_by_def_status"
-					v-model="selectedStatus"
-					class="form-control"
-				/>
-				<div class="input_group">
-					<p>
-						<label for="customcheck">
-							<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
-							<span class="custom_checkbox">Показувати тільки мої дефекти</span>
-						</label>
-					</p>
-				</div>
-				<button class="btn outline_button">Показати на мапі</button>
-				<button class="btn custom_button">Показати</button>
+								<FormInput
+									title=""
+									label="Автор"
+									prefix=""
+									placeholder="Пошук дефектів за адресою"
+									v-model="search_by_author"
+									class="form-control"
+								/>
+								<!-- <div class="input-field form-control">
+											<label>Дата розміщення</label>
+											<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
+												<div class="form__wrapper interval table-sort__select">
+													<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
+														<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
+															<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
+																<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
+																<span class="calendar__icon" v-if="periodShow == ''"></span>
+															</p>
+														</div>
+													</div>
+													<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
+														<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
+														<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
+														<div class="calendar__container">
+															<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
+																<p class="calendar__heading">Начало периода</p>
+																<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
+															</div>
+															<label class="calendar__label" for="calendarSwitch">
+																<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
+															</label>
+															<div class="calendar__end">
+																<p class="calendar__heading">Окончание периода</p>
+																<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div> -->
+								<FormSelect
+									label="Тип дефекту"
+									ref="typesFilter"
+									placeholder="Тип дефекту"
+									:options="options.options_filter_by_def_type"
+									v-model="selectedType"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Розташування"
+									placeholder="Місце розташування дефекту"
+									:options="options.options_filter_by_def_location"
+									v-model="search_by_location_place"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Статус"
+									placeholder="Статус дефекту"
+									:options="options.options_filter_by_def_status"
+									v-model="selectedStatus"
+									class="form-control"
+								/>
+								<div class="input_group">
+									<p>
+										<label for="customcheck">
+											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
+											<span class="custom_checkbox">Показувати тільки мої дефекти</span>
+										</label>
+									</p>
+								</div>
+								<button class="btn outline_button">Показати на мапі</button>
+								<button class="btn custom_button">Показати</button>
 			</div>
 		</mq-layout>
 		<mq-layout mq="sm">
@@ -185,8 +185,8 @@ import Vue from 'vue';
 export default {
 	name: 'defects',
 	components: {
-		// CollectionList
 	},
+	// props: ['orgInfo'],
 	data() {
 		return {
 			options: {
@@ -233,14 +233,21 @@ export default {
 			appsUpdating: false,
 			selectedStatus: '',
 			selectedType: '',
-			listType: '',
+			listType: 'ruined',
 			selfFilters: false,
 			pendingUpdate: null,
+			dateRangeFilterShown: false,
 			appsUpdateInterval: null,
 		}
 	},
 	async created() {
 		Vue.prototype.$API2 = this;
+		// this.loadDefects(true);
+		// this.$eventBus.$on('applicationUpdated', async (event) => {
+		// 	if(this.$API2.orgInfo) {
+		// 		await this.reloadApplication();
+		// 	}
+		// });
 	},
 	mounted() {
 		this.$API.title = "Дефекти";
@@ -252,7 +259,7 @@ export default {
 			this.listType = '';
 
 		this.loadDefects(true);
-		this.appsUpdateInterval = setInterval(this.loadDefects, 10);
+		// this.appsUpdateInterval = setInterval(this.loadDefects, 10);
 	},
 	methods: {
 		listClick(e, url) {
@@ -261,22 +268,23 @@ export default {
 				window.open(url, "_new");
 			}
 		},
-		async loadDefects(change) {
-			if (this.appsUpdating) return;
+		async loadDefects(change){
+			if(this.appsUpdating) return;
 			this.appsUpdating = true;
-			try {
-				this.pendingUpdate = await this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded ? '&forceUpdate=true' : ''), false);
-				this.orgInfo = await this.pendingUpdate.ready;
-				if (!this.appsLoaded)
+			try{
+				this.pendingUpdate = await this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded ? '&forceUpdate=true' : ''));
+				let result = await this.pendingUpdate.ready;
+				this.orgInfo=result;
+				if(!this.appsLoaded)
 					this.appsLoaded = true;
-			} catch (e) {
+			}catch(e){
 				console.log(e);
 			}
 			this.appsUpdating = false;
 			this.pendingUpdate = null;
 		},
 		resetApps() {
-			this.orgInfo=[];
+			// this.orgInfo=[];
 			this.appsLoaded = false;
 			if(this.pendingUpdate) {
 				this.pendingUpdate.abort();
@@ -284,7 +292,7 @@ export default {
 		},
 		appQuery() {
 			let loadingParams = {};
-			loadingParams.type = this.listType;
+			// loadingParams.type = this.listType;
 			// if(this.selectedStatus)
 			// 	loadingParams.case_status = this.selectedStatus;
 			if(this.selectedType)
@@ -297,7 +305,9 @@ export default {
 			if(this.searchAuthorFilter.length > 0) {
 				show = app.author.name && app.author.name.toLowerCase().includes(this.author.name.toLowerCase());
 			}
-			return show;
+			if(!show) return false;
+
+			return true;
 		},
 		addQueryParam(param, value) {
 			let query = Object.assign({}, this.$route.query);
@@ -313,10 +323,10 @@ export default {
 				query
 			}, e => {});
 		},
-		// changeOrgInfo() {
-		// 	this.orgInfo = [];
-		// 	this.$eventBus.$emit('applicationUpdated', this.orgInfo)
-		// }
+		changeOrgInfo() {
+			this.orgInfo = [];
+			this.$eventBus.$emit('applicationUpdated', this.orgInfo)
+		}
 	},
 	computed: {
 		//API Data
@@ -337,7 +347,7 @@ export default {
 	},
 	watch: {
 		selectedType() {
-			if(this.selectedType === null) {
+			if(this.selectedType ==null) {
 				this.removeQueryParam('type');
 			} else {
 				this.addQueryParam('type', this.selectedType);
@@ -345,15 +355,15 @@ export default {
 			this.resetApps();
 		},
 		'$route.params'(type) {
-			// if(!type)
-			// 	type = "hole";
+			if(!type)
+				type = "hole";
 			// this.$API.appListType = type;
 			// this.$API2.selectedStatus = this.selectedStatus;
-			// this.$API2.selectedType = this.selectedType;
+			// this.$API.selectedType = this.selectedType;
 			// this.$API2.searchAuthorFilter = this.searchAuthorFilter;
-			this.listType = type;
-			if(this.$refs.typesFilter)
-				this.$refs.typesFilter.reset();
+			// this.listType = type;
+			// if(this.$refs.typesFilter)
+			// 	this.$refs.typesFilter.reset();
 			// if(this.$refs.statusFilter)
 			// 	this.$refs.statusFilter.reset();
 			this.resetApps();

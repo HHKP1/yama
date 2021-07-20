@@ -63,7 +63,7 @@
 													<div class="author_info">
 														<div class="author_content">
 															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-															<p class="author_name">{{ defect.author.name }}</p>
+															<!-- <p class="author_name">{{ comments[0].author.name }}</p> -->
 														</div>
 														<button class="author_chat underline-btn">Написати автору</button>
 													</div>
@@ -409,8 +409,8 @@
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 											<div class="defect_image">
-												<img class="card_image" :src="card.photo[0].url" alt="">
-												<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+												<img class="card_image" :src="card.url" alt="">
+												<p class="defect_date">{{ new Date(card.timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
 												<div class="defect_color"></div>
 											</div>
 											<div class="defect_info">
@@ -530,7 +530,7 @@
 													<div class="author_info">
 														<div class="author_content">
 															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-															<p class="author_name">{{ defect.author.name }}</p>
+															<!-- <p class="author_name">{{ defect.author.name }}</p> -->
 														</div>
 														<button class="author_chat underline-btn">Написати автору</button>
 													</div>
@@ -576,7 +576,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name">{{ defect.author.name }}</p>
+													<!-- <p class="author_name">{{ defect.author.name }}</p> -->
 												</div>
 											</div>
 											<FormInput
@@ -611,7 +611,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name">{{ defect.author.name }}</p>
+													<!-- <p class="author_name">{{ defect.author.name }}</p> -->
 												</div>
 											</div>
 											<FormInput
@@ -702,7 +702,7 @@ export default {
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
-			appsLoaded: false,
+			appsLoaded: true,
 			defect: {},
 			sort_by: '',
 			pendingUpdate: null,
@@ -713,7 +713,6 @@ export default {
 	},
 	async mounted() {
 		this.$API.title = "Дефект";
-		this.$API.page = "DefectView";
 		let id = this.$route.params.id;
 		if(!id) {
 			this.router.push("/404");
@@ -761,9 +760,6 @@ export default {
 			if(this.defect && id != this.defect.id)
 				this.loadDefect(id);
 		},
-		'isComments'() {
-
-		}
 	}
 }
 </script>
