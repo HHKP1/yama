@@ -541,10 +541,10 @@ export default {
 	created: function() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
-		this.prefix = "";
-		if (document.URL.slice(-1) == '/') {
-			this.prefix = '../'
-		}
+		// this.prefix = "";
+		// if (document.URL.slice(-1) == '/') {
+		// 	this.prefix = '../'
+		// }
 		this.status.push({ "cookie": document.cookie });
 		this.checkCode();
 		this.startTimer();
@@ -649,7 +649,6 @@ export default {
 		apiGETv3: async function(endpoint){
 			let headers={
 				'Accept': 'application/json',
-				// 'Set-Cookie': 'name=yamasession;sessionId=e1cc4020-9b0f-45dd-9df2-4a48859f2f5d;Path=/;'
 			};
 			// if(auth)
 			// 	headers["Authorization"]=`Bearer ${this.token}`;

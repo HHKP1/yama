@@ -4,8 +4,7 @@ module.exports = {
 		headers: {
 			"Access-Control-Allow-Origin": "*",
 			'Set-Cookies': {
-				'name': 'yamasession',
-				'sessionId': '90d5dee0-1b91-408f-8a93-52e1cff49489'
+				'cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
 			}
 		},
 		proxy: {
