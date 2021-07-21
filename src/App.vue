@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">4545</p>
+												<p class="p-text code">{{authCode.code}}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -500,7 +500,7 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
-			apiURL2: 'https://tala.cloudi.es/routes/00d3928bf3/api',
+			apiURLv2: 'https://tala.cloudi.es/routes/00d3928bf3/api',
 			search: '',
 			selfFilters: false,
 			dateRangeFilterShown: false,
@@ -545,7 +545,7 @@ export default {
 		if (document.URL.slice(-1) == '/') {
 			this.prefix = '../'
 		}
-		this.status.push({ "cookies": document.cookie });
+		this.status.push({ "cookie": document.cookie });
 		this.checkCode();
 		this.startTimer();
 	},
@@ -649,11 +649,13 @@ export default {
 		apiGETv3: async function(endpoint){
 			let headers={
 				'Accept': 'application/json',
+				// 'Set-Cookie': 'name=yamasession;sessionId=e1cc4020-9b0f-45dd-9df2-4a48859f2f5d;Path=/;'
 			};
 			// if(auth)
 			// 	headers["Authorization"]=`Bearer ${this.token}`;
-			let response = await fetch(this.apiURL2 + endpoint, {
+			let response = await fetch(this.apiURLv2 + endpoint, {
 				method: 'GET',
+				// mode: 'no-cors',
 				headers: headers
 			});
 			if(response.status == 401) {
@@ -717,24 +719,26 @@ export default {
 				}
 			}.bind(this).bind(this)
 		},
-		checkCode: function () {
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', ('https://tala.cloudi.es/routes/00d3928bf3/api/code'))
-			xhr.send();
-			xhr.onreadystatechange = function () {
-				// console.log(xhr);
-				if (xhr.readyState != 4) return;
-				if (xhr.status != 200) {
-					alert(xhr.status + ': ' + xhr.statusText);
-				} else {
-					this.status.push(JSON.parse(xhr.responseText));
-					if (this.status[this.status.length - 1].status === "login-ok") {
-						clearInterval(this.timer);
-						this.getMe();
-						this.login = true;
-					}
-				}
-			}.bind(this).bind(this)
+		async checkCode() {
+			let resp = await this.apiGETv3('/code').then(response => {
+				console.log(response);
+				return response;
+			})
+			return resp;
+			// xhr.send();
+			// xhr.onreadystatechange = function () {
+			// 	if (xhr.readyState != 4) return;
+			// 	if (xhr.status != 200) {
+			// 		alert(xhr.status + ': ' + xhr.statusText);
+			// 	} else {
+			// 		this.status.push(JSON.parse(xhr.responseText));
+			// 		if (this.status[this.status.length - 1].status === "login-ok") {
+			// 			clearInterval(this.timer);
+			// 			this.getMe();
+			// 			this.login = true;
+			// 		}
+			// 	}
+			// }.bind(this).bind(this)
 		},
 		startTimer: function () {
 			this.timer = setInterval(this.checkCode, 5200);
@@ -742,6 +746,13 @@ export default {
 	},
 	computed: {
 		//API Data
+		authCode() {
+			return this.status.map(state => {
+				return {
+					code: state.code
+				}
+			})
+		}
 	},
 	watch: {},
 }
