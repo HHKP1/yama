@@ -491,7 +491,7 @@ export default {
 				},
 			],
 			status: [],
-			login: true,
+			login: false,
 			comment: '',
 			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
