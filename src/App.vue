@@ -87,7 +87,7 @@
 												</div>
 											</div>
 											<div class="hero-content_block">
-												<div class="hero-item icon">
+												<div class="hero-item icon" @click="getMe()">
 													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
 												</div>
 												<div class="hero-item_message" title="QR Code для входу">
@@ -554,9 +554,9 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		if(!Object.keys(this.user).length){
-			this.loadProfile();
-		}
+		// if(!Object.keys(this.user).length){
+		// 	this.loadProfile();
+		// }
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
