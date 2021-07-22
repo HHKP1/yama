@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{authCode.code}}</p>
+												<p class="p-text code">{{authCode[0].code}}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -433,7 +433,9 @@ import Vue from 'vue';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import Defects from './components/Defects';
+import VueCookies from 'vue-cookies'
 
+Vue.use(VueCookies)
 // import defectCards from './mock_data';
 
 export default {
@@ -499,7 +501,7 @@ export default {
 			isActive: false,
 			isExpand: false,
 			appsLoaded: false,
-			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
+			apiURL: '/api',
 			apiURLv2: 'https://tala.cloudi.es/routes/00d3928bf3/api',
 			search: '',
 			selfFilters: false,
@@ -541,22 +543,15 @@ export default {
 	created: function() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
-		// this.prefix = "";
-		// if (document.URL.slice(-1) == '/') {
-		// 	this.prefix = '../'
-		// }
 		this.status.push({ "cookie": document.cookie });
 		this.checkCode();
 		this.startTimer();
 	},
-	beforeMount: function() {
-	},
+	beforeMount: function() {},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		// if(!Object.keys(this.user).length){
-		// 	this.loadProfile();
-		// }
+		this.$cookies.set("yamasession", "90d5dee0-1b91-408f-8a93-52e1cff49489")
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -596,24 +591,14 @@ export default {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			};
-			// if(auth)
-			// 	headers["Authorization"] = `Bearer ${this.token}`;
 			let response = await fetch(this.apiURL + endpoint, {
 				method: 'POST',
 				headers: headers,
 				body: JSON.stringify(requestData)
 			});
-			if(response.status == 401) {
-				console.log("Unauthorized:", endpoint);
-				// this.doLogout();
-				this.dirtyExit = true;
-				throw Error("Logging out");
-			}
 			if(rawFetch) return response;
 			let data = await response.json();
 			return data;
-			// let data = await response.json();
-			// return data;
 		},
 		apiGET: async function(endpoint){
 			let headers={
@@ -626,12 +611,6 @@ export default {
 				headers: headers
 			});
 			// console.log(response);
-			if(response.status == 401) {
-				console.log("Unauthorized:", endpoint);
-				this.doLogout();
-				this.dirtyExit = true;
-				throw Error("Logging out");
-			}
 			let data = await response.json();
 			return data;
 		},
@@ -654,15 +633,9 @@ export default {
 			// 	headers["Authorization"]=`Bearer ${this.token}`;
 			let response = await fetch(this.apiURLv2 + endpoint, {
 				method: 'GET',
-				// mode: 'no-cors',
 				headers: headers
 			});
-			if(response.status == 401) {
-				console.log("Unauthorized:", endpoint);
-				// this.doLogout();
-				this.dirtyExit = true;
-				throw Error("Logging out");
-			}
+			// console.log(response);
 			let data = await response.json();
 			return data;
 		},
@@ -700,8 +673,6 @@ export default {
 		},
 		doLogout() {
 			if(!this.login) return;
-			//this.$router.push("/logout");
-			// this.$eventBus.$emit('appsUpdateInterval', { payload: 'destroy' });
 			this.$router.push("/logout");
 		},
 		getMe: function () {
@@ -719,36 +690,21 @@ export default {
 			}.bind(this).bind(this)
 		},
 		async checkCode() {
-			let resp = await this.apiGETv3('/code').then(response => {
-				console.log(response);
-				return response;
-			})
+			let resp = await this.apiGETv3('/code');
+			console.log(resp);
 			return resp;
-			// xhr.send();
-			// xhr.onreadystatechange = function () {
-			// 	if (xhr.readyState != 4) return;
-			// 	if (xhr.status != 200) {
-			// 		alert(xhr.status + ': ' + xhr.statusText);
-			// 	} else {
-			// 		this.status.push(JSON.parse(xhr.responseText));
-			// 		if (this.status[this.status.length - 1].status === "login-ok") {
-			// 			clearInterval(this.timer);
-			// 			this.getMe();
-			// 			this.login = true;
-			// 		}
-			// 	}
-			// }.bind(this).bind(this)
 		},
 		startTimer: function () {
 			this.timer = setInterval(this.checkCode, 5200);
-		}
+		},
 	},
 	computed: {
 		//API Data
 		authCode() {
 			return this.status.map(state => {
 				return {
-					code: state.code
+					code: state.code,
+					cookie: state.cookie
 				}
 			})
 		}
@@ -949,59 +905,6 @@ export default {
 	}
 
 	/* Carousel style END*/
-
-	.select-item_choosen:hover {
-		border: solid 1px var(--border-color-hover);
-	}
-
-	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-right.svg');
-	}
-
-	#calendarSwitch:checked~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-left.svg');
-	}
-
-	#calendarSwitch:checked~.calendar__container {
-		transform: translateX(-310px);
-		transition: all .3s;
-	}
-
-	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-right.svg');
-	}
-
-	#calendarSwitch:checked~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-left.svg');
-	}
-
-	#calendarSwitch:checked~.calendar__container {
-		transform: translateX(-310px);
-		transition: all .3s;
-	}
-
-	#lupd_calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-right.svg');
-	}
-
-	#lupd_calendarSwitch:checked~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-left.svg');
-	}
-
-	#lupd_calendarSwitch:checked~.calendar__container {
-		transform: translateX(-310px);
-		transition: all .3s;
-	}
-	.calendar__start,
-	.calendar__end {
-		align-self: flex-start;
-	}
 
 	#Line_2.open{
 		transform-origin: center;

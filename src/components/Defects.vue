@@ -7,57 +7,64 @@
 								</div>
 								<FormInput
 									title=""
-									label="Автор"
+									label="Адреса"
 									prefix=""
 									placeholder="Пошук дефектів за адресою"
-									v-model="search_by_author"
+									v-model="searchAddressFilter"
 									class="form-control"
 								/>
-								<!-- <div class="input-field form-control">
-											<label>Дата розміщення</label>
-											<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
-												<div class="form__wrapper interval table-sort__select">
-													<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
-														<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
-															<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
-																<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
-																<span class="calendar__icon" v-if="periodShow == ''"></span>
-															</p>
-														</div>
+								<FormSelect
+									label="Регіон"
+									placeholder="Тип дефекту"
+									:options="options.options_filter_by_region_id"
+									v-model="selectedRegion"
+									class="form-control"
+								/>
+								<div class="input-field form-control">
+									<label>Дата розміщення</label>
+									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;">
+										<div class="form__wrapper interval table-sort__select">
+											<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
+												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
+													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
+														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
+														<span class="calendar__icon" v-if="periodShow == ''"></span>
+													</p>
+												</div>
+											</div>
+											<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
+												<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
+												<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
+												<div class="calendar__container">
+													<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
+														<p class="calendar__heading">Начало периода</p>
+														<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
 													</div>
-													<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
-														<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
-														<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
-														<div class="calendar__container">
-															<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
-																<p class="calendar__heading">Начало периода</p>
-																<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
-															</div>
-															<label class="calendar__label" for="calendarSwitch">
-																<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
-															</label>
-															<div class="calendar__end">
-																<p class="calendar__heading">Окончание периода</p>
-																<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
-															</div>
-														</div>
+													<label class="calendar__label" for="calendarSwitch">
+														<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
+													</label>
+													<div class="calendar__end">
+														<p class="calendar__heading">Окончание периода</p>
+														<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
 													</div>
 												</div>
 											</div>
-										</div> -->
+										</div>
+									</div>
+								</div>
 								<FormSelect
 									label="Тип дефекту"
 									ref="typesFilter"
 									placeholder="Тип дефекту"
-									:options="options.options_filter_by_def_type"
+									:options="options.options_filter_by_defect_type"
 									v-model="selectedType"
 									class="form-control"
 								/>
 								<FormSelect
 									label="Розташування"
 									placeholder="Місце розташування дефекту"
-									:options="options.options_filter_by_def_location"
-									v-model="search_by_location_place"
+									:options="options.options_filter_by_def_location_type"
+									v-model="selectedLocationType"
 									class="form-control"
 								/>
 								<FormSelect
@@ -102,7 +109,7 @@
 									label="Адреса"
 									prefix=""
 									placeholder="Пошук дефектів за адресою"
-									v-model="search_by_author"
+									v-model="searchAddressFilter"
 									class="form-control"
 								/>
 								<!-- <div class="input-field form-control">
@@ -140,15 +147,15 @@
 								<FormSelect
 									label="Тип дефекту"
 									placeholder="Тип дефекту"
-									:options="options.options_filter_by_def_type"
+									:options="options.options_filter_by_defect_type"
 									v-model="selectedType"
 									class="form-control"
 								/>
 								<FormSelect
 									label="Розташування"
 									placeholder="Місце розташування дефекту"
-									:options="options.options_filter_by_def_location"
-									v-model="search_by_location_place"
+									:options="options.options_filter_by_def_location_type"
+									v-model="selectedLocationType"
 									class="form-control"
 								/>
 								<FormSelect
@@ -179,22 +186,61 @@
 <script>
 import Vue from 'vue';
 // import CollectionList from '../components/CollectionList'
+import Datepicker from 'vuejs-datepicker'
 
 // import defectCards from './mock_data';
 
 export default {
 	name: 'defects',
 	components: {
+		Datepicker
 	},
-	// props: ['orgInfo'],
 	data() {
 		return {
 			options: {
 				options_sort_by: [
-					{ label: 'Нові', value: 'new' },
+					{ label: 'Новий', value: 'new' },
+					{ label: 'Погоджений', value: 'approved' },
 					{ label: 'В процесі', value: 'in_progress' },
+					{ label: 'Відправлений', value: 'sent' },
+					{ label: 'Немає відповіді', value: 'no_answer' },
+					{ label: 'Ескалований', value: 'escalation' },
+					{ label: 'Є відповідь', value: 'replied' },
+					{ label: 'Виправлений', value: 'fixed' },
+					{ label: 'Відхилиний', value: 'rejected' },
 				],
-				options_filter_by_def_type: [
+				options_filter_by_region_id: [
+					{ label: 'Оберіть регіон', disabled: 'disabled' },
+					{ label: 'Всі регіони', value: '', },
+					{ label: 'АР Крим', value: '2', },
+					{ label: 'Вінницька область', value: '3', },
+					{ label: 'Волинська область', value: '4' },
+					{ label: 'Дніпропетровська область', value: '5', },
+					{ label: 'Донецька область', value: '6', },
+					{ label: 'Житомирська область', value: '7', },
+					{ label: 'Закарпатська область', value: '8', },
+					{ label: 'Запорізька', value: '9', },
+					{ label: 'ІваноФранківська область', value: '10', },
+					{ label: 'Київська область', value: '11', },
+					{ label: 'Кіровоградська область', value: '12', },
+					{ label: 'Луганська область', value: '13', },
+					{ label: 'Львівська область', value: '14', },
+					{ label: 'Миколаївська область', value: '15' },
+					{ label: 'Одеська область', value: '16', },
+					{ label: 'Полтавська область', value: '17', },
+					{ label: 'Рівненська область', value: '18', },
+					{ label: 'Сумська область', value: '19', },
+					{ label: 'Тернопільська область', value: '20', },
+					{ label: 'Харківська область', value: '21', },
+					{ label: 'Херсонська область', value: '22', },
+					{ label: 'Хмельницька', value: '23', },
+					{ label: 'Черкаська область', value: '24', },
+					{ label: 'Чернігівська область', value: '25', },
+					{ label: 'Чернівецька область', value: '26' },
+					{ label: 'Севастополь', value: '27', },
+					{ label: 'Київ', value: '115', },
+				],
+				options_filter_by_defect_type: [
 					{ label: 'Тип дефекту', value: '', disabled: 'disabled' },
 					{ label: 'Яма', value: 'hole', },
 					{ label: 'Ремонтується', value: 'manually', },
@@ -205,7 +251,7 @@ export default {
 					{ label: 'Яма у дворі', value: 'yard_hole', },
 					{ label: 'Руйнування', value: 'ruined', },
 				],
-				options_filter_by_def_location: [
+				options_filter_by_def_location_type: [
 					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },
 					{ label: 'Місто', value: 'city' },
 					{ label: 'Шосе', value: 'highway' },
@@ -213,8 +259,15 @@ export default {
 				],
 				options_filter_by_def_status: [
 					{ label: 'Статус дефекту', value: '', disabled: 'disabled' },
-					{ label: 'Нові', value: 'new' },
+					{ label: 'Новий', value: 'new' },
+					{ label: 'Погоджений', value: 'approved' },
 					{ label: 'В процесі', value: 'in_progress' },
+					{ label: 'Відправлений', value: 'sent' },
+					{ label: 'Немає відповіді', value: 'no_answer' },
+					{ label: 'Ескалований', value: 'escalated' },
+					{ label: 'Є відповідь', value: 'replied' },
+					{ label: 'Виправлений', value: 'done' },
+					{ label: 'Відхилений', value: 'rejected' },
 				],
 			},
 			comment: '',
@@ -224,17 +277,20 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			orgInfo: [],
-			searchAuthorFilter: '',
-			search_by_author: '',
+			regions: [],
+			searchAddressFilter: '',
 			search_by_date: '',
-			search_by_location_place: '',
 			search_by_type: '',
 			sort_by: '',
 			appsUpdating: false,
+			selectedRegion: '',
+			selectedLocationType: '',
 			selectedStatus: '',
 			selectedType: '',
 			listType: 'ruined',
 			selfFilters: false,
+			periodStart: '',
+			periodEnd: '',
 			pendingUpdate: null,
 			dateRangeFilterShown: false,
 			appsUpdateInterval: null,
@@ -242,7 +298,7 @@ export default {
 	},
 	async created() {
 		Vue.prototype.$API2 = this;
-		// this.loadDefects(true);
+		this.loadRegions(true);
 		// this.$eventBus.$on('applicationUpdated', async (event) => {
 		// 	if(this.$API2.orgInfo) {
 		// 		await this.reloadApplication();
@@ -259,7 +315,7 @@ export default {
 			this.listType = '';
 
 		this.loadDefects(true);
-		// this.appsUpdateInterval = setInterval(this.loadDefects, 10);
+		this.appsUpdateInterval = setInterval(this.loadDefects, 10);
 	},
 	methods: {
 		listClick(e, url) {
@@ -283,6 +339,17 @@ export default {
 			this.appsUpdating = false;
 			this.pendingUpdate = null;
 		},
+		async loadRegions(change){
+			try{
+				let result = await this.$API.apiGET("/regions");
+
+				this.regions=result;
+				if(!this.appsLoaded)
+					this.appsLoaded = true;
+			}catch(e){
+				console.log(e);
+			}
+		},
 		resetApps() {
 			// this.orgInfo=[];
 			this.appsLoaded = false;
@@ -290,20 +357,62 @@ export default {
 				this.pendingUpdate.abort();
 			}
 		},
+		updatePeriodStart(date) {
+			this.periodStart = this.$moment(date).format("MM-DD-YYYY");
+			if(this.periodEnd !== '') {
+				let start = date;
+				let end = Date.parse(this.periodEnd);
+				if(start > end) {
+					this.periodEnd = this.periodStart;
+				}
+			}
+			this.$refs.calendarSwitch.checked = true;
+		},
+		updatePeriodEnd(date) {
+			this.periodEnd = this.$moment(date).format("MM-DD-YYYY");
+			let start = Date.parse(this.periodStart);
+			let end = date;
+			if(start > end) {
+				this.periodStart = this.periodEnd;
+			}
+			this.dateRangeFilterShown = false;
+			this.$refs.calendarSwitch.checked = false;
+		},
+		resetCalendar() {
+			this.periodStart = '';
+			this.periodEnd = '';
+			this.dateRangeFilterShown = false;
+			this.$refs.calendarSwitch.checked = false;
+		},
 		appQuery() {
 			let loadingParams = {};
-			// loadingParams.type = this.listType;
-			// if(this.selectedStatus)
-			// 	loadingParams.case_status = this.selectedStatus;
+			loadingParams.type = this.listType;
+			if(this.selectedStatus)
+				loadingParams.status = this.selectedStatus;
+			if(this.periodStart)
+				loadingParams.since = this.periodStart;
+			if(this.periodEnd)
+				loadingParams.to = this.periodEnd;
 			if(this.selectedType)
 				loadingParams.type = this.selectedType;
+			if(this.selectedLocationType)
+				loadingParams.location = this.selectedLocationType;
+			if(this.searchAddressFilter)
+				loadingParams.address = this.searchAddressFilter;
+			if(this.selectedRegion)
+				loadingParams.region = this.selectedRegion;
 			return Object.keys(loadingParams).map(key => key + '=' + loadingParams[key]).join('&');
 		},
 		appListFilter(app) {
 			let show = true;
 
-			if(this.searchAuthorFilter.length > 0) {
-				show = app.author.name && app.author.name.toLowerCase().includes(this.author.name.toLowerCase());
+			if(this.searchAddressFilter.length > 0) {
+				show = app.address && app.address.toLowerCase().includes(this.searchAddressFilter.toLowerCase());
+			}
+			if(!show) return false;
+
+			if(this.periodStart.length > 0 && this.periodEnd.length > 0) {
+				show = app.added >= Date.parse(this.periodStart) && app.added <= Date.parse(this.periodEnd) + 86400000;
 			}
 			if(!show) return false;
 
@@ -329,23 +438,49 @@ export default {
 		}
 	},
 	computed: {
-		//API Data
-		// dfCard(){
-		// 	return this.orgInfo.map(card => {
-		// 		return {
-		// 			id: card.id,
-		// 			address: card.address,
-		// 			photo: card.photos,
-		// 			status: card.case_status,
-		// 			comment: card.comments,
-		// 			author: card.author.name,
-		// 			defect_type: card.defect_type,
-		// 			// region_id: card.photos[0].region_id,
-		// 		}
-		// 	});
-		// },
+		periodShow() {
+			if(this.periodStart) {
+				let start = this.$moment(Date.parse(this.periodStart)).format("DD-MM-YYYY");
+				if(this.periodEnd) {
+					let end = this.$moment(Date.parse(this.periodEnd)).format("DD-MM-YYYY");
+					return ('c ' + start + ' по ' + end).replace(/-/g, ".");
+				}
+				return ('с ' + start).replace(/-/g, ".");
+			}
+			return '';
+		},
 	},
 	watch: {
+		periodStart() {
+			if(this.periodStart == "") {
+				this.removeQueryParam('since');
+			} else {
+				this.addQueryParam('since', this.periodStart);
+			}
+		},
+		periodEnd() {
+			if(this.periodEnd == "") {
+				this.removeQueryParam('to');
+			} else {
+				this.addQueryParam('to', this.periodEnd);
+			}
+		},
+		selectedStatus() {
+			if(this.selectedStatus ==null) {
+				this.removeQueryParam('status');
+			} else {
+				this.addQueryParam('status', this.selectedStatus);
+			}
+			this.resetApps();
+		},
+		selectedRegion() {
+			if(this.selectedRegion ==null) {
+				this.removeQueryParam('region');
+			} else {
+				this.addQueryParam('region', this.selectedRegion);
+			}
+			this.resetApps();
+		},
 		selectedType() {
 			if(this.selectedType ==null) {
 				this.removeQueryParam('type');
@@ -354,18 +489,25 @@ export default {
 			}
 			this.resetApps();
 		},
+		selectedLocationType() {
+			if(this.selectedLocationType ==null) {
+				this.removeQueryParam('location');
+			} else {
+				this.addQueryParam('location', this.selectedLocationType);
+			}
+			this.resetApps();
+		},
+		searchAddressFilter() {
+			if(this.searchAddressFilter ==null) {
+				this.removeQueryParam('address');
+			} else {
+				this.addQueryParam('address', this.searchAddressFilter);
+			}
+			this.resetApps();
+		},
 		'$route.params'(type) {
 			if(!type)
 				type = "hole";
-			// this.$API.appListType = type;
-			// this.$API2.selectedStatus = this.selectedStatus;
-			// this.$API.selectedType = this.selectedType;
-			// this.$API2.searchAuthorFilter = this.searchAuthorFilter;
-			// this.listType = type;
-			// if(this.$refs.typesFilter)
-			// 	this.$refs.typesFilter.reset();
-			// if(this.$refs.statusFilter)
-			// 	this.$refs.statusFilter.reset();
 			this.resetApps();
 		},
 	},
@@ -376,4 +518,87 @@ export default {
 </script>
 
 <style>
+
+	.select-item_choosen:hover {
+		border: solid 1px var(--border-color-hover);
+	}
+
+	.calendar__container{
+		display: flex;
+	}
+
+	.calendar {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		padding: 10px;
+		border: 1px solid var(--color-gray-light);
+		border-radius: 4px;
+		background-color: var(--background-color-normal);
+		z-index: 2;
+		overflow: hidden;
+		height: 330px;
+		max-width: 350px;
+		width: 315px;
+		box-sizing: border-box;
+	}
+
+	.calendar__switch_enabled{
+		display: block;
+	}
+
+	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/img/icons/arrow-right.svg');
+	}
+
+	#calendarSwitch:checked~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/img/icons/arrow-left.svg') !important;
+	}
+
+	#calendarSwitch:checked~.calendar__container {
+		transform: translateX(-285px) !important;
+		transition: all .3s;
+	}
+
+	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/img/icons/arrow-right.svg');
+	}
+
+	#calendarSwitch:checked~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/img/icons/arrow-left.svg');
+	}
+
+	#calendarSwitch:checked~.calendar__container {
+		transform: translateX(-310px);
+		transition: all .3s;
+	}
+
+	#lupd_calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-right.svg');
+	}
+
+	#lupd_calendarSwitch:checked~.calendar__container .calendar__switch {
+		width: 20px;
+		content: url('/assets/img/icons/arrow-left.svg');
+	}
+
+	#lupd_calendarSwitch:checked~.calendar__container {
+		transform: translateX(-310px);
+		transition: all .3s;
+	}
+	.calendar__start,
+	.calendar__end {
+		align-self: flex-start;
+	}
+	.vdp-datepicker__calendar{
+		z-index: 100;
+		background: #fff;
+		width: 280px !important;
+		border: 1px solid #ccc;
+	}
 </style>

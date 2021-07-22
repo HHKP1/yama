@@ -228,7 +228,7 @@ export default {
 		}
 	}
 	.input-field > label {
-		color: #9e9e9e;
+		color: var(--color-gray-light);
 		position: absolute;
 		top: 0;
 		left: 0;

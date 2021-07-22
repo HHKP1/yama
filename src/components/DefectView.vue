@@ -36,7 +36,14 @@
 												</div>
 												<div class="defect_status_item">
 													<span v-if="defect.case_status=='new'">Новий</span>
+													<span v-if="defect.case_status=='approved'">Погоджений</span>
+													<span v-if="defect.case_status=='sent'">Відправлений</span>
+													<span v-if="defect.case_status=='replied'">Відповідь</span>
+													<span v-if="defect.case_status=='no_answer'">Немає відповіді</span>
+													<span v-if="defect.case_status=='rejected'">Відхилений</span>
+													<span v-if="defect.case_status=='escalated'">Ескалований</span>
 													<span v-if="defect.case_status=='in_progress'">В процесі</span>
+													<span v-if="defect.case_status=='done'">Виправлений</span>
 												</div>
 											</div>
 										</div>
@@ -503,7 +510,14 @@
 												</div>
 												<div class="defect_status_item">
 													<span v-if="defect.case_status=='new'">Новий</span>
+													<span v-if="defect.case_status=='approved'">Погоджений</span>
+													<span v-if="defect.case_status=='sent'">Відправлений</span>
+													<span v-if="defect.case_status=='replied'">Відповідь</span>
+													<span v-if="defect.case_status=='no_answer'">Немає відповіді</span>
+													<span v-if="defect.case_status=='rejected'">Відхилений</span>
+													<span v-if="defect.case_status=='escalated'">Ескалований</span>
 													<span v-if="defect.case_status=='in_progress'">В процесі</span>
+													<span v-if="defect.case_status=='done'">Виправлений</span>
 												</div>
 											</div>
 										</div>

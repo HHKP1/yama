@@ -3,13 +3,12 @@ module.exports = {
 	devServer: {
 		headers: {
 			"Access-Control-Allow-Origin": "*",
-			'Set-Cookies': {
-				'cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
-			}
+			'Accept': 'application/json',
+			'Set-Cookies': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
 		},
 		proxy: {
 			'^/api': {
-				target: 'https://tala.cloudi.es/routes/95a4b653d1/api',
+				target: 'https://tala.cloudi.es/routes/95a4b653d1/',
 				ws: false,
 				changeOrigin: true,
 				// secure: true,

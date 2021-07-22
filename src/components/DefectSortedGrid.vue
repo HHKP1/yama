@@ -17,7 +17,14 @@
 								<div class="defect_status">
 									<div class="status_item">
 										<span v-if="card.status=='new'">Новий</span>
+										<span v-if="card.status=='approved'">Погоджений</span>
+										<span v-if="card.status=='sent'">Відправлений</span>
+										<span v-if="card.status=='replied'">Відповідь</span>
+										<span v-if="card.status=='no_answer'">Немає відповіді</span>
+										<span v-if="card.status=='rejected'">Відхилений</span>
+										<span v-if="card.status=='escalated'">Ескалований</span>
 										<span v-if="card.status=='in_progress'">В процесі</span>
+										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
 									<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
 										<p class="status_count">{{ card.comment.length }}</p>
@@ -49,7 +56,14 @@
 								<div class="defect_status">
 									<div class="status_item">
 										<span v-if="card.status=='new'">Новий</span>
+										<span v-if="card.status=='approved'">Погоджений</span>
+										<span v-if="card.status=='sent'">Відправлений</span>
+										<span v-if="card.status=='replied'">Відповідь</span>
+										<span v-if="card.status=='no_answer'">Немає відповіді</span>
+										<span v-if="card.status=='rejected'">Відхилений</span>
+										<span v-if="card.status=='escalated'">Ескалований</span>
 										<span v-if="card.status=='in_progress'">В процесі</span>
+										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
 									<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
 										<p class="status_count">{{ card.comment.length }}</p>
