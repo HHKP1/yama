@@ -501,7 +501,7 @@ export default {
 			isActive: false,
 			isExpand: false,
 			appsLoaded: false,
-			apiURL: '/api',
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
 			apiURLv2: 'https://tala.cloudi.es/routes/00d3928bf3/api',
 			search: '',
 			selfFilters: false,

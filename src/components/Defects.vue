@@ -386,7 +386,7 @@ export default {
 		},
 		appQuery() {
 			let loadingParams = {};
-			loadingParams.type = this.listType;
+			// loadingParams.type = this.listType;
 			if(this.selectedStatus)
 				loadingParams.status = this.selectedStatus;
 			if(this.periodStart)
