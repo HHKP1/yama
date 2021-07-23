@@ -543,8 +543,8 @@ export default {
 	created: function() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
-		this.$cookies.set("yamasession", "90d5dee0-1b91-408f-8a93-52e1cff49489");
-		// this.status.push({ "cookie": document.cookie });
+		// this.$cookies.set("yamasession", "90d5dee0-1b91-408f-8a93-52e1cff49489");
+		this.status.push({ "cookie": document.cookie });
 		this.checkCode();
 		this.startTimer();
 	},
@@ -628,7 +628,7 @@ export default {
 		apiGETv3: async function(endpoint){
 			let headers={
 				'Accept': 'application/json',
-				'Cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
+				// 'Cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
 
 			};
 			// if(auth)
