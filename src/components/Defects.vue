@@ -344,8 +344,6 @@ export default {
 				let result = await this.$API.apiGET("/regions");
 
 				this.regions=result;
-				if(!this.appsLoaded)
-					this.appsLoaded = true;
 			}catch(e){
 				console.log(e);
 			}

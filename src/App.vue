@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{authCode.code}}</p>
+												<p class="p-text code">{{status[0].code}}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -542,14 +542,12 @@ export default {
 	},
 	created: function() {
 		Vue.prototype.$API = this;
-		// this.loadCard(true);
-		// this.$cookies.set("yamasession", "90d5dee0-1b91-408f-8a93-52e1cff49489");
+		this.startTimer();
 	},
 	beforeMount: function() {},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		this.startTimer();
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -689,9 +687,10 @@ export default {
 		},
 		async checkCode() {
 			let resp = await this.apiGETv3('/code');
-			console.log(resp);
+			// console.log(resp);
+			this.status.push(resp);
 			if (resp.status == "login-ok"){
-				//this.status.push(JSON.parse(resp));
+				this.navItems.push({ name: 'Logout', text: 'Вийти', path: `https://tala.cloudi.es${this.apiURLv2}/web/logout` })
 				clearInterval(this.timer);
 				this.login = true;
 			}
@@ -713,7 +712,14 @@ export default {
 			})
 		}
 	},
-	watch: {},
+	watch: {
+		// 'navItems'() {
+		// 	if(!this.login){
+		// 		// this.$router.push("/web/logout");
+		// 		this.navItems.pop();
+		// 	}
+		// },
+	},
 }
 </script>
 

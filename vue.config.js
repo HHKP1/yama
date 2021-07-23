@@ -6,8 +6,8 @@ module.exports = {
 				target: 'https://tala.cloudi.es/',
 				ws: false,
 				changeOrigin: true,
-				secure: true,
-				logLevel: 'debug'
+				// secure: true,
+				// logLevel: 'debug'
 			},
 		}
 	},
