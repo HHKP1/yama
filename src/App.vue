@@ -690,19 +690,16 @@ export default {
 		async checkCode() {
 			let resp = await this.apiGETv3('/code');
 			console.log(resp);
-			if (resp.status != 200) return;
-			else {
-				this.status.push(JSON.parse(resp));
-				if (this.status[this.status.length - 1].status === "login-ok") {
-					clearInterval(this.timer);
-					this.login = true;
-				}
+			if (resp.status == "login-ok"){
+				//this.status.push(JSON.parse(resp));
+				clearInterval(this.timer);
+				this.login = true;
 			}
 			return resp;
 		},
 		startTimer: function () {
-			//this.timer = setInterval(this.checkCode, 5200);
-			this.checkCode();
+			this.timer = setInterval(this.checkCode, 5200);
+			//this.checkCode();
 		},
 	},
 	computed: {
