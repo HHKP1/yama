@@ -1,19 +1,13 @@
 module.exports = {
 	publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
 	devServer: {
-		headers: {
-			"Access-Control-Allow-Origin": "*",
-			'Accept': 'application/json',
-			'Cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
-		},
 		proxy: {
-			'^/api': {
-				target: 'https://tala.cloudi.es/routes/95a4b653d1/',
+			'^/routes': {
+				target: 'https://tala.cloudi.es/',
 				ws: false,
 				changeOrigin: true,
-				// secure: true,
-				// pathRewrite: { '^/api': 'https://tala.cloudi.es/routes/95a4b653d1/api' },
-				// logLevel: 'debug'
+				secure: true,
+				logLevel: 'debug'
 			},
 		}
 	},

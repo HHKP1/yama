@@ -501,8 +501,8 @@ export default {
 			isActive: false,
 			isExpand: false,
 			appsLoaded: false,
-			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
-			apiURLv2: 'https://tala.cloudi.es/routes/00d3928bf3/api',
+			apiURL: '/routes/95a4b653d1/api',
+			apiURLv2: '/routes/00d3928bf3/api',
 			search: '',
 			selfFilters: false,
 			dateRangeFilterShown: false,
@@ -544,14 +544,12 @@ export default {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
 		// this.$cookies.set("yamasession", "90d5dee0-1b91-408f-8a93-52e1cff49489");
-		this.status.push({ "cookie": document.cookie });
-		this.checkCode();
-		this.startTimer();
 	},
 	beforeMount: function() {},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
+		this.startTimer();
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -627,15 +625,13 @@ export default {
 		},
 		apiGETv3: async function(endpoint){
 			let headers={
-				'Accept': 'application/json',
-				// 'Cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
-
+				'Accept': 'application/json'
 			};
 			// if(auth)
 			// 	headers["Authorization"]=`Bearer ${this.token}`;
 			let response = await fetch(this.apiURLv2 + endpoint, {
 				method: 'GET',
-				headers: headers
+				headers: headers,
 			});
 			// console.log(response);
 			let data = await response.json();
@@ -705,7 +701,8 @@ export default {
 			return resp;
 		},
 		startTimer: function () {
-			this.timer = setInterval(this.checkCode, 5200);
+			//this.timer = setInterval(this.checkCode, 5200);
+			this.checkCode();
 		},
 	},
 	computed: {
