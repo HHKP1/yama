@@ -59,7 +59,7 @@
 								</div>
 								<button class="btn custom_button hero-btn">Додати дефект</button>
 							</div>
-							<div class="main-hero">
+							<div class="main-hero" v-if="!login">
 								<div class="hero-title">
 									<div class="hero-container">
 										<div class="hero-content">
@@ -690,7 +690,7 @@ export default {
 			// console.log(resp);
 			this.status.push(resp);
 			if (resp.status == "login-ok"){
-				this.navItems.push({ name: 'Logout', text: 'Вийти', path: `https://tala.cloudi.es${this.apiURLv2}/web/logout` })
+				this.navItems.push({ name: 'Logout', text: 'Вийти', path: `/logout` })
 				clearInterval(this.timer);
 				this.login = true;
 			}
