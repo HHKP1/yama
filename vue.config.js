@@ -4,7 +4,7 @@ module.exports = {
 		headers: {
 			"Access-Control-Allow-Origin": "*",
 			'Accept': 'application/json',
-			'Set-Cookies': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
+			'Cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
 		},
 		proxy: {
 			'^/api': {

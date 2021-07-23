@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{authCode[0].code}}</p>
+												<p class="p-text code">{{authCode.code}}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -433,7 +433,7 @@ import Vue from 'vue';
 import './assets/css/main.css';
 import FormInput from './components/FormInput';
 import Defects from './components/Defects';
-import VueCookies from 'vue-cookies'
+import VueCookies from 'vue-cookies';
 
 Vue.use(VueCookies)
 // import defectCards from './mock_data';
@@ -543,7 +543,8 @@ export default {
 	created: function() {
 		Vue.prototype.$API = this;
 		// this.loadCard(true);
-		this.status.push({ "cookie": document.cookie });
+		this.$cookies.set("yamasession", "90d5dee0-1b91-408f-8a93-52e1cff49489");
+		// this.status.push({ "cookie": document.cookie });
 		this.checkCode();
 		this.startTimer();
 	},
@@ -551,7 +552,6 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		this.$cookies.set("yamasession", "90d5dee0-1b91-408f-8a93-52e1cff49489")
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -628,6 +628,8 @@ export default {
 		apiGETv3: async function(endpoint){
 			let headers={
 				'Accept': 'application/json',
+				'Cookie': 'yamasession=90d5dee0-1b91-408f-8a93-52e1cff49489'
+
 			};
 			// if(auth)
 			// 	headers["Authorization"]=`Bearer ${this.token}`;
@@ -692,6 +694,14 @@ export default {
 		async checkCode() {
 			let resp = await this.apiGETv3('/code');
 			console.log(resp);
+			if (resp.status != 200) return;
+			else {
+				this.status.push(JSON.parse(resp));
+				if (this.status[this.status.length - 1].status === "login-ok") {
+					clearInterval(this.timer);
+					this.login = true;
+				}
+			}
 			return resp;
 		},
 		startTimer: function () {
