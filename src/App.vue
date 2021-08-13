@@ -6,7 +6,7 @@
 					<a class="logo_link" href="/">
 						<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
 					</a>
-					<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
+					<div class='nav_links' v-for="(item) in this.navItems" :key="item.id">
 						<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 					</div>
 					<div class="nav_btn_block">
@@ -18,11 +18,11 @@
 						v-model="search"
 						type="search"
 						/>
-						<button class="btn custom_button_nav">Додати дефект</button>
+						<button class="btn custom_button_nav" @click="getMe">Додати дефект</button>
 					</div>
 				</div>
 			</mq-layout>
-			<mq-layout mq="sm">
+			<mq-layout mq="sm" v-if="$mq == 'sm'">
 				<div id="nav_mb">
 					<div class="logo_container">
 						<a class="logo_link" href="/">
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 					<div class="nav_links-container" :class="{open: isOpen}">
-						<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
+						<div class='nav_links' v-for="(item, index) in this.navItems" :key="index">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 								</div>
 								<button class="btn custom_button hero-btn">Додати дефект</button>
 							</div>
-							<div class="main-hero" v-if="!login">
+							<div class="main-hero" v-if="!loggedIn">
 								<div class="hero-title">
 									<div class="hero-container">
 										<div class="hero-content">
@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{status[0].code}}</p>
+												<p class="p-text code">{{authCode[0].code}}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -87,12 +87,14 @@
 												</div>
 											</div>
 											<div class="hero-content_block">
-												<div class="hero-item icon" @click="getMe()">
+												<div class="hero-item icon">
 													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
 												</div>
 												<div class="hero-item_message" title="QR Code для входу">
 													<p class="message_title">UkrYama_bot</p>
-													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
+													<div class="message_content">
+														<img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message">
+													</div>
 												</div>
 											</div>
 											<div class="hero-content_block">
@@ -435,14 +437,14 @@ import FormInput from './components/FormInput';
 import Defects from './components/Defects';
 import VueCookies from 'vue-cookies';
 
-Vue.use(VueCookies)
+Vue.use(VueCookies);
 // import defectCards from './mock_data';
 
 export default {
 	name: 'app',
 	components: {
 		FormInput,
-		Defects
+		Defects,
 		// Datepicker
 	},
 	data() {
@@ -493,21 +495,21 @@ export default {
 				},
 			],
 			status: [],
-			login: false,
+			loggedIn: false,
 			comment: '',
 			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
-			appsLoaded: false,
-			apiURL: '/routes/95a4b653d1/api',
+			apiURL: 'https://tala.cloudi.es/routes/95a4b653d1/api',
 			apiURLv2: '/routes/00d3928bf3/api',
 			search: '',
+			prefix: '',
 			selfFilters: false,
 			dateRangeFilterShown: false,
 			token: "",
-			id: '7383202a-177c-444c-a4da-0e984e274580',
+			id: 'c52060cf-bb91-43e7-bf92-d92e9e61736c',
 			dirtyExit: false,
 			user: {},
 			me: {},
@@ -540,14 +542,17 @@ export default {
 			},
 		}
 	},
-	created: function() {
+	async created() {
 		Vue.prototype.$API = this;
+		this.checkCode();
 		this.startTimer();
 	},
 	beforeMount: function() {},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
+		// Vue.$cookies.set('yamasession', '34dbdd83-34df-4e67-9247-e9d3cff22d34');
+		this.status.push({ "cookies": document.cookie });
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -567,17 +572,16 @@ export default {
 					ready: fetch(request, {
 						...opts,
 						signal
-					}).then((response) => {
-						return response.json().then((data) => {
-							// console.log(response);
-							if(response.status != 200) {
-								console.log("Unauthorized:", request);
-								this.doLogout();
-								this.dirtyExit = true;
-								throw Error("Logging out");
-							}
-							return data;
-						});
+					}).then(async (response) => {
+						const data=await response.json();
+						// console.log(response);
+						if(response.status!=200) {
+							console.log("Unauthorized:", request);
+							// this.doLogout();
+							// this.dirtyExit = true;
+							throw Error("Logging out");
+						}
+						return data;
 					})
 				};
 			}
@@ -589,6 +593,7 @@ export default {
 			};
 			let response = await fetch(this.apiURL + endpoint, {
 				method: 'POST',
+				mode: 'no-cors',
 				headers: headers,
 				body: JSON.stringify(requestData)
 			});
@@ -603,10 +608,9 @@ export default {
 			// if(auth)
 			// 	headers["Authorization"]=`Bearer ${this.token}`;
 			let response = await fetch(this.apiURL + endpoint, {
-				method: 'GET',
+				Method: 'GET',
 				headers: headers
 			});
-			// console.log(response);
 			let data = await response.json();
 			return data;
 		},
@@ -636,23 +640,18 @@ export default {
 			return data;
 		},
 		// async loadProfile() {
-		// 	let resp = await this.apiGET('/me').then(response => {
-		// 		console.log(response);
-		// 		if (response.status != 200) {
-		// 			// this.doLogout();
-		// 			alert(response.status + ': ' + response.details);
-		// 		} else {
-		// 			console.log(response);
-		// 			this.me = JSON.parse(response);
-		// 			console.log(this.me);
+		// 	try{
+		// 		let resp = await this.apiGET('/me');
+		// 		if (this.status.status === "login-ok") {
+		// 			clearInterval(this.timer);
+		// 			this.loggedIn = true;
+		// 			console.log(resp);
+		// 			this.me = resp;
 		// 		}
-		// 		// this.profileLoaded = true;
-		// 		return response;
-		// 	}).catch((e) => {
+		// 		this.profileLoaded = true;
+		// 	}catch(e) {
 		// 		console.log(e);
-		// 	});
-		// 	this.profileLoaded = true;
-		// 	return resp;
+		// 	}
 		// },
 		openMenu(){
 			if(!this.isOpen){
@@ -667,11 +666,7 @@ export default {
 				this.$refs.Line_3.setAttribute('style', 'transform: translate(649.5px, 904.5px) rotate(0);transition: transform .2s ease-out')
 			}
 		},
-		doLogout() {
-			if(!this.login) return;
-			this.$router.push("/logout");
-		},
-		getMe: function () {
+		getMe() {
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', ('https://tala.cloudi.es/routes/95a4b653d1/api/me'))
 			xhr.send();
@@ -683,22 +678,21 @@ export default {
 					this.me = JSON.parse(xhr.responseText);
 					console.log(this.me);
 				}
-			}.bind(this).bind(this)
+			}
 		},
 		async checkCode() {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
 			if (resp.status == "login-ok"){
-				this.navItems.push({ name: 'Logout', text: 'Вийти', path: `/logout` })
 				clearInterval(this.timer);
-				this.login = true;
+				this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
+				this.loggedIn = true;
 			}
 			return resp;
 		},
 		startTimer: function () {
 			this.timer = setInterval(this.checkCode, 5200);
-			//this.checkCode();
 		},
 	},
 	computed: {
@@ -707,7 +701,17 @@ export default {
 			return this.status.map(state => {
 				return {
 					code: state.code,
-					cookie: state.cookie
+					sessionID: state.sessionID,
+					status: state.status
+				}
+			})
+		},
+		userInfo() {
+			return this.status.map(state => {
+				return {
+					chatneyID: state.chatneyID,
+					sessionID: state.sessionID,
+					status: state.status
 				}
 			})
 		}
@@ -844,7 +848,7 @@ export default {
 		width: 101%;
 		height: 100%;
 		align-items: center;
-		background: #fff;
+		background: var(--background-color-prefooter);
 		z-index: 2;
 		bottom: 0;
 		left: 0;
@@ -854,7 +858,9 @@ export default {
 	}
 
 	.nav_links-container.open{
-		transform:translateX(0)
+		transform:translateX(40%);
+		align-items:flex-start;
+		padding: 20px;
 	}
 	/* Carousel style START*/
 

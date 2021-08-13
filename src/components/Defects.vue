@@ -24,7 +24,7 @@
 									<label>Дата розміщення</label>
 									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;">
 										<div class="form__wrapper interval table-sort__select">
-											<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
+											<div class="select" style="text-align: left;font-size: .9rem;" title="Фільтрація по даті розміщення">
 												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
 													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
 														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
@@ -33,18 +33,18 @@
 												</div>
 											</div>
 											<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
-												<span class="calendar__reset" @click="resetCalendar">Сбросить</span>
+												<span class="calendar__reset" @click="resetCalendar">Скинути</span>
 												<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
 												<div class="calendar__container">
 													<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
-														<p class="calendar__heading">Начало периода</p>
+														<p class="calendar__heading">Початок періоду</p>
 														<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
 													</div>
 													<label class="calendar__label" for="calendarSwitch">
 														<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
 													</label>
 													<div class="calendar__end">
-														<p class="calendar__heading">Окончание периода</p>
+														<p class="calendar__heading">Закінчення періоду</p>
 														<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
 													</div>
 												</div>
@@ -186,14 +186,14 @@
 <script>
 import Vue from 'vue';
 // import CollectionList from '../components/CollectionList'
-import Datepicker from 'vuejs-datepicker'
+import Datepicker from 'vuejs-datepicker';
 
 // import defectCards from './mock_data';
 
 export default {
 	name: 'defects',
 	components: {
-		Datepicker
+		Datepicker,
 	},
 	data() {
 		return {
@@ -287,7 +287,7 @@ export default {
 			selectedLocationType: '',
 			selectedStatus: '',
 			selectedType: '',
-			listType: 'ruined',
+			// listType: 'ruined',
 			selfFilters: false,
 			periodStart: '',
 			periodEnd: '',
@@ -299,11 +299,6 @@ export default {
 	async created() {
 		Vue.prototype.$API2 = this;
 		this.loadRegions(true);
-		// this.$eventBus.$on('applicationUpdated', async (event) => {
-		// 	if(this.$API2.orgInfo) {
-		// 		await this.reloadApplication();
-		// 	}
-		// });
 	},
 	mounted() {
 		this.$API.title = "Дефекти";
@@ -315,7 +310,7 @@ export default {
 			this.listType = '';
 
 		this.loadDefects(true);
-		this.appsUpdateInterval = setInterval(this.loadDefects, 10);
+		this.appsUpdateInterval = setInterval(this.loadDefects, 100);
 	},
 	methods: {
 		listClick(e, url) {
@@ -328,9 +323,10 @@ export default {
 			if(this.appsUpdating) return;
 			this.appsUpdating = true;
 			try{
-				this.pendingUpdate = await this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded ? '&forceUpdate=true' : ''));
+				this.pendingUpdate = await this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
-				this.orgInfo=result;
+
+				this.orgInfo = result;
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
 			}catch(e){
@@ -431,9 +427,9 @@ export default {
 			}, e => {});
 		},
 		changeOrgInfo() {
-			this.orgInfo = [];
+			// this.orgInfo = [];
 			this.$eventBus.$emit('applicationUpdated', this.orgInfo)
-		}
+		},
 	},
 	computed: {
 		periodShow() {
@@ -508,8 +504,11 @@ export default {
 				type = "hole";
 			this.resetApps();
 		},
+		'token'() {
+			this.token = this.status.sessionID;
+		},
 	},
-	beforeDestroy() {
+	beforeMount() {
 		clearInterval(this.appsUpdateInterval);
 	}
 }
@@ -522,7 +521,18 @@ export default {
 	}
 
 	.calendar__container{
+		width: 600px;
+		/* position: relative; */
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-transform: translateX(0px);
+		transform: translateX(0px);
+		-webkit-transition: all .3s;
+		transition: all .3s;
 	}
 
 	.calendar {
@@ -535,7 +545,7 @@ export default {
 		background-color: var(--background-color-normal);
 		z-index: 2;
 		overflow: hidden;
-		height: 330px;
+		/* height: 330px; */
 		max-width: 350px;
 		width: 315px;
 		box-sizing: border-box;
@@ -547,45 +557,31 @@ export default {
 
 	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
 		width: 20px;
-		content: url('/img/icons/arrow-right.svg');
+		content: url('../assets/img/icons/arrow-right.svg');
 	}
 
 	#calendarSwitch:checked~.calendar__container .calendar__switch {
 		width: 20px;
-		content: url('/img/icons/arrow-left.svg') !important;
+		content: url('../assets/img/icons/arrow-left.svg');
 	}
 
 	#calendarSwitch:checked~.calendar__container {
-		transform: translateX(-285px) !important;
+		transform: translateX(-290px) !important;
 		transition: all .3s;
 	}
 
 	#calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
 		width: 20px;
-		content: url('/img/icons/arrow-right.svg');
+		content: url('../assets/img/icons/arrow-right.svg');
 	}
 
 	#calendarSwitch:checked~.calendar__container .calendar__switch {
 		width: 20px;
-		content: url('/img/icons/arrow-left.svg');
-	}
-
-	#calendarSwitch:checked~.calendar__container {
-		transform: translateX(-310px);
+		content: url('../assets/img/icons/arrow-left.svg');
 		transition: all .3s;
 	}
 
-	#lupd_calendarSwitch:not(:checked)~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-right.svg');
-	}
-
-	#lupd_calendarSwitch:checked~.calendar__container .calendar__switch {
-		width: 20px;
-		content: url('/assets/img/icons/arrow-left.svg');
-	}
-
-	#lupd_calendarSwitch:checked~.calendar__container {
+	#calendarSwitch:checked~.calendar__container {
 		transform: translateX(-310px);
 		transition: all .3s;
 	}
@@ -593,10 +589,42 @@ export default {
 	.calendar__end {
 		align-self: flex-start;
 	}
-	.vdp-datepicker__calendar{
-		z-index: 100;
-		background: #fff;
+	.vdp-datepicker__calendar {
+		border: none !important;
+		background: var(--background-color-normal) !important;
 		width: 280px !important;
-		border: 1px solid #ccc;
+	}
+	.calendar__reset {
+		position: absolute;
+		top: 22px;
+		right: 16px;
+		z-index: 99;
+	}
+
+	.calendar__reset:hover {
+		background-color: var(--status-color-warning);
+		cursor: pointer;
+		border-radius: 4px;
+		padding: 2px;
+		transition: all .2s ease-in;
+	}
+
+	.calendar__heading {
+		font-size: 1.2rem;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		text-align: left;
+	}
+	.calendar__label{
+		display: flex;
+	}
+	.calendar__label:hover {
+		cursor: pointer;
+		background: var(--background-color-prefooter);
+		border-radius: 4px;
+	}
+	.calendar__start_mg {
+		margin-right: 40px;
 	}
 </style>

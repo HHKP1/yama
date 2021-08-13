@@ -3,6 +3,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
 import VueMq from 'vue-mq';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 // Components
 import FormInput from './components/FormInput';
@@ -29,6 +31,7 @@ Vue.use(require('vue-moment'), {
 	moment
 });
 
+Vue.use(VueAxios, axios);
 Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
 
