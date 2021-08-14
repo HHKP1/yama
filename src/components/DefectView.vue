@@ -35,15 +35,15 @@
 													<span class="defect_id">#{{defect.id}}</span>
 												</div>
 												<div class="defect_status_item">
-													<span v-if="defect.case_status=='new'">Новий</span>
-													<span v-if="defect.case_status=='approved'">Погоджений</span>
-													<span v-if="defect.case_status=='sent'">Відправлений</span>
-													<span v-if="defect.case_status=='replied'">Відповідь</span>
-													<span v-if="defect.case_status=='no_answer'">Немає відповіді</span>
-													<span v-if="defect.case_status=='rejected'">Відхилений</span>
-													<span v-if="defect.case_status=='escalated'">Ескалований</span>
-													<span v-if="defect.case_status=='in_progress'">В процесі</span>
-													<span v-if="defect.case_status=='done'">Виправлений</span>
+													<span v-if="defect.case_status.current.status=='new'">Новий</span>
+													<span v-if="defect.case_status.current.status=='approved'">Погоджений</span>
+													<span v-if="defect.case_status.current.status=='sent'">Відправлений</span>
+													<span v-if="defect.case_status.current.status=='replied'">Відповідь</span>
+													<span v-if="defect.case_status.current.status=='no_answer'">Немає відповіді</span>
+													<span v-if="defect.case_status.current.status=='rejected'">Відхилений</span>
+													<span v-if="defect.case_status.current.status=='escalated'">Ескалований</span>
+													<span v-if="defect.case_status.current.status=='in_progress'">В процесі</span>
+													<span v-if="defect.case_status.current.status=='done'">Виправлений</span>
 												</div>
 											</div>
 										</div>
@@ -70,7 +70,7 @@
 													<div class="author_info">
 														<div class="author_content">
 															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-															<!-- <p class="author_name">{{ comments[0].author.name }}</p> -->
+															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
 														</div>
 														<button class="author_chat underline-btn">Написати автору</button>
 													</div>
@@ -294,7 +294,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name" :title="this.$API.user.first_name+' '+this.$API.user.last_name+' '+this.$API.user.patronymic">{{ this.$API.user.first_name }} {{ this.$API.user.last_name }}</p>
+													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }} {{ this.$API.me.last_name }}</p>
 												</div>
 											</div>
 											<FormInput
@@ -509,15 +509,15 @@
 													<span class="defect_id">#{{ defect.id }}</span>
 												</div>
 												<div class="defect_status_item">
-													<span v-if="defect.case_status=='new'">Новий</span>
-													<span v-if="defect.case_status=='approved'">Погоджений</span>
-													<span v-if="defect.case_status=='sent'">Відправлений</span>
-													<span v-if="defect.case_status=='replied'">Відповідь</span>
-													<span v-if="defect.case_status=='no_answer'">Немає відповіді</span>
-													<span v-if="defect.case_status=='rejected'">Відхилений</span>
-													<span v-if="defect.case_status=='escalated'">Ескалований</span>
-													<span v-if="defect.case_status=='in_progress'">В процесі</span>
-													<span v-if="defect.case_status=='done'">Виправлений</span>
+													<span v-if="defect.case_status.current.status=='new'">Новий</span>
+													<span v-if="defect.case_status.current.status=='approved'">Погоджений</span>
+													<span v-if="defect.case_status.current.status=='sent'">Відправлений</span>
+													<span v-if="defect.case_status.current.status=='replied'">Відповідь</span>
+													<span v-if="defect.case_status.current.status=='no_answer'">Немає відповіді</span>
+													<span v-if="defect.case_status.current.status=='rejected'">Відхилений</span>
+													<span v-if="defect.case_status.current.status=='escalated'">Ескалований</span>
+													<span v-if="defect.case_status.current.status=='in_progress'">В процесі</span>
+													<span v-if="defect.case_status.current.status=='done'">Виправлений</span>
 												</div>
 											</div>
 										</div>
@@ -544,7 +544,7 @@
 													<div class="author_info">
 														<div class="author_content">
 															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-															<!-- <p class="author_name">{{ defect.author.name }}</p> -->
+															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
 														</div>
 														<button class="author_chat underline-btn">Написати автору</button>
 													</div>

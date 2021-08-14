@@ -40,7 +40,7 @@
 						</div>
 					</div>
 					<div class="nav_links-container" :class="{open: isOpen}">
-						<div class='nav_links' v-for="(item, index) in this.navItems" :key="index">
+						<div class='nav_links' v-for="(item) in this.navItems" :key="item.id">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{authCode[1].code}}</p>
+												<p class="p-text code">{{authCode[authCode.length-1].code}}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -544,7 +544,6 @@ export default {
 	},
 	async created() {
 		Vue.prototype.$API = this;
-		this.checkCode();
 		this.startTimer();
 	},
 	beforeMount: function() {},
@@ -639,20 +638,20 @@ export default {
 			let data = await response.json();
 			return data;
 		},
-		// async loadProfile() {
-		// 	try{
-		// 		let resp = await this.apiGET('/me');
-		// 		if (this.status.status === "login-ok") {
-		// 			clearInterval(this.timer);
-		// 			this.loggedIn = true;
-		// 			console.log(resp);
-		// 			this.me = resp;
-		// 		}
-		// 		this.profileLoaded = true;
-		// 	}catch(e) {
-		// 		console.log(e);
-		// 	}
-		// },
+		async loadProfile() {
+			try{
+				let resp = await this.apiGET('/me');
+				if (this.status.status === "login-ok") {
+					clearInterval(this.timer);
+					this.loggedIn = true;
+					console.log(resp);
+					this.me = resp;
+				}
+				this.profileLoaded = true;
+			}catch(e) {
+				console.log(e);
+			}
+		},
 		openMenu(){
 			if(!this.isOpen){
 				this.$refs.Line_1.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')
@@ -684,10 +683,10 @@ export default {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
-			if (resp.status == "login-ok"){
+			if (this.status[this.status.length-1].status == "login-ok"){
 				clearInterval(this.timer);
-				this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
 				this.loggedIn = true;
+				this.loadProfile();
 			}
 			return resp;
 		},
@@ -718,11 +717,18 @@ export default {
 	},
 	watch: {
 		// 'navItems'() {
-		// 	if(!this.login){
+		// 	if(this.loggedIn){
 		// 		// this.$router.push("/web/logout");
+		// 		this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
+		// 	}else{
 		// 		this.navItems.pop();
 		// 	}
 		// },
+		'loggedIn'() {
+			if(this.loggedIn) {
+				this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
+			}
+		}
 	},
 }
 </script>
