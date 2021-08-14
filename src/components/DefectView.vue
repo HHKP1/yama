@@ -1375,7 +1375,7 @@ export default {
 		justify-content: space-between;
 	}
 	.author_name, .author_chat{
-		font: 500 .7rem 'Montserrat';
+		font: 500 1rem 'Montserrat';
 		text-align: left;
 		/* white-space: nowrap; */
 	}
