@@ -278,7 +278,7 @@ export default {
 					id: card.id,
 					address: card.address,
 					photo: card.photos,
-					status: card.case_status,
+					status: card.case_status.current.status,
 					comment: card.comments,
 				}
 			});

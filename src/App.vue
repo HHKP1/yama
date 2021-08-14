@@ -19,6 +19,12 @@
 						type="search"
 						/>
 						<button class="btn custom_button_nav" @click="getMe()">Додати дефект</button>
+						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 14px;width:100px;">
+							<div class="author_content">
+								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }} {{ this.me.last_name }}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</mq-layout>
@@ -46,7 +52,7 @@
 					</div>
 				</div>
 			</mq-layout>
-			<section class="main">
+			<section class="main"  v-if="!loggedIn">
 				<mq-layout mq="md+">
 					<div class="header">
 						<div class="head-container">
@@ -216,7 +222,7 @@
 					</div>
 				</mq-layout>
 			</section>
-			<section class="how_it_works">
+			<section class="how_it_works" v-if="!loggedIn">
 				<mq-layout mq="md+">
 					<div class="container_works">
 						<h2 class="section_title">Як це працює</h2>

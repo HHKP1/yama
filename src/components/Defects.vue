@@ -382,7 +382,7 @@ export default {
 			let loadingParams = {};
 			// loadingParams.type = this.listType;
 			if(this.selectedStatus)
-				loadingParams.case_status.current.status = this.selectedStatus;
+				loadingParams.status = this.selectedStatus;
 			if(this.periodStart)
 				loadingParams.since = this.periodStart;
 			if(this.periodEnd)

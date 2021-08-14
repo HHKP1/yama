@@ -725,10 +725,10 @@ export default {
 	},
 	created() {
 		this.isActive=true;
+		this.me = this.$API.me;
 	},
 	async mounted() {
 		this.$API.title = "Дефект";
-		this.me = this.$API.me;
 		let id = this.$route.params.id;
 		if(!id) {
 			this.router.push("/404");
@@ -759,6 +759,7 @@ export default {
 				this.isActive=false;
 			}catch(e){
 				console.log(e);
+				this.isActive=false;
 			}
 		},
 	},
