@@ -19,7 +19,7 @@
 						type="search"
 						/>
 						<button class="btn custom_button_nav" @click="getMe()">Додати дефект</button>
-						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 14px;width:100px;">
+						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 14px;width:130px;">
 							<a href="https://tala.cloudi.es/routes/00d3928bf3/web/logout">Вийти</a>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
@@ -53,7 +53,7 @@
 					</div>
 				</div>
 			</mq-layout>
-			<section class="main"  v-if="!loggedIn">
+			<section class="main">
 				<mq-layout mq="md+">
 					<div class="header">
 						<div class="head-container">
@@ -223,7 +223,7 @@
 					</div>
 				</mq-layout>
 			</section>
-			<section class="how_it_works" v-if="!loggedIn">
+			<section class="how_it_works">
 				<mq-layout mq="md+">
 					<div class="container_works">
 						<h2 class="section_title">Як це працює</h2>
