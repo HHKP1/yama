@@ -641,11 +641,9 @@ export default {
 		async loadProfile() {
 			try{
 				let resp = await this.apiGET('/me');
-				if (this.status.status === "login-ok") {
-					clearInterval(this.timer);
-					this.loggedIn = true;
-					console.log(resp);
+				if (this.status[this.status.length-1].status == "login-ok") {
 					this.me = resp;
+					console.log(resp);
 				}
 				this.profileLoaded = true;
 			}catch(e) {

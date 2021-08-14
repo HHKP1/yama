@@ -294,7 +294,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }} {{ this.$API.me.last_name }}</p>
+													<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }} {{ this.me.last_name }}</p>
 												</div>
 											</div>
 											<FormInput
@@ -718,6 +718,7 @@ export default {
 			isExpand: false,
 			appsLoaded: true,
 			defect: {},
+			me: {},
 			sort_by: '',
 			pendingUpdate: null,
 		}
@@ -727,6 +728,7 @@ export default {
 	},
 	async mounted() {
 		this.$API.title = "Дефект";
+		this.me = this.$API.me;
 		let id = this.$route.params.id;
 		if(!id) {
 			this.router.push("/404");
@@ -757,7 +759,6 @@ export default {
 				this.isActive=false;
 			}catch(e){
 				console.log(e);
-				this.isActive=false;
 			}
 		},
 	},
