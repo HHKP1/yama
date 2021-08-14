@@ -20,6 +20,7 @@
 						/>
 						<button class="btn custom_button_nav" @click="getMe()">Додати дефект</button>
 						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 14px;width:100px;">
+							<a href="https://tala.cloudi.es/routes/00d3928bf3/web/logout">Вийти</a>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
 								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }} {{ this.me.last_name }}</p>
@@ -728,11 +729,11 @@ export default {
 		// 		this.navItems.pop();
 		// 	}
 		// },
-		'loggedIn'() {
-			if(this.loggedIn) {
-				this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
-			}
-		}
+		// 'loggedIn'() {
+		// 	if(this.loggedIn) {
+		// 		this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
+		// 	}
+		// }
 	},
 }
 </script>
