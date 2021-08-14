@@ -18,7 +18,7 @@
 						v-model="search"
 						type="search"
 						/>
-						<button class="btn custom_button_nav" @click="getMe">Додати дефект</button>
+						<button class="btn custom_button_nav" @click="getMe()">Додати дефект</button>
 					</div>
 				</div>
 			</mq-layout>
@@ -67,7 +67,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{authCode[0].code}}</p>
+												<p class="p-text code">{{authCode[1].code}}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -551,7 +551,7 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		// Vue.$cookies.set('yamasession', '34dbdd83-34df-4e67-9247-e9d3cff22d34');
+		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
 	},
 	methods: {
