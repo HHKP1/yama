@@ -367,7 +367,6 @@
 					<div class="container_defects">
 						<Defects />
 						<router-view></router-view>
-						<!-- <CollectionList /> -->
 					</div>
 				</div>
 			</section>

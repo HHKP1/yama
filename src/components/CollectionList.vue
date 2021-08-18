@@ -18,42 +18,43 @@
 						type="search"
 					/>
 				</div>
-				<div class="grid-container">
+				<GoogleMap v-if="this.$API2.showMap" mapTitle="Map"/>
+				<div class="grid-container" v-if="!this.$API2.showMap">
 					<div class="defect_card" v-for='card in dfCard' :key='card.id'>
 					<router-link :to="'/defect/'+card.id">
-									<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
-										<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-										<div class="defect_image">
-											<img class="card_image" :src="card.photo[0].url" alt="">
-											<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
-											<div class="defect_color"></div>
-										</div>
-										<div class="defect_info">
-											<div class="defect_status">
-												<div class="status_item">
-													<span v-if="card.status=='new'">Новий</span>
-													<span v-if="card.status=='approved'">Погоджений</span>
-													<span v-if="card.status=='sent'">Відправлений</span>
-													<span v-if="card.status=='replied'">Відповідь</span>
-													<span v-if="card.status=='no_answer'">Немає відповіді</span>
-													<span v-if="card.status=='rejected'">Відхилений</span>
-													<span v-if="card.status=='escalated'">Ескалований</span>
-													<span v-if="card.status=='in_progress'">В процесі</span>
-													<span v-if="card.status=='done'">Виправлений</span>
-												</div>
-												<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-													<p class="status_count">{{ card.comment.length }}</p>
-													<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
-												</div>
-											</div>
-											<p class="defect_adress" :title="card.address">{{ card.address }}</p>
-										</div>
+						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+							<div class="defect_image">
+								<img class="card_image" :src="card.photo[0].url" alt="">
+								<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
+								<div class="defect_color"></div>
+							</div>
+							<div class="defect_info">
+								<div class="defect_status">
+									<div class="status_item">
+										<span v-if="card.status=='new'">Новий</span>
+										<span v-if="card.status=='approved'">Погоджений</span>
+										<span v-if="card.status=='sent'">Відправлений</span>
+										<span v-if="card.status=='replied'">Відповідь</span>
+										<span v-if="card.status=='no_answer'">Немає відповіді</span>
+										<span v-if="card.status=='rejected'">Відхилений</span>
+										<span v-if="card.status=='escalated'">Ескалований</span>
+										<span v-if="card.status=='in_progress'">В процесі</span>
+										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
+									<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
+										<p class="status_count">{{ card.comment.length }}</p>
+										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
+									</div>
+								</div>
+								<p class="defect_adress" :title="card.address">{{ card.address }}</p>
+							</div>
+						</div>
 					</router-link>
 					</div>
 				</div>
 			</div>
-			<div class="card_pagination">
+			<div class="card_pagination" v-if="!this.$API2.showMap">
 							<div class="pagination_control">
 								<ul class="pagination">
 									<li class="disabled"><a href="#!">F</a></li>
@@ -415,7 +416,9 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import VueElementLoading from 'vue-element-loading';
+import GoogleMap from '../components/GoogleMap';
 
 // import defectCards from './mock_data';
 
@@ -423,6 +426,7 @@ export default {
 	name: 'collectionList',
 	components: {
 		VueElementLoading,
+		GoogleMap
 	},
 	data() {
 		return {
@@ -440,7 +444,11 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			selfFilters: false,
+			showMap: false,
 		}
+	},
+	created(){
+		Vue.prototype.$API3 = this;
 	},
 	mounted() {
 		this.$API.title = "Колекція";
@@ -462,7 +470,7 @@ export default {
 					id: card.id,
 					address: card.address,
 					photo: card.photos,
-					status: card.status,
+					status: card.case_status.current.status,
 					comment: card.comments,
 					// author: card.author.name,
 					defect_type: card.defect_type,

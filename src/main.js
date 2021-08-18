@@ -5,6 +5,8 @@ import VueRouter from 'vue-router';
 import VueMq from 'vue-mq';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import * as VueGoogleMaps from 'vue2-google-maps';
+import GmapCluster from 'vue2-google-maps/dist/components/cluster';
 
 // Components
 import FormInput from './components/FormInput';
@@ -15,6 +17,7 @@ import DefectSortedGrid from './components/DefectSortedGrid.vue';
 import Defects from './components/Defects.vue';
 import CollectionList from './components/CollectionList.vue';
 import DefectView from './components/DefectView.vue';
+import GoogleMap from './components/GoogleMap.vue';
 import NotFoundPage from './components/404.vue';
 
 // Register Components
@@ -22,10 +25,13 @@ Vue.component('Defects', Defects);
 Vue.component('FormInput', FormInput);
 Vue.component('FormSelect', FormSelect);
 Vue.component('DefectSortedGrid', DefectSortedGrid);
+Vue.component('GmapCluster', GmapCluster);
+Vue.component('infoWindow', VueGoogleMaps.InfoWindow)
 
 // Uses
 const moment = require('moment');
 require('moment/locale/uk');
+const GOOGLE_API_KEY = (process.env.NODE_ENV === 'production'?"AIzaSyCD2V05CVIKPwj76Vb5AUwiL3vrWAErhek":"AIzaSyCD2V05CVIKPwj76Vb5AUwiL3vrWAErhek");
 
 Vue.use(require('vue-moment'), {
 	moment
@@ -34,12 +40,12 @@ Vue.use(require('vue-moment'), {
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
+Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY } });
 
 const routes = [
-	// { path: '/collections', component: Defects, props: true },
 	{ path: '/', component: CollectionList, props: true },
 	{ path: '/collections', component: CollectionList, props: true },
-	// { path: '/collections/:listType', component: CollectionList },
+	{ path: '/collections', component: GoogleMap, props: true },
 	{ path: '/defect/:id', component: DefectView, props: true },
 	{ path: '/404', component: NotFoundPage },
 ]

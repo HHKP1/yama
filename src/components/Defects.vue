@@ -82,9 +82,11 @@
 										</label>
 									</p>
 								</div>
-								<button class="btn outline_button">Показати на мапі</button>
+								<button class="btn outline_button" v-if="!showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Показати на мапі</button>
+								<button class="btn outline_button" v-if="showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Згорнути мапу</button>
 								<button class="btn custom_button">Показати</button>
 			</div>
+			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
 		<mq-layout mq="sm">
 					<div class="container_works_mb">
@@ -185,7 +187,6 @@
 
 <script>
 import Vue from 'vue';
-// import CollectionList from '../components/CollectionList'
 import Datepicker from 'vuejs-datepicker';
 
 // import defectCards from './mock_data';
@@ -272,6 +273,7 @@ export default {
 			},
 			comment: '',
 			isComments: false,
+			showMap: false,
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
@@ -303,6 +305,7 @@ export default {
 	mounted() {
 		this.$API.title = "Дефекти";
 		this.$API.page = "defects";
+		this.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a')
 
 		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
 			this.listType = this.$route.params.listType;
@@ -443,6 +446,13 @@ export default {
 			}
 			return '';
 		},
+		defectID() {
+			return this.orgInfo.map(def => {
+				return {
+					defID: def.id
+				}
+			})
+		}
 	},
 	watch: {
 		periodStart() {
