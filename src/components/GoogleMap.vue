@@ -135,7 +135,7 @@ export default {
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Автор: <p style="font-weight:400;text-align:left">`+marker.author+`</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Статус: <p style="font-weight:400;text-align:left"> `+marker.status+`</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">ID: <p style="font-weight:400;text-align:left"> `+marker.id+`</p></span>
-				<span><a style="align-items: center;display: flex;justify-content: center;" href="/#/defect/${marker.id}" class="btn outline_button">Деталі дефекту</a></span>
+				<span><a style="align-items: center;display: flex;justify-content: center;" href="/routes/95a4b653d1/#/defect/${marker.id}" class="btn outline_button">Деталі дефекту</a></span>
 
 			</div>`;
 			this.infoWindowPos = marker.position;
