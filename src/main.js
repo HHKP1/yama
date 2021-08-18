@@ -40,7 +40,7 @@ Vue.use(require('vue-moment'), {
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
-Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY } });
+Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY }, installComponents: true });
 
 const routes = [
 	{ path: '/', component: CollectionList, props: true },

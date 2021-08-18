@@ -13,14 +13,22 @@
 						<div class="flex-column margin-bottom-16" id="map-wrap">
 							<gmap-map :center="center" :zoom="4" style="position: relative; overflow: hidden; display: block; height: 100%; width: 100%;">
 								<GmapCluster>
-									<GmapMarker v-for="(m, index) in markers"
-										:position="m.position"
-										:clickable="true"
-										@mouseover="toggleInfoWindow(m, index)"
-										@mouseleave="infoWinOpen=false"
-										:key="index"
-									></GmapMarker>
-									<gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false"></gmap-info-window>
+												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+													<GmapMarker v-for="(m, index) in markers"
+														:position="m.position"
+														:clickable="true"
+														:ref="`marker${m.id}`"
+														@mouseover="toggleInfoWindow(m, index)"
+														:key="index"
+													>
+													</GmapMarker>
+													<gmap-info-window
+													:options="infoOptions"
+													:position="infoWindowPos"
+													:opened="infoWinOpen"
+													@closeclick="infoWinOpen=false"
+													>
+													</gmap-info-window>
 								</GmapCluster>
 							</gmap-map>
 						</div>
@@ -31,6 +39,7 @@
 </template>
 <script>
 import { gmapApi } from 'vue2-google-maps';
+import VueElementLoading from 'vue-element-loading';
 
 export default {
 	name: "GoogleMap",
@@ -38,8 +47,12 @@ export default {
 		// defectId: { type: String, required: false },
 		mapTitle: { type: String, required: true },
 	},
+	components: {
+		VueElementLoading
+	},
 	data() {
 		return {
+			isActive: false,
 			showGMap: true,
 			hover: false,
 			showErrorMap: false,
@@ -69,7 +82,15 @@ export default {
 		this.loadMarkers();
 	},
 	methods: {
+		listClick(e, url) {
+			if(e && (e.which == 2 || e.button == 4)) {
+				e.preventDefault(true);
+				// this.$route.path(url)
+				window.open(url, "_new");
+			}
+		},
 		loadMarkers() {
+			this.isActive=true;
 			if(this.markers.length > 0) return true;
 			let data = this.arrMarkers;
 			// let hole = data;
@@ -81,6 +102,7 @@ export default {
 				delete l.lng;
 				delete l.lat;
 				this.markers.push(l);
+				this.isActive=false;
 			});
 			/*let markerClusterStyle = [
 				{
@@ -108,10 +130,13 @@ export default {
 		},
 		toggleInfoWindow(marker, idx) {
 			this.markerInfo = `
-			<div style="display:flex;flex-flow:column;">
-				<span style="font-weight:bold;text-align:left">Адреса: <p style="font-weight:400;text-align:left">`+marker.area+`</p></span>
-				<span style="font-weight:bold;text-align:left">Автор: <p style="font-weight:400;text-align:left">`+marker.author+`</p></span>
-				<span style="font-weight:bold;text-align:left">Статус: <p style="font-weight:400;text-align:left"> `+marker.status+`</p></span>
+			<div style="width:100%;align-items:center;display:flex;justify-content:center;flex-wrap:wrap;">
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Адреса: <p style="font-weight:400;text-align:left">`+marker.area+`</p></span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Автор: <p style="font-weight:400;text-align:left">`+marker.author+`</p></span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Статус: <p style="font-weight:400;text-align:left"> `+marker.status+`</p></span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">ID: <p style="font-weight:400;text-align:left"> `+marker.id+`</p></span>
+				<span><a style="align-items: center;display: flex;justify-content: center;" href="/#/defect/${marker.id}" class="btn outline_button">Деталі дефекту</a></span>
+
 			</div>`;
 			this.infoWindowPos = marker.position;
 			this.infoOptions.content = this.markerInfo;
@@ -147,7 +172,8 @@ export default {
 					lng: m.location[0],
 					area: m.address,
 					status: m.case_status.current.status,
-					author: m.case_status.current.author.name
+					author: m.case_status.current.author.name,
+					id: m.id
 				}
 			})
 		}
