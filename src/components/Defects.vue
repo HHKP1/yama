@@ -302,6 +302,9 @@ export default {
 		Vue.prototype.$API2 = this;
 		this.loadRegions(true);
 	},
+	beforeDestroy() {
+		clearInterval(this.appsUpdateInterval);
+	},
 	mounted() {
 		this.$API.title = "Дефекти";
 		this.$API.page = "defects";
@@ -335,6 +338,7 @@ export default {
 			}catch(e){
 				console.log(e);
 			}
+			this.$eventBus.$emit('orgInfo', this.orgInfo);
 			this.appsUpdating = false;
 			this.pendingUpdate = null;
 		},
@@ -518,9 +522,6 @@ export default {
 			this.token = this.status.sessionID;
 		},
 	},
-	beforeMount() {
-		clearInterval(this.appsUpdateInterval);
-	}
 }
 </script>
 

@@ -26,6 +26,7 @@ Vue.component('FormInput', FormInput);
 Vue.component('FormSelect', FormSelect);
 Vue.component('DefectSortedGrid', DefectSortedGrid);
 Vue.component('GmapCluster', GmapCluster);
+// Vue.component('GoogleMap', GoogleMap);
 Vue.component('infoWindow', VueGoogleMaps.InfoWindow)
 
 // Uses
@@ -45,7 +46,7 @@ Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY }, installComponents: true 
 const routes = [
 	{ path: '/', component: CollectionList, props: true },
 	{ path: '/collections', component: CollectionList, props: true },
-	{ path: '/collections', component: GoogleMap, props: true },
+	{ path: '/collections', component: GoogleMap, name: 'GoogleMap', props: true },
 	{ path: '/defect/:id', component: DefectView, props: true },
 	{ path: '/404', component: NotFoundPage },
 ]

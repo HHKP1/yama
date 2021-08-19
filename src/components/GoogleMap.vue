@@ -11,17 +11,21 @@
 			<div id="gmap-popup" class="popup-map" v-show="showGMap" style="display:flex;flex-direction:column;justify-content:space-between;">
 					<div>
 						<div class="flex-column margin-bottom-16" id="map-wrap">
-							<gmap-map :center="center" :zoom="4" style="position: relative; overflow: hidden; display: block; height: 100%; width: 100%;">
-								<GmapCluster>
-												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-													<GmapMarker v-for="(m, index) in markers"
+							<gmap-map :center="center" :zoom="6" style="position: relative; overflow: hidden; display: block; height: 100%; width: 100%;">
+												<GmapCluster>
+											<div v-for="(m, index) in markers" :key="m.id" style="z-index: 9999">
+												<router-link :to="'/defect/'+m.id">
+													<GmapMarker
 														:position="m.position"
 														:clickable="true"
-														:ref="`marker${m.id}`"
+														:ref="`marker${index}`"
 														@mouseover="toggleInfoWindow(m, index)"
-														:key="index"
+														@click="listClick($event, '/defect/'+m.id )"
+														@mouseout="infoWinOpen=false"
 													>
 													</GmapMarker>
+														</router-link>
+													</div>
 													<gmap-info-window
 													:options="infoOptions"
 													:position="infoWindowPos"
@@ -29,7 +33,7 @@
 													@closeclick="infoWinOpen=false"
 													>
 													</gmap-info-window>
-								</GmapCluster>
+												</GmapCluster>
 							</gmap-map>
 						</div>
 					</div>
@@ -39,17 +43,14 @@
 </template>
 <script>
 import { gmapApi } from 'vue2-google-maps';
-import VueElementLoading from 'vue-element-loading';
 
 export default {
-	name: "GoogleMap",
+	// name: "GoogleMap",
 	props: {
 		// defectId: { type: String, required: false },
 		mapTitle: { type: String, required: true },
 	},
-	components: {
-		VueElementLoading
-	},
+	components: {},
 	data() {
 		return {
 			isActive: false,
@@ -60,6 +61,7 @@ export default {
 			errorTitle: '',
 			showMarkerInfo: false,
 			markerInfo: '',
+			orgN: [],
 			markers: [],
 			center: {
 				lat: 49.4193571,
@@ -76,23 +78,42 @@ export default {
 					height: -35
 				}
 			},
+			statusNewWaitEvent: false,
 		};
 	},
 	created() {
-		this.loadMarkers();
+	},
+	mounted() {
+		this.$API.title = "Мапа";
+		this.$API.page = "GoogleMap";
+		this.$eventBus.$on('orgInfo', async (event) => {
+			// console.log(Array.from(event));
+			if(event){
+				this.orgN=Array.from(event);
+				await this.reloadApplication();
+				this.statusNewWaitEvent=false;
+			}
+		});
 	},
 	methods: {
 		listClick(e, url) {
-			if(e && (e.which == 2 || e.button == 4)) {
-				e.preventDefault(true);
-				// this.$route.path(url)
-				window.open(url, "_new");
+			console.log(e, url);
+			if(e) {
+				// e.preventDefault();
+				this.$router.push(url);
+				// window.open(url, "_new");
 			}
+		},
+		async reloadApplication() {
+			await this.loadMarkers();
 		},
 		loadMarkers() {
 			this.isActive=true;
+			this.statusNewWaitEvent=true;
+			this.markers=[];
 			if(this.markers.length > 0) return true;
 			let data = this.arrMarkers;
+			console.log(data);
 			// let hole = data;
 			data.forEach((l) => {
 				if (l == null) return;
@@ -135,8 +156,6 @@ export default {
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Автор: <p style="font-weight:400;text-align:left">`+marker.author+`</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Статус: <p style="font-weight:400;text-align:left"> `+marker.status+`</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">ID: <p style="font-weight:400;text-align:left"> `+marker.id+`</p></span>
-				<span><a style="align-items: center;display: flex;justify-content: center;" href="/routes/95a4b653d1/#/defect/${marker.id}" class="btn outline_button">Деталі дефекту</a></span>
-
 			</div>`;
 			this.infoWindowPos = marker.position;
 			this.infoOptions.content = this.markerInfo;
@@ -166,7 +185,7 @@ export default {
 	computed: {
 		google: gmapApi,
 		arrMarkers() {
-			return this.$API2.orgInfo.map(m => {
+			return this.orgN.map(m => {
 				return {
 					lat: m.location[1],
 					lng: m.location[0],
@@ -179,7 +198,16 @@ export default {
 		}
 	},
 	watch: {
-	}
+		latLong: {
+			handler: function(val, oldVal) {
+				this.loadMarkers();
+			},
+			deep: true
+		}
+	},
+	beforeDestroy() {
+		this.$eventBus.$off('orgInfo');
+	},
 };
 </script>
 <style scoped>
@@ -207,7 +235,7 @@ export default {
 	}
 
 	#map-wrap {
-		height: 525px;
+		height: 490px;
 	}
 
 	.markerInfo {
