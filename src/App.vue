@@ -649,7 +649,6 @@ export default {
 				let resp = await this.apiGET('/me');
 				if (this.status[this.status.length-1].status == "login-ok") {
 					this.me = resp;
-					console.log(resp);
 				}
 				this.profileLoaded = true;
 			}catch(e) {
@@ -719,21 +718,7 @@ export default {
 			})
 		}
 	},
-	watch: {
-		// 'navItems'() {
-		// 	if(this.loggedIn){
-		// 		// this.$router.push("/web/logout");
-		// 		this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
-		// 	}else{
-		// 		this.navItems.pop();
-		// 	}
-		// },
-		// 'loggedIn'() {
-		// 	if(this.loggedIn) {
-		// 		this.navItems.push({ name: 'Logout', text: 'Вийти', path: '/logout' })
-		// 	}
-		// }
-	},
+	watch: {},
 }
 </script>
 
