@@ -113,7 +113,6 @@ export default {
 			this.markers=[];
 			if(this.markers.length > 0) return true;
 			let data = this.arrMarkers;
-			console.log(data);
 			// let hole = data;
 			data.forEach((l) => {
 				if (l == null) return;
