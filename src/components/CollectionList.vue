@@ -18,7 +18,7 @@
 						type="search"
 					/>
 				</div>
-				<GoogleMap v-if="this.$API2.showMap" mapTitle="Map"/>
+				<GoogleMap v-show="this.$API2.showMap" mapTitle="Map"/>
 				<div class="grid-container" v-if="!this.$API2.showMap">
 					<div class="defect_card" v-for='card in dfCard' :key='card.id'>
 					<router-link :to="'/defect/'+card.id">

@@ -82,10 +82,6 @@ export default {
 		};
 	},
 	created() {
-	},
-	mounted() {
-		this.$API.title = "Мапа";
-		this.$API.page = "GoogleMap";
 		this.$eventBus.$on('orgInfo', async (event) => {
 			// console.log(Array.from(event));
 			if(event){
@@ -94,6 +90,10 @@ export default {
 				this.statusNewWaitEvent=false;
 			}
 		});
+	},
+	mounted() {
+		this.$API.title = "Мапа";
+		this.$API.page = "GoogleMap";
 	},
 	methods: {
 		listClick(e, url) {
@@ -110,8 +110,9 @@ export default {
 		loadMarkers() {
 			this.isActive=true;
 			this.statusNewWaitEvent=true;
-			this.markers=[];
 			if(this.markers.length > 0) return true;
+			else
+				this.markers=[];
 			let data = this.arrMarkers;
 			// let hole = data;
 			data.forEach((l) => {
