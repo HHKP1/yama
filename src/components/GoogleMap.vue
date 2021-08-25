@@ -14,25 +14,32 @@
 							<gmap-map :center="center" :zoom="6" style="position: relative; overflow: hidden; display: block; height: 100%; width: 100%;">
 												<GmapCluster>
 											<div v-for="(m, index) in markers" :key="m.id" style="z-index: 9999">
-												<router-link :to="'/defect/'+m.id">
+												<router-link :to="'/collections/defect/'+m.id">
 													<GmapMarker
 														:position="m.position"
 														:clickable="true"
-														:ref="`marker${index}`"
+														:ref="m.id"
 														@mouseover="toggleInfoWindow(m, index)"
-														@click="listClick($event, '/defect/'+m.id )"
-														@mouseout="infoWinOpen=false"
+														@click="listClick($event, '/collections/defect/'+m.id )"
 													>
 													</GmapMarker>
 														</router-link>
-													</div>
+														<!-- <router-link :to="'/collections/defect/'+m.id"> -->
 													<gmap-info-window
 													:options="infoOptions"
 													:position="infoWindowPos"
 													:opened="infoWinOpen"
 													@closeclick="infoWinOpen=false"
 													>
+														<div class="info-window_container">
+																<span class="btn outline_button" @click="listClick($event, '/collections/defect/'+m.id )">Деталі дефекту
+																	<router-link :to="'/collections/defect/'+m.id">
+																	</router-link>
+																</span>
+														</div>
 													</gmap-info-window>
+													<!-- </router-link> -->
+													</div>
 												</GmapCluster>
 							</gmap-map>
 						</div>
@@ -48,7 +55,7 @@ export default {
 	// name: "GoogleMap",
 	props: {
 		// defectId: { type: String, required: false },
-		mapTitle: { type: String, required: true },
+		// mapTitle: { type: String, required: true },
 	},
 	components: {},
 	data() {
@@ -86,7 +93,7 @@ export default {
 			// console.log(Array.from(event));
 			if(event){
 				this.orgN=Array.from(event);
-				await this.reloadApplication();
+				await this.loadMarkers();
 				this.statusNewWaitEvent=false;
 			}
 		});
@@ -94,6 +101,12 @@ export default {
 	mounted() {
 		this.$API.title = "Мапа";
 		this.$API.page = "GoogleMap";
+		this.$forceUpdate(this.markers);
+		if(this.orgN!=this.$API2.orgInfo){
+			this.$eventBus.$emit('orgN', this.orgN);
+		}
+		// this.loadMarkers();
+		// this.updateMarkersInterval = setInterval(this.loadMarkers, 100);
 	},
 	methods: {
 		listClick(e, url) {
@@ -104,18 +117,16 @@ export default {
 				// window.open(url, "_new");
 			}
 		},
-		async reloadApplication() {
-			await this.loadMarkers();
-		},
+		// async reloadApplication() {
+		// 	await this.loadMarkers();
+		// },
 		loadMarkers() {
 			this.isActive=true;
 			this.statusNewWaitEvent=true;
-			if(this.markers.length > 0) return true;
+			if(this.arrMarkers.length < 0) return true;
 			else
 				this.markers=[];
-			let data = this.arrMarkers;
-			// let hole = data;
-			data.forEach((l) => {
+			this.arrMarkers.forEach((l) => {
 				if (l == null) return;
 				let lat = l.lat;
 				let lng = l.lng;
@@ -206,7 +217,8 @@ export default {
 		}
 	},
 	beforeDestroy() {
-		this.$eventBus.$off('orgInfo');
+		// this.$eventBus.$off('orgInfo');
+		// clearInterval(this.updateMarkersInterval);
 	},
 };
 </script>

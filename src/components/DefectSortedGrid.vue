@@ -1,12 +1,15 @@
 <template>
 	<div style="flex: 0 0 100%">
 		<mq-layout mq="lg">
-			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+			<!-- <vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/> -->
 			<carousel class="VueCarousel-fullwidth_lg" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="5" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+				<div class="carousel_overlay" v-if="dfCard.length<=0">
+				<p class="empty_message">По цьому запиту немає дефектів</p>
+			</div>
 				<slide class="slide-detail" v-for='card in dfCard' :key='card.id'>
-					<router-link :to="'/defect/'+card.id">
+					<router-link :to="'/collections/defect/'+card.id">
 						<div class="defect_card">
-							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							<div class="defect_image">
 								<img class="card_image" :src="card.photo[0].url" alt="">
@@ -42,6 +45,9 @@
 		<mq-layout mq="md">
 			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 			<carousel class="VueCarousel-fullwidth_mb" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="4" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+				<div class="carousel_overlay" v-if="orgInfo.length==0">
+					<p class="empty_message">По цьому запиту немає дефектів</p>
+				</div>
 				<slide class="slide-detail" v-for='card in dfCard' :key='card.id'>
 					<router-link :to="'/defect/'+card.id">
 						<div class="defect_card">
@@ -179,6 +185,9 @@
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
 								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+								<div class="carousel_overlay" v-if="orgInfo.length==0">
+									<p class="empty_message">По цьому запиту немає дефектів</p>
+								</div>
 								<carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 									<slide v-for='card in dfCard' :key='card.id'>
 										<div class="defect_card_mb">
@@ -241,6 +250,7 @@ export default {
 		this.$eventBus.$on('applicationUpdated', (e) => {
 			this.orgInfo=this.$API2.orgInfo;
 		});
+		this.isActive=true;
 	},
 	beforeUpdate() {
 		this.orgInfo = this.$API2.orgInfo;
@@ -254,6 +264,8 @@ export default {
 		if(!id) {
 			this.router.push("/404");
 		}
+		if(this.dfCard.length>0)
+			this.isActive=false;
 		// this.orgInfo = this.$API2.orgInfo;
 		// this.loadDefect(id);
 	},
@@ -298,6 +310,15 @@ export default {
 		max-width: 155px;
 		margin: 0 2px;
 	} */
+	.carousel_overlay{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 250px;
+		background: var(--background-color-prefooter);
+		border-radius: 4px;
+	}
 	.VueCarousel-navigation-next{
 		right: 0;
 		transform: translateY(260%) translateX(-10%) !important;

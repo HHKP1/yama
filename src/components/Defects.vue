@@ -84,7 +84,7 @@
 								</div>
 								<button class="btn outline_button" v-if="!showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Показати на мапі</button>
 								<button class="btn outline_button" v-if="showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Згорнути мапу</button>
-								<button class="btn custom_button">Показати</button>
+								<button class="btn custom_button" @click="loadDefects()">Показати</button>
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
@@ -106,17 +106,9 @@
 							</div>
 							<div class="defect_filters_mb">
 								<div class="filters_block_mb" :class="{expand: isExpand}">
-									<FormInput
-									title=""
-									label="Адреса"
-									prefix=""
-									placeholder="Пошук дефектів за адресою"
-									v-model="searchAddressFilter"
-									class="form-control"
-								/>
-								<!-- <div class="input-field form-control">
+									<div class="input-field form-control">
 											<label>Дата розміщення</label>
-											<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
+											<div class="flex-inline" style="flex-wrap: wrap;padding: 10px 6px;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
 												<div class="form__wrapper interval table-sort__select">
 													<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
 														<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
@@ -145,7 +137,15 @@
 													</div>
 												</div>
 											</div>
-										</div> -->
+								</div>
+									<FormInput
+									title=""
+									label="Адреса"
+									prefix=""
+									placeholder="Пошук дефектів за адресою"
+									v-model="searchAddressFilter"
+									class="form-control"
+								/>
 								<FormSelect
 									label="Тип дефекту"
 									placeholder="Тип дефекту"
@@ -301,22 +301,23 @@ export default {
 	async created() {
 		Vue.prototype.$API2 = this;
 		this.loadRegions(true);
-	},
-	beforeDestroy() {
-		clearInterval(this.appsUpdateInterval);
+		this.$eventBus.$on('orgN', async e => {
+			if(e!==this.orgInfo) {
+				await this.loadDefects(true);
+			}
+		})
 	},
 	mounted() {
 		this.$API.title = "Дефекти";
 		this.$API.page = "defects";
-		this.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a')
+		// this.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a')
 
-		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params.listType) > -1)
+		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params) > -1)
 			this.listType = this.$route.params.listType;
 		else
 			this.listType = '';
 
 		this.loadDefects(true);
-		this.appsUpdateInterval = setInterval(this.loadDefects, 100);
 	},
 	methods: {
 		listClick(e, url) {
@@ -329,16 +330,16 @@ export default {
 			if(this.appsUpdating) return;
 			this.appsUpdating = true;
 			try{
-				this.pendingUpdate = await this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
+				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
 
 				this.orgInfo = result;
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
+				this.$eventBus.$emit('orgInfo', this.orgInfo);
 			}catch(e){
 				console.log(e);
 			}
-			this.$eventBus.$emit('orgInfo', this.orgInfo);
 			this.appsUpdating = false;
 			this.pendingUpdate = null;
 		},
@@ -513,15 +514,10 @@ export default {
 			}
 			this.resetApps();
 		},
-		'$route.params'(type) {
-			if(!type)
-				type = "hole";
-			this.resetApps();
-		},
-		'token'() {
-			this.token = this.status.sessionID;
-		},
 	},
+	// beforeDestroy() {
+	// 	clearInterval(this.appsUpdateInterval);
+	// },
 }
 </script>
 
@@ -548,7 +544,7 @@ export default {
 
 	.calendar {
 		position: absolute;
-		top: 40px;
+		top: 30px;
 		left: 0;
 		padding: 10px;
 		border: 1px solid var(--color-gray-light);

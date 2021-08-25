@@ -19,10 +19,15 @@
 					/>
 				</div>
 				<GoogleMap v-show="this.$API2.showMap" mapTitle="Map"/>
-				<div class="grid-container" v-if="!this.$API2.showMap">
+				<div class="grid-container_overlay">
+					<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
+						<p class="empty_message">По цьому запиту немає дефектів</p>
+					</div>
+				</div>
+				<div class="grid-container" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
 					<div class="defect_card" v-for='card in dfCard' :key='card.id'>
-					<router-link :to="'/defect/'+card.id">
-						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+					<router-link :to="'/collections/defect/'+card.id">
+						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							<div class="defect_image">
 								<img class="card_image" :src="card.photo[0].url" alt="">
@@ -449,6 +454,12 @@ export default {
 	},
 	created(){
 		Vue.prototype.$API3 = this;
+		// this.$eventBus.$on('orgInfo', async (event) => {
+		// 	if(event)
+		// 		this.isActive=false;
+		// 	else
+		// 		this.isActive=true;
+		// });
 	},
 	mounted() {
 		this.$API.title = "Колекція";
@@ -484,4 +495,22 @@ export default {
 </script>
 
 <style>
+	.carousel_overlay{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 25em;
+		background: var(--background-color-prefooter);
+		border-radius: 4px;
+	}
+	.grid-container_overlay {
+		width: 95%;
+		position: relative;
+		height: 100%;
+		display: grid;
+		/* grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); */
+		/* grid-template-rows: 1fr 1fr; */
+		gap: 18px 8px;
+}
 </style>

@@ -215,9 +215,16 @@ export default {
 	}
 	@media all and (max-width: 450px){
 		.form-control{
-			flex: 1 1 51% !important;
+			flex: 0 !important;
 			flex-flow: row wrap;
 			display: flex;
+		}
+		.form-control_top{
+			flex: 0 !important;
+			flex-flow: row wrap;
+			display: flex;
+			position: absolute;
+			top: 10%;
 		}
 		.input-field > label{
 			font-size: 1rem;

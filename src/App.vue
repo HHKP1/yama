@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<main :class="{open: isOpen}">
-			<mq-layout mq="md+">
+			<mq-layout mq="md+" v-if="$mq == 'lg'">
 				<div id="nav">
 					<a class="logo_link" href="/">
 						<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
@@ -29,14 +29,14 @@
 					</div>
 				</div>
 			</mq-layout>
-			<mq-layout mq="sm" v-if="$mq == 'sm'">
+			<mq-layout mq="sm+" v-if="$mq == 'sm' || $mq == 'md'">
 				<div id="nav_mb">
 					<div class="logo_container">
 						<a class="logo_link" href="/">
 							<img id="logo" src="./assets/img/icons/Logo_mobile.svg" alt="Logo">
 						</a>
 						<div class="nav_button" @click="isOpen = !isOpen">
-							<svg  @click="openMenu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<svg  @change="isOpen = !isOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 								<g id="uil_subject" transform="translate(-648 -893)">
 									<rect id="Rectangle_4" data-name="Rectangle 4" width="24" height="24" transform="translate(648 893)" fill="none"/>
 									<line ref="Line_1" id="Line_1" data-name="Line 1" x2="15" transform="translate(655.5 898.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
@@ -47,9 +47,20 @@
 						</div>
 					</div>
 					<div class="nav_links-container" :class="{open: isOpen}">
+						<FormInput
+						title=""
+						label=""
+						placeholder="Пошук за адресою або номером заяви"
+						class="form-control form-control_top"
+						v-model="search"
+						type="search"
+						/>
 						<div class='nav_links' v-for="(item) in this.navItems" :key="item.id">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
+					</div>
+					<div class="overlay" @click="isOpen = !isOpen" :change="openMenu(!isOpen)">
+						<div class="overlay_inner"></div>
 					</div>
 				</div>
 			</mq-layout>
@@ -140,7 +151,7 @@
 												<p class="p-text">Для входу надішліть цей<br/>код боту у відповідному месенджері</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">4545</p>
+												<p class="p-text code">{{authCode[authCode.length-1].code}}</p>
 											</div>
 										</div>
 										<div class="hero-content">
@@ -409,7 +420,7 @@
 							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
 						</div>
 						<div class="footer_links">
-							<div class='nav_links' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
+							<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
 						</div>
@@ -425,7 +436,7 @@
 							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
 						</div>
 						<div class="footer_links_mb">
-							<div class='nav_links_mb' v-for="(item, index) in this.navItemsFooter" :key="item.name" :data-index="index">
+							<div class='nav_links_mb' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
 								<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 							</div>
 						</div>
@@ -457,23 +468,6 @@ export default {
 		return {
 			options: {},
 			navItems: [
-				{
-					name: 'About',
-					text: 'Про проєкт',
-					path: '/about'
-				},
-				{
-					name: 'FAQ',
-					text: 'FAQ',
-					path: '/faq'
-				},
-				{
-					name: 'Contacts',
-					text: 'Контакти',
-					path: '/contacts'
-				},
-			],
-			navItemsFooter: [
 				{
 					name: 'About',
 					text: 'Про проєкт',
@@ -523,29 +517,6 @@ export default {
 			listType: 'ruined',
 			profileLoaded: false,
 			sort_by: '',
-			appsFilters: {
-				hole: {
-					selectedType: ''
-				},
-				manually: {
-					selectedType: ''
-				},
-				PoorQualityRepair: {
-					selectedType: ''
-				},
-				yard_hole: {
-					selectedType: ''
-				},
-				Snow: {
-					selectedType: ''
-				},
-				ForeignObj: {
-					selectedType: ''
-				},
-				ruined: {
-					selectedType: ''
-				},
-			},
 		}
 	},
 	async created() {
@@ -556,7 +527,7 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
+		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
 	},
 	methods: {
@@ -655,13 +626,13 @@ export default {
 				console.log(e);
 			}
 		},
-		openMenu(){
-			if(!this.isOpen){
+		async openMenu(change){
+			if(await !change){
 				this.$refs.Line_1.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')
 				this.$refs.Line_2.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(-45deg);transition: transform .2s ease-out')
 				this.$refs.Line_3.setAttribute('x2', '15')
 				this.$refs.Line_3.setAttribute('style', 'transform: translate(658.5px, 900.5px) rotate(45deg);transition: transform .2s ease-out')
-			} else if(this.isOpen) {
+			} else if(await change) {
 				this.$refs.Line_1.setAttribute('style', 'transform: translate(655.5px, 898.5px) rotate(0);transition: transform .2s ease-out')
 				this.$refs.Line_2.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(0);transition: transform .2s ease-out')
 				this.$refs.Line_3.setAttribute('x2', '21')
@@ -823,6 +794,9 @@ export default {
 			font: 500 1.2rem 'Montserrat' !important;
 			cursor: text;
 		}
+		.nav_links a {
+			font: 700 1.3rem 'Montserrat';
+		}
 	}
 
 	.nav_links {
@@ -840,20 +814,21 @@ export default {
 		flex-flow: column;
 		justify-content: center;
 		position: fixed;
+		padding: 20px;
 		width: 101%;
 		height: 100%;
-		align-items: center;
+		align-items: flex-start;
 		background: var(--background-color-prefooter);
 		z-index: 2;
 		bottom: 0;
 		left: 0;
 		font: 700 1.6rem 'Montserrat';
 		transform: translateX(100%);
-		transition: transform cubic-bezier(0.77, 0, 0.175, 1) 0.8s;
+		transition: transform cubic-bezier(0.77, 0, 0.175, 1) 0.4s;
 	}
 
 	.nav_links-container.open{
-		transform:translateX(40%);
+		transform:translateX(25%);
 		align-items:flex-start;
 		padding: 20px;
 	}
