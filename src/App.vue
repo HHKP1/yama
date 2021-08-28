@@ -676,7 +676,7 @@ export default {
 			this.status.push(resp);
 			if (this.status[this.status.length - 1].status === "logged-out") {
 				this.loggedIn = false;
-				this.appsLoad=true;
+				this.appsLoaded=true;
 				this.startTimer();
 			}
 			return resp;
