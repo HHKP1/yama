@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<PageLoader v-if="!appsLoad" />
+		<PageLoader v-if="!appsLoaded" />
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
 		<main :class="{open: isOpen}" v-show="appsLoaded">
 			<mq-layout mq="md+" v-if="$mq == 'lg'">
@@ -504,7 +504,7 @@ export default {
 			status: [],
 			loggedIn: false,
 			appsLoaded: false,
-			appsLoad: false,
+			// appsLoad: false,
 			comment: '',
 			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
@@ -540,7 +540,7 @@ export default {
 	beforeMount: function() {
 		const loader = document.onreadystatechange = async () => {
 			if(await document.readyState == 'complete'){
-				this.appsLoad=true;
+				// this.appsLoad=true;
 				this.appsLoaded=true;
 			}
 		}

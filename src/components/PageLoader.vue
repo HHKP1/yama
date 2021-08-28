@@ -31,7 +31,7 @@ export default {
 	},
 	mounted() {
 		document.onreadystatechange = async () => {
-			if (await document.readyState == "interactive") {
+			if (await document.readyState == "complete") {
 				this.isloaded = true;
 			}
 		}
