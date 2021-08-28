@@ -88,7 +88,7 @@
 			<div class="container_works_mb">
 						<div class="container_defects_mb">
 							<div class="defect_content_mb" v-if="appsLoaded">
-								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
+								<!-- <p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p> -->
 								<div class="grid-container_mb">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
@@ -126,7 +126,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="defect_content" v-if="appsLoaded">
+							<!-- <div class="defect_content" v-if="appsLoaded">
 								<div class="defect_filter_count">
 									<div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
@@ -179,8 +179,8 @@
 										</ul>
 									</div>
 								</div>
-							</div>
-							<div class="defect_content_mb" v-if="!appsLoaded">
+							</div> -->
+							<div class="defect_content_mb" v-if="appsLoaded">
 								<router-link class="defect_links_mb" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -191,8 +191,8 @@
 								<carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 									<slide v-for='card in dfCard' :key='card.id'>
 										<div class="defect_card_mb">
-											<router-link :to="'/defect/'+card.id">
-												<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+											<router-link :to="'/collections/defect/'+card.id">
+												<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
 												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 												<div class="defect_image">
 													<img class="card_image" :src="card.photo[0].url" alt="">
@@ -263,11 +263,11 @@ export default {
 		let id = this.$route.params.id;
 		if(!id) {
 			this.router.push("/404");
-		}
-		if(this.dfCard.length>0)
+		}else{
 			this.isActive=false;
-		// this.orgInfo = this.$API2.orgInfo;
-		// this.loadDefect(id);
+		}
+		// if(await this.orgInfo.length>0)
+		// 	this.isActive=false;
 	},
 	methods: {
 		reducer: (acc, curr) => acc + curr,
@@ -297,9 +297,11 @@ export default {
 		},
 	},
 	watch: {
-		'$API2.orgInfo'(){
-			if(this.$API2.orgInfo)
-				this.orgInfo=this.$API2.orgInfo;
+		'orgInfo'(){
+			if(this.orgInfo){
+				// this.orgInfo=this.$API2.orgInfo;
+				this.isActive=false;
+			}
 		}
 	}
 }

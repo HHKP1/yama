@@ -110,7 +110,6 @@ export default {
 	},
 	methods: {
 		listClick(e, url) {
-			console.log(e, url);
 			if(e) {
 				// e.preventDefault();
 				this.$router.push(url);
@@ -217,7 +216,7 @@ export default {
 		}
 	},
 	beforeDestroy() {
-		// this.$eventBus.$off('orgInfo');
+		this.$eventBus.$off('orgInfo');
 		// clearInterval(this.updateMarkersInterval);
 	},
 };

@@ -1,6 +1,8 @@
 <template>
 	<div id="app">
-		<main :class="{open: isOpen}">
+		<PageLoader v-if="!appsLoad" />
+		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
+		<main :class="{open: isOpen}" v-if="appsLoaded">
 			<mq-layout mq="md+" v-if="$mq == 'lg'">
 				<div id="nav">
 					<a class="logo_link" href="/">
@@ -19,8 +21,8 @@
 						type="search"
 						/>
 						<button class="btn custom_button_nav" @click="getMe()">Додати дефект</button>
-						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 14px;width:130px;">
-							<a href="https://tala.cloudi.es/routes/00d3928bf3/web/logout">Вийти</a>
+						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 8px;width:120px;">
+							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
 								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }} {{ this.me.last_name }}</p>
@@ -58,6 +60,10 @@
 						<div class='nav_links' v-for="(item) in this.navItems" :key="item.id">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
+						<div class="footer_logo_mb">
+							<p class="trade_mark" style="position: absolute;bottom: 10%;padding: 20px;" v-html="htmlEntities"></p>
+							<p class="trade_mark" style="position: absolute;bottom: 10%;padding: 20px;left:23%">{{ new Date() | moment("YYYY") }}</p>
+						</div>
 					</div>
 					<div class="overlay" @click="isOpen = !isOpen" :change="openMenu(!isOpen)">
 						<div class="overlay_inner"></div>
@@ -85,7 +91,7 @@
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{authCode[authCode.length-1].code}}</p>
+												<p class="p-text code">{{ authCode[authCode.length-1].code }}</p>
 											</div>
 											<div class="hero-item">
 												<div class="help-tips"
@@ -151,7 +157,7 @@
 												<p class="p-text">Для входу надішліть цей<br/>код боту у відповідному месенджері</p>
 											</div>
 											<div class="hero-item">
-												<p class="p-text code">{{authCode[authCode.length-1].code}}</p>
+												<p class="p-text code">{{ authCode[authCode.length-1].code }}</p>
 											</div>
 										</div>
 										<div class="hero-content">
@@ -450,6 +456,7 @@
 <script>
 import Vue from 'vue';
 import './assets/css/main.css';
+import PageLoader from './components/PageLoader';
 import FormInput from './components/FormInput';
 import Defects from './components/Defects';
 import VueCookies from 'vue-cookies';
@@ -462,7 +469,7 @@ export default {
 	components: {
 		FormInput,
 		Defects,
-		// Datepicker
+		PageLoader,
 	},
 	data() {
 		return {
@@ -496,6 +503,8 @@ export default {
 			],
 			status: [],
 			loggedIn: false,
+			appsLoaded: false,
+			appsLoad: false,
 			comment: '',
 			htmlEntities: `УкрЯма &copy;`,
 			isComments: false,
@@ -515,15 +524,21 @@ export default {
 			me: {},
 			page: '',
 			listType: 'ruined',
-			profileLoaded: false,
 			sort_by: '',
 		}
 	},
-	async created() {
+	created() {
 		Vue.prototype.$API = this;
+		this.checkCode();
 		this.startTimer();
 	},
-	beforeMount: function() {},
+	beforeMount: function() {
+		const loader = document.onreadystatechange = async () => {
+			if(await document.readyState == 'complete')
+				this.appsLoad=true;
+		}
+		setTimeout(loader, 6000);
+	},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
@@ -653,10 +668,24 @@ export default {
 				}
 			}
 		},
+		async logout() {
+			// this.$eventBus.$emit('notification', { payload: 'destroy' });
+			this.appsLoad=false;
+			let resp = await this.apiGETv3('/logout');
+			// console.log(resp);
+			this.status.push(resp);
+			if (this.status[this.status.length - 1].status === "logged-out") {
+				this.loggedIn = false;
+				this.appsLoad=true;
+				this.startTimer();
+			}
+			return resp;
+		},
 		async checkCode() {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
+			this.appsLoaded=true;
 			if (this.status[this.status.length-1].status == "login-ok"){
 				clearInterval(this.timer);
 				this.loggedIn = true;
@@ -694,42 +723,6 @@ export default {
 </script>
 
 <style>
-	main {
-		width: 100%;
-		max-width: 1280px;
-		margin: 0 auto;
-	}
-	section {
-		width: 100%;
-		height: 100%;
-		display: block;
-		position: relative;
-	}
-
-	optgroup {
-		color: red;
-	}
-
-	.velmld-overlay{
-		z-index: 1 !important;
-	}
-
-	#app {
-		font-family: "Montserrat", Avenir, Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
-	}
-
-	#nav {
-		padding: 15px 15px;
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		height: 90px;
-		width: 100%;
-	}
 	@media screen and (max-width:450px) {
 		#nav_mb {
 			padding: 5px 15px;
@@ -799,11 +792,6 @@ export default {
 		}
 	}
 
-	.nav_links {
-		margin: 0 15px !important;
-		white-space: nowrap;
-	}
-
 	.nav_button{
 		outline: none;
 		z-index: 6;
@@ -831,75 +819,6 @@ export default {
 		transform:translateX(25%);
 		align-items:flex-start;
 		padding: 20px;
-	}
-	/* Carousel style START*/
-
-	.VueCarousel-slide{
-		max-width: 175px;
-	}
-
-	.VueCarousel-inner{
-		flex-basis: 190px;
-	}
-
-	.VueCarousel {
-		display: flex;
-		flex-direction: column;
-		position: relative;
-		width: 100%;
-		max-width: 700px;
-	}
-
-	.VueCarousel-navigation-next{
-		right: 0;
-		transform: translateY(-160%) translateX(-10%) !important;
-		font-family: "system" !important;
-		background: var(--color-white) !important;
-		border-radius: 4px !important;
-	}
-
-	.VueCarousel-navigation-prev{
-		left: 0;
-		transform: translateY(-160%) translateX(-5%) !important;
-		font-family: "system" !important;
-		background: var(--color-white) !important;
-		border-radius: 4px !important;
-	}
-
-	.VueCarousel-dot{
-		margin: 0 !important;
-	}
-
-	.VueCarousel-dot--active{
-		margin-top: 20px;
-		padding: 1px !important;
-		width: 10px;
-		height: 10px;
-		background-color: #fff !important;
-		border: 1px solid rgb(0, 0, 0) !important;
-	}
-
-	.VueCarousel_detail_photo{
-		display: flex;
-		flex-direction: column;
-		position: relative;
-		width: 100%;
-		max-width: 350px;
-	}
-	.VueCarousel-slide_defect{
-		max-width: 100%;
-	}
-
-	/* Carousel style END*/
-
-	#Line_2.open{
-		transform-origin: center;
-		transform: translate(649.5 904.5) rotate(-45);
-	}
-
-	#Line_3.open{
-		transform-origin: center;
-		transform: translate(658.5 910.5) rotate(-45);
 	}
 
 	a {
@@ -969,18 +888,6 @@ export default {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}
-	.custom_button_share:hover{
-		background-color: var(--button-hover);
-	}
-	.custom_button_share:focus{
-		background-color: var(--button-default);
-	}
-	.nav_btn_block{
-		display: flex;
-		align-items: center;
-		justify-content: space-evenly;
-		flex: 1 1 50%;
 	}
 	.custom_button_nav {
 		font: 700 1.1rem 'Montserrat';
@@ -1106,148 +1013,6 @@ export default {
 		color: var(--color-gray);
 		border: 1px solid var(--color-gray);
 		background-color: var(--button-outline);
-	}
-	/* .footer-btn:hover{
-		font: 700 1.1rem 'Montserrat';
-		background-color: var(--button-outline);
-		font-size: .9rem;
-		font-weight: bold;
-		text-transform: none;
-		max-width: 240px;
-		width: 100%;
-		color: var(--color-white);
-		border: 1px solid var(--status-white);
-		margin:5px 0;
-		border-radius: 4px;
-	} */
-	/* .footer-btn:focus{
-		background-color: var(--button-default);
-		max-width: 240px;
-		color: var(--color-white);
-	} */
-	.hero-btn{
-		font: 700 1.1rem 'Montserrat';
-		width: 100%;
-		max-width: 176px;
-		text-transform: none;
-	}
-	.footer-btn{
-		max-width:240px;
-	}
-	.underline-btn{
-		border:none;
-		border-bottom: 2px solid var(--color-black);
-		background-color: var(--background-color-normal);
-		font: 500 .9rem 'Montserrat';
-		cursor: pointer;
-	}
-	.underline-btn:focus{
-		background-color: var(--background-color-prefooter);
-	}
-	.underline-btn:hover{
-		border-bottom: 2px solid var(--color-red);
-	}
-	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
-		height: 20px;
-		width: 20px;
-		background-color: transparent;
-		border: 1px solid var(--color-gray);
-		top: 0px;
-		z-index: 0;
-	}
-	.custom_checkbox{
-		font: 400 .8rem 'Montserrat' !important;
-		display: flex !important;
-		align-items: center
-	}
-	/*  Pre-Footer  */
-	.footer_container{
-		display: flex;
-		justify-content: space-between;
-		padding: 20px 20px;
-	}
-	.pre_footer{
-		margin: 20px 0;
-		background: var(--background-color-prefooter);
-	}
-	.button_container{
-		display: flex;
-		flex: 0 1 50%;
-		align-items: center;
-		justify-content: space-evenly;
-		width: 100%;
-		flex-flow: row-reverse;
-	}
-	#footer_nav{
-		padding: 15px 15px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		width: 100%;
-	}
-	.footer_links{
-		display: flex;
-		justify-content: center;
-		flex: 1 1 auto;
-	}
-	.footer_logo{
-		display: flex;
-		align-items: center;
-	}
-	.nav_links > a:hover{
-		transition: all .4s ease-in-out;
-		text-decoration: none;
-		border-bottom: 1px solid var(--color-red);
-	}
-	.trade_mark{
-		font: 400 .85rem 'Montserrat';
-	}
-	.prefooter_title{
-		font: 500 1.6rem 'Montserrat';
-	}
-	.form-control_outline > select{
-        flex-flow: row wrap;
-        flex: 1 1 30%;
-        display: flex;
-		max-height: 1.5rem !important;
-        width: 250px !important;
-		text-indent: 75px;
-		border: 1px solid var(--color-white)
-	}
-	.form-control_outline::before{
-		content: 'Сортування:';
-		font-size: .8rem;
-		position: absolute;
-		left: 0;
-		top: 25%;
-	}
-	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
-		height: 16px;
-		width: 16px;
-		background-color: transparent;
-		border: 1px solid var(--color-gray);
-		top: 0px;
-		z-index: 0;
-	}
-	[type="checkbox"].filled-in:checked + span:not(.lever):before {
-		top: -3px;
-		left: 0px;
-		width: 8px;
-		height: 13px;
-		border-top: 2px solid transparent;
-		border-left: 2px solid transparent;
-		border-right: 2px solid #fff;
-		border-bottom: 2px solid #fff;
-		transform: rotateZ(37deg);
-		transform-origin: 100% 100%;
-	}
-	[type="checkbox"].filled-in:checked + span:not(.lever):after {
-		top: 0;
-		width: 16px;
-		height: 16px;
-		border: 2px solid #26a69a;
-		background-color: #26a69a;
-		z-index: 0;
 	}
 	.pagination li.active {
 		background-color: var(--color-white);

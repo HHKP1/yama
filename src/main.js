@@ -2,6 +2,7 @@ import 'regenerator-runtime/runtime';
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
+import gsap from 'gsap';
 import VueMq from 'vue-mq';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -39,8 +40,9 @@ Vue.use(require('vue-moment'), {
 });
 
 Vue.use(VueAxios, axios);
+Vue.use(gsap);
 Vue.use(VueRouter)
-Vue.use(VueMq, { breakpoints: { sm: 450, md: 769, lg: Infinity }, defaultBreakpoint: 'lg' });
+Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
 Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY }, libraries: 'places', installComponents: true });
 
 const routes = [

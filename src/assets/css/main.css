@@ -1,4 +1,4 @@
-@font-face {
+	@font-face {
 		font-family: 'Montserrat';
 		src: url("../font/Montserrat-Regular.ttf") format("truetype");
 		font-display: swap;
@@ -31,6 +31,7 @@
 			/* color buttons */
 			--button-default: rgba(227,67,61, 100%);
 			--button-outline: rgba(255,255,255, 100%);
+			--button-blinks: rgba(230,158,115, 100%);
 			--button-hover: rgba(244,96,92, 100%);
 			--button-pressed: rgba(201,27,20, 100%);
 			--button-disabled: rgba(189,189,189, 100%);
@@ -263,6 +264,11 @@
 		color: #2c3e50;
 	}
 
+	.logout{
+		font: 400 .9rem 'Montserrat';
+		cursor:pointer;
+	}
+
 	#nav {
 		padding: 15px 15px;
 		display: flex;
@@ -276,7 +282,7 @@
 	}
 
 	.nav_links {
-		margin: 0 15px !important;
+		margin: 0 10px !important;
 		white-space: nowrap;
 	}
 
@@ -503,6 +509,31 @@
 		width: 100%;
 		margin:10px 0;
 		border-radius: 4px;
+	}
+	.custom_button.active{
+		animation: blinks 2.5s ease-in ;
+	}
+	@keyframes blinks {
+		0% {
+			background-color: var(--button-default);
+		}
+		30% {
+			background-color: var(--button-blinks);
+		}
+		50% {
+			background-color: var(--button-default);
+			filter: drop-shadow(2px 2px 3px var(--button-hover))
+		}
+		60% {
+			background-color: var(--button-default);
+		}
+		80% {
+			background-color: var(--button-blinks);
+		}
+		100% {
+			background-color: var(--button-default);
+			filter: drop-shadow(2px 2px 3px var(--button-hover))
+		}
 	}
 	.custom_button:hover{
 		background-color: var(--button-hover);
@@ -1965,7 +1996,7 @@
 		border: 1px solid var(--color-white)
 	}
 	.form-control_outline::before{
-		content: "\u0421\u043e\u0440\u0442\u0443\u0432\u0430\u043d\u043d\u044f:";
+		content: "Сортування:";
 		font-size: .8rem;
 		position: absolute;
 		left: 0;

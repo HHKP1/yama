@@ -1,11 +1,11 @@
 <template>
-	<div style="flex: 1 1 60%">
+	<div style="flex: 1 1 60%" v-if="this.appsLoaded">
 		<mq-layout mq="md+">
 			<div class="defect_content">
 								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
-								<DefectSortedGrid />
+								<DefectSortedGrid v-if="$mq == 'lg'" />
 								<div class="defect_nav_container">
 									<div class="defect_nav">
 										<div class="defect_nav_item_mb" @click="isCommentsMd = 1" :style="{'border-bottom': isCommentsMd === 1 ? '2px solid var(--color-red)' : ''}"><p>Детальна інформація</p></div>
@@ -355,10 +355,10 @@
 		<mq-layout mq="sm">
 			<div class="container_works_mb">
 						<div class="container_defects_mb">
-							<div class="defect_content_mb" v-if="appsLoaded">
+							<!-- <div class="defect_content_mb" v-if="appsLoaded">
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb">
-									<!-- <div class="defect_card" v-for='card in dfCard' :key='card.id'>
+									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 											<div class="defect_image">
@@ -380,7 +380,7 @@
 												<p class="defect_adress" :title="card.address">{{ card.address }}</p>
 											</div>
 										</div>
-									</div> -->
+									</div>
 								</div>
 								<div class="card_pagination">
 									<div class="pagination_control">
@@ -393,14 +393,14 @@
 										</ul>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="defect_content" v-if="appsLoaded">
 								<div class="defect_filter_count">
 									<!-- <div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
 									</div> -->
 								</div>
-								<div class="sorted_item">
+								<!-- <div class="sorted_item">
 									<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
 									<FormSelect
 										label=""
@@ -410,8 +410,8 @@
 										class="form-control_outline"
 										type="search"
 									/>
-								</div>
-								<div class="grid-container">
+								</div> -->
+								<!-- <div class="grid-container">
 									<div class="defect_card" v-for='(card, idx) of defect.photos' :key='idx'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
@@ -426,8 +426,8 @@
 														<span v-if="card.status=='new'">Новий</span>
 														<span v-if="card.status=='in_progress'">В процесі</span>
 													</div>
-													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-														<p class="status_count">{{ card.comment.length }}</p>
+													<div class="status_comments" :title="'Кількість коментарів: ' + card.comments.length">
+														<p class="status_count">{{ card.comments.length }}</p>
 														<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 													</div>
 												</div>
@@ -435,8 +435,8 @@
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="card_pagination">
+								</div> -->
+								<!-- <div class="card_pagination">
 									<div class="pagination_control">
 										<ul class="pagination">
 											<li class="disabled"><a href="#!">F</a></li>
@@ -446,18 +446,18 @@
 											<li class="waves-effect"><a href="#!"> > </a></li>
 										</ul>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<div class="defect_content_mb">
 								<router-link class="defect_links_mb" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
 								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-								<!-- <carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+								<carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 									<slide v-for='card in dfCard' :key='card.id'>
 										<div class="defect_card_mb">
-											<router-link :to="'/defect/'+card.id">
-												<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+											<router-link :to="'/collections/defect/'+card.id">
+												<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
 												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 												<div class="defect_image">
 													<img class="card_image" :src="card.photo[0].url" alt="">
@@ -470,8 +470,8 @@
 															<span v-if="card.status=='new'">Новий</span>
 															<span v-if="card.status=='in_progress'">В процесі</span>
 														</div>
-														<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-															<p class="status_count">{{ card.comment.length }}</p>
+														<div class="status_comments" :title="'Кількість коментарів: ' + card.comments.length">
+															<p class="status_count">{{ card.comments.length }}</p>
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 														</div>
 													</div>
@@ -481,7 +481,7 @@
 											</router-link>
 										</div>
 									</slide>
-								</carousel> -->
+								</carousel>
 								<div class="defect_nav_container">
 									<div class="defect_nav_mb">
 										<div class="defect_nav_item_mb" @click="isComments = 1" :style="{'border-bottom': isComments === 1 ? '2px solid var(--color-red)' : ''}"><p>Детальна інформація</p></div>
@@ -527,7 +527,7 @@
 												<p class="defect_description">Фото</p>
 											</div>
 											<carousel :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
-												<slide v-for="(p, idx) in defect.photos" :key="idx" class="VueCarousel-slide_defect">
+												<slide v-for="p in defect.photos" :key="p.id" class="VueCarousel-slide_defect">
 													<div class="defect_card_detail_mb">
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
 															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
@@ -625,7 +625,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<!-- <p class="author_name">{{ defect.author.name }}</p> -->
+													<p class="author_name">{{ defect.case_status.current.author.name }}</p>
 												</div>
 											</div>
 											<FormInput
@@ -661,7 +661,7 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<!-- <p class="author_chat message_date">{{ info.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p> -->
+														<p class="author_chat message_date">{{ claim.claim_date | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
@@ -695,6 +695,7 @@ import DefectSortedGrid from '../components/DefectSortedGrid';
 // import defectCards from './mock_data';
 
 export default {
+	name: 'Defect',
 	components: {
 		VueElementLoading,
 		Carousel,
@@ -716,7 +717,7 @@ export default {
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
-			appsLoaded: true,
+			appsLoaded: false,
 			defect: {},
 			me: {},
 			sort_by: '',
@@ -724,17 +725,13 @@ export default {
 		}
 	},
 	created() {
-		this.isActive=true;
 		this.me = this.$API.me;
+		let id = this.$route.params.id;
+		this.loadDefect(id);
 	},
 	async mounted() {
 		this.$API.title = "Дефект";
-		let id = this.$route.params.id;
-		if(!id) {
-			this.router.push("/404");
-			return;
-		}
-		await this.loadDefect(id);
+		this.isActive=true;
 	},
 	methods: {
 		openClaim(url){
@@ -757,6 +754,7 @@ export default {
 				let result = await this.$API.apiGET("/defect?id="+id);
 				this.defect=result;
 				this.isActive=false;
+				this.appsLoaded=true;
 			}catch(e){
 				console.log(e);
 				this.isActive=false;
@@ -765,6 +763,20 @@ export default {
 	},
 	computed: {
 		//API Data
+		dfCard(){
+			return this.$API2.orgInfo.map(card => {
+				return {
+					id: card.id,
+					address: card.address,
+					photo: card.photos,
+					status: card.case_status.current.status,
+					comments: card.comments,
+					// author: card.comments[0].author.name,
+					defect_type: card.defect_type,
+					// region_id: card.photos[0].region_id,
+				}
+			})
+		}
 	},
 	watch: {
 		'$route.path'() {
@@ -776,6 +788,9 @@ export default {
 			if(this.defect && id != this.defect.id)
 				this.loadDefect(id);
 		},
+	},
+	beforeDestroy() {
+		this.$eventBus.$off('dfCards')
 	}
 }
 </script>

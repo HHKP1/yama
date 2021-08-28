@@ -84,7 +84,7 @@
 								</div>
 								<button class="btn outline_button" v-if="!showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Показати на мапі</button>
 								<button class="btn outline_button" v-if="showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Згорнути мапу</button>
-								<button class="btn custom_button" @click="loadDefects()">Показати</button>
+								<button class="btn custom_button" :class="{active: btnActive}" @click="loadDefects()">Показати</button>
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
@@ -277,6 +277,7 @@ export default {
 			isOpen: false,
 			isActive: false,
 			isExpand: false,
+			btnActive: false,
 			appsLoaded: false,
 			orgInfo: [],
 			regions: [],
@@ -307,6 +308,10 @@ export default {
 			}
 		})
 	},
+	beforeUpdate(){
+		// if(Object.keys(this.$route.query))
+		// 	this.btnActive=true;
+	},
 	mounted() {
 		this.$API.title = "Дефекти";
 		this.$API.page = "defects";
@@ -316,7 +321,7 @@ export default {
 			this.listType = this.$route.params.listType;
 		else
 			this.listType = '';
-
+		console.log(Object.keys(this.$route.query).length);
 		this.loadDefects(true);
 	},
 	methods: {
@@ -328,7 +333,7 @@ export default {
 		},
 		async loadDefects(change){
 			if(this.appsUpdating) return;
-			this.appsUpdating = true;
+			this.btnActive=true;
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
@@ -336,6 +341,7 @@ export default {
 				this.orgInfo = result;
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
+				this.btnActive=false;
 				this.$eventBus.$emit('orgInfo', this.orgInfo);
 			}catch(e){
 				console.log(e);
@@ -514,6 +520,11 @@ export default {
 			}
 			this.resetApps();
 		},
+		'$route.query'(query) {
+			console.log(query);
+			if(query)
+				this.btnActive=true;
+		}
 	},
 	// beforeDestroy() {
 	// 	clearInterval(this.appsUpdateInterval);
