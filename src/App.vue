@@ -530,7 +530,6 @@ export default {
 	created() {
 		Vue.prototype.$API = this;
 		this.startTimer();
-		this.checkCode();
 		// const loader = document.onreadystatechange = async () => {
 		// 	if(await document.readyState == 'complete')
 		// 		this.appsLoaded=true;
@@ -538,6 +537,7 @@ export default {
 		// setTimeout(loader, 0);
 	},
 	beforeMount: function() {
+		this.checkCode();
 		const loader = document.onreadystatechange = async () => {
 			if(await document.readyState == 'complete'){
 				// this.appsLoad=true;
