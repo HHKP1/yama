@@ -119,7 +119,7 @@ export default {
 	margin: 0 4px;
 	will-change: transform;
 	background-clip: text;
-	background-image: url('../assets/img/ukrainian-pattern.jpg');
+	background-image: url(../assets/img/ukrainian-pattern.jpg);
 	background-size:cover;
 }
 </style>
