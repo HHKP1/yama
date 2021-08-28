@@ -33,14 +33,6 @@ export default {
 		document.onreadystatechange = async () => {
 			if (await document.readyState == "complete") {
 				this.isloaded = true;
-				Object.values(leters).forEach(l => {
-					// console.log(l);
-					this.staggerLetters.push(l);
-				})
-				// eslint-disable-next-line no-floating-decimal
-				timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3');
-				// eslint-disable-next-line no-floating-decimal
-				timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=1');
 			}
 		}
 		const leters = this.$refs;
