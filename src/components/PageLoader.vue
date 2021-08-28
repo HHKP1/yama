@@ -116,10 +116,10 @@ export default {
 	font: 700 5rem 'Montserrat-Bold';
 	color: transparent;
 	position: relative;
-	margin: 0 4px;
+	/* margin: 0 4px; */
 	will-change: transform;
 	background-clip: text;
-	background-image: url('~@/assets/img/ukrainian-pattern.jpg');
+	background-image: url('../assets/img/ukrainian-pattern.svg');
 	background-size:cover;
 }
 </style>
