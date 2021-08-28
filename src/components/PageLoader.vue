@@ -1,10 +1,10 @@
 <template>
-	<div style="position:fixed;top:0;left:0;width:100%;height:100vh;z-index:9999;overflow:hidden;">
+	<div style="position:fixed;top:0;left:0;width:100%;height:100vh;z-index:999;overflow:hidden;">
 		<div class="page-loader" v-if="isloaded">
 			<div class="circle"></div>
 			<div class="circle"></div>
 		</div>
-		<div id="loader-title">
+		<div id="loader-title" v-show="isloaded">
 			<span class="title_ltr" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 <script>
 import gsap from 'gsap';
 
-let timeline;
+// let timeline;
 export default {
 	data: () => {
 		return {
@@ -33,19 +33,25 @@ export default {
 		document.onreadystatechange = async () => {
 			if (await document.readyState == "complete") {
 				this.isloaded = true;
+				this.loaderAnime();
 			}
 		}
-		const leters = this.$refs;
-		timeline = gsap.timeline();
-
-		Object.values(leters).forEach(l => {
-			// console.log(l);
-			this.staggerLetters.push(l);
-		})
-		// eslint-disable-next-line no-floating-decimal
-		timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3');
-		// eslint-disable-next-line no-floating-decimal
-		timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=1');
+	},
+	methods: {
+		loaderAnime() {
+			if(this.isloaded){
+				const leters = this.$refs;
+				const timeline = gsap.timeline();
+				Object.values(leters).forEach(l => {
+					// console.log(l);
+					this.staggerLetters.push(l);
+				});
+				// eslint-disable-next-line no-floating-decimal
+				timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3');
+				// eslint-disable-next-line no-floating-decimal
+				timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=0.7');
+			}
+		}
 	}
 }
 </script>

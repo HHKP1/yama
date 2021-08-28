@@ -321,7 +321,6 @@ export default {
 			this.listType = this.$route.params.listType;
 		else
 			this.listType = '';
-		console.log(Object.keys(this.$route.query).length);
 		this.loadDefects(true);
 	},
 	methods: {
@@ -521,7 +520,6 @@ export default {
 			this.resetApps();
 		},
 		'$route.query'(query) {
-			console.log(query);
 			if(query)
 				this.btnActive=true;
 		}
