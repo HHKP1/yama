@@ -530,13 +530,18 @@ export default {
 		Vue.prototype.$API = this;
 		this.checkCode();
 		this.startTimer();
+		// const loader = document.onreadystatechange = async () => {
+		// 	if(await document.readyState == 'complete')
+		// 		this.appsLoaded=true;
+		// }
+		// setTimeout(loader, 0);
 	},
 	beforeMount: function() {
 		const loader = document.onreadystatechange = async () => {
 			if(await document.readyState == 'complete')
 				this.appsLoaded=true;
 		}
-		setTimeout(loader, 8000);
+		setTimeout(loader, 7000);
 	},
 	mounted() {
 		this.$API.title = "Аплікація";
@@ -717,6 +722,9 @@ export default {
 		}
 	},
 	watch: {},
+	beforeDestroy(){
+		this.$eventBus.$off('loaded');
+	}
 }
 </script>
 

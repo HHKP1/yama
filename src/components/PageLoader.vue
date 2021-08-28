@@ -30,8 +30,8 @@ export default {
 		}
 	},
 	mounted() {
-		document.onreadystatechange = () => {
-			if (document.readyState == "complete") {
+		document.onreadystatechange = async () => {
+			if (await document.readyState == "complete") {
 				this.isloaded = true;
 			}
 		}
@@ -43,7 +43,7 @@ export default {
 			this.staggerLetters.push(l);
 		})
 		// eslint-disable-next-line no-floating-decimal
-		timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=2.7');
+		timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3');
 		// eslint-disable-next-line no-floating-decimal
 		timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=1');
 	}
