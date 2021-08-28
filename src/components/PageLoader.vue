@@ -46,6 +46,7 @@ export default {
 					// console.log(l);
 					this.staggerLetters.push(l);
 				});
+
 				// eslint-disable-next-line no-floating-decimal
 				timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3');
 				// eslint-disable-next-line no-floating-decimal
