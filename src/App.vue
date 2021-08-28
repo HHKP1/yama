@@ -2,7 +2,7 @@
 	<div id="app">
 		<PageLoader v-if="!appsLoad" />
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
-		<main :class="{open: isOpen}" v-if="appsLoaded">
+		<main :class="{open: isOpen}" v-show="appsLoaded">
 			<mq-layout mq="md+" v-if="$mq == 'lg'">
 				<div id="nav">
 					<a class="logo_link" href="/">

@@ -1,6 +1,6 @@
 <template>
 	<div style="position:fixed;top:0;left:0;width:100%;height:100vh;z-index:9999;overflow:hidden;">
-		<div class="page-loader" v-if="isloaded">
+		<div class="page-loader" v-show="isloaded">
 			<div class="circle"></div>
 			<div class="circle"></div>
 		</div>
@@ -31,7 +31,7 @@ export default {
 	},
 	mounted() {
 		document.onreadystatechange = async () => {
-			if (await document.readyState == "complete") {
+			if (await document.readyState == "interactive") {
 				this.isloaded = true;
 			}
 		}
