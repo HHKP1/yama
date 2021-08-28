@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<PageLoader v-if="!appsLoaded" />
+		<PageLoader v-show="!appsLoaded" />
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
 		<main :class="{open: isOpen}" v-show="appsLoaded">
 			<mq-layout mq="md+" v-if="$mq == 'lg'">
@@ -530,17 +530,16 @@ export default {
 	created() {
 		Vue.prototype.$API = this;
 		this.startTimer();
-		// const loader = document.onreadystatechange = async () => {
+		// document.onreadystatechange = async () => {
 		// 	if(await document.readyState == 'complete')
 		// 		this.appsLoaded=true;
 		// }
-		// setTimeout(loader, 0);
+		// setTimeout(loader, 6500);
 	},
 	beforeMount: function() {
 		this.checkCode();
 		const loader = document.onreadystatechange = async () => {
-			if(await document.readyState == 'complete'){
-				// this.appsLoad=true;
+			if(await document.readyState === 'complete'){
 				this.appsLoaded=true;
 			}
 		}
@@ -725,9 +724,6 @@ export default {
 		}
 	},
 	watch: {},
-	beforeDestroy(){
-		this.$eventBus.$off('loaded');
-	}
 }
 </script>
 
