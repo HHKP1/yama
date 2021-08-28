@@ -5,7 +5,7 @@
 			<div class="circle"></div>
 		</div>
 		<div id="loader-title">
-			<span class="title_ltr" :style="{ backgroundImage:'url(' + require('../assets/img/ukrainian-pattern.jpg') + ')'}" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
+			<span class="title_ltr" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
 		</div>
 	</div>
 </template>
@@ -119,7 +119,7 @@ export default {
 	margin: 0 4px;
 	will-change: transform;
 	background-clip: text;
-	/* background-image: url(../assets/img/ukrainian-pattern.jpg); */
+	background-image: url('~@/assets/img/ukrainian-pattern.jpg');
 	background-size:cover;
 }
 </style>
