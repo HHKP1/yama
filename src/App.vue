@@ -691,6 +691,7 @@ export default {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
+			this.appsLoaded=true;
 			if (this.status[this.status.length-1].status == "login-ok"){
 				clearInterval(this.timer);
 				this.loggedIn = true;
