@@ -264,6 +264,12 @@
 		color: #2c3e50;
 	}
 
+	#app > main.open{
+		overflow-y: hidden !important;
+		width: 100%;
+		height: 100vh;
+	}
+
 	.logout{
 		font: 400 .9rem 'Montserrat';
 		cursor:pointer;
