@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<PageLoader v-show="!appsLoaded" />
+		<PageLoader v-if="!appsLoaded"/>
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
 		<main :class="{open: isOpen}" v-show="appsLoaded">
 			<mq-layout mq="md+" v-if="$mq == 'lg'">
@@ -530,16 +530,11 @@ export default {
 	created() {
 		Vue.prototype.$API = this;
 		this.startTimer();
-		// document.onreadystatechange = async () => {
-		// 	if(await document.readyState == 'complete')
-		// 		this.appsLoaded=true;
-		// }
-		// setTimeout(loader, 6500);
 	},
 	beforeMount: function() {
 		this.checkCode();
 		const loader = document.onreadystatechange = async () => {
-			if(await document.readyState === 'complete'){
+			if(await document.readyState == 'complete'){
 				this.appsLoaded=true;
 			}
 		}
@@ -550,6 +545,7 @@ export default {
 		this.$API.page = "app";
 		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
+		setTimeout(this.appsLoaded, 5000);
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -691,7 +687,8 @@ export default {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
-			this.appsLoaded=true;
+			// if(this.status.length>0)
+			// 	this.appsLoaded=true;
 			if (this.status[this.status.length-1].status == "login-ok"){
 				clearInterval(this.timer);
 				this.loggedIn = true;

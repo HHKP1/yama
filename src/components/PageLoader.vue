@@ -32,25 +32,38 @@ export default {
 	mounted() {
 		document.onreadystatechange = async () => {
 			if (await document.readyState == "complete") {
-				this.isloaded = true;
-				// this.loaderAnime();
+				this.toggleShow();
 			}
 		}
-		setTimeout(this.loaderAnime(), 1000)
+
+		// const leters = this.$refs;
+		// const timeline = gsap.timeline();
+		// Object.values(leters).forEach(l => {
+		// 	// console.log(l);
+		// 	this.staggerLetters.push(l);
+		// });
+
+		// // eslint-disable-next-line no-floating-decimal
+		// timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3.3');
+		// // eslint-disable-next-line no-floating-decimal
+		// timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=0.7');
+		// setTimeout(this.loaderAnime(), 1000)
 	},
 	methods: {
-		loaderAnime() {
-			const leters = this.$refs;
-			const timeline = gsap.timeline();
-			Object.values(leters).forEach(l => {
-				// console.log(l);
-				this.staggerLetters.push(l);
-			});
-
-			// eslint-disable-next-line no-floating-decimal
-			timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3.3');
-			// eslint-disable-next-line no-floating-decimal
-			timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=0.7');
+		toggleShow(){
+			setTimeout(() => {
+				this.isloaded=true;
+				const leters = this.$refs;
+				const timeline = gsap.timeline();
+				Object.values(leters).forEach(l => {
+					// console.log(l);
+					this.staggerLetters.push(l);
+				});
+				// eslint-disable-next-line no-floating-decimal
+				timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3.3');
+				// eslint-disable-next-line no-floating-decimal
+				timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=0.7');
+			}, 600)
 		}
 	}
 }
@@ -119,7 +132,7 @@ export default {
 	}
 }
 .title_ltr{
-	font: 700 5rem 'Montserrat-Bold';
+	font: 700 6rem 'Montserrat';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */
