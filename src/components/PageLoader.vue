@@ -4,9 +4,16 @@
 			<div class="circle"></div>
 			<div class="circle"></div>
 		</div>
-		<div id="loader-title" v-show="isloaded">
-			<span class="title_ltr" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
-		</div>
+		<mq-layout mq="md+">
+			<div id="loader-title" v-show="isloaded">
+				<span class="title_ltr" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
+			</div>
+		</mq-layout>
+		<mq-layout mq="sm">
+			<div id="loader-title_mb" v-show="isloaded">
+				<span class="title_ltr_mb" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
+			</div>
+		</mq-layout>
 	</div>
 </template>
 
@@ -91,6 +98,16 @@ export default {
 	top: 44%;
 	left: 55%;
 }
+
+#loader-title_mb{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+	position: absolute;
+	top: 55%;
+	left: 20%;
+}
 .circle{
 	width: 30px;
 	height: 30px;
@@ -133,6 +150,16 @@ export default {
 }
 .title_ltr{
 	font: 700 6rem 'Montserrat';
+	color: transparent;
+	position: relative;
+	/* margin: 0 4px; */
+	will-change: transform;
+	background-clip: text;
+	background-image: url('../assets/img/ukrainian-pattern.svg');
+	background-size:cover;
+}
+.title_ltr_mb{
+	font: 700 4rem 'Montserrat';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */
