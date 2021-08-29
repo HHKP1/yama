@@ -602,7 +602,8 @@ export default {
 			// 	headers["Authorization"]=`Bearer ${this.token}`;
 			let response = await fetch(this.apiURL + endpoint, {
 				Method: 'GET',
-				headers: headers
+				headers: headers,
+				mode: 'no-cors'
 			});
 			let data = await response.json();
 			return data;
@@ -615,7 +616,8 @@ export default {
 			// 	headers["Authorization"] = `Bearer ${this.token}`;
 			return this.abortableFetch(this.apiURL + endpoint, {
 				method: 'GET',
-				headers: headers
+				headers: headers,
+				mode: 'no-cors'
 			}, raw);
 		},
 		apiGETv3: async function(endpoint){
@@ -627,6 +629,7 @@ export default {
 			let response = await fetch(this.apiURLv2 + endpoint, {
 				method: 'GET',
 				headers: headers,
+				mode: 'no-cors'
 			});
 			// console.log(response);
 			let data = await response.json();
