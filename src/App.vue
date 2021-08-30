@@ -545,7 +545,7 @@ export default {
 		this.$API.page = "app";
 		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
-		setTimeout(this.appsLoaded, 5000);
+		// setTimeout(this.appsLoaded, 5000);
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -603,7 +603,6 @@ export default {
 			let response = await fetch(this.apiURL + endpoint, {
 				Method: 'GET',
 				headers: headers,
-				mode: 'no-cors'
 			});
 			let data = await response.json();
 			return data;
@@ -617,7 +616,6 @@ export default {
 			return this.abortableFetch(this.apiURL + endpoint, {
 				method: 'GET',
 				headers: headers,
-				mode: 'no-cors'
 			}, raw);
 		},
 		apiGETv3: async function(endpoint){
@@ -629,7 +627,6 @@ export default {
 			let response = await fetch(this.apiURLv2 + endpoint, {
 				method: 'GET',
 				headers: headers,
-				mode: 'no-cors'
 			});
 			// console.log(response);
 			let data = await response.json();

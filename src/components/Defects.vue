@@ -303,7 +303,7 @@ export default {
 		Vue.prototype.$API2 = this;
 		this.loadRegions(true);
 		this.$eventBus.$on('orgN', async e => {
-			if(e!==this.orgInfo) {
+			if(e!=this.orgInfo) {
 				await this.loadDefects(true);
 			}
 		})
@@ -333,6 +333,7 @@ export default {
 		async loadDefects(change){
 			if(this.appsUpdating) return;
 			this.btnActive=true;
+			// this.appsLoaded=true;
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
@@ -524,9 +525,9 @@ export default {
 				this.btnActive=true;
 		}
 	},
-	// beforeDestroy() {
-	// 	clearInterval(this.appsUpdateInterval);
-	// },
+	beforeDestroy() {
+		clearInterval('orgN');
+	},
 }
 </script>
 
