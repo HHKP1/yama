@@ -18,8 +18,9 @@
 													<GmapMarker
 														:position="m.position"
 														:clickable="true"
-														:ref="m.id"
+														:ref="`m${index}`"
 														@mouseover="toggleInfoWindow(m, index)"
+														:icon="m.icon[0].icon"
 														@click="listClick($event, '/collections/defect/'+m.id )"
 													>
 													</GmapMarker>
@@ -50,9 +51,10 @@
 </template>
 <script>
 import { gmapApi } from 'vue2-google-maps';
+import customMarkers from '../assets/js/markerIcons';
 
 export default {
-	// name: "GoogleMap",
+	name: "GoogleMap",
 	props: {
 		// defectId: { type: String, required: false },
 		// mapTitle: { type: String, required: true },
@@ -105,8 +107,6 @@ export default {
 		if(this.orgN!=this.$API2.orgInfo){
 			this.$eventBus.$emit('orgN', this.orgN);
 		}
-		// this.loadMarkers();
-		// this.updateMarkersInterval = setInterval(this.loadMarkers, 100);
 	},
 	methods: {
 		listClick(e, url) {
@@ -116,48 +116,50 @@ export default {
 				// window.open(url, "_new");
 			}
 		},
-		// async reloadApplication() {
-		// 	await this.loadMarkers();
-		// },
 		loadMarkers() {
 			this.isActive=true;
 			this.statusNewWaitEvent=true;
 			if(this.arrMarkers.length < 0) return true;
 			else
 				this.markers=[];
-			this.arrMarkers.forEach((l) => {
+			this.arrMarkers.forEach((l, i) => {
+				// l.icon.filter((icn) => console.log(icn + i));
+				// console.log(l);
+				// console.log(l.icons.filter(ic => ic.type==l.type));
 				if (l == null) return;
+				let icn = customMarkers.filter(ic => ic.name==l.type);
 				let lat = l.lat;
 				let lng = l.lng;
 				l.position = { lat: lat, lng: lng };
+				l.icon = icn;
 				delete l.lng;
 				delete l.lat;
 				this.markers.push(l);
 				this.isActive=false;
 			});
-			/*let markerClusterStyle = [
-				{
-					width: 30,
-					height: 30,
-					className: "custom-clustericon-1",
-				},
-				{
-					width: 40,
-					height: 40,
-					className: "custom-clustericon-2",
-				},
-				{
-					width: 50,
-					height: 50,
-					className: "custom-clustericon-3",
-				},
-			];
-			this.markerClusterer = new MarkerClusterer(this.map, markersArray, {
-				styles: markerClusterStyle,
-				clusterClass: "custom-clustericon",
-				maxZoom: 16,
-				gridSize: 30,
-			});*/
+			// let markerClusterStyle = [
+			// 	{
+			// 		width: 30,
+			// 		height: 30,
+			// 		className: "custom-clustericon-1",
+			// 	},
+			// 	{
+			// 		width: 40,
+			// 		height: 40,
+			// 		className: "custom-clustericon-2",
+			// 	},
+			// 	{
+			// 		width: 50,
+			// 		height: 50,
+			// 		className: "custom-clustericon-3",
+			// 	},
+			// ];
+			// this.markerClusterer = new MarkerClusterer(this.map, this.arrMarkers, {
+			// 	styles: markerClusterStyle,
+			// 	clusterClass: "custom-clustericon",
+			// 	maxZoom: 16,
+			// 	gridSize: 30,
+			// });
 		},
 		toggleInfoWindow(marker, idx) {
 			this.markerInfo = `
@@ -165,6 +167,7 @@ export default {
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Адреса: <p style="font-weight:400;text-align:left">`+marker.area+`</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Автор: <p style="font-weight:400;text-align:left">`+marker.author+`</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Статус: <p style="font-weight:400;text-align:left"> `+marker.status+`</p></span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Тип: <p style="font-weight:400;text-align:left"> `+marker.type+`</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">ID: <p style="font-weight:400;text-align:left"> `+marker.id+`</p></span>
 			</div>`;
 			this.infoWindowPos = marker.position;
@@ -202,10 +205,28 @@ export default {
 					area: m.address,
 					status: m.case_status.current.status,
 					author: m.case_status.current.author.name,
-					id: m.id
+					type: m.defect_type,
+					id: m.id,
+					// icons: customMarkers.map((i) => {
+					// 	return {
+					// 		type: i.name,
+					// 		icon: i.icon
+					// 	}
+					// })
 				}
 			})
-		}
+		},
+		// iconMarkers(){
+		// 	return customMarkers.map(i => {
+		// 		return {
+		// 			status: i.name,
+		// 			icon: i.icon,
+		// 		}
+		// 	})
+		// },
+		// iconMarkers(){
+		// 	return customMarkers.filter((ic, i) => this.arrMarkers.icon.status==ic.name)
+		// }
 	},
 	watch: {
 		latLong: {

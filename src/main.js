@@ -43,7 +43,7 @@ Vue.use(VueAxios, axios);
 Vue.use(gsap);
 Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });
-Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY }, libraries: 'places', installComponents: true });
+Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY, region: 'UA', language: 'uk-UA' }, libraries: 'places', installComponents: true });
 
 const routes = [
 	{ path: '/', component: CollectionList, props: true },
