@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	mounted() {
-		setTimeout(this.toggleShow, 0)
+		setTimeout(this.toggleShow, 5000)
 
 		// const leters = this.$refs;
 		// const timeline = gsap.timeline();
