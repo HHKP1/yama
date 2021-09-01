@@ -1,16 +1,46 @@
+var path = require('path')
+
 module.exports = {
-	module: {
-		rules: [
-			{
-				test: /\.css$/i,
-				use: ["style-loader", "css-loader"],
-			},
-			{
-				test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
-				loader: "url?limit=10000&mimetype=application/font-woff",
-				// More information here https://webpack.js.org/guides/asset-modules/
-				type: "asset",
-			},
-		],
+	entry: {
+		app: './src/main.js'
 	},
-};
+	output: {
+		path: path.resolve(__dirname, '../dist/static'),
+		publicPath: '/static/',
+		filename: '[name].js'
+	},
+	resolve: {
+		extensions: ['', '.js', '.vue'],
+		alias: {
+			'src': path.resolve(__dirname, '../src')
+		}
+	},
+	resolveLoader: {
+		root: path.join(__dirname, 'node_modules')
+	},
+	module: {
+		loaders: [
+			{
+				test: /\.vue$/,
+				loader: 'vue'
+			},
+			{
+				test: /\.js$/,
+				loader: 'babel!eslint',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.json$/,
+				loader: 'json'
+			},
+			{
+				test: /\.css$/,
+				loader: 'style!css'
+			},
+			{
+				test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+				loader: "url?limit=10000&mimetype=application/font-woff"
+			}
+		]
+	}
+}
