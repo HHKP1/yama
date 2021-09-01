@@ -123,9 +123,6 @@ export default {
 			else
 				this.markers=[];
 			this.arrMarkers.forEach((l, i) => {
-				// l.icon.filter((icn) => console.log(icn + i));
-				// console.log(l);
-				// console.log(l.icons.filter(ic => ic.type==l.type));
 				if (l == null) return;
 				let icn = customMarkers.filter(ic => ic.name==l.type);
 				let lat = l.lat;
@@ -207,26 +204,9 @@ export default {
 					author: m.case_status.current.author.name,
 					type: m.defect_type,
 					id: m.id,
-					// icons: customMarkers.map((i) => {
-					// 	return {
-					// 		type: i.name,
-					// 		icon: i.icon
-					// 	}
-					// })
 				}
 			})
 		},
-		// iconMarkers(){
-		// 	return customMarkers.map(i => {
-		// 		return {
-		// 			status: i.name,
-		// 			icon: i.icon,
-		// 		}
-		// 	})
-		// },
-		// iconMarkers(){
-		// 	return customMarkers.filter((ic, i) => this.arrMarkers.icon.status==ic.name)
-		// }
 	},
 	watch: {
 		latLong: {
@@ -238,7 +218,6 @@ export default {
 	},
 	beforeDestroy() {
 		this.$eventBus.$off('orgInfo');
-		// clearInterval(this.updateMarkersInterval);
 	},
 };
 </script>

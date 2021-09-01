@@ -529,21 +529,23 @@ export default {
 	},
 	created() {
 		Vue.prototype.$API = this;
+		this.startTimer();
+		setTimeout(this.appsLoaded, 5000)
 	},
 	beforeMount: function() {
-		this.startTimer();
 		// this.checkCode();
-		const loader = document.onreadystatechange = async () => {
-			if(await document.readyState == 'complete'){
-				this.appsLoaded=true;
-			}
-		}
-		setTimeout(loader, 7000);
+		// const loader = document.onreadystatechange = async () => {
+		// 	if(await document.readyState == 'complete'){
+		// 		this.appsLoaded=true;
+		// 	}
+		// }
+		// setTimeout(loader, 7000);
 	},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
-		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
+		// this.checkCode();
+		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
 		// setTimeout(this.appsLoaded, 5000);
 	},
@@ -687,8 +689,8 @@ export default {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
-			if(this.status.length>1)
-				this.appsLoaded=true;
+			// if(this.status.length>1)
+			this.appsLoaded=true;
 			if (this.status[this.status.length-1].status == "login-ok"){
 				clearInterval(this.timer);
 				this.loggedIn = true;

@@ -321,7 +321,7 @@ export default {
 			this.listType = this.$route.params.listType;
 		else
 			this.listType = '';
-		this.loadDefects(true);
+		// this.loadDefects(true);
 	},
 	methods: {
 		listClick(e, url) {
@@ -337,7 +337,6 @@ export default {
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
-
 				this.orgInfo = result;
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
