@@ -1,6 +1,8 @@
 	@font-face {
 		font-family: 'Montserrat';
-		src:url("../font/Montserrat-Regular.woff") format("woff");
+		src:local('Montserrat-Regular'),
+		local('Montserrat-Regular'),
+		url("../font/Montserrat-Regular.woff") format("woff");
 		font-display: swap;
 	}
 	
@@ -1072,7 +1074,7 @@
 			align-items: center;
 		}
 		.hero-item {
-			font: 500 1.2rem 'Montserrat-Regular' !important;
+			font: 500 1.2rem 'Montserrat' !important;
 			cursor: text;
 		}
 		.grid-container_mb {
