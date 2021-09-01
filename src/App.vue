@@ -530,7 +530,6 @@ export default {
 	created() {
 		Vue.prototype.$API = this;
 		this.startTimer();
-		setTimeout(this.appsLoaded, 5000)
 	},
 	beforeMount: function() {
 		// this.checkCode();
@@ -689,8 +688,8 @@ export default {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
-			// if(this.status.length>1)
-			this.appsLoaded=true;
+			if(this.status.length>1)
+				this.appsLoaded=true;
 			if (this.status[this.status.length-1].status == "login-ok"){
 				clearInterval(this.timer);
 				this.loggedIn = true;
