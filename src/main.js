@@ -15,16 +15,16 @@ import FormSelect from './components/FormSelect';
 import DefectSortedGrid from './components/DefectSortedGrid.vue';
 
 // Pages
-// import Defects from './components/Defects.vue';
-import CollectionList from './components/CollectionList.vue';
+import Defects from './components/Defects.vue';
+// import CollectionList from './components/CollectionList.vue';
 import DefectView from './components/DefectView.vue';
 // import GoogleMap from './components/GoogleMap.vue';
 import NotFoundPage from './components/404.vue';
 
-// const CollectionList = () =>
-// 	import(/* webpackChankName: "collectionList" */ './components/CollectionList.vue');
-const Defects = () =>
-	import(/* webpackChankName: "defects" */ './components/Defects.vue');
+const CollectionList = () =>
+	import(/* webpackChankName: "collectionList" */ './components/CollectionList.vue');
+// const Defects = () =>
+// 	import(/* webpackChankName: "defects" */ './components/Defects.vue');
 // const DefectView = () =>
 // 	import(/* webpackChankName: "collectionList" */ './components/DefectView.vue');
 const GoogleMap = () =>
