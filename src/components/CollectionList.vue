@@ -18,7 +18,7 @@
 						type="search"
 					/>
 				</div>
-				<GoogleMap v-if="$mq=='md'" :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
+				<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
 				<div class="grid-container_overlay">
 					<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
 						<p class="empty_message">По цьому запиту немає дефектів</p>
@@ -75,7 +75,7 @@
 			<div class="container_works_mb">
 				<div class="container_defects_mb">
 					<div class="defect_content_mb">
-						<GoogleMap v-if="$mq=='sm'" :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
+						<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
 						<div class="grid-container_overlay">
 							<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
 								<p class="empty_message">По цьому запиту немає дефектів</p>
