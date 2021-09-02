@@ -2,15 +2,15 @@
 		font-family: 'Montserrat';
 		src:local('Montserrat-Regular'),
 		local('Montserrat-Regular'),
-		url("../font/Montserrat-Regular.woff") format("woff");
+		url("../font/Montserrat-Regular.ttf") format("truetype");
 		font-display: swap;
 	}
 	
-	/* @font-face {
-		font-family: 'Montserrat-Bold';
-		src: url("../font/Montserrat-Bold.woff2") format("woff2");
+	@font-face {
+		font-family: 'Montserrat-Black';
+		src: url("../font/Montserrat-Black.ttf") format("truetype");
 		font-display: swap;
-	} */
+	}
 	
 	:root {
 			color-scheme: light dark;

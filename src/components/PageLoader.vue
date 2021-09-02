@@ -43,19 +43,6 @@ export default {
 				this.isLoaded=true;
 			}
 		}
-
-		// const leters = this.$refs;
-		// const timeline = gsap.timeline();
-		// Object.values(leters).forEach(l => {
-		// 	// console.log(l);
-		// 	this.staggerLetters.push(l);
-		// });
-
-		// // eslint-disable-next-line no-floating-decimal
-		// timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: .9, duration: .7, ease: 'power4.Out', stagger: 0.09 }, '+=3.3');
-		// // eslint-disable-next-line no-floating-decimal
-		// timeline.to(this.staggerLetters, { autoAlpha: 0, duration: .8, ease: 'power4.Out', stagger: 0.09 }, '+=0.7');
-		// setTimeout(this.loaderAnime(), 1000)
 	},
 	methods: {
 		toggleShow(){
@@ -147,7 +134,7 @@ export default {
 	}
 }
 .title_ltr{
-	font: 700 6rem 'Montserrat';
+	font: 700 6rem 'Montserrat-Black';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */
@@ -157,7 +144,7 @@ export default {
 	background-size:cover;
 }
 .title_ltr_mb{
-	font: 700 4rem 'Montserrat';
+	font: 700 4rem 'Montserrat-Black';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */

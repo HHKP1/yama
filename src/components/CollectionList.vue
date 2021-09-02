@@ -18,7 +18,7 @@
 						type="search"
 					/>
 				</div>
-				<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
+				<GoogleMap v-if="$mq=='md'" :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
 				<div class="grid-container_overlay">
 					<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
 						<p class="empty_message">По цьому запиту немає дефектів</p>
@@ -75,8 +75,14 @@
 			<div class="container_works_mb">
 				<div class="container_defects_mb">
 					<div class="defect_content_mb">
+						<GoogleMap v-if="$mq=='sm'" :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
+						<div class="grid-container_overlay">
+							<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
+								<p class="empty_message">По цьому запиту немає дефектів</p>
+							</div>
+						</div>
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
-								<div class="grid-container_mb">
+								<div class="grid-container_mb" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
 										<router-link :to="'/collections/defect/'+card.id">
 											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
@@ -110,7 +116,7 @@
 										</router-link>
 									</div>
 								</div>
-								<div class="card_pagination">
+								<div class="card_pagination" v-if="!this.$API2.showMap">
 									<div class="pagination_control">
 										<ul class="pagination">
 											<li class="disabled"><a href="#!">F</a></li>

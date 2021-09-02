@@ -77,7 +77,7 @@
 							<div class="main-hero head-hero">
 								<div class="hero-title">
 									<p class="hero-item"><strong
-											style="font:700 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
+											style="font:700 24px 'Montserrat-Black';color:var(--button-default)">УкрЯма</strong> –
 										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
 										розвивається</p>
 								</div>
@@ -90,7 +90,7 @@
 											<div class="hero-item">
 												<p class="p-text">Ваш код<br />для входу:</p>
 											</div>
-											<div class="hero-item">
+											<div v-if="appsLoaded" class="hero-item">
 												<p class="p-text code">{{ authCode[authCode.length-1].code }}</p>
 											</div>
 											<div class="hero-item">
@@ -156,7 +156,7 @@
 											<div class="hero-item">
 												<p class="p-text">Для входу надішліть цей<br/>код боту у відповідному месенджері</p>
 											</div>
-											<div class="hero-item">
+											<div v-if="appsLoaded" class="hero-item">
 												<p class="p-text code">{{ authCode[authCode.length-1].code }}</p>
 											</div>
 										</div>
@@ -544,7 +544,7 @@ export default {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
 		// this.checkCode();
-		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
+		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
 		// setTimeout(this.appsLoaded, 5000);
 	},
