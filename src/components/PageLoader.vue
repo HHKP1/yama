@@ -10,7 +10,7 @@
 			</div>
 		</mq-layout>
 		<mq-layout mq="sm">
-			<div id="loader-title_mb" v-show="isloaded">
+			<div id="loader-title_mb" v-show="~!isloaded">
 				<span class="title_ltr_mb" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
 			</div>
 		</mq-layout>
