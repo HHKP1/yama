@@ -22,6 +22,7 @@ import gsap from 'gsap';
 
 // let timeline;
 export default {
+	name: 'preloader',
 	data: () => {
 		return {
 			isloaded: false,
