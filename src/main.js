@@ -13,32 +13,21 @@ import GmapCluster from 'vue2-google-maps/dist/components/cluster';
 import FormInput from './components/FormInput';
 import FormSelect from './components/FormSelect';
 import DefectSortedGrid from './components/DefectSortedGrid.vue';
+// import PageLoader from './components/PageLoader.vue';
 
 // Pages
 import Defects from './components/Defects.vue';
 import CollectionList from './components/CollectionList.vue';
 import DefectView from './components/DefectView.vue';
-import PageLoader from './components/PageLoader.vue';
-// import GoogleMap from './components/GoogleMap.vue';
+import GoogleMap from './components/GoogleMap.vue';
 import NotFoundPage from './components/404.vue';
-
-// const CollectionList = () =>
-// 	import(/* webpackChankName: "collectionList" */ './components/CollectionList.vue');
-// const Defects = () =>
-// 	import(/* webpackChankName: "defects" */ './components/Defects.vue');
-// const DefectView = () =>
-// 	import(/* webpackChankName: "collectionList" */ './components/DefectView.vue');
-const GoogleMap = () =>
-	import(/* webpackChankName: "GoogleMap" */ './components/GoogleMap.vue');
-// const PageLoader = () =>
-// 	import(/* webpackChankName: "preloader" */ './components/PageLoader.vue');
 
 // Register Components
 Vue.component('Defects', Defects);
 Vue.component('FormInput', FormInput);
 Vue.component('FormSelect', FormSelect);
 Vue.component('DefectSortedGrid', DefectSortedGrid);
-Vue.component('PageLoader', PageLoader);
+// Vue.component('PageLoader', PageLoader);
 Vue.component('GmapCluster', GmapCluster);
 // Vue.component('GoogleMap', GoogleMap);
 Vue.component('infoWindow', VueGoogleMaps.InfoWindow)

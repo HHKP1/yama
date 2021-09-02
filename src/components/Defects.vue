@@ -178,8 +178,6 @@
 									<button class="btn outline_button" v-if="!showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Показати на мапі</button>
 									<button class="btn outline_button" v-if="showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Згорнути мапу</button>
 									<button class="btn custom_button" :class="{active: btnActive}" @click="loadDefects()">Показати</button>
-									<!-- <button class="btn outline_button">Показати на мапі</button>
-									<button class="btn custom_button">Показати</button> -->
 								</div>
 							</div>
 						</div>
@@ -305,6 +303,7 @@ export default {
 	async created() {
 		Vue.prototype.$API2 = this;
 		this.loadRegions(true);
+		this.loadDefects(true);
 		this.$eventBus.$on('orgN', async e => {
 			if(e!=this.orgInfo) {
 				await this.loadDefects(true);
