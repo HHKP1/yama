@@ -53,7 +53,7 @@
 									</div>
 									<div class="status_comments">
 										<p class="status_count" v-if="!card.comments">0</p>
-										<p class="status_count" v-else>{{ card.comments.length }}</p>
+										<p class="status_count" :title="'Кількість коментарів: ' + card.comments.length " v-else>{{ card.comments.length }}</p>
 										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 									</div>
 								</div>
@@ -114,7 +114,7 @@
 														</div>
 														<div class="status_comments">
 															<p class="status_count" v-if="!card.comments">0</p>
-															<p class="status_count" v-else>{{ card.comments.length }}</p>
+															<p class="status_count" :title="'Кількість коментарів: ' + card.comments.length " v-else>{{ card.comments.length }}</p>
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 														</div>
 													</div>

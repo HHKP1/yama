@@ -22,7 +22,7 @@
 						v-model="search"
 						type="search"
 						/>
-						<button class="btn custom_button_nav" @click="getMe()">Додати дефект</button>
+						<button class="btn custom_button_nav">Додати дефект</button>
 						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 8px;width:120px;">
 							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">

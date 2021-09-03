@@ -1900,6 +1900,7 @@
 	}
 	.defect_image{
 		position: relative;
+		overflow:hidden;
 	}
 	.defect_image_detail{
 		position: relative;
@@ -1948,6 +1949,11 @@
 		max-height: 120px;
 		min-width: 125px;
 		min-height: 120px;
+		transition: all 1.7s ease-in-out;
+	}
+	.defect_card:hover img{
+		transform: scale(1.1);
+		transition: all 1.7s ease-in-out;
 	}
 	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
 		height: 20px;
