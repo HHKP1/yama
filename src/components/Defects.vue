@@ -303,7 +303,7 @@ export default {
 	async created() {
 		Vue.prototype.$API2 = this;
 		this.loadRegions(true);
-		this.loadDefects(true);
+		// this.loadDefects(true);
 		this.$eventBus.$on('orgN', async e => {
 			if(e!=this.orgInfo) {
 				await this.loadDefects(true);

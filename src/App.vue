@@ -79,7 +79,7 @@
 							<div class="main-hero head-hero">
 								<div class="hero-title">
 									<p class="hero-item"><strong
-											style="font:700 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
+											style="font:900 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
 										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
 										розвивається</p>
 								</div>

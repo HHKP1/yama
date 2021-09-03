@@ -11,6 +11,8 @@
 		src: url("../font/Montserrat-Black.ttf") format("truetype");
 		font-display: swap;
 	} */
+
+	@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap');
 	
 	:root {
 			color-scheme: light dark;

@@ -44,6 +44,7 @@ export default {
 		document.onreadystatechange = async () => {
 			if(await document.readyState == 'complete'){
 				console.log('load: Pageloader');
+				console.log(document.readyState);
 				this.isLoaded=true;
 			}
 		}
@@ -136,7 +137,7 @@ export default {
 	}
 }
 .title_ltr{
-	font: 700 6rem 'Montserrat';
+	font: 900 6rem 'Montserrat';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */
@@ -146,7 +147,7 @@ export default {
 	background-size:cover;
 }
 .title_ltr_mb{
-	font: 700 4rem 'Montserrat';
+	font: 900 4rem 'Montserrat';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */
