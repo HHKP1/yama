@@ -1,4 +1,4 @@
-	@font-face {
+	/* @font-face {
 		font-family: 'Montserrat';
 		src:local('Montserrat-Regular'),
 		local('Montserrat-Regular'),
@@ -10,7 +10,7 @@
 		font-family: 'Montserrat-Black';
 		src: url("../font/Montserrat-Black.ttf") format("truetype");
 		font-display: swap;
-	}
+	} */
 	
 	:root {
 			color-scheme: light dark;

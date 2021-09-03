@@ -135,7 +135,7 @@ export default {
 	}
 }
 .title_ltr{
-	font: 700 6rem 'Montserrat-Black';
+	font: 700 6rem 'Montserrat';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */
@@ -145,7 +145,7 @@ export default {
 	background-size:cover;
 }
 .title_ltr_mb{
-	font: 700 4rem 'Montserrat-Black';
+	font: 700 4rem 'Montserrat';
 	color: transparent;
 	position: relative;
 	/* margin: 0 4px; */
