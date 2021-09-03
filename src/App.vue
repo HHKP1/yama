@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
-		<!-- <transition name="fade-loader">
+		<transition name="fade-loader">
 			<PageLoader v-if="!appsLoaded"/>
-		</transition> -->
+		</transition>
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
 		<main :class="{open: isOpen}" v-show="appsLoaded">
 			<mq-layout mq="md+" v-if="$mq == 'lg'">
@@ -460,7 +460,7 @@
 <script>
 import Vue from 'vue';
 import './assets/css/main.css';
-// import PageLoader from './components/PageLoader';
+import PageLoader from './components/PageLoader';
 import FormInput from './components/FormInput';
 import Defects from './components/Defects';
 import VueCookies from 'vue-cookies';
@@ -473,7 +473,7 @@ export default {
 	components: {
 		FormInput,
 		Defects,
-		// PageLoader,
+		PageLoader,
 	},
 	data() {
 		return {
@@ -537,11 +537,12 @@ export default {
 	},
 	beforeMount() {
 		// this.checkCode();
-		document.onreadystatechange = async () => {
-			if(await document.readyState == 'complete'){
-				this.appsLoaded=true;
-			}
-		}
+		// document.onreadystatechange = async () => {
+		// 	if(await document.readyState == 'complete'){
+		// 		console.log('load', document.readyState);
+		// 		this.appsLoaded=true;
+		// 	}
+		// }
 		// setTimeout(loader, 7000);
 	},
 	mounted() {
@@ -549,6 +550,7 @@ export default {
 		this.$API.page = "app";
 		// document.onreadystatechange = async () => {
 		// 	if(await document.readyState == 'complete'){
+		// 		console.log('load');
 		// 		this.appsLoaded=true;
 		// 	}
 		// }
@@ -697,8 +699,8 @@ export default {
 			let resp = await this.apiGETv3('/code');
 			// console.log(resp);
 			this.status.push(resp);
-			// if(this.status.length>0)
-			// 	this.appsLoaded=true;
+			if(this.status.length>0)
+				this.appsLoaded=true;
 			if (this.status[this.status.length-1].status == "login-ok"){
 				clearInterval(this.timer);
 				this.loggedIn = true;

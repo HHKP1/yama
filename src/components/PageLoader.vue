@@ -43,6 +43,7 @@ export default {
 		// 	this.isLoaded=true;
 		document.onreadystatechange = async () => {
 			if(await document.readyState == 'complete'){
+				console.log('load: Pageloader');
 				this.isLoaded=true;
 			}
 		}
