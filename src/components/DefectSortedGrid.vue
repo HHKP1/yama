@@ -29,8 +29,9 @@
 										<span v-if="card.status=='in_progress'">В процесі</span>
 										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
-									<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-										<p class="status_count">{{ card.comment.length }}</p>
+									<div class="status_comments">
+										<p v-if="!card.comment" class="status_count">0</p>
+										<p v-else class="status_count">{{ card.comment.length }}</p>
 										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 									</div>
 								</div>
@@ -71,8 +72,9 @@
 										<span v-if="card.status=='in_progress'">В процесі</span>
 										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
-									<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-										<p class="status_count">{{ card.comment.length }}</p>
+									<div class="status_comments">
+										<p v-if="!defect.comments" class="status_count">0</p>
+										<p v-else class="status_count">{{ card.comment.length }}</p>
 										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 									</div>
 								</div>
@@ -104,8 +106,9 @@
 														<span v-if="card.status=='new'">Новий</span>
 														<span v-if="card.status=='in_progress'">В процесі</span>
 													</div>
-													<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-														<p class="status_count">{{ card.comment.length }}</p>
+													<div class="status_comments">
+														<p v-if="!defect.comments" class="status_count">0</p>
+														<p v-else class="status_count">{{ card.comment.length }}</p>
 														<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 													</div>
 												</div>

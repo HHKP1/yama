@@ -1,7 +1,7 @@
 <template>
 	<div style="flex: 0 0 72%">
 		<mq-layout mq="md+">
-			<div class="defect_content">
+			<div class="defect_content" v-if="!$route.path.includes('/defect')">
 				<div class="defect_filter_count">
 							<div class="defect_filter_item">
 								<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
@@ -18,13 +18,17 @@
 						type="search"
 					/>
 				</div>
+				<transition name="loader-map">
 				<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
+				</transition>
 				<div class="grid-container_overlay">
 					<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
 						<p class="empty_message">По цьому запиту немає дефектів</p>
 					</div>
 				</div>
-				<div class="grid-container" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
+					<div class="grid-block">
+				<transition name="fade-loader">
+						<div class="grid-container" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
 					<div class="defect_card" v-for='card in dfCard' :key='card.id'>
 					<router-link :to="'/collections/defect/'+card.id">
 						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
@@ -47,8 +51,9 @@
 										<span v-if="card.status=='in_progress'">В процесі</span>
 										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
-									<div class="status_comments" :title="'Кількість коментарів: ' + card.comments.length">
-										<p class="status_count">{{ card.comments.length }}</p>
+									<div class="status_comments">
+										<p class="status_count" v-if="!card.comments">0</p>
+										<p class="status_count" v-else>{{ card.comments.length }}</p>
 										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 									</div>
 								</div>
@@ -57,7 +62,9 @@
 						</div>
 					</router-link>
 					</div>
-				</div>
+						</div>
+				</transition>
+					</div>
 			</div>
 			<div class="card_pagination" v-if="!this.$API2.showMap">
 							<div class="pagination_control">
@@ -75,7 +82,7 @@
 			<div class="container_works_mb">
 				<div class="container_defects_mb">
 					<div class="defect_content_mb">
-						<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
+							<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
 						<div class="grid-container_overlay">
 							<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
 								<p class="empty_message">По цьому запиту немає дефектів</p>
@@ -105,8 +112,9 @@
 															<span v-if="card.status=='in_progress'">В процесі</span>
 															<span v-if="card.status=='done'">Виправлений</span>
 														</div>
-														<div class="status_comments" :title="'Кількість коментарів: ' + card.comments.length">
-															<p class="status_count">{{ card.comments.length }}</p>
+														<div class="status_comments">
+															<p class="status_count" v-if="!card.comments">0</p>
+															<p class="status_count" v-else>{{ card.comments.length }}</p>
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 														</div>
 													</div>
@@ -169,7 +177,7 @@ export default {
 	},
 	created(){
 		Vue.prototype.$API3 = this;
-		this.dfCards= this.dfCard;
+		this.dfCards=this.dfCard;
 	},
 	mounted() {
 		this.$API.title = "Колекція";
@@ -206,6 +214,55 @@ export default {
 </script>
 
 <style>
+	.loader-map-enter-active {
+		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in;
+	}
+	.loader-map-leave-active {
+		transition: opacity 0.02s ease-in-out, transform 0.02s ease-in;
+	}
+	.loader-map-enter-active {
+		transition-delay: 0.5s;
+	}
+	.loader-map-enter {
+		opacity: 0;
+		transform: translateY(0);
+	}
+	.loader-map-enter-to {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.loader-map-leave {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.loader-map-leave-to {
+		opacity: 0;
+	}
+
+	.fade-loader-enter-active {
+		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in;
+		/* transition-delay: 0.5s; */
+	}
+	.fade-loader-leave-active {
+		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in;
+	}
+	.fade-loader-enter {
+		opacity: 0;
+		transform: translateY(0px);
+	}
+	.fade-loader-enter-to {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave-to {
+		opacity: 0;
+		/* display: none; */
+		/* transform: scale(0.8); */
+	}
 	.carousel_overlay{
 		display: flex;
 		justify-content: center;
@@ -223,5 +280,8 @@ export default {
 		/* grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); */
 		/* grid-template-rows: 1fr 1fr; */
 		gap: 18px 8px;
-}
+	}
+	/* .grid-container.hide_grid {
+		visibility: hidden;
+	} */
 </style>

@@ -1,5 +1,6 @@
 <template>
-	<div style="width: 100%">
+			<!-- <transition name="fade-loader"> -->
+	<div  :class="{open_map: this.$API2.showMap}" style="width: 100%;z-index:99;">
 		<div class="popup_wrapper" v-bind:class="{open: showErrorMap}">
 			<div class="popup-map" v-if="showErrorMap">
 				<svg @click="toggleModal" class="popup-close" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
@@ -7,7 +8,7 @@
 				<div class="flex-column margin-bottom-16">{{errorText}}</div>
 			</div>
 		</div>
-		<div class="popup_wrapper" v-bind:class="{open: showGMap}">
+		<div class="popup_wrapper" :class="{open: showGMap}">
 			<div id="gmap-popup" class="popup-map" v-show="showGMap" style="display:flex;flex-direction:column;justify-content:space-between;">
 					<div>
 						<div class="flex-column margin-bottom-16" id="map-wrap">
@@ -48,6 +49,7 @@
 			</div>
 		</div>
 	</div>
+			<!-- </transition> -->
 </template>
 <script>
 import { gmapApi } from 'vue2-google-maps';
@@ -222,6 +224,31 @@ export default {
 };
 </script>
 <style scoped>
+	.fade-loader-enter-active{
+		transition: opacity 0.2s ease-out, transform 0.2s ease-in;
+		position:  relative !important;
+		transition-delay: 0.5s;
+	}
+	.fade-loader-leave-active {
+		transition: opacity 0.2s ease-out, transform 0.2s ease-in;
+		transition-delay: 0s;
+	}
+	.fade-loader-enter {
+		opacity: 0;
+		transform: translateY(0);
+	}
+	.fade-loader-enter-to {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave {
+		opacity: 0;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave-to {
+		opacity: 0;
+		transform: scale(0.98);
+	}
 	#gmap-popup.popup-map {
 		max-width: none;
 		width: 100%;
@@ -235,6 +262,10 @@ export default {
 	div.gm-style > img:hover{
 		transform: scale(1.2) !important;
 		position: absolute !important;
+	}
+
+	div.open_map{
+		position: relative !important;
 	}
 
 	#gmap-popup-message {

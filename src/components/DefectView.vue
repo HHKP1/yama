@@ -1,7 +1,8 @@
 <template>
 	<div style="flex: 1 1 60%" v-if="this.appsLoaded">
 		<mq-layout mq="md+">
-			<div class="defect_content">
+			<transition name="fade-loader">
+			<div class="defect_content_ht" v-if="$route.path.includes('/defect/')">
 								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -122,28 +123,29 @@
 													<div class="progress_info_block">
 														<div class="progress_info_item">
 															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-															<p class="author_chat message_date">23.04.2021</p>
+															<p class="author_chat message_date">{{ defect.added | moment("DD.MM.YY в HH:mm") }}</p>
 														</div>
 														<p class="progress_title">Дефект додано</p>
 													</div>
 												</div>
 											</div>
-											<div class="progress_item_reverse">
+											<div class="progress_item_reverse" v-if="defect.comments && defect.comments.length>0">
 												<div class="progress_content_reverse">
 													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
+														<div class="progress_icons">
+																<div class="progress_indicator">
+																	<img style="cursor:pointer;" @click="isCommentsMd = 2" src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
+																</div>
+															<img src="../assets/img/icons/arrow_down.svg" alt="">
 														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
 													</div>
-													</div>
-													<div class="progress_info_block">
+													<div class="progress_info_block" v-for="date in defect.comments" :key="date.id">
 													<div class="progress_info_item_reverse">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
+														<p class="author_chat message_date">{{ date.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
-													<p class="progress_title_reverse">Коментарі</p>
+													<p v-if="!defect.comments" class="progress_title_reverse">Коментарі: <strong style="font: 700 1rem 'Montserrat-Bold';color:red;">0</strong></p>
+													<p v-else class="progress_title_reverse">Коментарі: <strong style="font: 700 1rem 'Montserrat-Bold';color:red;">{{ defect.comments.length }}</strong></p>
 													<!-- <p class="progress_title">Коментарі</p> -->
 													</div>
 												</div>
@@ -187,8 +189,8 @@
 													</div>
 												</div>
 											</div>
-											<div class="progress_item">
-												<div class="progress_content">
+											<div class="progress_item" v-for="replay in defect.replies" :key="replay.id">
+												<div class="progress_content" v-if="defect.replies.length>0">
 													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
@@ -200,7 +202,7 @@
 													<div class="progress_info_block">
 													<div class="progress_info_item">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
+														<p class="author_chat message_date">{{ replay.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 													<p class="progress_title">Відповідь отримано</p>
 													</div>
@@ -351,6 +353,7 @@
 									<button class="btn outline_button btn_outline">Наступний &gt;</button>
 								</div>
 			</div>
+			</transition>
 		</mq-layout>
 		<mq-layout mq="sm">
 			<div class="container_works_mb">
@@ -470,10 +473,10 @@
 															<span v-if="card.status=='new'">Новий</span>
 															<span v-if="card.status=='in_progress'">В процесі</span>
 														</div>
-														<div class="status_comments" :title="'Кількість коментарів: ' + card.comments.length">
+														<!-- <div class="status_comments" :title="'Кількість коментарів: ' + card.comments.length">
 															<p class="status_count">{{ card.comments.length }}</p>
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
-														</div>
+														</div> -->
 													</div>
 													<p class="defect_adress" :title="card.address">{{ card.address }}</p>
 												</div>
@@ -661,7 +664,7 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">{{ claim.claim_date | moment("DD.MM.YY в HH:mm") }}</p>
+														<p class="author_chat message_date">{{ claim.online_delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
@@ -796,6 +799,32 @@ export default {
 </script>
 
 <style>
+	.fade-loader-enter-active{
+		transition: opacity 0.5s ease-out, transform 0.5s ease-in;
+		position:  relative !important;
+		transition-delay: 0.5s;
+	}
+	.fade-loader-leave-active {
+		transition: opacity 0.2s ease-out, transform 0.2s ease-in;
+		transition-delay: 0s;
+	}
+	.fade-loader-enter {
+		opacity: 0;
+		transform: translateY(0);
+	}
+	.fade-loader-enter-to {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave {
+		opacity: 0;
+		display: none;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave-to {
+		opacity: 0;
+		transform: scale(0.98);
+	}
 	@media all and (max-width:768px){
 		.arrow_forward{
 			position: absolute;
@@ -1147,14 +1176,14 @@ export default {
 		/* height: 100%; */
 		max-height: 130px;
 	}
-	.defect_content{
+	.defect_content_ht{
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
 		flex-wrap: wrap;
 		width: 100%;
 		padding: 0 10px;
-		height: 100%;
+		height: 100% !important;
 		flex: 1 1 60%;
 		overflow: hidden;
 	}
@@ -1300,6 +1329,16 @@ export default {
 		width: 35px;
 		margin: 8px 0;
 	}
+	/* .progress_indicator:hover{
+		border: 0 solid var(--background-color-normal);
+		background: var(--background-color-normal);
+		border-radius: 100%;
+		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
+		padding: 9px;
+		display: flex;
+		cursor: pointer;
+		font: 500 .8rem 'Montserrat', Arial, sans-serif;
+	} */
 	.progress_info_block{
 		display: flex;
 		flex-flow: column;

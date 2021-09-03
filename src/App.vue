@@ -1,6 +1,8 @@
 <template>
 	<div id="app">
-		<PageLoader v-if="!appsLoaded"/>
+		<transition name="fade-loader">
+			<PageLoader v-if="!appsLoaded"/>
+		</transition>
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
 		<main :class="{open: isOpen}" v-show="appsLoaded">
 			<mq-layout mq="md+" v-if="$mq == 'lg'">
@@ -383,7 +385,9 @@
 					<h2 class="section_title">Колекція дефектів</h2>
 					<div class="container_defects">
 						<Defects />
-						<router-view></router-view>
+						<transition name="fade-loader">
+							<router-view></router-view>
+						</transition>
 					</div>
 				</div>
 			</section>
@@ -531,9 +535,9 @@ export default {
 		Vue.prototype.$API = this;
 		this.startTimer();
 	},
-	beforeMount: function() {
+	beforeMount() {
 		// this.checkCode();
-		// const loader = document.onreadystatechange = async () => {
+		// document.onreadystatechange = async () => {
 		// 	if(await document.readyState == 'complete'){
 		// 		this.appsLoaded=true;
 		// 	}
@@ -543,6 +547,11 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
+		// document.onreadystatechange = async () => {
+		// 	if(await document.readyState == 'complete'){
+		// 		this.appsLoaded=true;
+		// 	}
+		// }
 		// this.checkCode();
 		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
@@ -727,6 +736,28 @@ export default {
 </script>
 
 <style>
+	.fade-loader-enter-active, .fade-loader-leave-active {
+		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+	}
+	.fade-loader-enter-active {
+		transition-delay: 0.5s;
+	}
+	.fade-loader-enter {
+		opacity: 0;
+		transform: translateY(-100px);
+	}
+	.fade-loader-enter-to {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+	.fade-loader-leave-to {
+		opacity: 0;
+		/* transform: scale(0.8); */
+	}
 	@media screen and (max-width:450px) {
 		#nav_mb {
 			padding: 5px 15px;

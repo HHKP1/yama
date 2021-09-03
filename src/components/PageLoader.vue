@@ -39,6 +39,8 @@ export default {
 	},
 	mounted() {
 		setTimeout(this.toggleShow, 0)
+		// if(this.$API.appsLoaded)
+		// 	this.isLoaded=true;
 		document.onreadystatechange = async () => {
 			if(await document.readyState == 'complete'){
 				this.isLoaded=true;
