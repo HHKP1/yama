@@ -386,7 +386,9 @@
 					<div class="container_defects">
 						<Defects />
 						<transition name="fade-loader">
-							<router-view></router-view>
+							<router-view>
+								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+							</router-view>
 						</transition>
 					</div>
 				</div>
@@ -463,6 +465,7 @@ import './assets/css/main.css';
 import PageLoader from './components/PageLoader';
 import FormInput from './components/FormInput';
 import Defects from './components/Defects';
+import VueElementLoading from 'vue-element-loading';
 import VueCookies from 'vue-cookies';
 
 Vue.use(VueCookies);
@@ -474,6 +477,7 @@ export default {
 		FormInput,
 		Defects,
 		PageLoader,
+		VueElementLoading
 	},
 	data() {
 		return {
@@ -522,7 +526,6 @@ export default {
 			selfFilters: false,
 			dateRangeFilterShown: false,
 			token: "",
-			id: 'c52060cf-bb91-43e7-bf92-d92e9e61736c',
 			dirtyExit: false,
 			user: {},
 			me: {},
@@ -548,6 +551,7 @@ export default {
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
+		this.isActive=true;
 		// document.onreadystatechange = async () => {
 		// 	if(await document.readyState == 'complete'){
 		// 		console.log('load');
@@ -555,7 +559,7 @@ export default {
 		// 	}
 		// }
 		// this.checkCode();
-		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
+		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
 		// setTimeout(this.appsLoaded, 5000);
 	},

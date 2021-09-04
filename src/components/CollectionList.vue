@@ -1,7 +1,7 @@
 <template>
 	<div style="flex: 0 0 72%">
 		<mq-layout mq="md+">
-			<div class="defect_content" v-if="!$route.path.includes('/defect')">
+			<div class="defect_content" v-if="!$route.path.includes('/collections/defect')">
 				<div class="defect_filter_count">
 							<div class="defect_filter_item">
 								<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>

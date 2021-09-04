@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 import VueRouter from 'vue-router';
 import gsap from 'gsap';
 import VueMq from 'vue-mq';

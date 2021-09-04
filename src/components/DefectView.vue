@@ -2,7 +2,7 @@
 	<div style="flex: 1 1 60%" v-if="this.appsLoaded">
 		<mq-layout mq="md+">
 			<transition name="fade-loader">
-			<div class="defect_content_ht" v-if="$route.path.includes('/defect/')">
+			<div class="defect_content_ht" v-if="$route.path.includes('/collections/defect/')">
 								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>

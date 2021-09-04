@@ -82,8 +82,7 @@
 										</label>
 									</p>
 								</div>
-								<button class="btn outline_button" v-if="!showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Показати на мапі</button>
-								<button class="btn outline_button" v-if="showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Згорнути мапу</button>
+								<button :key="showMap" class="btn outline_button" v-if="!$route.path.includes('/defect')" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
 								<button class="btn custom_button" :class="{active: btnActive}" @click="loadDefects()">Показати</button>
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
@@ -464,7 +463,7 @@ export default {
 					defID: def.id
 				}
 			})
-		}
+		},
 	},
 	watch: {
 		periodStart() {
@@ -533,7 +532,26 @@ export default {
 </script>
 
 <style>
-
+	.btn-map-enter-active {
+		transition: all 0.5s ease-out;
+		color:red
+	}
+	.btn-map-leave-active {
+		transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+	}
+	/* .btn-map-enter-to{
+		transform: translateX(-100px);
+	} */
+	/* .btn-map-leave-to{
+		transform: translateX(0px);
+	} */
+	.btn-map-enter-to{
+		transform: translateX(100px);
+		color:red;
+	}
+	.btn-map-leave{
+		transform: translateX(0px);
+	}
 	.select-item_choosen:hover {
 		border: solid 1px var(--border-color-hover);
 	}

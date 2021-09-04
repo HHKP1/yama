@@ -1573,7 +1573,7 @@
 		font: 500;
 	}
 	.defect_nav_item_mb p{
-		margin: 0 15px 0 0;
+		margin: 0 15px;
 		padding: 12px 0;
 		color: var(--color-gray);
 		cursor: pointer;
