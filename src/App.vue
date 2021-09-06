@@ -691,7 +691,7 @@ export default {
 				console.log(resp.status + ': ' + resp.statusText);
 			} else {
 				this.me = resp;
-				this.$eventBus.$emit('getMe', this.getMe);
+				this.$eventBus.$emit('getMe', this.me);
 				console.log(this.me);
 			}
 		},
