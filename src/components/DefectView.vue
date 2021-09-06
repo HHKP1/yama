@@ -296,7 +296,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
+													<p class="author_name" :title="me.first_name+' '+me.last_name+' '+me.patronymic">{{ me.first_name }}</p>
 												</div>
 											</div>
 											<FormInput
@@ -731,7 +731,7 @@ export default {
 		// this.me = await this.$API.me;
 		this.$eventBus.$on('getMe', async e => {
 			console.log(e);
-			if(!e) return;
+			// if(!e) return;
 			if(e) {
 				this.me = await e;
 			}
@@ -742,6 +742,13 @@ export default {
 	async mounted() {
 		this.$API.title = "Дефект";
 		this.isActive=true;
+		this.$eventBus.$on('setMe', async e => {
+			console.log(e);
+			// if(!e) return;
+			if(e) {
+				this.me = await e;
+			}
+		})
 	},
 	methods: {
 		openClaim(url){

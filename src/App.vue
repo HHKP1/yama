@@ -559,7 +559,7 @@ export default {
 		// 	}
 		// }
 		// this.checkCode();
-		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
+		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
 		// setTimeout(this.appsLoaded, 5000);
 	},
@@ -653,6 +653,8 @@ export default {
 				let resp = await this.apiGET('/me');
 				if (this.status[this.status.length-1].status == "login-ok") {
 					this.me = resp;
+					this.$eventBus.$emit('setMe', this.me);
+					// console.log(this.me);
 				}
 				this.profileLoaded = true;
 			}catch(e) {
@@ -688,10 +690,10 @@ export default {
 			let resp = await this.apiGET('/me');
 			console.log(resp);
 			if (resp.status != 200) {
-				console.log(resp.status + ': ' + resp.statusText);
+				console.log(resp);
 			} else {
+				this.$eventBus.$emit('setMe', this.me);
 				this.me = resp;
-				this.$eventBus.$emit('getMe', this.me);
 				console.log(this.me);
 			}
 		},
