@@ -27,7 +27,7 @@
 							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }} {{ this.me.last_name }}</p>
+								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
 							</div>
 						</div>
 					</div>
@@ -672,18 +672,27 @@ export default {
 				this.$refs.Line_3.setAttribute('style', 'transform: translate(649.5px, 904.5px) rotate(0);transition: transform .2s ease-out')
 			}
 		},
-		getMe() {
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', ('https://tala.cloudi.es/routes/95a4b653d1/api/me'))
-			xhr.send();
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState != 4) return;
-				if (xhr.status != 200) {
-					alert(xhr.status + ': ' + xhr.statusText);
-				} else {
-					this.me = JSON.parse(xhr.responseText);
-					console.log(this.me);
-				}
+		async getMe() {
+			// var xhr = new XMLHttpRequest();
+			// xhr.open('GET', ('https://tala.cloudi.es/routes/95a4b653d1/api/me'))
+			// xhr.send();
+			// xhr.onreadystatechange = function () {
+			// 	if (xhr.readyState != 4) return;
+			// 	if (xhr.status != 200) {
+			// 		alert(xhr.status + ': ' + xhr.statusText);
+			// 	} else {
+			// 		this.me = JSON.parse(xhr.responseText);
+			// 		console.log(this.me);
+			// 	}
+			// }
+			let resp = await this.apiGET('/me');
+			console.log(resp);
+			if (resp.status != 200) {
+				console.log(resp.status + ': ' + resp.statusText);
+			} else {
+				this.me = resp;
+				this.$eventBus.$emit('getMe', this.getMe);
+				console.log(this.me);
 			}
 		},
 		async logout() {

@@ -296,7 +296,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }} {{ this.me.last_name }}</p>
+													<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
 												</div>
 											</div>
 											<FormInput
@@ -727,8 +727,14 @@ export default {
 			pendingUpdate: null,
 		}
 	},
-	created() {
-		this.me = this.$API.me;
+	async created() {
+		// this.me = await this.$API.me;
+		this.$eventBus.$on('getMe', async e => {
+			console.log(e);
+			if(e.details !='denied' && e.status !='fail') {
+				this.me = await e;
+			}
+		})
 		let id = this.$route.params.id;
 		this.loadDefect(id);
 	},
@@ -793,7 +799,8 @@ export default {
 		},
 	},
 	beforeDestroy() {
-		this.$eventBus.$off('dfCards')
+		this.$eventBus.$off('dfCards');
+		this.$eventBus.$off('getMe');
 	}
 }
 </script>
