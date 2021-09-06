@@ -731,7 +731,8 @@ export default {
 		// this.me = await this.$API.me;
 		this.$eventBus.$on('getMe', async e => {
 			console.log(e);
-			if(e.details !='denied' && e.status !='fail') {
+			if(!e) return;
+			if(e) {
 				this.me = await e;
 			}
 		})
