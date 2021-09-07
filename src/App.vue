@@ -5,7 +5,7 @@
 		</transition>
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
 		<main :class="{open: isOpen}" v-show="appsLoaded">
-			<mq-layout mq="md+" v-if="$mq == 'lg'">
+			<mq-layout mq="md+" v-if="$mq == 'lg'">.$API
 				<div id="nav">
 					<a class="logo_link" href="/">
 						<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
@@ -27,7 +27,7 @@
 							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
+								<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
 							</div>
 						</div>
 					</div>
@@ -51,11 +51,11 @@
 						</div>
 					</div>
 					<div class="nav_links-container" :class="{open: isOpen}">
-						<div v-if="loggedIn" class="author_info_chat_mb" style="margin: 4px 8px;width:120px;">
+						<div v-if="loggedIn" class="author_info_chat_mb" style="margin: 4px 4px;width:180px;">
 							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
+								<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
 							</div>
 						</div>
 						<FormInput
