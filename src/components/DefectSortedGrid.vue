@@ -1,7 +1,7 @@
 <template>
 	<div style="flex: 0 0 100%">
 		<mq-layout mq="lg">
-			<!-- <vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/> -->
+			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 			<carousel class="VueCarousel-fullwidth_lg" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="5" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 				<div class="carousel_overlay" v-if="dfCard.length<=0">
 				<p class="empty_message">По цьому запиту немає дефектів</p>

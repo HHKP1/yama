@@ -386,9 +386,10 @@
 					<div class="container_defects">
 						<Defects />
 						<transition name="fade-loader">
+							<div style="flex: 0 0 72%">
 							<router-view>
-								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							</router-view>
+							</div>
 						</transition>
 					</div>
 				</div>
@@ -465,7 +466,6 @@ import './assets/css/main.css';
 import PageLoader from './components/PageLoader';
 import FormInput from './components/FormInput';
 import Defects from './components/Defects';
-import VueElementLoading from 'vue-element-loading';
 import VueCookies from 'vue-cookies';
 
 Vue.use(VueCookies);
@@ -477,7 +477,6 @@ export default {
 		FormInput,
 		Defects,
 		PageLoader,
-		VueElementLoading
 	},
 	data() {
 		return {
@@ -538,26 +537,10 @@ export default {
 		Vue.prototype.$API = this;
 		this.startTimer();
 	},
-	beforeMount() {
-		// this.checkCode();
-		// document.onreadystatechange = async () => {
-		// 	if(await document.readyState == 'complete'){
-		// 		console.log('load', document.readyState);
-		// 		this.appsLoaded=true;
-		// 	}
-		// }
-		// setTimeout(loader, 7000);
-	},
 	mounted() {
 		this.$API.title = "Аплікація";
 		this.$API.page = "app";
 		this.isActive=true;
-		// document.onreadystatechange = async () => {
-		// 	if(await document.readyState == 'complete'){
-		// 		console.log('load');
-		// 		this.appsLoaded=true;
-		// 	}
-		// }
 		// this.checkCode();
 		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
@@ -672,29 +655,6 @@ export default {
 				this.$refs.Line_2.setAttribute('style', 'transform: translate(658.5px, 910.5px) rotate(0);transition: transform .2s ease-out')
 				this.$refs.Line_3.setAttribute('x2', '21')
 				this.$refs.Line_3.setAttribute('style', 'transform: translate(649.5px, 904.5px) rotate(0);transition: transform .2s ease-out')
-			}
-		},
-		async getMe() {
-			// var xhr = new XMLHttpRequest();
-			// xhr.open('GET', ('https://tala.cloudi.es/routes/95a4b653d1/api/me'))
-			// xhr.send();
-			// xhr.onreadystatechange = function () {
-			// 	if (xhr.readyState != 4) return;
-			// 	if (xhr.status != 200) {
-			// 		alert(xhr.status + ': ' + xhr.statusText);
-			// 	} else {
-			// 		this.me = JSON.parse(xhr.responseText);
-			// 		console.log(this.me);
-			// 	}
-			// }
-			let resp = await this.apiGET('/me');
-			console.log(resp);
-			if (resp.status != 200) {
-				console.log(resp);
-			} else {
-				this.$eventBus.$emit('setMe', this.me);
-				this.me = resp;
-				console.log(this.me);
 			}
 		},
 		async logout() {

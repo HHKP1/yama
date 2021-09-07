@@ -1,6 +1,7 @@
 <template>
 	<div style="flex: 0 0 72%">
 		<mq-layout mq="md+">
+		<vue-element-loading :active="isActive" size="60" :isActiveDelay="true" duration="1" spinner="spinner" color="#FF6700"/>
 			<div class="defect_content" v-if="!$route.path.includes('/collections/defect')">
 				<div class="defect_filter_count">
 							<div class="defect_filter_item">
@@ -179,9 +180,14 @@ export default {
 		Vue.prototype.$API3 = this;
 		this.dfCards=this.dfCard;
 	},
+	beforeMount(){
+		if(!this.isActive)
+			this.isActive=true;
+	},
 	mounted() {
 		this.$API.title = "Колекція";
 		this.$API.page = "collection";
+		this.isActive=false;
 	},
 	methods: {
 		listClick(e, url) {

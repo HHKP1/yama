@@ -333,18 +333,22 @@ export default {
 		},
 		async loadDefects(change){
 			if(this.appsUpdating) return;
+			if(!this.isActive)
+				this.isActive=true;
 			this.btnActive=true;
 			// this.appsLoaded=true;
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
 				this.orgInfo = result;
+				this.isActive=true;
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
 				this.btnActive=false;
 				this.$eventBus.$emit('orgInfo', this.orgInfo);
 			}catch(e){
 				console.log(e);
+				this.isActive=true;
 			}
 			this.appsUpdating = false;
 			this.pendingUpdate = null;
@@ -520,7 +524,7 @@ export default {
 			}
 			this.resetApps();
 		},
-		'$route.query'(query) {
+		'$route.path'(query) {
 			if(query)
 				this.btnActive=true;
 		}

@@ -1779,6 +1779,7 @@
 		padding: 10px;
 		place-self: center;
 		transition: all 0.2s ease-in-out;
+		will-change: transform;
 	}
 	.defect_card_mb{
 		display: flex;
@@ -1792,6 +1793,7 @@
 		padding: 10px;
 		place-self: center;
 		transition: all 0.2s ease-in-out;
+		will-change: transform;
 	}
 	.defect_card:hover{
 		background: var(--background-color-prefooter);

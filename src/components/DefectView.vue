@@ -1,8 +1,14 @@
 <template>
-	<div style="flex: 1 1 60%" v-if="this.appsLoaded">
-		<mq-layout mq="md+">
+	<div>
+		<div style="flex: 1 1 60%;">
+				<div class="loader-container" v-if="!appsLoaded" style="flex: 1 1 60%;width: 75%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
 			<transition name="fade-loader">
-			<div class="defect_content_ht" v-if="$route.path.includes('/collections/defect/')">
+					<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+			</transition>
+				</div>
+			<mq-layout mq="md+">
+			<transition name="fade-loader">
+			<div class="defect_content_ht" v-if="appsLoaded">
 								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
@@ -354,9 +360,9 @@
 								</div>
 			</div>
 			</transition>
-		</mq-layout>
-		<mq-layout mq="sm">
-			<div class="container_works_mb">
+			</mq-layout>
+			<mq-layout mq="sm">
+			<div class="container_works_mb" v-if="appsLoaded">
 						<div class="container_defects_mb">
 							<!-- <div class="defect_content_mb" v-if="appsLoaded">
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
@@ -685,7 +691,8 @@
 							</div>
 						</div>
 			</div>
-		</mq-layout>
+			</mq-layout>
+		</div>
 	</div>
 </template>
 
@@ -728,7 +735,6 @@ export default {
 		}
 	},
 	async created() {
-		// this.me = await this.$API.me;
 		this.$eventBus.$on('getMe', async e => {
 			console.log(e);
 			// if(!e) return;
@@ -741,7 +747,8 @@ export default {
 	},
 	async mounted() {
 		this.$API.title = "Дефект";
-		this.isActive=true;
+		if(!this.isActive)
+			this.isActive=true;
 		this.$eventBus.$on('setMe', async e => {
 			console.log(e);
 			// if(!e) return;
@@ -766,7 +773,8 @@ export default {
 			}
 		},
 		async loadDefect(id){
-			this.isActive=true;
+			if(!this.isActive)
+				this.isActive=true;
 			try{
 				let result = await this.$API.apiGET("/defect?id="+id);
 				this.defect=result;
@@ -817,7 +825,7 @@ export default {
 	.fade-loader-enter-active{
 		transition: opacity 0.5s ease-out, transform 0.5s ease-in;
 		position:  relative !important;
-		transition-delay: 0.5s;
+		transition-delay: 1.2s;
 	}
 	.fade-loader-leave-active {
 		transition: opacity 0.2s ease-out, transform 0.2s ease-in;
@@ -826,6 +834,7 @@ export default {
 	.fade-loader-enter {
 		opacity: 0;
 		transform: translateY(0);
+		transition-delay: 1s;
 	}
 	.fade-loader-enter-to {
 		opacity: 1;
