@@ -1017,6 +1017,16 @@
 			flex-flow: row;
 			width: 100%;
 		}
+		.author_info_chat_mb{
+			margin: 4px 8px;
+			width: 120px;
+			position: absolute;
+			top: 2%;
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+			flex-flow: row-reverse;
+		}
 		/* #nav_mb {
 			padding: 5px 15px;
 			display: flex;

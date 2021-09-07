@@ -1,7 +1,12 @@
 <template>
 	<div>
 		<div style="flex: 1 1 60%;">
-				<div class="loader-container" v-if="!appsLoaded" style="flex: 1 1 60%;width: 75%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
+				<div class="loader-container" v-if="!appsLoaded && $mq=='md' && $mq=='lg'" style="flex: 1 1 60%;width: 75%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
+			<transition name="fade-loader">
+					<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+			</transition>
+				</div>
+				<div class="loader-container" v-if="!appsLoaded && $mq=='sm'" style="flex: 1 1 60%;width: 100%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
 			<transition name="fade-loader">
 					<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 			</transition>
@@ -403,7 +408,7 @@
 									</div>
 								</div>
 							</div> -->
-							<div class="defect_content" v-if="appsLoaded">
+							<div class="defect_content_mb" v-if="appsLoaded">
 								<div class="defect_filter_count">
 									<!-- <div class="defect_filter_item">
 										<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
@@ -1006,6 +1011,7 @@ export default {
 		.defect_content_mb{
 			padding: 0;
 			overflow: hidden;
+			height: 100%;
 		}
 		.footer_container_mb{
 			display: flex;

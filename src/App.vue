@@ -51,6 +51,13 @@
 						</div>
 					</div>
 					<div class="nav_links-container" :class="{open: isOpen}">
+						<div v-if="loggedIn" class="author_info_chat_mb" style="margin: 4px 8px;width:120px;">
+							<span class="logout" @click="logout">Вийти</span>
+							<div class="author_content">
+								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
+							</div>
+						</div>
 						<FormInput
 						title=""
 						label=""
@@ -151,7 +158,7 @@
 								</div>
 								<button class="btn custom_button hero-btn_mb">Додати дефект</button>
 							</div>
-							<div class="main-hero">
+							<div class="main-hero" v-if="!loggedIn">
 								<div class="hero-title">
 									<div class="hero-container_mb">
 										<div class="hero-content">
