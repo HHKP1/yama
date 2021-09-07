@@ -10,14 +10,14 @@
 				</div>
 				<div class="sorted_item">
 					<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
-					<FormSelect
+					<!-- <FormSelect
 						label=""
 						placeholder=""
 						:options="options.options_sort_by"
 						v-model="sort_by"
 						class="form-control_outline"
 						type="search"
-					/>
+					/> -->
 				</div>
 				<transition name="loader-map">
 				<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>

@@ -335,7 +335,8 @@ export default {
 			if(this.appsUpdating) return;
 			if(!this.isActive)
 				this.isActive=true;
-			this.btnActive=true;
+			if(!this.btnActive)
+				this.btnActive=true;
 			// this.appsLoaded=true;
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));

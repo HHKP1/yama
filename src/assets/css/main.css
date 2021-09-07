@@ -2055,13 +2055,13 @@
 		text-indent: 75px;
 		border: 1px solid var(--color-white)
 	}
-	.form-control_outline::before{
+	/* .form-control_outline::before{
 		content: "Сортування:";
 		font-size: .8rem;
 		position: absolute;
 		left: 0;
 		top: 25%;
-	}
+	} */
 	[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
 		height: 16px;
 		width: 16px;
