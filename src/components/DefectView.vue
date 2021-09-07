@@ -1356,6 +1356,11 @@ export default {
 	}
 	.progress_icon{
 		width: 22px;
+		transition: transform .2s ease-out;
+		cursor: pointer;
+	}
+	.progress_icon:hover{
+		transform:scale(1.3);
 	}
 	.progress_title{
 		font: 500 .8rem 'Montserrat';
@@ -1515,7 +1520,7 @@ export default {
 		color: white;
 		padding: 8px 6px 12px;
 		border-radius: 4px;
-		flex: 0 0 48%;
+		flex: 0 0 100%;
 		display: flex;
 		justify-content: space-between;
 	}

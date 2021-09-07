@@ -1703,16 +1703,6 @@
 		font-size: .8rem;
 		margin: 18px 4px;
 	}
-	.filter_title_mb{
-		text-align: left;
-		background: var(--color-red);
-		color: white;
-		padding: 8px 6px 12px;
-		border-radius: 4px;
-		flex: 0 0 48%;
-		display: flex;
-		justify-content: space-between;
-	}
 	.filter_title_mb::after{
 		content: '';
 		background: url(../../assets/img/icons/arrow_Stroke.svg) no-repeat center left;

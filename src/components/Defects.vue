@@ -92,7 +92,7 @@
 						<div class="container_defects_mb">
 							<div class="filters_controls_mb">
 										<p class="filter_title_mb" :class="{expand: isExpand}" @click="isExpand = !isExpand" style="text-align:left;">фільтри</p>
-										<div class="sorted_item_mb">
+										<!-- <div class="sorted_item_mb">
 											<FormSelect
 												label="Сортування"
 												placeholder=""
@@ -101,7 +101,7 @@
 												class="form-control_outline_mb"
 												type="search"
 											/>
-										</div>
+										</div> -->
 							</div>
 							<div class="defect_filters_mb">
 								<div class="filters_block_mb" :class="{expand: isExpand}">
