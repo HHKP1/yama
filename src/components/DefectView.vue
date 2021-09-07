@@ -1,15 +1,15 @@
 <template>
 	<div>
 		<div style="flex: 1 1 60%;">
-				<div class="loader-container" v-if="!appsLoaded && $mq=='md' && $mq=='lg'" style="flex: 1 1 60%;width: 75%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
-			<transition name="fade-loader">
-					<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-			</transition>
+				<div class="loader-container" v-if="!appsLoaded && $mq=='lg'" style="flex: 1 1 60%;width: 75%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
+					<transition name="fade-loader">
+							<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+					</transition>
 				</div>
 				<div class="loader-container" v-if="!appsLoaded && $mq=='sm'" style="flex: 1 1 60%;width: 100%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
-			<transition name="fade-loader">
-					<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-			</transition>
+					<transition name="fade-loader">
+							<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+					</transition>
 				</div>
 			<mq-layout mq="md+">
 			<transition name="fade-loader">
@@ -841,7 +841,7 @@ export default {
 	.fade-loader-enter-active{
 		transition: opacity 0.5s ease-out, transform 0.5s ease-in;
 		position:  relative !important;
-		transition-delay: 0.8s;
+		transition-delay: 0s;
 	}
 	.fade-loader-leave-active {
 		transition: opacity 0.2s ease-out, transform 0.2s ease-in;
