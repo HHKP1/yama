@@ -1100,6 +1100,7 @@
 		.defect_content_mb{
 			padding: 0;
 			overflow: hidden;
+			height: 100%;
 		}
 		.defect_image_detail_mb{
 			position: relative;

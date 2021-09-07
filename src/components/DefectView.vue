@@ -307,7 +307,7 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name" :title="me.first_name+' '+me.last_name+' '+me.patronymic">{{ me.first_name }}</p>
+													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
 												</div>
 											</div>
 											<FormInput
@@ -604,7 +604,8 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<!-- <p class="author_name">{{ defect.author.name }}</p> -->
+													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
+
 												</div>
 											</div>
 											<FormInput
@@ -639,7 +640,8 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name">{{ defect.case_status.current.author.name }}</p>
+													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
+
 												</div>
 											</div>
 											<FormInput
@@ -1354,7 +1356,7 @@ export default {
 		font: 500 .8rem 'Montserrat';
 		text-align: right;
 	}
-	.progress_icons{}
+	/* .progress_icons{} */
 	.progress_indicator{
 		width: 35px;
 		margin: 8px 0;
