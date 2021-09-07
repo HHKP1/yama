@@ -825,7 +825,7 @@ export default {
 	.fade-loader-enter-active{
 		transition: opacity 0.5s ease-out, transform 0.5s ease-in;
 		position:  relative !important;
-		transition-delay: 1.2s;
+		transition-delay: 0.8s;
 	}
 	.fade-loader-leave-active {
 		transition: opacity 0.2s ease-out, transform 0.2s ease-in;
