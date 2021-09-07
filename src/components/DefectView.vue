@@ -304,6 +304,9 @@
 											<p class="defect_description">Коментарі</p>
 										</div>
 										<div class="chat_input">
+											<div v-if="!this.$API.loggedIn" class="chat_overlay">
+												<p>Увійдіть щоб коментувати</p>
+											</div>
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
@@ -601,6 +604,9 @@
 											<span class="close_button" @click="toggleClass()">&times;</span>
 										</div>
 										<div class="chat_input">
+											<div v-if="!this.$API.loggedIn" class="chat_overlay">
+												<p>Увійдіть щоб коментувати</p>
+											</div>
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
@@ -637,6 +643,9 @@
 											<span class="close_button" @click="toggleClass()">&times;</span>
 										</div>
 										<div class="chat_input">
+											<div v-if="!this.$API.loggedIn" class="chat_overlay">
+												<p>Увійдіть щоб коментувати</p>
+											</div>
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
@@ -1597,7 +1606,7 @@ export default {
 		place-self: center;
 		transition: all 0.2s ease-in-out;
 	}
-	slide-detail.router-link-exact-active.router-link-active{
+	.slide-detail.router-link-exact-active.router-link-active{
 		background: var(--background-color-prefooter) !important;
 		border: 1px solid var(--status-color) !important;
 		filter: drop-shadow(2px 3px 3px var(--color-gray-light)) !important;
@@ -1639,6 +1648,22 @@ export default {
 		height: 100%;
 		max-height: 400px;
 		overflow-y: auto;
+	}
+	.chat_overlay{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background: var(--background-color-prefooter);
+		z-index: 999;
+		display: flex;
+		justify-content: center;
+		border-radius: 4px;
+		opacity: .9;
+	}
+	.chat_overlay p{
+		display: flex;
+		justify-content: center;
+		align-items:center;
 	}
 	.message_box{
 		text-align: left;

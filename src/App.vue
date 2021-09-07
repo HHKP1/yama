@@ -665,7 +665,6 @@ export default {
 			}
 		},
 		async logout() {
-			// this.$eventBus.$emit('notification', { payload: 'destroy' });
 			this.appsLoaded=false;
 			let resp = await this.apiGETv3('/logout');
 			// console.log(resp);
@@ -673,6 +672,7 @@ export default {
 			if (this.status[this.status.length - 1].status === "logged-out") {
 				this.loggedIn = false;
 				this.appsLoaded=true;
+				this.me={};
 				this.startTimer();
 			}
 			return resp;
