@@ -39,6 +39,7 @@
 			--button-hover: rgba(244,96,92, 100%);
 			--button-pressed: rgba(201,27,20, 100%);
 			--button-disabled: rgba(189,189,189, 100%);
+			--button-pagination-active: rgba(215,228,228, 100%);
 			--secondary-button-default: rgba(2,30,31, 100%);
 			--secondary-button-hover: rgba(244,96,92, 100%);
 			--secondary-button-pressed: rgba(201,27,20, 100%);
@@ -2094,7 +2095,7 @@
 		background-color: var(--color-white);
 		border: 1px solid var(--color-gray);
 	}
-	.pagination li.active a {
+	.pagination li.active {
 		color: var(--color-gray-light);
 	}
 	.card_pagination{
@@ -2113,6 +2114,7 @@
 		width: 32px;
 		border-radius: 4px;
 		border: 1px solid var(--color-gray-light);
+		padding: 7px;
 	}
 	.pagination li a{
 		color: #444;

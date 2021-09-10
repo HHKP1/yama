@@ -71,8 +71,8 @@
 			<div class="card_pagination" v-if="!this.$API2.showMap">
 				<div class="pagination_control">
 					<ul class="pagination">
-						<li v-for="pageNumber in totalPages" :key="pageNumber" class="waves-effect">
-							<a :key="pageNumber" href="/#/" @click="setPage(pageNumber)" :class="{active: currentPage === pageNumber, last: (pageNumber == totalPages && Math.abs(pageNumber - currentPage) > 3), first:(pageNumber == 1 && Math.abs(pageNumber - currentPage) > 3)}">{{ pageNumber }}</a>
+						<li v-for="pageNumber in totalPages" :key="pageNumber" class="waves-effect" @click="setPage(pageNumber)" :class="{active: currentPage === pageNumber, last: (pageNumber == totalPages && Math.abs(pageNumber - currentPage) > 3), first:(pageNumber == 1 && Math.abs(pageNumber - currentPage) > 3)}">
+							{{ pageNumber }}
 						</li>
 						<!-- <li class="active"><a href="#!">1</a></li>
 						<li class="waves-effect"><a href="#!">2</a></li>
