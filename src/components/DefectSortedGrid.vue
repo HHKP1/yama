@@ -92,7 +92,7 @@
 							<div class="defect_content_mb" v-if="appsLoaded">
 								<!-- <p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p> -->
 								<div class="grid-container_mb">
-									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
+									<div class="defect_card" v-for='(card, index) in dfCard' :key='index'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
 											<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 											<div class="defect_image">
@@ -278,6 +278,7 @@ export default {
 			if(e && (e.which == 2 || e.button == 4)) {
 				e.preventDefault(true);
 				window.open(url, "_new");
+				this.$eventBus.$emit('cardIdx', this.dfCard[0].idx)
 			}
 		},
 		async reloadApplication() {
@@ -288,8 +289,9 @@ export default {
 	computed: {
 		//API Data
 		dfCard(){
-			return this.$API2.orgInfo.map(card => {
+			return this.$API2.orgInfo.map((card, index) => {
 				return {
+					idx: index,
 					id: card.id,
 					address: card.address,
 					photo: card.photos,

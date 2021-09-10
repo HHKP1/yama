@@ -99,6 +99,7 @@ export default {
 			this.$emit('pagechanged', 1)
 		},
 		onClickPreviousPage() {
+			console.log('previous');
 			this.$emit('pagechanged', this.currentPage - 1)
 		},
 		onClickPage(page) {
@@ -106,6 +107,7 @@ export default {
 			this.$emit('pagechanged', page)
 		},
 		onClickNextPage() {
+			console.log('next');
 			this.$emit('pagechanged', this.currentPage + 1)
 		},
 		onClickLastPage() {

@@ -30,7 +30,7 @@
 					<div class="grid-block">
 				<transition name="fade-loader">
 						<div class="grid-container" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
-					<div class="defect_card" v-for='card in dfCard' :key='card.id'>
+					<div class="defect_card" v-for='card in paginate' :key='card.id'>
 					<router-link :to="'/collections/defect/'+card.id">
 						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
@@ -67,16 +67,19 @@
 				</transition>
 					</div>
 			</div>
+			<!-- <Pagination :data="dfCard" :perPage="8" :currentPage="currentPage" :totalPages="dfCard.length" :total="0"/> -->
 			<div class="card_pagination" v-if="!this.$API2.showMap">
-							<div class="pagination_control">
-								<ul class="pagination">
-									<li class="disabled"><a href="#!">F</a></li>
-									<li class="active"><a href="#!">1</a></li>
-									<li class="waves-effect"><a href="#!">2</a></li>
-									<li class="waves-effect"><a href="#!">3</a></li>
-									<li class="waves-effect"><a href="#!"> > </a></li>
-								</ul>
-							</div>
+				<div class="pagination_control">
+					<ul class="pagination">
+						<li v-for="pageNumber in totalPages" :key="pageNumber" class="waves-effect">
+							<a :key="pageNumber" href="/#/" @click="setPage(pageNumber)" :class="{active: currentPage === pageNumber, last: (pageNumber == totalPages && Math.abs(pageNumber - currentPage) > 3), first:(pageNumber == 1 && Math.abs(pageNumber - currentPage) > 3)}">{{ pageNumber }}</a>
+						</li>
+						<!-- <li class="active"><a href="#!">1</a></li>
+						<li class="waves-effect"><a href="#!">2</a></li>
+						<li class="waves-effect"><a href="#!">3</a></li>
+						<li class="waves-effect"><a href="#!"> > </a></li> -->
+					</ul>
+				</div>
 			</div>
 		</mq-layout>
 		<mq-layout mq="sm">
@@ -147,6 +150,7 @@
 import Vue from 'vue';
 import VueElementLoading from 'vue-element-loading';
 import GoogleMap from '../components/GoogleMap';
+// import Pagination from '../components/Pagination'
 
 // import defectCards from './mock_data';
 
@@ -154,7 +158,8 @@ export default {
 	name: 'collectionList',
 	components: {
 		VueElementLoading,
-		GoogleMap
+		GoogleMap,
+		// Pagination
 	},
 	data() {
 		return {
@@ -174,6 +179,9 @@ export default {
 			appsLoaded: false,
 			selfFilters: false,
 			showMap: false,
+			currentPage: 1,
+			resultCount: 0,
+			itemsPerPage: 8,
 		}
 	},
 	created(){
@@ -197,6 +205,9 @@ export default {
 				this.$eventBus.$emit('dfCards', this.dfCards);
 			}
 		},
+		setPage: function(pageNumber) {
+			this.currentPage = pageNumber;
+		}
 	},
 	computed: {
 		//API Data
@@ -214,6 +225,22 @@ export default {
 				}
 			});
 		},
+		totalPages() {
+			return Math.ceil(this.resultCount / this.itemsPerPage)
+		},
+		paginate() {
+			if (!this.dfCard) {
+				return
+			}
+			// eslint-disable-next-line vue/no-side-effects-in-computed-properties
+			this.resultCount = this.dfCard.length;
+			if (this.currentPage >= this.totalPages) {
+				// eslint-disable-next-line vue/no-side-effects-in-computed-properties
+				this.currentPage = this.totalPages;
+			}
+			let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+			return this.dfCard.slice(index, index + this.itemsPerPage)
+		}
 	},
 	watch: {},
 }
@@ -290,4 +317,7 @@ export default {
 	/* .grid-container.hide_grid {
 		visibility: hidden;
 	} */
+	li > a.active{
+		background-color:var(--button-pagination-active);
+	}
 </style>

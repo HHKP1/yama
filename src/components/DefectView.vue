@@ -363,8 +363,10 @@
 									</div>
 								</div>
 								<div class="detail_pagination">
-									<button class="btn outline_button btn_outline">&lt; Попередній</button>
-									<button class="btn outline_button btn_outline">Наступний &gt;</button>
+									<button class="btn outline_button btn_outline" v-if="dfCount>0" @click="prevDefect">&lt; Попередній</button>
+									<button class="btn outline_button btn_outline" v-else disabled="true">&lt; Попередній</button>
+									<button class="btn outline_button btn_outline" v-if="dfCount<dfCard.length-1" @click="nextDefect">Наступний &gt;</button>
+									<button class="btn outline_button btn_outline" v-else disabled="true">Наступний &gt;</button>
 								</div>
 			</div>
 			</transition>
@@ -745,6 +747,8 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			defect: {},
+			dfCount: 0,
+			id: '',
 			me: {},
 			sort_by: '',
 			pendingUpdate: null,
@@ -758,8 +762,8 @@ export default {
 				this.me = await e;
 			}
 		})
-		let id = this.$route.params.id;
-		this.loadDefect(id);
+		this.id = this.$route.params.id;
+		this.loadDefect(this.id);
 	},
 	async mounted() {
 		this.$API.title = "Дефект";
@@ -772,13 +776,20 @@ export default {
 				this.me = await e;
 			}
 		})
+		this.$eventBus.$on('cardIdx', async e => {
+			console.log(e);
+			// if(!e) return;
+			// if(e) {
+			// 	this.me = await e;
+			// }
+		})
 	},
 	methods: {
 		openClaim(url){
 			window.open(url, '_blank');
 		},
 		reducer: (acc, curr) => acc + curr,
-		toggleClass: function(event){
+		toggleClass(event){
 			if(this.isComments)
 				this.isComments = null;
 		},
@@ -801,12 +812,31 @@ export default {
 				this.isActive=false;
 			}
 		},
+		nextDefect(){
+			// this.dfCount=this.dfCard.idx;
+			this.dfCount++;
+			let j = this.dfCount;
+			console.log(this.dfCard[j].idx);
+			let id = this.dfCard[j].id;
+			// console.log(this.$route.params.id);
+			this.id=id;
+			this.loadDefect(this.id);
+		},
+		prevDefect(){
+			this.dfCount--;
+			let j = this.dfCount;
+			this.dfCount=this.dfCard[j].idx;
+			let id = this.dfCard[j].id;
+			this.$route.params.id=id;
+			this.loadDefect(id);
+		},
 	},
 	computed: {
 		//API Data
 		dfCard(){
-			return this.$API2.orgInfo.map(card => {
+			return this.$API2.orgInfo.map((card, index) => {
 				return {
+					idx: index,
 					id: card.id,
 					address: card.address,
 					photo: card.photos,
@@ -833,6 +863,7 @@ export default {
 	beforeDestroy() {
 		this.$eventBus.$off('dfCards');
 		this.$eventBus.$off('getMe');
+		this.$eventBus.$off('cardIdx');
 	}
 }
 </script>
