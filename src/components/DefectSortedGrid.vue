@@ -351,15 +351,6 @@ export default {
 			width: 100%;
 			border-bottom: 1px solid var(--color-gray-light);
 		}
-		.head-container_mb {
-			display: flex;
-			justify-content: space-between;
-			flex-flow: column-reverse;
-			position: relative;
-			top: 0;
-			padding: 0 20px;
-			width: 100%;
-		}
 		.VueCarousel {
 			display: flex;
 			flex-direction: column;
