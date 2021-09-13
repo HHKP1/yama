@@ -674,13 +674,13 @@
 		background-color: var(--button-outline);
 	}
 	.defect_share{
-		display: flex;
+		display: none;
 		width: 350px;
 		justify-content: space-between;
 		align-items: center;
 	}
 	.defect_share_mb{
-		display: flex;
+		display: none;
 		width: 100%;
 		justify-content: space-between;
 		align-items: center;
@@ -1469,7 +1469,7 @@
 	}
 	.arrow_down{
 		position: absolute;
-		right: 21%;
+		right: 20%;
 		bottom: 40%;
 		width: 4%;
 	}

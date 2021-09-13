@@ -84,7 +84,7 @@
 															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
 															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
 														</div>
-														<button class="author_chat underline-btn">Написати автору</button>
+														<button v-if="this.$API.loggedIn" class="author_chat underline-btn">Написати автору</button>
 													</div>
 												</div>
 											</div>

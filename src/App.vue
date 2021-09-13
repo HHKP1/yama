@@ -1022,21 +1022,8 @@ export default {
 		border: 1px solid var(--color-gray);
 		background-color: var(--button-outline);
 	}
-	.defect_share{
-		display: flex;
-		width: 350px;
-		justify-content: space-between;
-		align-items: center;
-	}
 	.just-text{
 		width: 100%;
-	}
-	.defect_share_mb{
-		display: flex;
-		width: 100%;
-		justify-content: space-between;
-		align-items: center;
-		flex-wrap: wrap;
 	}
 	.footer-outline_button{
 		font: 700 1.1rem 'Montserrat';
