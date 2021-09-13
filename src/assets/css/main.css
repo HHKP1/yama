@@ -289,7 +289,10 @@
 		width: 100%;
 	}
 	@media screen and (max-width:450px) {
-		
+		#nav_mb{
+			position: fixed;
+			background: var(--color-white);
+		}
 	}
 
 	.nav_links {
@@ -858,6 +861,8 @@
 			height: auto;
 			width: 100%;
 			border-bottom: 1px solid var(--color-gray-light);
+			position: fixed;
+			background: var(--color-white);
 		}
 		.overlay{
 			opacity: 0;
@@ -934,7 +939,7 @@
 		main.open {
 			width: 100%;
 			position: fixed;
-			top: 0;
+			/* top: 0; */
 		}
 		.icon_container_mb{
 			display: flex;
@@ -1452,7 +1457,7 @@
 	}
 	.arrow_fork_up{
 		position: absolute;
-		left: 22%;
+		left: 0%;
 		top: 0%;
 		width: 100%;
 	}

@@ -34,7 +34,7 @@
 				</div>
 			</mq-layout>
 			<mq-layout mq="sm+" v-if="$mq == 'sm' || $mq == 'md'">
-				<div id="nav_mb">
+				<div id="nav_mb" :class="{ 'hidden-navbar': !showNavbar }">
 					<div class="logo_container">
 						<a class="logo_link" href="/">
 							<img id="logo" src="./assets/img/icons/Logo_mobile.svg" alt="Logo">
@@ -475,6 +475,8 @@ import FormInput from './components/FormInput';
 import Defects from './components/Defects';
 import VueCookies from 'vue-cookies';
 
+const OFFSET = 60;
+
 Vue.use(VueCookies);
 // import defectCards from './mock_data';
 
@@ -538,6 +540,9 @@ export default {
 			page: '',
 			listType: 'ruined',
 			sort_by: '',
+			showNavbar: true,
+			lastScrollPosition: 0,
+			scrollValue: 0
 		}
 	},
 	created() {
@@ -549,9 +554,19 @@ export default {
 		this.$API.page = "app";
 		this.isActive=true;
 		// this.checkCode();
-		// Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
+		Vue.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a');
 		this.status.push({ "cookies": document.cookie });
 		// setTimeout(this.appsLoaded, 5000);
+		this.lastScrollPosition = window.pageYOffset;
+		window.addEventListener('scroll', this.onScroll);
+		// const viewportMeta = document.createElement('meta');
+		// const customTitle = document.createElement('title');
+		// const customTag = document.createElement('meta');
+		// customTitle = 'Ukr-Yama';
+		// viewportMeta.name = 'viewport';
+		// viewportMeta.content = 'width=device-width, initial-scale=1';
+		// document.head.appendChild(viewportMeta);
+		// document.head.appendChild(customTitle);
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -693,6 +708,16 @@ export default {
 		startTimer: function () {
 			this.timer = setInterval(this.checkCode, 5200);
 		},
+		onScroll () {
+			if (window.pageYOffset < 0) {
+				return
+			}
+			if (Math.abs(window.pageYOffset - this.lastScrollPosition) < OFFSET) {
+				return
+			}
+			this.showNavbar = window.pageYOffset < this.lastScrollPosition
+			this.lastScrollPosition = window.pageYOffset
+		}
 	},
 	computed: {
 		//API Data
@@ -716,6 +741,9 @@ export default {
 		}
 	},
 	watch: {},
+	beforeDestroy () {
+		window.removeEventListener('scroll', this.onScroll)
+	},
 }
 </script>
 
@@ -751,6 +779,14 @@ export default {
 			height: auto;
 			width: 100%;
 			border-bottom: 1px solid var(--color-gray-light);
+			transition: transform .2s ease-out;
+			position: fixed;
+			background: var(--color-white);
+			z-index: 3;
+		}
+		#nav_mb.hidden-navbar {
+			box-shadow: none;
+			transform: translate3d(0, -100%, 0);
 		}
 		.head-container_mb {
 			display: flex;
