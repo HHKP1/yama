@@ -360,7 +360,7 @@ export default {
 			this.periodStart='';
 			this.periodEnd='';
 			// this.removeQueryParam({}, this.$route.query);
-			// this.loadDefects(true);
+			this.loadDefects(true);
 		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
