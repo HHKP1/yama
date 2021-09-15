@@ -348,7 +348,8 @@ export default {
 	},
 	methods: {
 		resetFilters() {
-			// this.resetApps();
+			this.appsLoaded=true;
+			this.resetApps();
 			this.searchAddressFilter='';
 			this.search_by_date='';
 			this.search_by_type='';
@@ -359,8 +360,7 @@ export default {
 			this.selectedType='';
 			this.periodStart='';
 			this.periodEnd='';
-			// this.removeQueryParam({}, this.$route.query);
-			this.loadDefects(true);
+			this.forceUpdate=true;
 		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
@@ -381,12 +381,7 @@ export default {
 				let result = await this.pendingUpdate.ready;
 				if(!this.isActive)
 					this.isActive=true;
-				if(result.length > 0) {
-					this.orgInfo = result;
-					// clearInterval(this.appsUpdateInterval);
-					this.isActive=false;
-				}
-				this.isActive=true;
+				this.orgInfo = result;
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
 				this.btnActive=false;
@@ -590,6 +585,11 @@ export default {
 			this.resetApps();
 			this.loadDefects(true);
 		},
+		'$route.query'(query){
+			if(query){
+				this.loadDefects(true);
+			}
+		}
 	},
 	beforeDestroy() {
 		this.$API.appsFilter.searchAddressFilter=this.searchAddressFilter;
@@ -604,6 +604,7 @@ export default {
 		this.$API.appsFilter.periodEnd=this.periodEnd;
 		clearInterval('orgN');
 		clearInterval(this.appsUpdateInterval);
+		this.resetApps();
 	},
 }
 </script>
