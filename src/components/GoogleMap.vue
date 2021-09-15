@@ -22,7 +22,7 @@
 														:ref="`m${index}`"
 														@mouseover="toggleInfoWindow(m, index)"
 														:icon="m.icon[0].icon"
-														@click="listClick($event, '/collections/defect/'+m.id )"
+														@click="listClick($event, '/'+m.id )"
 													>
 													</GmapMarker>
 														</router-link>
@@ -34,7 +34,7 @@
 													@closeclick="infoWinOpen=false"
 													>
 														<div class="info-window_container">
-																<span class="btn outline_button" @click="listClick($event, '/collections/defect/'+m.id )">Деталі дефекту
+																<span class="btn outline_button" @click="listClick($event, '/'+m.id )">Деталі дефекту
 																	<router-link :to="'/collections/defect/'+m.id">
 																	</router-link>
 																</span>
@@ -126,6 +126,7 @@ export default {
 				this.markers=[];
 			this.arrMarkers.forEach((l, i) => {
 				if (l == null) return;
+				// console.log(l);
 				let icn = customMarkers.filter(ic => ic.name==l.type);
 				let lat = l.lat;
 				let lng = l.lng;

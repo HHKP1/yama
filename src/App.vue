@@ -542,7 +542,16 @@ export default {
 			sort_by: '',
 			showNavbar: true,
 			lastScrollPosition: 0,
-			scrollValue: 0
+			scrollValue: 0,
+			searchAddressFilter: '',
+			search_by_date: '',
+			search_by_type: '',
+			selectedRegion: '',
+			selectedLocationType: '',
+			selectedStatus: '',
+			selectedType: '',
+			periodStart: '',
+			periodEnd: '',
 		}
 	},
 	created() {

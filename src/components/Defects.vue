@@ -28,6 +28,7 @@
 												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
 													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
 														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
+														<img class="calendar_icon" src="../assets/img/calendar.png" alt="">
 														<span class="calendar__icon" v-if="periodShow == ''"></span>
 													</p>
 												</div>
@@ -82,8 +83,9 @@
 										</label>
 									</p>
 								</div>
-								<button :key="showMap" class="btn outline_button" v-if="!$route.path.includes('/defect')" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
-								<button class="btn custom_button" :class="{active: btnActive}" @click="loadDefects()">Показати</button>
+								<button :key="dfCard.id" class="btn outline_button" v-if="!queryCheck.some(o => queryStr.includes(o))" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
+								<button class="btn custom_button" @click="loadDefects()">Показати</button>
+								<button class="btn custom_button" @click="resetFilters()">Скинути всі фільтри</button>
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
@@ -280,6 +282,7 @@ export default {
 			btnActive: false,
 			appsLoaded: false,
 			orgInfo: [],
+			filterOrgInfo: [],
 			regions: [],
 			searchAddressFilter: '',
 			search_by_date: '',
@@ -297,12 +300,13 @@ export default {
 			pendingUpdate: null,
 			dateRangeFilterShown: false,
 			appsUpdateInterval: null,
+			queryCheck: [],
+			queryStr: '',
 		}
 	},
 	async created() {
 		Vue.prototype.$API2 = this;
-		this.loadRegions(true);
-		// this.loadDefects(true);
+		// this.loadRegions(true);
 		this.$eventBus.$on('orgN', async e => {
 			if(e!=this.orgInfo) {
 				await this.loadDefects(true);
@@ -316,15 +320,49 @@ export default {
 	mounted() {
 		this.$API.title = "Дефекти";
 		this.$API.page = "defects";
+		// console.log(this.$route);
+
+		this.searchAddressFilter=this.$API.searchAddressFilter;
+		this.search_by_date=this.$API.search_by_date;
+		this.search_by_type=this.$API.search_by_type;
+		this.sort_by=this.$API.sort_by;
+		this.selectedRegion=this.$API.selectedRegion;
+		this.selectedLocationType=this.$API.selectedLocationType;
+		this.selectedStatus=this.$API.selectedStatus;
+		this.selectedType=this.$API.selectedType;
+		this.periodStart=this.$API.periodStart;
+		this.periodEnd=this.$API.periodEnd;
+
 		// this.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a')
 
-		if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params) > -1)
-			this.listType = this.$route.params.listType;
-		else
-			this.listType = '';
-		// this.loadDefects(true);
+		// if(this.$route.params.listType && ['hole', 'manually', 'ForeignObj', 'ruined', 'PoorQualityRepair', 'Snow', 'yard_hole'].indexOf(this.$route.params) > -1)
+		// 	this.listType = this.$route.params.listType;
+		// else
+		// 	this.listType = '';
+		// Object.entries(this.$route.query).forEach(([key, value]) => {
+		// 	if(key in this.$API.appsFilters) {
+		// 		this.$API.appsFilters[key] = value;
+		// 	}
+		// });
+		this.loadDefects(true);
+		this.appsUpdateInterval = setInterval(this.loadDefects, 1000);
 	},
 	methods: {
+		resetFilters() {
+			// this.resetApps();
+			this.searchAddressFilter='';
+			this.search_by_date='';
+			this.search_by_type='';
+			this.sort_by='';
+			this.selectedRegion='';
+			this.selectedLocationType='';
+			this.selectedStatus='';
+			this.selectedType='';
+			this.periodStart='';
+			this.periodEnd='';
+			// this.removeQueryParam({}, this.$route.query);
+			// this.loadDefects(true);
+		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
 				e.preventDefault(true);
@@ -333,6 +371,7 @@ export default {
 		},
 		async loadDefects(change){
 			if(this.appsUpdating) return;
+			this.appsUpdating=true;
 			if(!this.isActive)
 				this.isActive=true;
 			if(!this.btnActive)
@@ -341,7 +380,13 @@ export default {
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
-				this.orgInfo = result;
+				if(!this.isActive)
+					this.isActive=true;
+				if(result.length > 0) {
+					this.orgInfo = result;
+					// clearInterval(this.appsUpdateInterval);
+					this.isActive=false;
+				}
 				this.isActive=true;
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
@@ -354,17 +399,18 @@ export default {
 			this.appsUpdating = false;
 			this.pendingUpdate = null;
 		},
-		async loadRegions(change){
-			try{
-				let result = await this.$API.apiGET("/regions");
+		// async loadRegions(change){
+		// 	try{
+		// 		let result = await this.$API.apiGET("/regions");
 
-				this.regions=result;
-			}catch(e){
-				console.log(e);
-			}
-		},
+		// 		this.regions=result;
+		// 	}catch(e){
+		// 		console.log(e);
+		// 	}
+		// },
 		resetApps() {
 			// this.orgInfo=[];
+			console.log('reset');
 			this.appsLoaded = false;
 			if(this.pendingUpdate) {
 				this.pendingUpdate.abort();
@@ -469,24 +515,38 @@ export default {
 				}
 			})
 		},
+		dfCard(){
+			return this.orgInfo.map(card => {
+				return {
+					id: card.id,
+					address: card.address,
+					photo: card.photos,
+					status: card.case_status.current.status,
+					comments: card.comments,
+					// author: card.author.name,
+					defect_type: card.defect_type,
+					// region_id: card.photos[0].region_id,
+				}
+			});
+		},
 	},
 	watch: {
 		periodStart() {
-			if(this.periodStart == "") {
+			if(this.periodStart == '') {
 				this.removeQueryParam('since');
 			} else {
 				this.addQueryParam('since', this.periodStart);
 			}
 		},
 		periodEnd() {
-			if(this.periodEnd == "") {
+			if(this.periodEnd == '') {
 				this.removeQueryParam('to');
 			} else {
 				this.addQueryParam('to', this.periodEnd);
 			}
 		},
 		selectedStatus() {
-			if(this.selectedStatus ==null) {
+			if(this.selectedStatus == '') {
 				this.removeQueryParam('status');
 			} else {
 				this.addQueryParam('status', this.selectedStatus);
@@ -494,7 +554,7 @@ export default {
 			this.resetApps();
 		},
 		selectedRegion() {
-			if(this.selectedRegion ==null) {
+			if(this.selectedRegion == '') {
 				this.removeQueryParam('region');
 			} else {
 				this.addQueryParam('region', this.selectedRegion);
@@ -502,7 +562,7 @@ export default {
 			this.resetApps();
 		},
 		selectedType() {
-			if(this.selectedType ==null) {
+			if(this.selectedType == '') {
 				this.removeQueryParam('type');
 			} else {
 				this.addQueryParam('type', this.selectedType);
@@ -510,7 +570,7 @@ export default {
 			this.resetApps();
 		},
 		selectedLocationType() {
-			if(this.selectedLocationType ==null) {
+			if(this.selectedLocationType == '') {
 				this.removeQueryParam('location');
 			} else {
 				this.addQueryParam('location', this.selectedLocationType);
@@ -518,25 +578,44 @@ export default {
 			this.resetApps();
 		},
 		searchAddressFilter() {
-			if(this.searchAddressFilter ==null) {
+			if(this.searchAddressFilter == '') {
 				this.removeQueryParam('address');
 			} else {
 				this.addQueryParam('address', this.searchAddressFilter);
 			}
 			this.resetApps();
 		},
-		'$route.path'(query) {
-			if(query)
-				this.btnActive=true;
-		}
 	},
 	beforeDestroy() {
+		this.$API.searchAddressFilter=this.searchAddressFilter;
+		this.$API.search_by_date=this.search_by_date;
+		this.$API.search_by_type=this.search_by_type;
+		this.$API.sort_by=this.sort_by;
+		this.$API.selectedRegion=this.selectedRegion;
+		this.$API.selectedLocationType=this.selectedLocationType;
+		this.$API.selectedStatus=this.selectedStatus;
+		this.$API.selectedType=this.selectedType;
+		this.$API.periodStart=this.periodStart;
+		this.$API.periodEnd=this.periodEnd;
 		clearInterval('orgN');
+		clearInterval(this.appsUpdateInterval);
 	},
 }
 </script>
 
 <style>
+	.calendar_icon {
+        color: rgba(0, 0, 0, 0);
+        opacity: 1;
+        /*display: block;*/
+        background: url(../assets/img/calendar.png) no-repeat center;
+        background-size: 2% 2%;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 20px;
+        top: 30%;
+    }
 	.btn-map-enter-active {
 		transition: all 0.5s ease-out;
 		color:red

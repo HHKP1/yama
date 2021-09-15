@@ -17,12 +17,13 @@
 								<router-link class="defect_links" to="/collections">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
-								<DefectSortedGrid v-if="$mq == 'lg'" />
+								<DefectSortedGrid :defect="defect" v-if="$mq == 'lg'" />
 								<div class="defect_nav_container">
 									<div class="defect_nav">
 										<div class="defect_nav_item_mb" @click="isCommentsMd = 1" :style="{'border-bottom': isCommentsMd === 1 ? '2px solid var(--color-red)' : ''}"><p>Детальна інформація</p></div>
-										<div class="defect_nav_item_mb" @click="isCommentsMd = 2" :style="{'border-bottom': isCommentsMd === 2 ? '2px solid var(--color-red)' : ''}"><p>Коментарі</p></div>
-										<div class="defect_nav_item_mb" @click="isCommentsMd = 3" :style="{'border-bottom': isCommentsMd === 3 ? '2px solid var(--color-red)' : ''}"><p>Документи</p></div>
+										<div class="defect_nav_item_mb" @click="isCommentsMd = 2" :style="{'border-bottom': isCommentsMd === 2 ? '2px solid var(--color-red)' : ''}"><p>Історія дефекту</p></div>
+										<div class="defect_nav_item_mb" @click="isCommentsMd = 3" :style="{'border-bottom': isCommentsMd === 3 ? '2px solid var(--color-red)' : ''}"><p>Коментарі</p></div>
+										<div class="defect_nav_item_mb" @click="isCommentsMd = 4" :style="{'border-bottom': isCommentsMd === 4 ? '2px solid var(--color-red)' : ''}"><p>Документи</p></div>
 									</div>
 								</div>
 								<div class="defect_info_content">
@@ -38,6 +39,10 @@
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='Snow'">Сніг</h3>
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='ForeignObj'">Інородний об'єкт</h3>
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='yard_hole'">Яма у дворі</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='sidewalk'">Тротуар</h3>
+												<div class="shovel_status" style="width:0;" v-for="img in arrMarkers" :key="img.id">
+													<img class="type_marker_df" v-if="img.name===defect.defect_type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
+												</div>
 												<!-- <p class="defect_description">{{ defect.comment }}</p> -->
 											</div>
 										</div>
@@ -78,6 +83,17 @@
 											</carousel>
 											<div class="defect_detail_info">
 												<div class="info_item">
+													<p class="author_item">Дата розміщення</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<p class="date_placement">{{ defect.added | moment("DD.MM.YY в HH:mm") }}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="defect_detail_info">
+												<div class="info_item">
 													<p class="author_item">Автор</p>
 													<div class="author_info">
 														<div class="author_content">
@@ -99,16 +115,6 @@
 													</div>
 												</div>
 											</div>
-											<div class="defect_detail_info" v-for="comm in defect.comments" :key="comm.id">
-												<div class="info_item">
-													<p class="author_item">Опис</p>
-													<div class="author_info">
-														<div class="author_content">
-															<p class="author_name">{{ comm.text }}</p>
-														</div>
-													</div>
-												</div>
-											</div>
 											<div class="defect_share">
 												<button class="btn outline_button_share">Надіслати в поліцію</button>
 												<button class="btn custom_button_share">
@@ -120,6 +126,11 @@
 										</div>
 									</div>
 									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 1}">
+										<!-- <div class="progress_container"> -->
+										<img class="map_image" :src="defect.map_url" alt="Map view">
+										<!-- </div> -->
+									</div>
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 2}">
 										<div class="progress_container">
 											<div class="progress_item">
 												<div class="progress_content">
@@ -299,7 +310,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 2}">
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 3}">
 										<div class="defect_title_container">
 											<p class="defect_description">Коментарі</p>
 										</div>
@@ -336,7 +347,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 3}">
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 4}">
 										<div class="defect_title_container">
 											<p class="defect_description">Документи</p>
 										</div>
@@ -580,7 +591,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="defect_detail_info" v-for="comm in defect.comments" :key="comm.id">
+											<!-- <div class="defect_detail_info" v-for="comm in defect.comments" :key="comm.id">
 												<div class="info_item">
 													<p class="author_item">Опис</p>
 													<div class="author_info">
@@ -589,7 +600,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> -->
 											<div class="defect_share_mb">
 												<button class="btn outline_button_share_mb">Надіслати в поліцію</button>
 												<button class="btn custom_button_share_mb">
@@ -718,6 +729,7 @@
 import { Carousel, Slide } from 'vue-carousel';
 import VueElementLoading from 'vue-element-loading';
 import DefectSortedGrid from '../components/DefectSortedGrid';
+import customMarkers from '../assets/js/typeIcons';
 // import Pagination from './components/Pagination.vue';
 
 // import defectCards from './mock_data';
@@ -750,13 +762,14 @@ export default {
 			dfCount: 0,
 			id: '',
 			me: {},
+			markers: [],
 			sort_by: '',
 			pendingUpdate: null,
 		}
 	},
 	async created() {
 		this.$eventBus.$on('getMe', async e => {
-			console.log(e);
+			// console.log(e);
 			// if(!e) return;
 			if(e) {
 				this.me = await e;
@@ -770,14 +783,14 @@ export default {
 		if(!this.isActive)
 			this.isActive=true;
 		this.$eventBus.$on('setMe', async e => {
-			console.log(e);
+			// console.log(e);
 			// if(!e) return;
 			if(e) {
 				this.me = await e;
 			}
 		})
 		this.$eventBus.$on('cardIdx', async e => {
-			console.log(e);
+			// console.log(e);
 			// if(!e) return;
 			// if(e) {
 			// 	this.me = await e;
@@ -805,6 +818,8 @@ export default {
 			try{
 				let result = await this.$API.apiGET("/defect?id="+id);
 				this.defect=result;
+				this.$API2.queryCheck.push(this.defect.id);
+				this.$API2.queryStr=this.defect.id;
 				this.isActive=false;
 				this.appsLoaded=true;
 			}catch(e){
@@ -816,7 +831,7 @@ export default {
 			// this.dfCount=this.dfCard.idx;
 			this.dfCount++;
 			let j = this.dfCount;
-			console.log(this.dfCard[j].idx);
+			// console.log(this.dfCard[j].idx);
 			let id = this.dfCard[j].id;
 			// console.log(this.$route.params.id);
 			this.id=id;
@@ -845,9 +860,20 @@ export default {
 					// author: card.comments[0].author.name,
 					defect_type: card.defect_type,
 					// region_id: card.photos[0].region_id,
+					map: card.map_url
 				}
 			})
-		}
+		},
+		arrMarkers() {
+			return customMarkers.map(m => {
+				return {
+					// icon: m.icon[0].icon,
+					icon: m.icon,
+					name: m.name,
+					// id: m.id,
+				}
+			})
+		},
 	},
 	watch: {
 		'$route.path'() {
@@ -859,11 +885,18 @@ export default {
 			if(this.defect && id != this.defect.id)
 				this.loadDefect(id);
 		},
+		// latLong: {
+		// 	handler: function(val, oldVal) {
+		// 		this.loadMarkers();
+		// 	},
+		// 	deep: true
+		// }
 	},
 	beforeDestroy() {
 		this.$eventBus.$off('dfCards');
 		this.$eventBus.$off('getMe');
 		this.$eventBus.$off('cardIdx');
+		this.$API2.queryCheck=[];
 	}
 }
 </script>
@@ -1270,6 +1303,10 @@ export default {
 		/* flex: 1 1 60%; */
 		overflow: hidden;
 	}
+	.map_image{
+		width: 80%;
+		cursor: pointer;
+	}
 	.defect_links{
 		width: 100%;
 		position: relative;
@@ -1326,7 +1363,7 @@ export default {
 		display: none;
 	}
 	.defect_description_info_tab.openActive{
-		flex: 1 0 50%;
+		flex: 1 1 100%;
 		position: relative;
 		padding: 0 12px;
 		display: block;
@@ -1796,8 +1833,8 @@ export default {
 		left: 4%;
 		bottom: 4%;
 	}
-	.defect_color{
-		background: var(--color-white);
+	.defect_color_df{
+		/* background: var(--color-white); */
 		border-radius: 100%;
 		position: absolute;
 		right: 7px;

@@ -51,7 +51,7 @@ const routes = [
 	{ path: '/', component: CollectionList, props: true },
 	{ path: '/collections', component: CollectionList, props: true },
 	{ path: '/collections', component: GoogleMap, name: 'GoogleMap', props: true },
-	{ path: '/collections/defect/:id', component: DefectView, props: true },
+	{ path: '/:id', component: DefectView, props: true },
 	{ path: '/404', component: NotFoundPage },
 ]
 

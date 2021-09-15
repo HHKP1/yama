@@ -2,19 +2,21 @@
 	<div style="flex: 0 0 100%">
 		<mq-layout mq="lg">
 			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
-			<carousel class="VueCarousel-fullwidth_lg" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="5" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
+			<carousel class="VueCarousel-fullwidth_lg" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :paginationEnabled="false" :perPage="5" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 				<div class="carousel_overlay" v-if="dfCard.length<=0">
 				<p class="empty_message">По цьому запиту немає дефектів</p>
 			</div>
 				<slide class="slide-detail" v-for='card in dfCard' :key='card.id'>
-					<router-link :to="'/collections/defect/'+card.id">
+					<router-link :to="'/'+card.id">
 						<div class="defect_card">
-							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
+							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							<div class="defect_image">
 								<img class="card_image" :src="card.photo[0].url" alt="">
 								<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
-								<div class="defect_color"></div>
+								<div class="defect_color" v-for="img in arrMarkers" :key="img.id">
+									<img class="type_marker" v-if="img.name===card.type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
+								</div>
 							</div>
 							<div class="defect_info">
 								<div class="defect_status">
@@ -50,14 +52,16 @@
 					<p class="empty_message">По цьому запиту немає дефектів</p>
 				</div>
 				<slide class="slide-detail" v-for='card in dfCard' :key='card.id'>
-					<router-link :to="'/defect/'+card.id">
+					<router-link :to="'/'+card.id">
 						<div class="defect_card">
-							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/defect/'+card.id )">
+							<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							<div class="defect_image">
 								<img class="card_image" :src="card.photo[0].url" alt="">
 								<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
-								<div class="defect_color"></div>
+								<div class="defect_color" v-for="img in arrMarkers" :key="img.id">
+									<img class="type_marker" v-if="img.name===card.type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
+								</div>
 							</div>
 							<div class="defect_info">
 								<div class="defect_status">
@@ -194,8 +198,8 @@
 								<carousel :navigationEnabled="true" :paginationEnabled="false" :adjustableHeight="true" :mouseDrag="true" :perPage="2" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
 									<slide v-for='card in dfCard' :key='card.id'>
 										<div class="defect_card_mb">
-											<router-link :to="'/collections/defect/'+card.id">
-												<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
+											<router-link :to="'/'+card.id">
+												<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
 												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 												<div class="defect_image">
 													<img class="card_image" :src="card.photo[0].url" alt="">
@@ -230,6 +234,8 @@
 <script>
 import { Carousel, Slide } from 'vue-carousel';
 import VueElementLoading from 'vue-element-loading';
+import customMarkers from '../assets/js/typeIcons';
+
 // import Pagination from './components/Pagination.vue';
 
 // import defectCards from './mock_data';
@@ -297,8 +303,19 @@ export default {
 					photo: card.photos,
 					status: card.case_status.current.status,
 					comment: card.comments,
+					type: card.defect_type,
 				}
 			});
+		},
+		arrMarkers() {
+			return customMarkers.map(m => {
+				return {
+					// icon: m.icon[0].icon,
+					icon: m.icon,
+					name: m.name,
+					// id: m.id,
+				}
+			})
 		},
 	},
 	watch: {

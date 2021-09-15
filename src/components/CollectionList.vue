@@ -31,13 +31,15 @@
 				<transition name="fade-loader">
 						<div class="grid-container" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
 					<div class="defect_card" v-for='card in paginate' :key='card.id'>
-					<router-link :to="'/collections/defect/'+card.id">
-						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
+					<router-link :to="'/'+card.id">
+						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							<div class="defect_image">
 								<img class="card_image" :src="card.photo[0].url" alt="">
 								<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
-								<div class="defect_color"></div>
+								<div class="defect_color" v-for="img in arrMarkers" :key="img.id">
+									<img class="type_marker" v-if="img.name===card.defect_type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
+								</div>
 							</div>
 							<div class="defect_info">
 								<div class="defect_status">
@@ -95,8 +97,8 @@
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
 									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
-										<router-link :to="'/collections/defect/'+card.id">
-											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/collections/defect/'+card.id )">
+										<router-link :to="'/'+card.id">
+											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
 												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 												<div class="defect_image">
 													<img class="card_image_mb" :src="card.photo[0].url" alt="">
@@ -150,6 +152,8 @@
 import Vue from 'vue';
 import VueElementLoading from 'vue-element-loading';
 import GoogleMap from '../components/GoogleMap';
+import customMarkers from '../assets/js/typeIcons';
+
 // import Pagination from '../components/Pagination'
 
 // import defectCards from './mock_data';
@@ -186,16 +190,16 @@ export default {
 	},
 	created(){
 		Vue.prototype.$API3 = this;
-		this.dfCards=this.dfCard;
 	},
 	beforeMount(){
 		if(!this.isActive)
 			this.isActive=true;
 	},
-	mounted() {
+	async mounted() {
 		this.$API.title = "Колекція";
 		this.$API.page = "collection";
 		this.isActive=false;
+		this.dfCards = this.dfCard;
 	},
 	methods: {
 		listClick(e, url) {
@@ -225,6 +229,16 @@ export default {
 				}
 			});
 		},
+		arrMarkers() {
+			return customMarkers.map(m => {
+				return {
+					// icon: m.icon[0].icon,
+					icon: m.icon,
+					name: m.name,
+					// id: m.id,
+				}
+			})
+		},
 		totalPages() {
 			return Math.ceil(this.resultCount / this.itemsPerPage)
 		},
@@ -233,16 +247,21 @@ export default {
 				return
 			}
 			// eslint-disable-next-line vue/no-side-effects-in-computed-properties
-			this.resultCount = this.dfCard.length;
+			this.resultCount = this.$API2.dfCard.length;
 			if (this.currentPage >= this.totalPages) {
 				// eslint-disable-next-line vue/no-side-effects-in-computed-properties
 				this.currentPage = this.totalPages;
 			}
 			let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
-			return this.dfCard.slice(index, index + this.itemsPerPage)
+			return this.$API2.dfCard.slice(index, index + this.itemsPerPage)
 		}
 	},
-	watch: {},
+	watch: {
+		// 'paginate'(){
+		// 	if(this.dfCard)
+		// 		this.paginate(true)
+		// }
+	},
 }
 </script>
 

@@ -3,13 +3,16 @@
 		<label :for="id">
 			{{ label }}
 		</label>
+		<span @click="resetFilter" title="Скинути фільтр" class="close_icon" v-if="value">
+			<img src="../assets/img/icons/cross.svg" alt="">
+		</span>
 		<select
 		:value="value"
 		:disabled="disabled"
 		:placaholder="placeholder"
 		:id="id"
 		:class="{
-		'form-input': 'form-input', 'form-control_outline': 'form-control_outline', 'form-control_outline_mb': 'form-control_outline_mb', 'form-control': 'form-control'
+		'form-input': 'form-input','active': 'active', 'form-control_outline': 'form-control_outline', 'form-control_outline_mb': 'form-control_outline_mb', 'form-control': 'form-control'
 		}"
 				@change.self="$emit('input', $event.target.value)"
 		>
@@ -55,11 +58,58 @@ export default {
 			type: String,
 			required: true,
 		},
+	},
+	data(){
+		return {
+		}
+	},
+	methods: {
+		resetFilter(){
+			this.startValue='';
+		},
+		removeQueryParam(param) {
+			let query = Object.assign({}, this.$route.query);
+			delete query[param];
+			this.$router.replace({
+				query
+			}, e => {});
+		},
+	},
+	computed: {
+		startValue: {
+			get: function () {
+				return this.value;
+			},
+			set: function(newValue){
+				// $emit is the correct way to update props:
+				this.$emit('input', newValue);
+			}
+		}
+	},
+	watch: {
+		value(){
+			if(this.value=='')
+				this.removeQueryParam(this.$route.query);
+		}
 	}
 };
 </script>
 
 <style scoped>
+	.close_icon{
+		position:absolute;
+		right:10%;
+		top:25%;
+		z-index:99;
+		transition:all 0.4s ease-out;
+	}
+	.close_icon img{
+		width: 18px;
+		height: 18px;
+	}
+	.close_icon:hover{
+		transform: scale(1.2);
+	}
 	.input-field > label{
 		font-size: .9rem;
 		padding: 0 6px 0 6px;
@@ -77,9 +127,13 @@ export default {
 	}
 	.input-field > select{
 		font-size: .9rem !important;
-		font-family: "Montserrat-regular", Arial, sans-serif !important;
+		font-family: "Montserrat", Arial, sans-serif !important;
 		height: 2.5rem;
 		border-radius: 4px !important;
+	}
+	.input-field > select.active{
+		/* background: url('../assets/img/icons/cross.svg') no-repeat right; */
+		background-size: 16px 16px;
 	}
 	@media (max-width: 450px){
 		.input-field > select{
@@ -89,6 +143,9 @@ export default {
 	}
 	.input-field > label:not(.label-icon).active {
 		color: #34B76C;
+	}
+	.input-field > label:not(.label-icon).active {
+		background: url('../assets/img/icons/cross.svg') no-repeat right;
 	}
 	.input-field > label:not(.label-icon).is-invalid,.invalid {
 		color: red;

@@ -1,6 +1,9 @@
 <template>
 	<div class="input-field">
 		<label :for="id">{{label}}</label>
+		<span @click="resetFilter" title="Скинути фільтр" class="close_icon" v-if="value">
+			<img src="../assets/img/icons/cross.svg" alt="">
+		</span>
 		<input :id="id" :title="title" :placeholder="placeholder" :disabled="disabled" :prefix="prefix" :accept="accept" :value="value" :type="type" :ref="refs" :min="min" :max="max" :step="step"
 			:data-length="dataLength"
 			:data-success="dataSuccess"
@@ -48,6 +51,23 @@ export default {
 			default: '',
 			required: false
 		},
+	},
+	methods: {
+		resetFilter(){
+			this.startValue='';
+		}
+	},
+	computed: {
+		startValue: {
+			get: function () {
+				return this.value;
+			},
+			set: function(newValue){
+				// $emit is the correct way to update props:
+				this.$emit('input', newValue);
+				this.resetApps()
+			}
+		}
 	}
 };
 </script>
@@ -56,9 +76,23 @@ export default {
 	/* .input-field > label{
 		font-size: .9rem !important;
 	} */
+	.close_icon{
+		position:absolute;
+		right:10%;
+		top:25%;
+		z-index:99;
+		transition:all 0.4s ease-out;
+	}
+	.close_icon img{
+		width: 18px;
+		height: 18px;
+	}
+	.close_icon:hover{
+		transform: scale(1.2);
+	}
 	.input-field > input{
 		font-size: .9rem !important;
-		font-family: "Montserrat-regular", Arial, sans-serif !important;
+		font-family: "Montserrat", Arial, sans-serif !important;
 		padding: 6px 50px 6px 6px;
 	}
 	.input-field > input:not([type="date"]):not([type="text"]){
@@ -95,6 +129,7 @@ export default {
 		position: relative;
 		top: 0px;
 		right: 10px;
+		/* background: url('../assets/img/icons/cross.svg') no-repeat right; */
 	}
 	.input-field{
 		position: relative;
