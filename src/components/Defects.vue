@@ -322,16 +322,16 @@ export default {
 		this.$API.page = "defects";
 		// console.log(this.$route);
 
-		this.searchAddressFilter=this.$API.searchAddressFilter;
-		this.search_by_date=this.$API.search_by_date;
-		this.search_by_type=this.$API.search_by_type;
-		this.sort_by=this.$API.sort_by;
-		this.selectedRegion=this.$API.selectedRegion;
-		this.selectedLocationType=this.$API.selectedLocationType;
-		this.selectedStatus=this.$API.selectedStatus;
-		this.selectedType=this.$API.selectedType;
-		this.periodStart=this.$API.periodStart;
-		this.periodEnd=this.$API.periodEnd;
+		this.searchAddressFilter=this.$API.appsFilter.searchAddressFilter;
+		this.search_by_date=this.$API.appsFilter.search_by_date;
+		this.search_by_type=this.$API.appsFilter.search_by_type;
+		this.sort_by=this.$API.appsFilter.sort_by;
+		this.selectedRegion=this.$API.appsFilter.selectedRegion;
+		this.selectedLocationType=this.$API.appsFilter.selectedLocationType;
+		this.selectedStatus=this.$API.appsFilter.selectedStatus;
+		this.selectedType=this.$API.appsFilter.selectedType;
+		this.periodStart=this.$API.appsFilter.periodStart;
+		this.periodEnd=this.$API.appsFilter.periodEnd;
 
 		// this.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a')
 
@@ -345,7 +345,6 @@ export default {
 		// 	}
 		// });
 		this.loadDefects(true);
-		this.appsUpdateInterval = setInterval(this.loadDefects, 1000);
 	},
 	methods: {
 		resetFilters() {
@@ -536,6 +535,7 @@ export default {
 			} else {
 				this.addQueryParam('since', this.periodStart);
 			}
+			this.loadDefects(true);
 		},
 		periodEnd() {
 			if(this.periodEnd == '') {
@@ -543,6 +543,7 @@ export default {
 			} else {
 				this.addQueryParam('to', this.periodEnd);
 			}
+			this.loadDefects(true);
 		},
 		selectedStatus() {
 			if(this.selectedStatus == '') {
@@ -551,6 +552,7 @@ export default {
 				this.addQueryParam('status', this.selectedStatus);
 			}
 			this.resetApps();
+			this.loadDefects(true);
 		},
 		selectedRegion() {
 			if(this.selectedRegion == '') {
@@ -559,6 +561,7 @@ export default {
 				this.addQueryParam('region', this.selectedRegion);
 			}
 			this.resetApps();
+			this.loadDefects(true);
 		},
 		selectedType() {
 			if(this.selectedType == '') {
@@ -567,6 +570,7 @@ export default {
 				this.addQueryParam('type', this.selectedType);
 			}
 			this.resetApps();
+			this.loadDefects(true);
 		},
 		selectedLocationType() {
 			if(this.selectedLocationType == '') {
@@ -575,6 +579,7 @@ export default {
 				this.addQueryParam('location', this.selectedLocationType);
 			}
 			this.resetApps();
+			this.loadDefects(true);
 		},
 		searchAddressFilter() {
 			if(this.searchAddressFilter == '') {
@@ -583,19 +588,20 @@ export default {
 				this.addQueryParam('address', this.searchAddressFilter);
 			}
 			this.resetApps();
+			this.loadDefects(true);
 		},
 	},
 	beforeDestroy() {
-		this.$API.searchAddressFilter=this.searchAddressFilter;
-		this.$API.search_by_date=this.search_by_date;
-		this.$API.search_by_type=this.search_by_type;
-		this.$API.sort_by=this.sort_by;
-		this.$API.selectedRegion=this.selectedRegion;
-		this.$API.selectedLocationType=this.selectedLocationType;
-		this.$API.selectedStatus=this.selectedStatus;
-		this.$API.selectedType=this.selectedType;
-		this.$API.periodStart=this.periodStart;
-		this.$API.periodEnd=this.periodEnd;
+		this.$API.appsFilter.searchAddressFilter=this.searchAddressFilter;
+		this.$API.appsFilter.search_by_date=this.search_by_date;
+		this.$API.appsFilter.search_by_type=this.search_by_type;
+		this.$API.appsFilter.sort_by=this.sort_by;
+		this.$API.appsFilter.selectedRegion=this.selectedRegion;
+		this.$API.appsFilter.selectedLocationType=this.selectedLocationType;
+		this.$API.appsFilter.selectedStatus=this.selectedStatus;
+		this.$API.appsFilter.selectedType=this.selectedType;
+		this.$API.appsFilter.periodStart=this.periodStart;
+		this.$API.appsFilter.periodEnd=this.periodEnd;
 		clearInterval('orgN');
 		clearInterval(this.appsUpdateInterval);
 	},

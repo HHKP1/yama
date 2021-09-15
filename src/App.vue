@@ -716,7 +716,7 @@ export default {
 			}
 			return resp;
 		},
-		startTimer: function () {
+		startTimer() {
 			this.timer = setInterval(this.checkCode, 5200);
 		},
 		onScroll () {
