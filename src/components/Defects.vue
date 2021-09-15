@@ -410,7 +410,6 @@ export default {
 		// },
 		resetApps() {
 			// this.orgInfo=[];
-			console.log('reset');
 			this.appsLoaded = false;
 			if(this.pendingUpdate) {
 				this.pendingUpdate.abort();
