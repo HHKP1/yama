@@ -4,7 +4,7 @@
 			<div class="circle"></div>
 			<div class="circle"></div>
 		</div>
-		<mq-layout mq="md+">
+		<!-- <mq-layout mq="md+">
 			<div id="loader-title" v-show="!isloaded">
 				<span class="title_ltr" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
 			</div>
@@ -13,12 +13,12 @@
 			<div id="loader-title_mb" v-show="!isloaded">
 				<span class="title_ltr_mb" :ref="lett.refName" v-for="lett in letters" :key="lett.id">{{ lett.ltr }}</span>
 			</div>
-		</mq-layout>
+		</mq-layout> -->
 	</div>
 </template>
 
 <script>
-import gsap from 'gsap';
+// import gsap from 'gsap';
 
 // let timeline;
 export default {
@@ -50,16 +50,16 @@ export default {
 		}
 	},
 	methods: {
-		toggleShow(){
-			const leters = this.$refs;
-			const timeline = gsap.timeline();
-			Object.values(leters).forEach(l => {
-				// console.log(l);
-				this.staggerLetters.push(l);
-			});
-			timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: 0.9, duration: 0.7, ease: 'power4.Out', stagger: 0.09 }, '+=3.3');
-			timeline.to(this.staggerLetters, { autoAlpha: 0, duration: 0.8, ease: 'power4.Out', stagger: 0.09 }, '+=0.7');
-		}
+		// toggleShow(){
+		// 	const leters = this.$refs;
+		// 	const timeline = gsap.timeline();
+		// 	Object.values(leters).forEach(l => {
+		// 		// console.log(l);
+		// 		this.staggerLetters.push(l);
+		// 	});
+		// 	timeline.from(this.staggerLetters, { autoAlpha: 0, y: 10, scale: 0.9, duration: 0.7, ease: 'power4.Out', stagger: 0.09 }, '+=3.3');
+		// 	timeline.to(this.staggerLetters, { autoAlpha: 0, duration: 0.8, ease: 'power4.Out', stagger: 0.09 }, '+=0.7');
+		// }
 	}
 }
 </script>
