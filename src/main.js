@@ -29,7 +29,7 @@ Vue.component('FormSelect', FormSelect);
 Vue.component('DefectSortedGrid', DefectSortedGrid);
 // Vue.component('PageLoader', PageLoader);
 Vue.component('GmapCluster', GmapCluster);
-// Vue.component('GoogleMap', GoogleMap);
+Vue.component('GoogleMap', GoogleMap);
 Vue.component('infoWindow', VueGoogleMaps.InfoWindow)
 
 // Uses

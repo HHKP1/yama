@@ -584,6 +584,7 @@ export default {
 			}
 			this.resetApps();
 			this.loadDefects(true);
+			this.isActive=true;
 		},
 		'$route.query'(query){
 			if(query){

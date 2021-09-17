@@ -33,7 +33,7 @@
 													:opened="infoWinOpen"
 													@closeclick="infoWinOpen=false"
 													>
-														<div class="info-window_container">
+														<div class="info-window_container" style="max-width:200px;">
 																<span class="btn outline_button" @click="listClick($event, '/'+m.id )">Деталі дефекту
 																	<router-link :to="'/collections/defect/'+m.id">
 																	</router-link>
@@ -52,9 +52,19 @@
 			<!-- </transition> -->
 </template>
 <script>
+// import Vue from 'vue';
 import { gmapApi } from 'vue2-google-maps';
 import customMarkers from '../assets/js/markerIcons';
+import authorIcon from '../assets/img/icons/carbon_user-avatar.svg';
+import dateIcon from '../assets/img/icons/bx_bx-time-five.svg';
+import locationIcon from '../assets/img/icons/feather_map-pin.svg';
 
+const moment = require('moment');
+require('moment/locale/uk');
+
+// Vue.use(require('vue-moment'), {
+// 	moment
+// });
 export default {
 	name: "GoogleMap",
 	props: {
@@ -162,14 +172,29 @@ export default {
 			// });
 		},
 		toggleInfoWindow(marker, idx) {
+			let date = marker.added;
 			this.markerInfo = `
-			<div style="width:100%;align-items:center;display:flex;justify-content:center;flex-wrap:wrap;">
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Адреса: <p style="font-weight:400;text-align:left">`+marker.area+`</p></span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Автор: <p style="font-weight:400;text-align:left">`+marker.author+`</p></span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Статус: <p style="font-weight:400;text-align:left"> `+marker.status+`</p></span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">Тип: <p style="font-weight:400;text-align:left"> `+marker.type+`</p></span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left">ID: <p style="font-weight:400;text-align:left"> `+marker.id+`</p></span>
+			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;flex-wrap:wrap;">
+				<div class="img_container" style="position:relative">
+					<img class="marker_img" style="position:relative;width:220px;max-height:200px;border-radius:8px;" src="${marker.photo}" alt="defect image" />
+					<img class="marker_img" style="position:absolute;width:40px;border-radius:8px;bottom: 10%;left: 75%;" src="${marker.icon[0].icon}" alt="defect image" />
+				</div>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">
+					<img src="${dateIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
+					Дата розміщення: <p style="font-weight:400;text-align:left;background:var(--status-color);padding:6px;width: fit-content;border-radius: 4px;color: #FFF;margin: 4px 0;">${moment(date).format("DD.MM.YY в HH:mm")}</p>
+				</span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">
+					<img src="${locationIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
+					Адреса: <p style="font-weight:400;text-align:left">${marker.area}</p>
+				</span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">
+					<img src="${authorIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
+					Автор: <p style="font-weight:400;text-align:left">${marker.author}</p>
+				</span>
 			</div>`;
+			/*<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">Статус: <p style="font-weight:400;text-align:left"> ${marker.status}</p></span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">Тип: <p style="font-weight:400;text-align:left"> ${marker.type}</p></span>
+				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">ID: <p style="font-weight:400;text-align:left"> ${marker.id}</p></span>*/
 			this.infoWindowPos = marker.position;
 			this.infoOptions.content = this.markerInfo;
 
@@ -207,6 +232,8 @@ export default {
 					author: m.case_status.current.author.name,
 					type: m.defect_type,
 					id: m.id,
+					photo: m.photos[0].url,
+					added: m.added,
 				}
 			})
 		},
@@ -225,6 +252,17 @@ export default {
 };
 </script>
 <style scoped>
+	.marker_img{
+		position: relative;
+		width: 220px;
+	}
+	.gm-style-iw .gm-style-iw-c{
+		padding-right: 0px !important;
+		padding-bottom: 0px !important;
+		max-width: 448px !important;
+		max-height: 124px !important;
+		min-width: 0px !important;
+	}
 	.fade-loader-enter-active{
 		transition: opacity 0.2s ease-out, transform 0.2s ease-in;
 		position:  relative !important;
