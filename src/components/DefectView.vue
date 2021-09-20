@@ -759,6 +759,7 @@ export default {
 			isExpand: false,
 			appsLoaded: false,
 			defect: {},
+			ogImage: '',
 			dfCount: 0,
 			id: '',
 			me: {},
@@ -808,7 +809,8 @@ export default {
 		customDecription.property="og:description";
 		customDecription.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
 		customImage.property="og:image";
-		customImage.content=this.defect.photos[0].url;
+		customImage.content=this.ogImage;
+		// console.log(`${this.ogImage}`);
 		// viewportMeta.name = 'viewport';
 		// viewportMeta.content = 'width=device-width, initial-scale=1';
 		// document.head.appendChild(viewportMeta);
@@ -840,6 +842,7 @@ export default {
 				this.defect=result;
 				this.$API2.queryCheck.push(this.defect.id);
 				this.$API2.queryStr=this.defect.id;
+				this.ogImage=this.defect.photos[0].url;
 				this.isActive=false;
 				this.appsLoaded=true;
 			}catch(e){
