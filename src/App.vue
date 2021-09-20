@@ -570,14 +570,14 @@ export default {
 		// setTimeout(this.appsLoaded, 5000);
 		this.lastScrollPosition = window.pageYOffset;
 		window.addEventListener('scroll', this.onScroll);
-		// const viewportMeta = document.createElement('meta');
-		// const customTitle = document.createElement('title');
+		const viewportMeta = document.createElement('meta');
+		const customTitle = document.createElement('title');
 		// const customTag = document.createElement('meta');
-		// customTitle = 'Ukr-Yama';
-		// viewportMeta.name = 'viewport';
-		// viewportMeta.content = 'width=device-width, initial-scale=1';
-		// document.head.appendChild(viewportMeta);
-		// document.head.appendChild(customTitle);
+		customTitle.value = this.$API.title;
+		viewportMeta.name = 'viewport';
+		viewportMeta.content = 'width=device-width, initial-scale=1';
+		document.head.appendChild(viewportMeta);
+		document.head.appendChild(customTitle);
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {

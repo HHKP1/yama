@@ -796,6 +796,26 @@ export default {
 			// 	this.me = await e;
 			// }
 		})
+		// const viewportMeta = document.createElement('meta');
+		const customTitle = document.createElement('meta');
+		const customUrl = document.createElement('meta');
+		const customDecription = document.createElement('meta');
+		const customImage = document.createElement('meta');
+		customTitle.property="og:title";
+		customTitle.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
+		customUrl.property="og:url";
+		customUrl.content="https://tala.cloudi.es/routes/9373315876/front/#/";
+		customDecription.property="og:description";
+		customDecription.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
+		customImage.property="og:image";
+		customImage.content=this.defect.photos[0].url;
+		// viewportMeta.name = 'viewport';
+		// viewportMeta.content = 'width=device-width, initial-scale=1';
+		// document.head.appendChild(viewportMeta);
+		document.head.appendChild(customTitle);
+		document.head.appendChild(customUrl);
+		document.head.appendChild(customDecription);
+		document.head.appendChild(customImage);
 	},
 	methods: {
 		openClaim(url){
