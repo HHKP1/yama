@@ -490,13 +490,14 @@ export default {
 		PageLoader,
 	},
 	metaInfo: {
-		title: "Ukr-Yama",
+		title: "UkrYama",
+		titleTemplate: '%s | UkrYama',
 		meta: [
 			{ name: 'description', content: 'УкрЯма – це інструмент громадського контролю за утриманням доріг' },
 			{ property: 'og:description', content: 'УкрЯма – це інструмент громадського контролю за утриманням доріг' },
 			{ property: 'og:title', content: "УкрЯма – це інструмент громадського контролю за утриманням доріг" },
 			{ property: 'og:site_name', content: 'УкрЯма' },
-			{ property: 'fb:app_id', content: 366159005244899 },
+			{ property: 'fb:app_id', content: "366159005244899" },
 			{ property: 'og:url', content: 'https://tala.cloudi.es/routes/9373315876/front/#/' },
 			// { property: 'og:image', content: this.apiURL + this.endpoint },
 			{ property: 'og:type', content: 'website' },
