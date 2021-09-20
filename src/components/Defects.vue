@@ -85,7 +85,7 @@
 								</div>
 								<button :key="dfCard.id" class="btn outline_button" v-if="!queryCheck.some(o => queryStr.includes(o))" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
 								<button class="btn custom_button" @click="loadDefects()">Показати</button>
-								<button class="btn custom_button" @click="resetFilters()">Скинути всі фільтри</button>
+								<button class="btn custom_button" @click="resetFilters(true)">Скинути всі фільтри</button>
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
@@ -348,7 +348,6 @@ export default {
 	},
 	methods: {
 		resetFilters() {
-			this.appsLoaded=true;
 			this.resetApps();
 			this.searchAddressFilter='';
 			this.search_by_date='';
@@ -360,7 +359,6 @@ export default {
 			this.selectedType='';
 			this.periodStart='';
 			this.periodEnd='';
-			this.forceUpdate=true;
 		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
@@ -375,7 +373,8 @@ export default {
 				this.isActive=true;
 			if(!this.btnActive)
 				this.btnActive=true;
-			// this.appsLoaded=true;
+			if(!this.appsLoaded)
+				this.appsLoaded=true;
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
@@ -546,7 +545,6 @@ export default {
 			} else {
 				this.addQueryParam('status', this.selectedStatus);
 			}
-			this.resetApps();
 			this.loadDefects(true);
 		},
 		selectedRegion() {
@@ -555,7 +553,6 @@ export default {
 			} else {
 				this.addQueryParam('region', this.selectedRegion);
 			}
-			this.resetApps();
 			this.loadDefects(true);
 		},
 		selectedType() {
@@ -564,7 +561,6 @@ export default {
 			} else {
 				this.addQueryParam('type', this.selectedType);
 			}
-			this.resetApps();
 			this.loadDefects(true);
 		},
 		selectedLocationType() {
@@ -573,7 +569,7 @@ export default {
 			} else {
 				this.addQueryParam('location', this.selectedLocationType);
 			}
-			this.resetApps();
+			// this.resetApps();
 			this.loadDefects(true);
 		},
 		searchAddressFilter() {
@@ -586,11 +582,12 @@ export default {
 			this.loadDefects(true);
 			this.isActive=true;
 		},
-		'$route.query'(query){
-			if(query){
-				this.loadDefects(true);
-			}
-		}
+		// '$route.query'(query){
+		// 	console.log(Object.keys(query).length);
+		// 	if(Object.keys(query).length===0){
+		// 		this.loadDefects(true);
+		// 	}
+		// }
 	},
 	beforeDestroy() {
 		this.$API.appsFilter.searchAddressFilter=this.searchAddressFilter;
