@@ -798,31 +798,31 @@ export default {
 			// }
 		})
 		// const viewportMeta = document.createElement('meta');
-		const $APP_ID = '366159005244899';
-		const customTitle = document.createElement('meta');
-		const customUrl = document.createElement('meta');
-		const customDecription = document.createElement('meta');
-		const customImage = document.createElement('meta');
-		const appID = document.createElement('meta');
-		appID.property="fb:app_id";
-		appID.content=$APP_ID;
-		customTitle.property="og:title";
-		customTitle.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
-		customUrl.property="og:url";
-		customUrl.content="https://tala.cloudi.es/routes/9373315876/front/#/";
-		customDecription.property="og:description";
-		customDecription.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
-		customImage.property="og:image";
-		customImage.content=this.ogImage;
+		// const $APP_ID = '366159005244899';
+		// const customTitle = document.createElement('meta');
+		// const customUrl = document.createElement('meta');
+		// const customDecription = document.createElement('meta');
+		// const customImage = document.createElement('meta');
+		// const appID = document.createElement('meta');
+		// appID.property="fb:app_id";
+		// appID.content=$APP_ID;
+		// customTitle.property="og:title";
+		// customTitle.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
+		// customUrl.property="og:url";
+		// customUrl.content="https://tala.cloudi.es/routes/9373315876/front/#/";
+		// customDecription.property="og:description";
+		// customDecription.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
+		// customImage.property="og:image";
+		// customImage.content=this.ogImage;
 		// console.log(this.ogImage);
 		// viewportMeta.name = 'viewport';
 		// viewportMeta.content = 'width=device-width, initial-scale=1';
 		// document.head.appendChild(viewportMeta);
-		document.head.appendChild(customTitle);
-		document.head.appendChild(customUrl);
-		document.head.appendChild(customDecription);
-		document.head.appendChild(customImage);
-		document.head.appendChild(appID);
+		// document.head.appendChild(customTitle);
+		// document.head.appendChild(customUrl);
+		// document.head.appendChild(customDecription);
+		// document.head.appendChild(customImage);
+		// document.head.appendChild(appID);
 	},
 	methods: {
 		openClaim(url){
