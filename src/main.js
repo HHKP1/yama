@@ -57,7 +57,7 @@ Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakp
 Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY, region: 'UA', language: 'uk-UA' }, libraries: 'places', installComponents: true });
 
 const routes = [
-	{ path: '', component: () => import('./components/CollectionList.vue') },
+	{ path: '/', component: () => import('./components/CollectionList.vue') },
 	{ path: '/collections', component: () => import('./components/CollectionList.vue') },
 	{ path: '/collections', component: () => import('./components/GoogleMap.vue') },
 	{ path: '/:id', component: () => import('./components/DefectView.vue') },
@@ -67,7 +67,7 @@ const routes = [
 const router = new VueRouter({
 	routes, // short for `routes: routes`
 	mode: 'history',
-	base: '/',
+	base: './',
 });
 
 Vue.config.productionTip = false;
