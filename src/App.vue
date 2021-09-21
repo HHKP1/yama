@@ -394,7 +394,7 @@
 						<Defects />
 						<transition name="fade-loader">
 							<div style="flex: 0 0 72%">
-							<router-view>
+							<router-view :key="this.$route.fullPath">
 							</router-view>
 							</div>
 						</transition>
