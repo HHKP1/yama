@@ -66,8 +66,8 @@ const routes = [
 
 const router = new VueRouter({
 	routes, // short for `routes: routes`
-	mode: 'history',
-	base: './',
+	mode: 'hash',
+	// base: './',
 });
 
 Vue.config.productionTip = false;
