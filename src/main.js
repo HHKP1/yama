@@ -57,7 +57,7 @@ Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakp
 Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY, region: 'UA', language: 'uk-UA' }, libraries: 'places', installComponents: true });
 
 const routes = [
-	{ path: '/', component: CollectionList, props: true },
+	{ path: '', component: CollectionList, props: true },
 	{ path: '/collections', component: CollectionList, props: true },
 	{ path: '/collections', component: GoogleMap, name: 'GoogleMap', props: true },
 	{ path: '/:id', component: DefectView, props: true },
