@@ -18,8 +18,8 @@ import DefectSortedGrid from './components/DefectSortedGrid.vue';
 
 // Pages
 import Defects from './components/Defects.vue';
-import CollectionList from './components/CollectionList.vue';
-import DefectView from './components/DefectView.vue';
+// import CollectionList from './components/CollectionList.vue';
+// import DefectView from './components/DefectView.vue';
 import GoogleMap from './components/GoogleMap.vue';
 import NotFoundPage from './components/404.vue';
 
@@ -57,10 +57,10 @@ Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakp
 Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY, region: 'UA', language: 'uk-UA' }, libraries: 'places', installComponents: true });
 
 const routes = [
-	{ path: '', component: CollectionList, props: true },
-	{ path: '/collections', component: CollectionList, props: true },
-	{ path: '/collections', component: GoogleMap, name: 'GoogleMap', props: true },
-	{ path: '/:id', component: DefectView, props: true },
+	{ path: '', component: () => import('./components/CollectionList.vue') },
+	{ path: '/collections', component: () => import('./components/CollectionList.vue') },
+	{ path: '/collections', component: () => import('./components/GoogleMap.vue') },
+	{ path: '/:id', component: () => import('./components/DefectView.vue') },
 	{ path: '/404', component: NotFoundPage },
 ]
 
