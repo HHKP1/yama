@@ -2,7 +2,7 @@
 	<div style="flex: 0 0 72%">
 		<mq-layout mq="md+">
 		<vue-element-loading :active="isActive" size="60" :isActiveDelay="true" duration="1" spinner="spinner" color="#FF6700"/>
-			<div class="defect_content" v-if="!$route.path.includes('/collections/defect')">
+			<div class="defect_content" >
 				<div class="defect_filter_count">
 							<div class="defect_filter_item">
 								<p class="defect_title">Загалом дефектів знайдено: <span>{{ dfCard.length }}</span></p>
