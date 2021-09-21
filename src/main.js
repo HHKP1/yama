@@ -2,6 +2,7 @@ import 'regenerator-runtime/runtime';
 import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
+import Meta from 'vue-meta';
 import gsap from 'gsap';
 import VueMq from 'vue-mq';
 import axios from 'axios';
@@ -41,6 +42,14 @@ Vue.use(require('vue-moment'), {
 	moment
 });
 
+Vue.use(Meta, {
+	keyName: 'metaInfo',
+	attribute: 'data-vue-meta',
+	ssrAttribute: 'data-vue-meta-server-rendered',
+	tagIDKeyName: 'vmid',
+	refreshOnceOnNavigation: true
+})
+
 Vue.use(VueAxios, axios);
 Vue.use(gsap);
 Vue.use(VueRouter)
@@ -57,8 +66,8 @@ const routes = [
 
 const router = new VueRouter({
 	routes, // short for `routes: routes`
-	mode: 'hash',
-	// base: '',
+	mode: 'history',
+	base: '/',
 });
 
 Vue.config.productionTip = false;
