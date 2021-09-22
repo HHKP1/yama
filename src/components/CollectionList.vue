@@ -96,7 +96,7 @@
 						</div>
 								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
 								<div class="grid-container_mb" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
-									<div class="defect_card" v-for='card in dfCard' :key='card.id'>
+									<div class="defect_card" v-for='card in paginate' :key='card.id'>
 										<router-link :to="'/'+card.id">
 											<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
 												<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
@@ -133,11 +133,13 @@
 								<div class="card_pagination" v-if="!this.$API2.showMap">
 									<div class="pagination_control">
 										<ul class="pagination">
-											<li class="disabled"><a href="#!">F</a></li>
-											<li class="active"><a href="#!">1</a></li>
+											<li v-for="pageNumber in totalPages" :key="pageNumber" class="waves-effect" @click="setPage(pageNumber)" :class="{active: currentPage === pageNumber, last: (pageNumber == totalPages && Math.abs(pageNumber - currentPage) > 3), first:(pageNumber == 1 && Math.abs(pageNumber - currentPage) > 3)}">
+												{{ pageNumber }}
+											</li>
+											<!-- <li class="active"><a href="#!">1</a></li>
 											<li class="waves-effect"><a href="#!">2</a></li>
 											<li class="waves-effect"><a href="#!">3</a></li>
-											<li class="waves-effect"><a href="#!"> > </a></li>
+											<li class="waves-effect"><a href="#!"> > </a></li> -->
 										</ul>
 									</div>
 								</div>

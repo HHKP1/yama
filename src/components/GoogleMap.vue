@@ -292,8 +292,8 @@ export default {
 		max-width: none;
 		width: 100%;
 		height: 100%;
-		padding-left: 20px !important;
-		padding-right: 20px !important;
+		padding-left: 4px !important;
+		padding-right: 4px !important;
 		padding-top: 15px !important;
 		padding-bottom: 20px !important;
 	}
