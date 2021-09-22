@@ -5,8 +5,8 @@ import VueRouter from 'vue-router';
 import Meta from 'vue-meta';
 // import gsap from 'gsap';
 import VueMq from 'vue-mq';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
+// import axios from 'axios';
+// import VueAxios from 'vue-axios';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import GmapCluster from 'vue2-google-maps/dist/components/cluster';
 
@@ -44,13 +44,13 @@ Vue.use(require('vue-moment'), {
 
 Vue.use(Meta, {
 	keyName: 'metaInfo',
-	attribute: 'data-vue-meta',
-	ssrAttribute: 'data-vue-meta-server-rendered',
+	// attribute: 'data-vue-meta',
+	// ssrAttribute: 'data-vue-meta-server-rendered',
 	tagIDKeyName: 'vmid',
 	refreshOnceOnNavigation: true
 })
 
-Vue.use(VueAxios, axios);
+// Vue.use(VueAxios, axios);
 // Vue.use(gsap);
 Vue.use(VueRouter)
 Vue.use(VueMq, { breakpoints: { sm: 450, md: 1135, lg: Infinity }, defaultBreakpoint: 'lg' });

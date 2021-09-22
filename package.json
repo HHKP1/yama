@@ -9,12 +9,10 @@
   },
   "dependencies": {
     "@googlemaps/markerclustererplus": "^1.0.3",
-    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "materialize-css": "^1.0.0-rc.2",
     "v-mask": "^2.2.3",
     "vue": "^2.6.10",
-    "vue-axios": "^3.2.5",
     "vue-carousel": "^0.18.0",
     "vue-cookies": "^1.7.4",
     "vue-element-loading": "^2.0.2",

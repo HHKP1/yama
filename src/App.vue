@@ -589,27 +589,27 @@ export default {
 		// setTimeout(this.appsLoaded, 5000);
 		this.lastScrollPosition = window.pageYOffset;
 		window.addEventListener('scroll', this.onScroll);
-		const $APP_ID = '366159005244899';
-		const viewportMeta = document.createElement('meta');
-		const customTitle = document.createElement('meta');
-		const customUrl = document.createElement('meta');
-		const customDecription = document.createElement('meta');
-		const appID = document.createElement('meta');
-		appID.property="fb:app_id";
-		appID.content=$APP_ID;
-		customTitle.property="og:title";
-		customTitle.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
-		customUrl.property="og:url";
-		customUrl.content="https://tala.cloudi.es/routes/9373315876/front/#/";
-		customDecription.property="og:description";
-		customDecription.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
-		viewportMeta.name = 'viewport';
-		viewportMeta.content = 'width=device-width, initial-scale=1';
-		document.head.appendChild(viewportMeta);
-		document.head.appendChild(customTitle);
-		document.head.appendChild(customUrl);
-		document.head.appendChild(customDecription);
-		document.head.appendChild(appID);
+		// const $APP_ID = '366159005244899';
+		// const viewportMeta = document.createElement('meta');
+		// const customTitle = document.createElement('meta');
+		// const customUrl = document.createElement('meta');
+		// const customDecription = document.createElement('meta');
+		// const appID = document.createElement('meta');
+		// appID.property="fb:app_id";
+		// appID.content=$APP_ID;
+		// customTitle.property="og:title";
+		// customTitle.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
+		// customUrl.property="og:url";
+		// customUrl.content="https://tala.cloudi.es/routes/9373315876/front/#/";
+		// customDecription.property="og:description";
+		// customDecription.content="УкрЯма – це інструмент громадського контролю за утриманням доріг";
+		// viewportMeta.name = 'viewport';
+		// viewportMeta.content = 'width=device-width, initial-scale=1';
+		// document.head.appendChild(viewportMeta);
+		// document.head.appendChild(customTitle);
+		// document.head.appendChild(customUrl);
+		// document.head.appendChild(customDecription);
+		// document.head.appendChild(appID);
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
