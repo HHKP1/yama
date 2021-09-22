@@ -609,9 +609,9 @@
 															<p class="author_chat message_date">{{ defect.added | moment("DD.MM.YY в HH:mm") }}</p>
 														</div>
 														<p class="progress_title">Дефект додано</p>
-														<div class="doc_images">
-														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
-													</div>
+														<div class="doc_images" v-for="(claim, index) in defect.claims" :key="index">
+															<a v-if="defect.claims.length>0" @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														</div>
 													</div>
 												</div>
 											</div>

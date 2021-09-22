@@ -1516,7 +1516,7 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 		width: 100%;
-		padding: 0 10px;
+		padding: 0 4px;
 		height: 100%;
 		/* flex: 1 1 60%; */
 		overflow: hidden;
@@ -1599,6 +1599,7 @@
 		background: #fff;
 		padding: 8px;
 		height: 55%;
+		overflow: hidden;
 		/* display: block; */
 	}
 	.defect_nav_item p{
