@@ -78,7 +78,7 @@
 									</div>
 									<div class="status_comments">
 										<p v-if="!defect.comments" class="status_count">0</p>
-										<p v-else class="status_count">{{ card.comment.length }}</p>
+										<p v-else class="status_count">{{ defect.comments.length }}</p>
 										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 									</div>
 								</div>
@@ -93,8 +93,7 @@
 		<mq-layout mq="sm">
 			<div class="container_works_mb">
 						<div class="container_defects_mb">
-							<div class="defect_content_mb" v-if="appsLoaded">
-								<!-- <p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p> -->
+							<!-- <div class="defect_content_mb">
 								<div class="grid-container_mb">
 									<div class="defect_card" v-for='(card, index) in dfCard' :key='index'>
 										<div class="my-container" style="width: 100%;display: block;height: 100%;">
@@ -132,7 +131,7 @@
 										</ul>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<!-- <div class="defect_content" v-if="appsLoaded">
 								<div class="defect_filter_count">
 									<div class="defect_filter_item">
@@ -187,10 +186,10 @@
 									</div>
 								</div>
 							</div> -->
-							<div class="defect_content_mb" v-if="appsLoaded">
-								<router-link class="defect_links_mb" to="/">
+							<div class="defect_content_mb">
+								<!-- <router-link class="defect_links_mb" to="/">
 									<p>&lt; Назад до повного списку</p>
-								</router-link>
+								</router-link> -->
 								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 								<div class="carousel_overlay" v-if="orgInfo.length==0">
 									<p class="empty_message">По цьому запиту немає дефектів</p>
@@ -210,10 +209,18 @@
 													<div class="defect_status">
 														<div class="status_item">
 															<span v-if="card.status=='new'">Новий</span>
+															<span v-if="card.status=='approved'">Погоджений</span>
+															<span v-if="card.status=='sent'">Відправлений</span>
+															<span v-if="card.status=='replied'">Відповідь</span>
+															<span v-if="card.status=='no_answer'">Немає відповіді</span>
+															<span v-if="card.status=='rejected'">Відхилений</span>
+															<span v-if="card.status=='escalated'">Ескалований</span>
 															<span v-if="card.status=='in_progress'">В процесі</span>
+															<span v-if="card.status=='done'">Виправлений</span>
 														</div>
-														<div class="status_comments" :title="'Кількість коментарів: ' + card.comment.length">
-															<p class="status_count">{{ card.comment.length }}</p>
+														<div class="status_comments">
+															<p v-if="!defect.comments" class="status_count">0</p>
+															<p class="status_count">{{ defect.comments.length }}</p>
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 														</div>
 													</div>
@@ -260,6 +267,7 @@ export default {
 			this.orgInfo=this.$API2.orgInfo;
 		});
 		this.isActive=true;
+		this.defect=this.$attrs.defect;
 	},
 	beforeUpdate() {
 		this.orgInfo = this.$API2.orgInfo;
@@ -373,7 +381,7 @@ export default {
 			flex-direction: column;
 			position: relative;
 			width: 100%;
-			max-width: 350px;
+			max-width: 325px;
 		}
 		.VueCarousel-slide{
 			max-width: 175px;
