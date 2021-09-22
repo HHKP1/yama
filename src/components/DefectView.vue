@@ -1549,6 +1549,7 @@ export default {
 		background: #fff;
 		padding: 8px;
 		height: 55%;
+		overflow: hidden;
 		/* display: block; */
 	}
 	.progress_container{
