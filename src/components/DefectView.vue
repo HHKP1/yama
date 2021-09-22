@@ -590,7 +590,7 @@
 									<div class="defect_description_info_mb" :class="{open: isComments === 1}">
 										<div class="defect_detail_title_container">
 											<p class="defect_description">Історія звернення</p>
-											<span class="close_button" @click="toggleClass()">&times;</span>
+											<span class="close_button" @click="toggleClass()"></span>
 										</div>
 										<div class="progress_container_mb">
 											<div class="progress_item" v-if="defect.added">
@@ -738,7 +738,7 @@
 									<div class="defect_description_info_mb" :class="{open: isComments === 2}" @click="toggleClass()">
 										<div class="defect_detail_title_container">
 											<p class="defect_description">Коментарі</p>
-											<span class="close_button" @click="toggleClass()">&times;</span>
+											<span class="close_button" @click="toggleClass()"></span>
 										</div>
 										<div class="chat_input">
 											<div v-if="!this.$API.loggedIn" class="chat_overlay">
@@ -777,7 +777,7 @@
 									<div class="defect_description_info_mb" :class="{open: isComments === 3}" @click="toggleClass()">
 										<div class="defect_detail_title_container">
 											<p class="defect_description">Документи</p>
-											<span class="close_button" @click="toggleClass()">&times;</span>
+											<span class="close_button" @click="toggleClass()"></span>
 										</div>
 										<div class="chat_area">
 											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
@@ -1898,6 +1898,8 @@ export default {
 	.close_button{
 		font-size: 1.8rem;
 		line-height: .8;
+		background: url('../assets/img/icons/cross.svg') no-repeat center;
+		width: 24px;
 	}
 	.chat_area{
 		padding: 20px 12px;
