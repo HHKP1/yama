@@ -1510,11 +1510,12 @@ export default {
 	.defect_info_content_mb{
 		display: flex;
 		padding: 0;
+		width: 100%;
 	}
 	.defect_description_info{
 		flex: 1 0 50%;
 		position: relative;
-		padding: 0 12px;
+		padding: 0;
 	}
 	.defect_description_info_tab{
 		flex: 1 0 50%;
