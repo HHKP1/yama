@@ -69,7 +69,7 @@
 											<div class="defect_title_container">
 												<p class="defect_description">Фото</p>
 											</div>
-											<carousel :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
+											<carousel style="visibility: visible !important;" :paginationEnabled="false" :isHidden="false" ref="carousel"  :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
 												<slide v-for="(p, idx) in defect.photos" :key="idx" class="VueCarousel-slide_defect">
 													<div class="defect_card_detail">
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
@@ -897,10 +897,11 @@ export default {
 		this.id = this.$route.params.id;
 		this.loadDefect(this.id);
 	},
-	async mounted() {
+	mounted() {
 		this.$API.title = "Дефект";
 		if(!this.isActive)
 			this.isActive=true;
+		console.log('mounted');
 		this.$eventBus.$on('setMe', async e => {
 			// console.log(e);
 			// if(!e) return;
@@ -942,9 +943,26 @@ export default {
 		// document.head.appendChild(customImage);
 		// document.head.appendChild(appID);
 	},
+	beforeUpdate(){
+		console.log('updated');
+		setTimeout(() => {
+			const doc = document.querySelectorAll("div[class='VueCarousel-inner']");
+			doc.forEach(d => {
+				d.style.visibility = 'visible';
+			})
+		}, 10)
+		// setTimeout(() => this.$refs.carousel.computeCarouselWidth, 300);
+	},
 	methods: {
 		openClaim(url){
 			window.open(url, '_blank');
+		},
+		imageLoaded(change) {
+			console.log('force load');
+			setTimeout(() => {
+				console.log(this.$refs.carousel);
+				return this.$refs.carousel.computeCarouselWidth();
+			}, 0);
 		},
 		reducer: (acc, curr) => acc + curr,
 		toggleClass(event){
@@ -968,6 +986,8 @@ export default {
 				this.ogImage=this.defect.photos[0].url;
 				this.isActive=false;
 				this.appsLoaded=true;
+				console.log('appsLoaded true', this.appsLoaded);
+				setTimeout(() => this.$refs.carousel.computeCarouselWidth, 300)
 			}catch(e){
 				console.log(e);
 				this.isActive=false;
@@ -1045,6 +1065,7 @@ export default {
 			if(this.defect && id != this.defect.id)
 				this.loadDefect(id);
 		},
+		// defect: 'imageLoaded'
 		// latLong: {
 		// 	handler: function(val, oldVal) {
 		// 		this.loadMarkers();
@@ -1243,6 +1264,9 @@ export default {
 			cursor: pointer;
 			outline: none;
 		}
+		div.VueCarousel_detail_photo > .VueCarousel-wrapper > .VueCarousel-inner{
+			visibility: visible !important;
+		}
 		.defect_content_mb{
 			padding: 0;
 			overflow: hidden;
@@ -1407,13 +1431,11 @@ export default {
 		}
 		.VueCarousel-slide{
 			max-width: 158px;
+			/* visibility: visible !important; */
 		}
 		.VueCarousel-navigation{
 			position: relative;
 			bottom: 30px;
-		}
-		.VueCarousel-slide{
-			max-width: 158px;
 		}
 	}
 
@@ -1432,6 +1454,11 @@ export default {
 		width: 100%;
 		max-width: 875px;
 	}
+	/* .VueCarousel_detail_photo{
+		max-width: 158px;
+		visibility: visible !important;
+		flex-basis: 100%;
+	} */
 	.card_image_detail {
 		-o-object-fit: cover;
 		object-fit: cover;
