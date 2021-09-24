@@ -176,8 +176,7 @@
 											</label>
 										</p>
 									</div>
-									<button class="btn outline_button" v-if="!showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Показати на мапі</button>
-									<button class="btn outline_button" v-if="showMap && !$route.path.includes('/defect')" @click="showMap = !showMap">Згорнути мапу</button>
+									<button :key="dfCard.id" class="btn outline_button" v-if="!queryCheck.some(o => queryStr.includes(o))" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
 									<button class="btn custom_button" :class="{active: btnActive}" @click="loadDefects()">Показати</button>
 									<button class="btn custom_button" @click="resetFilters(true)">Скинути всі фільтри</button>
 								</div>

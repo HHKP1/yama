@@ -69,7 +69,7 @@
 											<div class="defect_title_container">
 												<p class="defect_description">Фото</p>
 											</div>
-											<carousel style="visibility: visible !important;" :paginationEnabled="false" :isHidden="false" ref="carousel"  :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
+											<carousel :paginationEnabled="false" :isHidden="false" ref="carousel" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
 												<slide v-for="(p, idx) in defect.photos" :key="idx" class="VueCarousel-slide_defect">
 													<div class="defect_card_detail">
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
@@ -532,7 +532,7 @@
 											<div class="defect_title_container">
 												<p class="defect_description">Фото</p>
 											</div>
-											<carousel :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
+											<carousel ref="carousel" :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
 												<slide v-for="p in defect.photos" :key="p.id" class="VueCarousel-slide_defect">
 													<div class="defect_card_detail_mb">
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
@@ -944,25 +944,17 @@ export default {
 		// document.head.appendChild(appID);
 	},
 	beforeUpdate(){
-		console.log('updated');
 		setTimeout(() => {
 			const doc = document.querySelectorAll("div[class='VueCarousel-inner']");
 			doc.forEach(d => {
 				d.style.visibility = 'visible';
+				d.style.flexBasis = 159 + 'px';
 			})
 		}, 10)
-		// setTimeout(() => this.$refs.carousel.computeCarouselWidth, 300);
 	},
 	methods: {
 		openClaim(url){
 			window.open(url, '_blank');
-		},
-		imageLoaded(change) {
-			console.log('force load');
-			setTimeout(() => {
-				console.log(this.$refs.carousel);
-				return this.$refs.carousel.computeCarouselWidth();
-			}, 0);
 		},
 		reducer: (acc, curr) => acc + curr,
 		toggleClass(event){
@@ -986,8 +978,6 @@ export default {
 				this.ogImage=this.defect.photos[0].url;
 				this.isActive=false;
 				this.appsLoaded=true;
-				console.log('appsLoaded true', this.appsLoaded);
-				setTimeout(() => this.$refs.carousel.computeCarouselWidth, 300)
 			}catch(e){
 				console.log(e);
 				this.isActive=false;
@@ -1065,7 +1055,6 @@ export default {
 			if(this.defect && id != this.defect.id)
 				this.loadDefect(id);
 		},
-		// defect: 'imageLoaded'
 		// latLong: {
 		// 	handler: function(val, oldVal) {
 		// 		this.loadMarkers();
@@ -1264,9 +1253,9 @@ export default {
 			cursor: pointer;
 			outline: none;
 		}
-		div.VueCarousel_detail_photo > .VueCarousel-wrapper > .VueCarousel-inner{
+		/* div.VueCarousel_detail_photo > .VueCarousel-wrapper > .VueCarousel-inner{
 			visibility: visible !important;
-		}
+		} */
 		.defect_content_mb{
 			padding: 0;
 			overflow: hidden;
