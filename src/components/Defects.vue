@@ -253,6 +253,7 @@ export default {
 					{ label: 'Інородний об\'єкт', value: 'ForeignObj', },
 					{ label: 'Яма у дворі', value: 'yard_hole', },
 					{ label: 'Руйнування', value: 'ruined', },
+					{ label: 'Освітлення', value: 'lighting', },
 				],
 				options_filter_by_def_location_type: [
 					{ label: 'Місце розташування дефекту', value: '', disabled: 'disabled' },

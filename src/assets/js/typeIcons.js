@@ -5,6 +5,6 @@ export default [
 	{ name: 'PoorQualityRepair', icon: require('../img/st1234/unfinished-repair_inprogress.png') },
 	{ name: 'yard_hole', icon: require('../img/st1234/holeinyard.png') },
 	{ name: 'sidewalk', icon: require('../img/st1234/sidewalk.png') },
-	{ name: 'lighting', icon: require('../img/st1234/sidewalk.png') },
+	{ name: 'lighting', icon: require('../img/st1234/items.png') },
 	{ name: 'hatch', icon: require('../img/st1234/hatch.png') },
 ];

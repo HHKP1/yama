@@ -107,19 +107,15 @@ export default {
 			console.log(Array.from(event).length);
 			if(event){
 				this.orgN=Array.from(event);
+				this.loadMarkers();
 				this.statusNewWaitEvent=false;
 			}
-			this.loadMarkers();
 		});
 	},
 	mounted() {
 		this.$API.title = "Мапа";
 		this.$API.page = "GoogleMap";
 		this.$forceUpdate(this.markers);
-		// let mI = this.markers.forEach((m, i) => {
-		// 	return m.icon[0].icon
-		// })
-		// console.log(this.markers);
 		if(this.orgN!=this.$API2.orgInfo){
 			this.$eventBus.$emit('orgN', this.orgN);
 		}
@@ -135,9 +131,9 @@ export default {
 		loadMarkers() {
 			this.isActive=true;
 			this.statusNewWaitEvent=true;
-			// if(this.arrMarkers.length < 0) return true;
-			// else
-			// 	this.markers=[];
+			if(this.arrMarkers.length < 0) return true;
+			else
+				this.markers=[];
 			this.arrMarkers.forEach((l, i) => {
 				if (l == null) return;
 				// console.log(l);
