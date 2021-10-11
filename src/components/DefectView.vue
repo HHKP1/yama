@@ -903,7 +903,6 @@ export default {
 		this.$API.title = "Дефект";
 		if(!this.isActive)
 			this.isActive=true;
-		console.log('mounted');
 		this.$eventBus.$on('setMe', async e => {
 			// console.log(e);
 			// if(!e) return;
