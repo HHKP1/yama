@@ -14,8 +14,8 @@
 						<div class="flex-column margin-bottom-16" id="map-wrap">
 							<gmap-map :center="center" :zoom="6" style="position: relative; overflow: hidden; display: block; height: 100%; width: 100%;">
 												<GmapCluster>
-											<div v-for="(m, index) in markers" :key="m.id" style="z-index: 9999">
-												<router-link :to="'/collections/defect/'+m.id">
+											<div v-for="(m, index) in markers" :key="index" style="z-index: 9999">
+												<router-link :to="'/'+m.id">
 													<GmapMarker
 														:position="m.position"
 														:clickable="true"
@@ -35,7 +35,7 @@
 													>
 														<div class="info-window_container" style="max-width:200px;">
 																<span class="btn outline_button" @click="listClick($event, '/'+m.id )">Деталі дефекту
-																	<router-link :to="'/collections/defect/'+m.id">
+																	<router-link :to="'/'+m.id">
 																	</router-link>
 																</span>
 														</div>
@@ -102,20 +102,24 @@ export default {
 			statusNewWaitEvent: false,
 		};
 	},
-	created() {
+	async created() {
 		this.$eventBus.$on('orgInfo', async (event) => {
-			// console.log(Array.from(event));
+			console.log(Array.from(event).length);
 			if(event){
 				this.orgN=Array.from(event);
-				await this.loadMarkers();
 				this.statusNewWaitEvent=false;
 			}
+			this.loadMarkers();
 		});
 	},
 	mounted() {
 		this.$API.title = "Мапа";
 		this.$API.page = "GoogleMap";
 		this.$forceUpdate(this.markers);
+		// let mI = this.markers.forEach((m, i) => {
+		// 	return m.icon[0].icon
+		// })
+		// console.log(this.markers);
 		if(this.orgN!=this.$API2.orgInfo){
 			this.$eventBus.$emit('orgN', this.orgN);
 		}
@@ -131,13 +135,13 @@ export default {
 		loadMarkers() {
 			this.isActive=true;
 			this.statusNewWaitEvent=true;
-			if(this.arrMarkers.length < 0) return true;
-			else
-				this.markers=[];
+			// if(this.arrMarkers.length < 0) return true;
+			// else
+			// 	this.markers=[];
 			this.arrMarkers.forEach((l, i) => {
 				if (l == null) return;
 				// console.log(l);
-				let icn = customMarkers.filter(ic => ic.name==l.type);
+				let icn = customMarkers.filter(ic => ic.name===l.type);
 				let lat = l.lat;
 				let lng = l.lng;
 				l.position = { lat: lat, lng: lng };

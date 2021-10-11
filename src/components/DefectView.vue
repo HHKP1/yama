@@ -40,6 +40,7 @@
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='ForeignObj'">Інородний об'єкт</h3>
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='yard_hole'">Яма у дворі</h3>
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='sidewalk'">Тротуар</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='lighting'">Освітлення</h3>
 												<div class="shovel_status" style="width:0;" v-for="img in arrMarkers" :key="img.id">
 													<img class="type_marker_df" v-if="img.name===defect.defect_type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
 												</div>
