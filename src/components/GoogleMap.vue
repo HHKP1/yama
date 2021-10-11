@@ -104,7 +104,7 @@ export default {
 	},
 	async created() {
 		this.$eventBus.$on('orgInfo', async (event) => {
-			console.log(Array.from(event).length);
+			// console.log(Array.from(event).length);
 			if(event){
 				this.orgN=Array.from(event);
 				this.loadMarkers();

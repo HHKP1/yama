@@ -3,9 +3,9 @@
 		<mq-layout mq="lg">
 			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 			<carousel class="VueCarousel-fullwidth_lg" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :paginationEnabled="false" :perPage="5" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
-				<div class="carousel_overlay" v-if="dfCard.length<=0">
-				<p class="empty_message">По цьому запиту немає дефектів</p>
-			</div>
+				<!-- <div class="carousel_overlay" v-if="!dfCard.length">
+					<p class="empty_message">По цьому запиту немає дефектів</p>
+				</div> -->
 				<slide class="slide-detail" v-for='card in dfCard' :key='card.id'>
 					<router-link :to="'/'+card.id">
 						<div class="defect_card">
@@ -32,7 +32,7 @@
 										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
 									<div class="status_comments">
-										<p v-if="!card.comment" class="status_count">0</p>
+										<p v-if="!card.comment || card.comment==='undefined'" class="status_count">0</p>
 										<p v-else class="status_count">{{ card.comment.length }}</p>
 										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 									</div>
@@ -48,9 +48,9 @@
 		<mq-layout mq="md">
 			<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 			<carousel class="VueCarousel-fullwidth_mb" :navigationEnabled="true" :adjustableHeight="true" :mouseDrag="true" :perPage="4" :paginationColor="'#6C757D'" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'">
-				<div class="carousel_overlay" v-if="orgInfo.length==0">
+				<!-- <div class="carousel_overlay" v-if="!dfCard.length">
 					<p class="empty_message">По цьому запиту немає дефектів</p>
-				</div>
+				</div> -->
 				<slide class="slide-detail" v-for='card in dfCard' :key='card.id'>
 					<router-link :to="'/'+card.id">
 						<div class="defect_card">
@@ -77,8 +77,8 @@
 										<span v-if="card.status=='done'">Виправлений</span>
 									</div>
 									<div class="status_comments">
-										<p v-if="!defect.comments" class="status_count">0</p>
-										<p v-else class="status_count">{{ defect.comments.length }}</p>
+										<p v-if="!card.comment || card.comment==='undefined'" class="status_count">0</p>
+										<p v-else class="status_count">{{ card.comment.length }}</p>
 										<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 									</div>
 								</div>
@@ -219,8 +219,8 @@
 															<span v-if="card.status=='done'">Виправлений</span>
 														</div>
 														<div class="status_comments">
-															<p v-if="!defect.comments" class="status_count">0</p>
-															<p class="status_count">{{ defect.comments.length }}</p>
+															<p v-if="!card.comment || card.comment==='undefined'" class="status_count">0</p>
+															<p v-else class="status_count">{{ card.comment.length }}</p>
 															<img src="../assets/img/icons/bx_bx-comment-detail.svg" alt="">
 														</div>
 													</div>
