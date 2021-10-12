@@ -70,8 +70,8 @@
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
 						<div class="footer_logo_mb">
-							<p class="trade_mark" style="position: absolute;bottom: 10%;padding: 20px;" v-html="htmlEntities"></p>
-							<p class="trade_mark" style="position: absolute;bottom: 10%;padding: 20px;left:23%">{{ new Date() | moment("YYYY") }}</p>
+							<p class="trade_mark" v-html="htmlEntities"></p>
+							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
 						</div>
 					</div>
 					<div class="overlay" @click="isOpen = !isOpen" :change="openMenu(!isOpen)">
@@ -393,10 +393,10 @@
 					<div class="container_defects">
 						<Defects />
 						<transition name="fade-loader">
-							<div style="flex: 0 0 72%">
+							<!-- <div style="flex: 0 0 72%"> -->
 							<router-view>
 							</router-view>
-							</div>
+							<!-- </div> -->
 						</transition>
 					</div>
 				</div>
@@ -783,7 +783,13 @@ export default {
 			})
 		}
 	},
-	watch: {},
+	watch: {
+		// window(){
+		// 	if(window.innerHeight > window.innerWidth){
+		// 		document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
+		// 	}
+		// }
+	},
 	beforeDestroy () {
 		window.removeEventListener('scroll', this.onScroll)
 	},
@@ -878,6 +884,52 @@ export default {
 		}
 		.nav_links a {
 			font: 700 1.3rem 'Montserrat';
+		}
+	}
+
+	@media screen and (max-width: 650px){
+		/* #nav_mb {
+			padding: 5px 15px;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			height: auto;
+			width: 100%;
+			border-bottom: 1px solid var(--color-gray-light);
+			transition: transform .2s ease-out;
+			position: fixed;
+			background: var(--color-white);
+			z-index: 99999;
+			max-width: 640px;
+		} */
+		.step_description {
+			font: 500 .6rem 'Montserrat', Arial, sans-serif !important;
+		}
+		.defect_wrapper{
+			flex: 0 0 65%;
+		}
+		.content_wrapper{
+			flex: 0 0 35%;
+		}
+		.defect_content {
+			height: 955px !important;
+			flex: 0 0 100%;
+			overflow: hidden;
+			position: relative;
+		}
+		.nav_links a {
+			font: 700 .7rem 'Montserrat';
+		}
+		.footer_logo_mb{
+			display: flex;
+			width: 100%;
+		}
+		.trade_mark{
+			padding: 11px !important;
+			position: relative !important;
+			bottom: 0 !important;
+			padding: 10px !important;
+			left: 0!important;
 		}
 	}
 

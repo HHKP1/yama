@@ -1,5 +1,5 @@
 <template>
-	<div style="flex: 0 0 72%">
+	<div class="defect_wrapper">
 		<mq-layout mq="md+">
 		<vue-element-loading :active="isActive" size="60" :isActiveDelay="true" duration="1" spinner="spinner" color="#FF6700"/>
 			<div class="defect_content" >

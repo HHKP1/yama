@@ -1,5 +1,5 @@
 <template>
-	<div style="flex: 0 0 25%">
+	<div class="content_wrapper">
 		<mq-layout mq="md+">
 			<div class="filters_block">
 								<div class="defect_filters">
