@@ -1,13 +1,13 @@
 <template>
 			<!-- <transition name="fade-loader"> -->
 	<div  :class="{open_map: this.$API2.showMap}" style="width: 100%;z-index:99;">
-		<div class="popup_wrapper" v-bind:class="{open: showErrorMap}">
+		<!-- <div class="popup_wrapper" v-bind:class="{open: showErrorMap}">
 			<div class="popup-map" v-if="showErrorMap">
 				<svg @click="toggleModal" class="popup-close" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
 				<h2 class="popup-map__message h2-title" >{{errorTitle}}</h2>
 				<div class="flex-column margin-bottom-16">{{errorText}}</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="popup_wrapper" :class="{open: showGMap}">
 			<div id="gmap-popup" class="popup-map" v-show="showGMap" style="display:flex;flex-direction:column;justify-content:space-between;">
 					<div>
@@ -35,8 +35,9 @@
 													>
 														<div class="info-window_container" style="max-width:200px;">
 																<span class="btn outline_button" @click="listClick($event, '/'+m.id )">Деталі дефекту
-																	<router-link :to="'/'+m.id">
-																	</router-link>
+																	<!-- <a @click="listClick($event, '/'+m.id)" :to="'/'+m.id"> -->
+																		Посилання
+																	<!-- </a> -->
 																</span>
 														</div>
 													</gmap-info-window>
@@ -61,7 +62,13 @@ import locationIcon from '../assets/img/icons/feather_map-pin.svg';
 
 const moment = require('moment');
 require('moment/locale/uk');
-
+// const lClick = (e, url) => {
+// 	if(e) {
+// 		// e.preventDefault();
+// 		this.$router.push(url);
+// 		// window.open(url, "_new");
+// 	}
+// };
 // Vue.use(require('vue-moment'), {
 // 	moment
 // });
@@ -174,23 +181,25 @@ export default {
 		toggleInfoWindow(marker, idx) {
 			let date = marker.added;
 			this.markerInfo = `
-			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;flex-wrap:wrap;">
+			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;">
 				<div class="img_container" style="position:relative">
 					<img class="marker_img" style="position:relative;width:220px;max-height:200px;border-radius:8px;" src="${marker.photo}" alt="defect image" />
 					<img class="marker_img" style="position:absolute;width:40px;border-radius:8px;bottom: 10%;left: 75%;" src="${marker.icon[0].icon}" alt="defect image" />
 				</div>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">
+				<div style="display:flex;flex-flow:column;">
+					<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:4px;">
 					<img src="${dateIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
 					Дата розміщення: <p style="font-weight:400;text-align:left;background:var(--status-color);padding:6px;width: fit-content;border-radius: 4px;color: #FFF;margin: 4px 0;">${moment(date).format("DD.MM.YY в HH:mm")}</p>
-				</span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">
-					<img src="${locationIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
-					Адреса: <p style="font-weight:400;text-align:left">${marker.area}</p>
-				</span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">
-					<img src="${authorIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
-					Автор: <p style="font-weight:400;text-align:left">${marker.author}</p>
-				</span>
+					</span>
+					<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:4px;">
+						<img src="${locationIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
+						Адреса: <p style="font-weight:400;text-align:left">${marker.area}</p>
+					</span>
+					<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:4px;">
+						<img src="${authorIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
+						Автор: <p style="font-weight:400;text-align:left">${marker.author}</p>
+					</span>
+				</div>
 			</div>`;
 			/*<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">Статус: <p style="font-weight:400;text-align:left"> ${marker.status}</p></span>
 				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">Тип: <p style="font-weight:400;text-align:left"> ${marker.type}</p></span>
@@ -205,20 +214,20 @@ export default {
 				this.currentMidx = idx;
 			}
 		},
-		toggleMap() {
-			if(this.holeCount === null) {
-				this.errorTitle = 'Помилка';
-				this.errorText = 'Не вдалося завантажити дані';
-				this.showErrorMap = !this.showErrorMap;
-			} else if(this.holeCount === 0) {
-				this.errorTitle = 'Дефекти';
-				this.errorText = 'В реєстрі немає інформації по цьому дефекту або нам не вдалося її отримати';
-				this.showErrorMap = !this.showErrorMap;
-			} else if(this.holeCount > 0) {
-				if(this.showGMap === false) this.loadMarkers();
-				this.showGMap = !this.showGMap;
-			}
-		}
+		// toggleMap() {
+		// 	if(this.holeCount === null) {
+		// 		this.errorTitle = 'Помилка';
+		// 		this.errorText = 'Не вдалося завантажити дані';
+		// 		this.showErrorMap = !this.showErrorMap;
+		// 	} else if(this.holeCount === 0) {
+		// 		this.errorTitle = 'Дефекти';
+		// 		this.errorText = 'В реєстрі немає інформації по цьому дефекту або нам не вдалося її отримати';
+		// 		this.showErrorMap = !this.showErrorMap;
+		// 	} else if(this.holeCount > 0) {
+		// 		if(this.showGMap === false) this.loadMarkers();
+		// 		this.showGMap = !this.showGMap;
+		// 	}
+		// }
 	},
 	computed: {
 		google: gmapApi,
