@@ -62,7 +62,7 @@
 													<span v-if="defect.case_status.current.status=='rejected'">Відхилений</span>
 													<span v-if="defect.case_status.current.status=='escalated'">Ескалований</span>
 													<span v-if="defect.case_status.current.status=='in_progress'">В процесі</span>
-													<span v-if="defect.case_status.current.status=='done'">Виправлений</span>
+													<span v-if="defect.case_status.current.status=='fixed'">Виправлений</span>
 												</div>
 											</div>
 										</div>
@@ -525,7 +525,7 @@
 													<span v-if="defect.case_status.current.status=='rejected'">Відхилений</span>
 													<span v-if="defect.case_status.current.status=='escalated'">Ескалований</span>
 													<span v-if="defect.case_status.current.status=='in_progress'">В процесі</span>
-													<span v-if="defect.case_status.current.status=='done'">Виправлений</span>
+													<span v-if="defect.case_status.current.status=='fixed'">Виправлений</span>
 												</div>
 											</div>
 										</div>

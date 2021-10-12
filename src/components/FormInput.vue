@@ -65,9 +65,13 @@ export default {
 			set: function(newValue){
 				// $emit is the correct way to update props:
 				this.$emit('input', newValue);
-				this.resetApps()
+				// this.resetApps()
 			}
 		}
+	},
+	value(){
+		if(this.value=='')
+			this.removeQueryParam(this.$route.query);
 	}
 };
 </script>

@@ -270,7 +270,7 @@ export default {
 					{ label: 'Немає відповіді', value: 'no_answer' },
 					{ label: 'Ескалований', value: 'escalated' },
 					{ label: 'Є відповідь', value: 'replied' },
-					{ label: 'Виправлений', value: 'done' },
+					{ label: 'Виправлений', value: 'fixed' },
 					{ label: 'Відхилений', value: 'rejected' },
 				],
 			},

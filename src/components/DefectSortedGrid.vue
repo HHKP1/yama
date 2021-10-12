@@ -29,7 +29,7 @@
 										<span v-if="card.status=='rejected'">Відхилений</span>
 										<span v-if="card.status=='escalated'">Ескалований</span>
 										<span v-if="card.status=='in_progress'">В процесі</span>
-										<span v-if="card.status=='done'">Виправлений</span>
+										<span v-if="card.status=='fixed'">Виправлений</span>
 									</div>
 									<div class="status_comments">
 										<p v-if="!card.comment || card.comment==='undefined'" class="status_count">0</p>
@@ -74,7 +74,7 @@
 										<span v-if="card.status=='rejected'">Відхилений</span>
 										<span v-if="card.status=='escalated'">Ескалований</span>
 										<span v-if="card.status=='in_progress'">В процесі</span>
-										<span v-if="card.status=='done'">Виправлений</span>
+										<span v-if="card.status=='fixed'">Виправлений</span>
 									</div>
 									<div class="status_comments">
 										<p v-if="!card.comment || card.comment==='undefined'" class="status_count">0</p>
@@ -216,7 +216,7 @@
 															<span v-if="card.status=='rejected'">Відхилений</span>
 															<span v-if="card.status=='escalated'">Ескалований</span>
 															<span v-if="card.status=='in_progress'">В процесі</span>
-															<span v-if="card.status=='done'">Виправлений</span>
+															<span v-if="card.status=='fixed'">Виправлений</span>
 														</div>
 														<div class="status_comments">
 															<p v-if="!card.comment || card.comment==='undefined'" class="status_count">0</p>

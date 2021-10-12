@@ -96,7 +96,7 @@ export default {
 				//optional: offset infowindow so it visually sits nicely on top of our marker
 				pixelOffset: {
 					width: 0,
-					height: -35
+					height: -65
 				}
 			},
 			statusNewWaitEvent: false,
