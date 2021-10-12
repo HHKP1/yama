@@ -6,6 +6,11 @@
 							<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 					</transition>
 				</div>
+				<div class="loader-container" v-if="!appsLoaded && $mq=='sm_album'" style="flex: 1 1 60%;width: 100%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
+					<transition name="fade-loader">
+							<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+					</transition>
+				</div>
 				<div class="loader-container" v-if="!appsLoaded && $mq=='sm'" style="flex: 1 1 60%;width: 100%;height: 100%;position: absolute !important;display: flex;justify-content: flex-end;align-items: center;">
 					<transition name="fade-loader">
 							<vue-element-loading style="display:flex;justify-content: center;" :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
@@ -1497,7 +1502,7 @@ export default {
 		}
 	}
 
-	@media all and (max-width:650px){
+	@media all and (max-width:850px){
 		.defect_info_content_sm_al {
 			width: 100%;
 			display: flex;

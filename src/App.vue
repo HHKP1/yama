@@ -5,7 +5,7 @@
 		</transition>
 		<!-- <div class="preloader" v-if="!appsLoaded" style="background: var(--color-red);width: 100%;height:100vh;position: absolute;top:0;left:0;display:block;z-index:9;" >Hello</div> -->
 		<main :class="{open: isOpen}" v-show="appsLoaded">
-			<mq-layout mq="md+" v-if="$mq == 'lg'">
+			<mq-layout mq="md+" v-if="$mq == 'md' || $mq == 'lg'">
 				<div id="nav">
 					<a class="logo_link" href="/">
 						<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 			</mq-layout>
-			<mq-layout mq="sm+" v-if="$mq == 'sm' || $mq == 'md' || $mq == 'sm_album'">
+			<mq-layout mq="sm" v-if="$mq == 'sm'">
 				<div id="nav_mb" :class="{ 'hidden-navbar': !showNavbar }">
 					<div class="logo_container">
 						<a class="logo_link" href="/">
@@ -69,13 +69,59 @@
 						<div class='nav_links' v-for="(item) in this.navItems" :key="item.id">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
-						<div class="footer_logo_mb">
-							<p class="trade_mark" v-html="htmlEntities"></p>
-							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
+						<div class="footer_logo_mb_nav">
+							<p class="trade_mark_nav" v-html="htmlEntities"></p>
+							<p class="trade_mark_nav">{{ new Date() | moment("YYYY") }}</p>
 						</div>
 					</div>
 					<div class="overlay" @click="isOpen = !isOpen" :change="openMenu(!isOpen)">
 						<div class="overlay_inner"></div>
+					</div>
+				</div>
+			</mq-layout>
+			<mq-layout mq="sm_album" v-if="$mq == 'sm_album'">
+				<div id="nav_sm_al" :class="{ 'hidden-navbar': !showNavbar }">
+					<div class="logo_container">
+						<a class="logo_link" href="/">
+							<img id="logo" src="./assets/img/icons/Logo_mobile.svg" alt="Logo">
+						</a>
+						<div class="nav_button" @click="isOpen = !isOpen">
+							<svg @change="isOpen = !isOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+								<g id="uil_subject" transform="translate(-648 -893)">
+									<rect id="Rectangle_4" data-name="Rectangle 4" width="24" height="24" transform="translate(648 893)" fill="none"/>
+									<line ref="Line_1" id="Line_1" data-name="Line 1" x2="15" transform="translate(655.5 898.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+									<line ref="Line_3" id="Line_3" data-name="Line 3" x2="21" transform="translate(649.5 904.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+									<line ref="Line_2" id="Line_2" data-name="Line 2" x2="12" transform="translate(658.5 910.5)" fill="none" stroke="#e3433d" stroke-linecap="round" stroke-width="3"/>
+								</g>
+							</svg>
+						</div>
+					</div>
+					<div class="nav_links-container_sm_al" :class="{open: isOpen}">
+						<div v-if="loggedIn" class="author_info_chat_mb" style="margin: 4px 4px;width:180px;">
+							<span class="logout" @click="logout">Вийти</span>
+							<div class="author_content">
+								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
+							</div>
+						</div>
+						<FormInput
+						title=""
+						label=""
+						placeholder="Пошук за адресою або номером заяви"
+						class="form-control form-control_top"
+						v-model="search"
+						type="search"
+						/>
+						<div class='nav_links_sm_al' v-for="(item) in this.navItems" :key="item.id">
+							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
+						</div>
+						<div class="footer_logo_sm_al">
+							<p class="trade_mark_sm_al" v-html="htmlEntities"></p>
+							<p class="trade_mark_sm_al">{{ new Date() | moment("YYYY") }}</p>
+						</div>
+					</div>
+					<div class="overlay_sm_al" @click="isOpen = !isOpen" :change="openMenu(!isOpen)">
+						<div class="overlay_inner_sm_al"></div>
 					</div>
 				</div>
 			</mq-layout>
@@ -151,7 +197,7 @@
 						<div class="head-container">
 							<div class="main-hero head-hero">
 								<div class="hero-title">
-									<p class="hero-item"><strong
+									<p class="hero-item_sm_al"><strong
 											style="font:900 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
 										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
 										розвивається</p>
@@ -548,10 +594,10 @@
 					<div class="container_defects">
 						<Defects />
 						<transition name="fade-loader">
-							<!-- <div style="flex: 0 0 72%"> -->
+							<div class="content_view">
 							<router-view>
 							</router-view>
-							<!-- </div> -->
+							</div>
 						</transition>
 					</div>
 				</div>
@@ -616,12 +662,12 @@
 				</mq-layout>
 				<mq-layout mq="sm_album">
 					<div id="footer_nav">
-						<div class="footer_logo">
+						<div class="footer_logo_sm_al">
 							<a href="/">
 								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
 							</a>
-							<p class="trade_mark" v-html="htmlEntities"></p>
-							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
+							<p class="trade_mark_sm_al" v-html="htmlEntities"></p>
+							<p class="trade_mark_sm_al">{{ new Date() | moment("YYYY") }}</p>
 						</div>
 						<div class="footer_links">
 							<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
@@ -1003,6 +1049,9 @@ export default {
 		opacity: 0;
 		/* transform: scale(0.8); */
 	}
+	.content_view{
+		flex: 0 0 72%;
+	}
 	@media screen and (max-width:450px) {
 		#nav_mb {
 			padding: 5px 15px;
@@ -1071,8 +1120,8 @@ export default {
 		}
 	}
 
-	@media screen and (max-width: 650px){
-		#nav_mb {
+	@media screen and (max-width: 850px){
+		#nav_sm_al {
 			padding: 5px 15px;
 			display: flex;
 			justify-content: flex-start;
@@ -1084,7 +1133,22 @@ export default {
 			position: fixed;
 			background: var(--color-white);
 			z-index: 99999 !important;
-			max-width: 640px !important;
+			max-width: 100vw !important;
+		}
+		.content_view{
+			flex: 0 0 65%;
+		}
+		.hero-item_sm_al{
+			font: 500 1.3rem 'Montserrat';
+			cursor: text;
+		}
+		.nav_links_sm_al a {
+			font: 700 1.3rem 'Montserrat';
+		}
+		.nav_links-container_sm_al.open {
+			transform: translateX(25%);
+			align-items: flex-start;
+			padding: 70px;
 		}
 		.defect_nav_item_mb p {
 			font: 500 .7rem Montserrat;
@@ -1104,19 +1168,18 @@ export default {
 			overflow: hidden;
 			position: relative;
 		}
-		.nav_links a {
-			font: 700 .7rem 'Montserrat';
-		}
-		.footer_logo_mb{
+		.footer_logo_sm_al{
 			display: flex;
 			width: 100%;
+			align-items: center;
 		}
-		.trade_mark{
+		.trade_mark_sm_al{
 			padding: 11px !important;
 			position: relative !important;
 			bottom: 0 !important;
-			padding: 10px !important;
+			padding: 3px !important;
 			left: 0!important;
+			font: 500 .8rem 'Montserrat';
 		}
 	}
 
@@ -1126,6 +1189,24 @@ export default {
 	}
 
 	.nav_links-container{
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		position: fixed;
+		padding: 20px;
+		width: 101%;
+		height: 100%;
+		align-items: flex-start;
+		background: var(--background-color-prefooter);
+		z-index: 2;
+		bottom: 0;
+		left: 0;
+		font: 700 1.6rem 'Montserrat';
+		transform: translateX(100%);
+		transition: transform cubic-bezier(0.77, 0, 0.175, 1) 0.4s;
+	}
+
+	.nav_links-container_sm_al{
 		display: flex;
 		flex-flow: column;
 		justify-content: center;
