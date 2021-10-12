@@ -33,7 +33,7 @@
 					</div>
 				</div>
 			</mq-layout>
-			<mq-layout mq="sm+" v-if="$mq == 'sm' || $mq == 'md'">
+			<mq-layout mq="sm+" v-if="$mq == 'sm' || $mq == 'md' || $mq == 'sm_album'">
 				<div id="nav_mb" :class="{ 'hidden-navbar': !showNavbar }">
 					<div class="logo_container">
 						<a class="logo_link" href="/">
@@ -81,6 +81,72 @@
 			</mq-layout>
 			<section class="main">
 				<mq-layout mq="md+">
+					<div class="header">
+						<div class="head-container">
+							<div class="main-hero head-hero">
+								<div class="hero-title">
+									<p class="hero-item"><strong
+											style="font:900 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
+										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
+										розвивається</p>
+								</div>
+								<button class="btn custom_button hero-btn">Додати дефект</button>
+							</div>
+							<div class="main-hero" v-if="!loggedIn">
+								<div class="hero-title">
+									<div class="hero-container">
+										<div class="hero-content">
+											<div class="hero-item">
+												<p class="p-text">Ваш код<br />для входу:</p>
+											</div>
+											<div v-if="appsLoaded" class="hero-item">
+												<p class="p-text code">{{ authCode[authCode.length-1].code }}</p>
+											</div>
+											<div class="hero-item">
+												<div class="help-tips"
+													style="border-radius:100%;background: var(--background-color-normal)" title="Є питання?">
+												</div>
+											</div>
+										</div>
+										<div class="hero-content">
+											<div class="hero-content_block">
+												<div class="hero-item icon">
+												<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
+													alt="Facebook messenger">
+												</div>
+												<div class="hero-item_message" title="QR Code для входу">
+													<p class="message_title">UkrYama_bot</p>
+													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
+												</div>
+											</div>
+											<div class="hero-content_block">
+												<div class="hero-item icon">
+													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
+												</div>
+												<div class="hero-item_message" title="QR Code для входу">
+													<p class="message_title">UkrYama_bot</p>
+													<div class="message_content">
+														<img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message">
+													</div>
+												</div>
+											</div>
+											<div class="hero-content_block">
+												<div class="hero-item icon">
+													<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+												</div>
+												<div class="hero-item_message" title="QR Code для входу">
+													<p class="message_title">UkrYama_bot</p>
+													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm_album">
 					<div class="header">
 						<div class="head-container">
 							<div class="main-hero head-hero">
@@ -232,6 +298,27 @@
 						<button class="underline-btn">Дивитись детальну статистику</button>
 					</div>
 				</mq-layout>
+				<mq-layout mq="sm_album">
+					<div class="main-counter">
+						<div class="counter-item">
+							<span class="counter-check">2500</span>
+							<p class="counter-title">зареєстровано в УкрЯмі</p>
+						</div>
+						<span class="counter-separator"></span>
+						<div class="counter-item">
+							<span class="counter-check">500</span>
+							<p class="counter-title">надіслано в поліцію</p>
+						</div>
+						<span class="counter-separator"></span>
+						<div class="counter-item">
+							<span class="counter-check">25700</span>
+							<p class="counter-title">виправлено</p>
+						</div>
+					</div>
+					<div class="statistc-btn">
+						<button class="underline-btn">Дивитись детальну статистику</button>
+					</div>
+				</mq-layout>
 				<mq-layout mq="sm">
 					<div class="main-counter_mb">
 						<div class="counter-item_mb">
@@ -251,6 +338,74 @@
 			</section>
 			<section class="how_it_works">
 				<mq-layout mq="md+">
+					<div class="container_works">
+						<h2 class="section_title">Як це працює</h2>
+						<div class="container_steps">
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
+								</div>
+								<p class="step_description">Додати дефект</p>
+								<div class="arrow_forward">
+								<img src="./assets/img/icons/Line_45.svg" alt="">
+							</div>
+							</div>
+							<div class="step_item">
+								<div class="step_icon">
+									<img src="./assets/img/icons/mdi_file-document-edit-outline.svg" alt="">
+								</div>
+								<p class="step_description">Надіслати заяву в поліцію<br/> та чекати відповідь</p>
+							</div>
+							<div class="step_item_col">
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_file-check-outline.svg" alt="">
+									</div>
+									<p class="step_description">Отримати відповідь</p>
+								</div>
+								<div class="arrow_fork">
+									<img src="./assets/img/icons/fork_arrow.svg" alt="">
+								</div>
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_account-multiple-remove-outline.svg" alt="">
+									</div>
+									<p class="step_description">Немає відповіді</p>
+								</div>
+							</div>
+							<div class="step_item">
+								<div class="arrow_fork_up">
+									<img src="./assets/img/icons/fork_arrow_up.svg" alt="">
+								</div>
+								<div class="step_icon">
+									<img src="./assets/img/icons/bx_bx-traffic-cone.svg" alt="">
+								</div>
+								<p class="step_description">Ремонт ділянки</p>
+								<div class="arrow_fork_down">
+									<img src="./assets/img/icons/Line_50.svg" alt="">
+								</div>
+							</div>
+							<div class="step_item_col">
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_alert-octagon-outline.svg" alt="">
+									</div>
+									<p class="step_description">Відмова</p>
+								</div>
+								<div class="arrow_down">
+									<img src="./assets/img/icons/arrow_down.svg" alt="">
+								</div>
+								<div class="step_item">
+									<div class="step_icon">
+										<img src="./assets/img/icons/mdi_alert_sign-octagon-outline.svg" alt="">
+									</div>
+									<p class="step_description">Скарга до вищестоячої<br/> інстанції</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm_album">
 					<div class="container_works">
 						<h2 class="section_title">Як це працює</h2>
 						<div class="container_steps">
@@ -415,6 +570,19 @@
 						</div>
 					</div>
 				</mq-layout>
+				<mq-layout mq="sm_album">
+					<div class="footer_container">
+						<div class="main-hero head-hero">
+							<div class="hero-title">
+								<p class="prefooter_title">Дороги – наша відповідальність, контролюй це!</p>
+							</div>
+						</div>
+						<div class="button_container">
+							<button class="btn footer-outline_button">Допомогти проєкту</button>
+							<button class="btn custom_button footer-btn">Додати дефект</button>
+						</div>
+					</div>
+				</mq-layout>
 				<mq-layout mq="sm">
 					<div class="footer_container_mb">
 						<div class="main-hero head-hero_mb">
@@ -431,6 +599,22 @@
 			</section>
 			<section class="footer">
 				<mq-layout mq="md+">
+					<div id="footer_nav">
+						<div class="footer_logo">
+							<a href="/">
+								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+							</a>
+							<p class="trade_mark" v-html="htmlEntities"></p>
+							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
+						</div>
+						<div class="footer_links">
+							<div class='nav_links' v-for="(item, index) in this.navItems" :key="item.name" :data-index="index">
+							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
+						</div>
+						</div>
+					</div>
+				</mq-layout>
+				<mq-layout mq="sm_album">
 					<div id="footer_nav">
 						<div class="footer_logo">
 							<a href="/">
@@ -888,7 +1072,7 @@ export default {
 	}
 
 	@media screen and (max-width: 650px){
-		/* #nav_mb {
+		#nav_mb {
 			padding: 5px 15px;
 			display: flex;
 			justify-content: flex-start;
@@ -899,9 +1083,12 @@ export default {
 			transition: transform .2s ease-out;
 			position: fixed;
 			background: var(--color-white);
-			z-index: 99999;
-			max-width: 640px;
-		} */
+			z-index: 99999 !important;
+			max-width: 640px !important;
+		}
+		.defect_nav_item_mb p {
+			font: 500 .7rem Montserrat;
+		}
 		.step_description {
 			font: 500 .6rem 'Montserrat', Arial, sans-serif !important;
 		}

@@ -89,6 +89,95 @@
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
+		<mq-layout mq="sm_album">
+			<div class="filters_block">
+								<div class="defect_filters">
+										<p class="filter_title" style="text-align:left;">фільтри</p>
+								</div>
+								<FormInput
+									title=""
+									label="Адреса"
+									prefix=""
+									placeholder="Пошук дефектів за адресою"
+									v-model="searchAddressFilter"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Регіон"
+									placeholder="Тип дефекту"
+									:options="options.options_filter_by_region_id"
+									v-model="selectedRegion"
+									class="form-control"
+								/>
+								<div class="input-field form-control">
+									<label>Дата розміщення</label>
+									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;">
+										<div class="form__wrapper interval table-sort__select">
+											<div class="select" style="text-align: left;font-size: .9rem;" title="Фільтрація по даті розміщення">
+												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
+													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
+														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
+														<img class="calendar_icon" src="../assets/img/calendar.png" alt="">
+														<span class="calendar__icon" v-if="periodShow == ''"></span>
+													</p>
+												</div>
+											</div>
+											<div class="calendar" ref="dateRangeFilter" v-if="dateRangeFilterShown" v-on:mouseleave="dateRangeFilterShown=false;">
+												<span class="calendar__reset" @click="resetCalendar">Скинути</span>
+												<input type="checkbox" id="calendarSwitch" ref="calendarSwitch" hidden>
+												<div class="calendar__container">
+													<div class="calendar__start" :class='{calendar__start_mg: periodStart.length==0}'>
+														<p class="calendar__heading">Початок періоду</p>
+														<Datepicker class="" @input="updatePeriodStart" :value="periodStart.length>0?new Date(Date.parse(periodStart)):''" :inline="true"></Datepicker>
+													</div>
+													<label class="calendar__label" for="calendarSwitch">
+														<span class="calendar__switch" :class='{ calendar__switch_enabled: periodStart.length>0}'></span>
+													</label>
+													<div class="calendar__end">
+														<p class="calendar__heading">Закінчення періоду</p>
+														<Datepicker class="" @input="updatePeriodEnd" :value="periodEnd.length>0?new Date(Date.parse(periodEnd)):''" :inline="true"></Datepicker>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<FormSelect
+									label="Тип дефекту"
+									ref="typesFilter"
+									placeholder="Тип дефекту"
+									:options="options.options_filter_by_defect_type"
+									v-model="selectedType"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Розташування"
+									placeholder="Місце розташування дефекту"
+									:options="options.options_filter_by_def_location_type"
+									v-model="selectedLocationType"
+									class="form-control"
+								/>
+								<FormSelect
+									label="Статус"
+									placeholder="Статус дефекту"
+									:options="options.options_filter_by_def_status"
+									v-model="selectedStatus"
+									class="form-control"
+								/>
+								<div class="input_group">
+									<p>
+										<label for="customcheck">
+											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
+											<span class="custom_checkbox">Показувати тільки мої дефекти</span>
+										</label>
+									</p>
+								</div>
+								<button :key="dfCard.id" class="btn outline_button" v-if="!queryCheck.some(o => queryStr.includes(o))" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
+								<button class="btn custom_button" @click="loadDefects()">Показати</button>
+								<button class="btn custom_button" @click="resetFilters(true)">Скинути всі фільтри</button>
+			</div>
+			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
+		</mq-layout>
 		<mq-layout mq="sm">
 					<div class="container_works_mb">
 						<div class="container_defects_mb">

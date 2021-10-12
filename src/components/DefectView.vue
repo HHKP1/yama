@@ -363,6 +363,358 @@
 			</div>
 			</transition>
 			</mq-layout>
+			<mq-layout mq="sm_album">
+			<transition name="fade-loader">
+			<div class="defect_content_ht" v-if="appsLoaded">
+								<router-link class="defect_links" to="/collections">
+									<p>&lt; Назад до повного списку</p>
+								</router-link>
+								<DefectSortedGrid :defect="defect" />
+								<div class="defect_nav_container">
+									<div class="defect_nav">
+										<div class="defect_nav_item_sm_al" @click="isCommentsMd = 1" :style="{'border-bottom': isCommentsMd === 1 ? '2px solid var(--color-red)' : ''}"><p>Детальна інформація</p></div>
+										<div class="defect_nav_item_sm_al" @click="isCommentsMd = 2" :style="{'border-bottom': isCommentsMd === 2 ? '2px solid var(--color-red)' : ''}"><p>Історія дефекту</p></div>
+										<div class="defect_nav_item_sm_al" @click="isCommentsMd = 3" :style="{'border-bottom': isCommentsMd === 3 ? '2px solid var(--color-red)' : ''}"><p>Коментарі</p></div>
+										<div class="defect_nav_item_sm_al" @click="isCommentsMd = 4" :style="{'border-bottom': isCommentsMd === 4 ? '2px solid var(--color-red)' : ''}"><p>Документи</p></div>
+									</div>
+								</div>
+								<div class="defect_info_content_sm_al">
+								<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+									<div class="defect_description_info">
+										<div class="defect_detail">
+											<div class="defect_title_container">
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='hole'">Яма</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='ruined'">Руйнування</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='manually'">Ремонтується</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='Markup'">Розмітка</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='PoorQualityRepair'">Не якісний ремонт</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='Snow'">Сніг</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='ForeignObj'">Інородний об'єкт</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='yard_hole'">Яма у дворі</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='sidewalk'">Тротуар</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='lighting'">Освітлення</h3>
+												<h3 class="defect_detail_title" v-if="defect.defect_type=='hatch'">Люк</h3>
+												<div class="shovel_status" style="width:0;" v-for="img in arrMarkers" :key="img.id">
+													<img class="type_marker_df" v-if="img.name===defect.defect_type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
+												</div>
+												<!-- <p class="defect_description">{{ defect.comment }}</p> -->
+											</div>
+										</div>
+										<div class="defect_detail">
+											<div class="detail_defect_status">
+												<div class="status_item_id">
+													<span class="defect_id">#{{defect.id}}</span>
+												</div>
+												<div class="defect_status_item">
+													<span v-if="defect.case_status.current.status=='new'">Новий</span>
+													<span v-if="defect.case_status.current.status=='approved'">Погоджений</span>
+													<span v-if="defect.case_status.current.status=='sent'">Відправлений</span>
+													<span v-if="defect.case_status.current.status=='replied'">Відповідь</span>
+													<span v-if="defect.case_status.current.status=='no_answer'">Немає відповіді</span>
+													<span v-if="defect.case_status.current.status=='rejected'">Відхилений</span>
+													<span v-if="defect.case_status.current.status=='escalated'">Ескалований</span>
+													<span v-if="defect.case_status.current.status=='in_progress'">В процесі</span>
+													<span v-if="defect.case_status.current.status=='fixed'">Виправлений</span>
+												</div>
+											</div>
+										</div>
+										<div class="defect_detail">
+											<div class="detail_defect_info">
+											<div class="defect_title_container">
+												<p class="defect_description">Фото</p>
+											</div>
+											<carousel :paginationEnabled="false" :isHidden="false" ref="carousel" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
+												<slide v-for="(p, idx) in defect.photos" :key="idx" class="VueCarousel-slide_defect">
+													<div class="defect_card_detail">
+														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
+															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
+															<div class="defect_image_detail">
+																<img class="card_image_detail" :src="p.url" alt="">
+															</div>
+														</div>
+													</div>
+												</slide>
+											</carousel>
+											<div class="defect_detail_info">
+												<div class="info_item">
+													<p class="author_item">Дата розміщення</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<p class="date_placement">{{ defect.added | moment("DD.MM.YY в HH:mm") }}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="defect_detail_info">
+												<div class="info_item">
+													<p class="author_item">Автор</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
+														</div>
+														<button v-if="this.$API.loggedIn" @click="isCommentsMd = 3" class="author_chat underline-btn">Написати автору</button>
+													</div>
+												</div>
+											</div>
+											<div class="defect_detail_info">
+												<div class="info_item">
+													<p class="author_item">Адреса</p>
+													<div class="author_info">
+														<div class="author_content">
+															<img src="../assets/img/icons/feather_map-pin.svg" alt="User avatar" class="author_icon">
+															<p class="author_name">{{ defect.address }}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- <div class="defect_share">
+												<button class="btn outline_button_share">Надіслати в поліцію</button>
+												<button class="btn custom_button_share">
+													<img class="share_icon" src="../assets/img/icons/bx_bx-share-alt.svg" alt="" >
+													Поділитись
+												</button>
+											</div> -->
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 1}">
+										<!-- <div class="progress_container"> -->
+										<img class="map_image" :src="defect.map_url" alt="Map view">
+										<!-- </div> -->
+									</div>
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 2}">
+										<div class="progress_container_sm_al">
+											<div class="progress_item" v-if="defect.added">
+												<div class="progress_content reverse">
+													<div class="progress_icons_block">
+														<div class="progress_icons">
+															<div class="progress_indicator">
+																<img title="Дивитись документи" @click="isCommentsMd = 4" src="../assets/img/icons/mdi_camera-plus-outline.svg" class="progress_icon" alt="">
+															</div>
+															<img src="../assets/img/icons/arrow_down.svg" alt="">
+														</div>
+													</div>
+													<div class="progress_info_block">
+														<div class="progress_info_item">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<p class="author_chat message_date">{{ defect.added | moment("DD.MM.YY в HH:mm") }}</p>
+														</div>
+														<p class="progress_title">Дефект додано</p>
+														<div class="doc_images">
+														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+													</div>
+													</div>
+												</div>
+											</div>
+											<div class="progress_item" v-if="defect.comments && defect.comments.length>0">
+												<div class="progress_content">
+													<div class="progress_icons_block">
+														<div class="progress_icons">
+																<div class="progress_indicator">
+																	<img title="Дивитись коментарі" style="cursor:pointer;" @click="isCommentsMd = 3" src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
+																</div>
+															<img src="../assets/img/icons/arrow_down.svg" alt="">
+														</div>
+													</div>
+													<div class="progress_info_block" v-for="date in defect.comments" :key="date.id">
+														<div class="progress_info_item_reverse">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<p class="author_chat message_date">{{ date.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
+														</div>
+														<p v-if="!defect.comments" class="progress_title_reverse">Коментарі: <strong style="font: 700 1rem 'Montserrat-Bold';color:red;">0</strong></p>
+														<p v-else class="progress_title_reverse">Коментарі: <strong style="font: 700 1rem 'Montserrat-Bold';color:red;">{{ defect.comments.length }}</strong></p>
+														<!-- <p class="progress_title">Коментарі</p> -->
+													</div>
+												</div>
+											</div>
+											<div class="progress_item" v-for="(replay, index) in defect.replies" :key="index">
+												<div class="progress_content" :class="{reverse: index % 2 === 0}" v-if="defect.replies.length>0">
+													<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img title="Дивитись документи" @click="isCommentsMd = 4" src="../assets/img/icons/mdi_file-check-outline.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+													</div>
+													<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">{{ replay.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p>
+													</div>
+													<p class="progress_title">Відповідь отримано</p>
+													<div class="doc_images" v-for="(url, index) in replay.urls" :key="index">
+														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+													</div>
+													</div>
+												</div>
+											</div>
+											<!-- <div class="progress_item">
+												<div class="progress_content reverse">
+													<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+													</div>
+													<div class="progress_info_block">
+													<div class="progress_info_item_reverse">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title_reverse">Коментарі</p>
+													</div>
+												</div>
+											</div>
+											<div class="progress_item">
+												<div class="progress_content">
+													<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+													</div>
+													<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title">Реакція на відповідь</p>
+													</div>
+												</div>
+											</div>
+											<div class="progress_item">
+												<div class="progress_content reverse">
+													<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/si-glyph_arrow-reload.svg" class="progress_icon" alt="">
+														</div>
+														<img src="../assets/img/icons/arrow_down.svg" alt="">
+													</div>
+													</div>
+													<div class="progress_info_block">
+													<div class="progress_info_item_reverse">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title_reverse">Дані оновлено</p>
+													</div>
+												</div>
+											</div>
+											<div class="progress_item">
+												<div class="progress_content">
+													<div class="progress_icons_block">
+													<div class="progress_icons">
+														<div class="progress_indicator">
+															<img src="../assets/img/icons/bx_bx-traffic-cone.svg" class="progress_icon" alt="">
+														</div>
+													</div>
+													</div>
+													<div class="progress_info_block">
+													<div class="progress_info_item">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">23.04.2021</p>
+													</div>
+													<p class="progress_title">Дефект усунуто</p>
+													</div>
+												</div>
+											</div> -->
+										</div>
+									</div>
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 3}">
+										<div class="defect_title_container">
+											<p class="defect_description">Коментарі</p>
+										</div>
+										<div class="chat_input">
+											<div v-if="!this.$API.loggedIn" class="chat_overlay">
+												<p>Увійдіть щоб коментувати</p>
+											</div>
+											<div class="author_info_chat">
+												<div class="author_content">
+													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
+												</div>
+											</div>
+											<FormInput
+												title=""
+												label=""
+												placeholder="залишити коментар"
+												class="form-control"
+												v-model="comment"
+											/>
+										</div>
+										<div class="chat_area" v-for="comment in defect.comments" :key="comment.id">
+											<div class="incoming_container">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<p class="author_name">{{ comment.author.name }}</p>
+													</div>
+													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
+												</div>
+												<div class="message_box">
+													<p class="message_content">{{ comment.text }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 4}">
+										<div class="defect_title_container">
+											<p class="defect_description">Документи</p>
+										</div>
+										<div class="chat_area">
+											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">{{ claim.delivery_date }}</p>
+													</div>
+												</div>
+												<div class="doc_box">
+													<p class="message_content">{{ claim.comment }}</p>
+													<div class="doc_images">
+														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+													</div>
+												</div>
+											</div>
+											<div class="incoming_container" v-for="(replay, index) in defect.replies" :key="index">
+												<div class="author_content">
+													<div class="author_chat_info">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<p class="author_chat message_date">{{ replay.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p>
+													</div>
+												</div>
+												<div class="doc_box">
+													<p class="message_content">{{ replay.comment }}</p>
+													<div class="doc_images" v-for="(url, index) in replay.urls" :key="index">
+														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="chat_area" v-if="!defect.claims" style="display:flex;justify-content:center;align-items:center;background: var(--background-color-prefooter);position:absolute;top:0;">
+											<h6>Поки немає файлів</h6>
+										</div>
+									</div>
+								</div>
+								<div class="detail_pagination">
+									<button class="btn outline_button btn_outline" v-if="dfCount>0" @click="prevDefect">&lt; Попередній</button>
+									<button class="btn outline_button btn_outline" v-else disabled="true">&lt; Попередній</button>
+									<button class="btn outline_button btn_outline" v-if="dfCount<dfCard.length-1" @click="nextDefect">Наступний &gt;</button>
+									<button class="btn outline_button btn_outline" v-else disabled="true">Наступний &gt;</button>
+								</div>
+			</div>
+			</transition>
+			</mq-layout>
 			<mq-layout mq="sm">
 			<div class="container_works_mb" v-if="appsLoaded">
 						<div class="container_defects_mb">
@@ -1145,6 +1497,33 @@ export default {
 		}
 	}
 
+	@media all and (max-width:650px){
+		.defect_info_content_sm_al {
+			width: 100%;
+			display: flex;
+			padding: 20px 0;
+			flex-flow: column !important;
+		}
+		.defect_nav_item_sm_al p {
+			margin: 0 15px 0 0;
+			padding: 12px 0;
+			color: var(--color-gray);
+			cursor: pointer;
+			display: inline-block;
+			font: 500 .7rem 'Montserrat';
+		}
+		.progress_container_sm_al{
+			padding: 12px 25px;
+			max-height: 550px;
+			overflow: auto;
+		}
+		.progress_container_sm_al > *:nth-of-type(odd){
+		display: flex;
+		position: relative;
+		justify-content: flex-start;
+		max-width: 316px;
+	}
+	}
 	@media all and (max-width:450px){
 		main.open {
 			width: 100%;
@@ -1582,10 +1961,10 @@ export default {
 	}
 	@media all and (min-width:968px){
 		.progress_container{
-		padding: 12px 0;
-		max-height: 550px;
-		overflow: auto;
-	}
+			padding: 12px 0;
+			max-height: 550px;
+			overflow: auto;
+		}
 	}
 	.progress_container > *:nth-of-type(odd){
 		display: flex;
