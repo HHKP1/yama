@@ -14,19 +14,6 @@
 						<div class="flex-column margin-bottom-16" id="map-wrap">
 							<gmap-map :center="center" :zoom="6" style="position: relative; overflow: hidden; display: block; height: 100%; width: 100%;">
 												<GmapCluster>
-											<div v-for="(m, index) in markers" :key="index" style="z-index: 9999">
-												<router-link :to="'/'+m.id">
-													<GmapMarker
-														:position="m.position"
-														:clickable="true"
-														:ref="`m${index}`"
-														@mouseover="toggleInfoWindow(m, index)"
-														:icon="m.icon[0].icon"
-														@click="listClick($event, '/'+m.id )"
-													>
-													</GmapMarker>
-														</router-link>
-														<!-- <router-link :to="'/collections/defect/'+m.id"> -->
 													<gmap-info-window
 													:options="infoOptions"
 													:position="infoWindowPos"
@@ -35,12 +22,25 @@
 													>
 														<div class="info-window_container" style="max-width:200px;">
 																<span class="btn outline_button" @click="listClick($event, '/'+m.id )">Деталі дефекту
-																	<!-- <a @click="listClick($event, '/'+m.id)" :to="'/'+m.id"> -->
+																	<router-link @click="listClick($event, '/'+arrMarkers.id)" :to="'/'+arrMarkers.id">
 																		Посилання
-																	<!-- </a> -->
+																	</router-link>
 																</span>
 														</div>
 													</gmap-info-window>
+											<div v-for="(m, index) in markers" :key="m.id" style="z-index: 9999">
+												<router-link :to="'/'+m.id">
+													<GmapMarker
+														:position="m.position"
+														:ref="m.id"
+														:clickable="true"
+														@mouseover="toggleInfoWindow(m, index)"
+														:icon="m.icon[0].icon"
+														@click="listClick($event, '/'+m.id )"
+													>
+													</GmapMarker>
+														</router-link>
+														<!-- <router-link :to="'/collections/defect/'+m.id"> -->
 													<!-- </router-link> -->
 													</div>
 												</GmapCluster>
@@ -106,6 +106,7 @@ export default {
 					height: -65
 				}
 			},
+			currentRef: null,
 			statusNewWaitEvent: false,
 		};
 	},
@@ -154,42 +155,28 @@ export default {
 				this.markers.push(l);
 				this.isActive=false;
 			});
-			// let markerClusterStyle = [
-			// 	{
-			// 		width: 30,
-			// 		height: 30,
-			// 		className: "custom-clustericon-1",
-			// 	},
-			// 	{
-			// 		width: 40,
-			// 		height: 40,
-			// 		className: "custom-clustericon-2",
-			// 	},
-			// 	{
-			// 		width: 50,
-			// 		height: 50,
-			// 		className: "custom-clustericon-3",
-			// 	},
-			// ];
-			// this.markerClusterer = new MarkerClusterer(this.map, this.arrMarkers, {
-			// 	styles: markerClusterStyle,
-			// 	clusterClass: "custom-clustericon",
-			// 	maxZoom: 16,
-			// 	gridSize: 30,
-			// });
 		},
 		toggleInfoWindow(marker, idx) {
 			let date = marker.added;
+			let link = '';
+			Object.entries(this.$refs).forEach(([key, value], i) => {
+				let href = value[0].$el.parentElement.href;
+				if(key==marker.id){
+					link=href;
+				}
+				// console.log(key, href);
+			});
+			let lk = `<a id="lnk" href="/#/${marker.id}">${link}</a>`;
 			this.markerInfo = `
 			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;">
 				<div class="img_container" style="position:relative">
-					<img class="marker_img" style="position:relative;width:220px;max-height:200px;border-radius:8px;" src="${marker.photo}" alt="defect image" />
+					<img class="marker_img" style="position:relative;width:180px;max-height:200px;border-radius:8px;" src="${marker.photo}" alt="defect image" />
 					<img class="marker_img" style="position:absolute;width:40px;border-radius:8px;bottom: 10%;left: 75%;" src="${marker.icon[0].icon}" alt="defect image" />
 				</div>
-				<div style="display:flex;flex-flow:column;">
-					<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:4px;">
+				<div style="display:flex;flex-flow:column;width:220px">
+					<span style="flex: 0 0 100%;max-width:fit-content;font-weight:bold;text-align:left;padding:4px;">
 					<img src="${dateIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
-					Дата розміщення: <p style="font-weight:400;text-align:left;background:var(--status-color);padding:6px;width: fit-content;border-radius: 4px;color: #FFF;margin: 4px 0;">${moment(date).format("DD.MM.YY в HH:mm")}</p>
+					Дата розміщення: <p style="max-width:115px;font-weight:400;text-align:left;background:var(--status-color);padding:6px;width: fit-content;border-radius: 4px;color: #FFF;margin: 4px 0;">${moment(date).format("DD.MM.YY в HH:mm")}</p>
 					</span>
 					<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:4px;">
 						<img src="${locationIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
@@ -200,10 +187,10 @@ export default {
 						Автор: <p style="font-weight:400;text-align:left">${marker.author}</p>
 					</span>
 				</div>
-			</div>`;
-			/*<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">Статус: <p style="font-weight:400;text-align:left"> ${marker.status}</p></span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">Тип: <p style="font-weight:400;text-align:left"> ${marker.type}</p></span>
-				<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:8px;">ID: <p style="font-weight:400;text-align:left"> ${marker.id}</p></span>*/
+			</div>
+			<a href="${link}" style="max-width:120px;align-self: center;">
+				${lk}
+			</a>`;
 			this.infoWindowPos = marker.position;
 			this.infoOptions.content = this.markerInfo;
 
@@ -265,7 +252,20 @@ export default {
 		position: relative;
 		width: 220px;
 	}
-	.gm-style-iw .gm-style-iw-c{
+	.gm-style .gm-style-iw-c {
+		position: absolute;
+		box-sizing: border-box;
+		overflow: hidden;
+		top: 0;
+		left: 0;
+		transform: translate3d(-50%,-100%,0);
+		background-color: white;
+		border-radius: 8px;
+		padding: 12px;
+		box-shadow: 0 2px 7px 1px rgb(0 0 0 / 30%);
+		max-width: 465px !important;
+	}
+	div[class="gm-style-iw"]{
 		padding-right: 0px !important;
 		padding-bottom: 0px !important;
 		max-width: 448px !important;
