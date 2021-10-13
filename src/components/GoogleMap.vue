@@ -183,9 +183,9 @@ export default {
 						<img src="${locationIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
 						Адреса: <p style="font-weight:400;text-align:left">${marker.area}</p>
 					</span>
-					<span style="flex: 0 0 100%;font-weight:bold;text-align:left;padding:4px;">
+					<span style="display:flex;font-weight:bold;text-align:left;padding:4px;">
 						<img src="${authorIcon}" style="vertical-align:middle;" alt="User avatar" class="author_icon">
-						Автор: <p style="font-weight:400;text-align:left">${marker.author}</p>
+						Автор: <p style="margin-left:8px;font-weight:400;text-align:left">${marker.author}</p>
 					</span>
 				</div>
 			</div>
