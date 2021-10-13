@@ -166,7 +166,7 @@ export default {
 				}
 				// console.log(key, href);
 			});
-			let lk = `<a id="lnk" href="/#/${marker.id}">${link}</a>`;
+			let lk = `<a id="lnk" href="${link}">${link}</a>`;
 			this.markerInfo = `
 			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;">
 				<div class="img_container" style="position:relative">
