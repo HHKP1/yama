@@ -166,7 +166,8 @@ export default {
 				}
 				// console.log(key, href);
 			});
-			let lk = `<a id="lnk" href="${link}">${link}</a>`;
+			let lk = `<a style="text-decoration: underline;max-width:120px;align-self: center;color: #039be5!important;background-color: transparent;-webkit-text-decoration-skip: objects;-webkit-tap-highlight-color: transparent;" id="lnk" href="${link}">${link}</a>`;
+			console.log(lk);
 			this.markerInfo = `
 			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;">
 				<div class="img_container" style="position:relative">
@@ -188,7 +189,7 @@ export default {
 					</span>
 				</div>
 			</div>
-			<a href="${link}" style="max-width:120px;align-self: center;">
+			<a href="${link}" style="text-decoration: underline;max-width:120px;align-self: center;color: #039be5!important;background-color: transparent;-webkit-text-decoration-skip: objects;-webkit-tap-highlight-color: transparent;">
 				${lk}
 			</a>`;
 			this.infoWindowPos = marker.position;
@@ -248,6 +249,11 @@ export default {
 };
 </script>
 <style scoped>
+	a#lnk{
+		color: #039be5;
+		text-decoration: underline;
+		-webkit-tap-highlight-color: transparent;
+	}
 	.marker_img{
 		position: relative;
 		width: 220px;
