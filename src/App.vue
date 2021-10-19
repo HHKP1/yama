@@ -226,16 +226,18 @@
 												</div>
 											</div>
 										</div>
-										<div class="hero-content">
+										<div class="hero-content" v-if="appsLoaded">
 											<div class="hero-content_block">
-												<div class="hero-item icon">
-												<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
-													alt="Facebook messenger">
-												</div>
-												<div class="hero-item_message" title="QR Code для входу">
-													<p class="message_title">UkrYama_bot</p>
-													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
-												</div>
+												<a :href="socials.facebook.link" target="_blank">
+													<div class="hero-item icon">
+														<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
+														alt="Facebook messenger">
+													</div>
+													<div class="hero-item_message" title="QR Code для входу у facebook">
+														<p class="message_title">UkrYama_bot</p>
+														<div class="message_content"><img :src="socials.facebook.qrCode" alt="QR Code" class="qr_message"></div>
+													</div>
+												</a>
 											</div>
 											<div class="hero-content_block">
 												<div class="hero-item icon">
@@ -287,40 +289,46 @@
 												<p class="p-text code">{{ authCode[authCode.length-1].code }}</p>
 											</div>
 										</div>
-										<div class="hero-content">
+										<div class="hero-content" v-if="appsLoaded">
 											<div class="icon_container_mb">
-												<div class="hero-item icon">
-													<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
-														alt="Facebook messenger">
-												</div>
-												<p class="chat_icon_description_mb">
-													@UkrYama
-												</p>
-												<p class="chat_icon_description_mb">
-													Facebook
-												</p>
+												<a :href="socials.facebook.link" class="icon_link" target="_blank">
+													<div class="hero-item icon">
+														<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
+															alt="Facebook messenger">
+													</div>
+													<p class="chat_icon_description_mb">
+														@UkrYama
+													</p>
+													<p class="chat_icon_description_mb">
+														Facebook
+													</p>
+												</a>
 											</div>
 											<div class="icon_container_mb">
-												<div class="hero-item icon">
-													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
-												</div>
-												<p class="chat_icon_description_mb">
-													@UkrYamaBot
-												</p>
-												<p class="chat_icon_description_mb">
-													Telegram
-												</p>
+												<a :href="socials.telegram.link" class="icon_link" target="_blank">
+													<div class="hero-item icon">
+														<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
+													</div>
+													<p class="chat_icon_description_mb">
+														@UkrYamaBot
+													</p>
+													<p class="chat_icon_description_mb">
+														Telegram
+													</p>
+												</a>
 											</div>
 											<div class="icon_container_mb">
-												<div class="hero-item icon">
-													<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
-												</div>
-												<p class="chat_icon_description_mb">
-													@UkrYama
-												</p>
-												<p class="chat_icon_description_mb">
-													Viber
-												</p>
+												<a :href="socials.viber.link" class="icon_link" target="_blank">
+													<div class="hero-item icon">
+														<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+													</div>
+													<p class="chat_icon_description_mb">
+														@UkrYama
+													</p>
+													<p class="chat_icon_description_mb">
+														Viber
+													</p>
+												</a>
 											</div>
 										</div>
 									</div>

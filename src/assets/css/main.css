@@ -1061,6 +1061,12 @@
 			justify-content: center;
 			align-items: center;
 		}
+		.icon_link{
+			display: flex;
+    		flex-flow: column;
+    		justify-content: center;
+    		align-items: center;
+		}
 		.chat_icon_description_mb{
 			margin: 12px 0;
 			font: 500 .8rem 'Montserrat'
