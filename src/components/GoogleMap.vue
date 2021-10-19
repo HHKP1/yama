@@ -33,6 +33,7 @@
 													<GmapMarker
 														:position="m.position"
 														:ref="m.id"
+														:title="m.id"
 														:clickable="true"
 														@mouseover="toggleInfoWindow(m, index)"
 														:icon="m.icon[0].icon"
@@ -127,6 +128,7 @@ export default {
 		if(this.orgN!=this.$API2.orgInfo){
 			this.$eventBus.$emit('orgN', this.orgN);
 		}
+		// console.log(this.$refs);
 	},
 	methods: {
 		listClick(e, url) {
@@ -148,28 +150,31 @@ export default {
 				let icn = customMarkers.filter(ic => ic.name===l.type);
 				let lat = l.lat;
 				let lng = l.lng;
-				l.position = { lat: lat, lng: lng };
+				l.position = { lat, lng };
 				l.icon = icn;
 				delete l.lng;
 				delete l.lat;
 				this.markers.push(l);
+				this.$forceUpdate(this.$refs);
 				this.isActive=false;
 			});
 		},
 		toggleInfoWindow(marker, idx) {
 			let date = marker.added;
 			let link = '';
+			let urls = [];
 			Object.entries(this.$refs).forEach(([key, value], i) => {
-				let href = value[0].$el.parentElement.href;
-				if(key==marker.id){
-					link=href;
+				if(key===marker.id && value?.length){
+					urls.push(value)
 				}
-				// console.log(key, href);
 			});
+			let currentUrl = urls.filter(a => a);
+			let href = currentUrl[0][0].$el.parentElement.href;
+			link=href;
 			let lk = `<a style="text-decoration: underline;max-width:120px;align-self: center;color: #039be5!important;background-color: transparent;-webkit-text-decoration-skip: objects;-webkit-tap-highlight-color: transparent;" id="lnk" href="${link}">${link}</a>`;
-			console.log(lk);
+			// console.log(lk);
 			this.markerInfo = `
-			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;">
+			<div style="width:100%;align-items:center;display:flex;justify-content:flex-start;transition: all .3s ease-in-out">
 				<div class="img_container" style="position:relative">
 					<img class="marker_img" style="position:relative;width:180px;max-height:200px;border-radius:8px;" src="${marker.photo}" alt="defect image" />
 					<img class="marker_img" style="position:absolute;width:40px;border-radius:8px;bottom: 10%;left: 75%;" src="${marker.icon[0].icon}" alt="defect image" />
@@ -241,7 +246,7 @@ export default {
 				this.loadMarkers();
 			},
 			deep: true
-		}
+		},
 	},
 	beforeDestroy() {
 		this.$eventBus.$off('orgInfo');

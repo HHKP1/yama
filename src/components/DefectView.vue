@@ -322,12 +322,12 @@
 										<div class="defect_title_container">
 											<p class="defect_description">Документи</p>
 										</div>
-										<div class="chat_area">
+										<div class="chat_area" v-if="defect.claims">
 											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">{{ claim.delivery_date }}</p>
+														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
@@ -674,12 +674,12 @@
 										<div class="defect_title_container">
 											<p class="defect_description">Документи</p>
 										</div>
-										<div class="chat_area">
+										<div class="chat_area" v-if="defect.claims">
 											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">{{ claim.delivery_date }}</p>
+														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
@@ -1133,17 +1133,17 @@
 											</div>
 										</div>
 									</div>
-									<div class="defect_description_info_mb" :class="{open: isComments === 3}" @click="toggleClass()">
+									<div class="defect_description_info_mb" v-if="defect.claims" :class="{open: isComments === 3}" @click="toggleClass()">
 										<div class="defect_detail_title_container">
 											<p class="defect_description">Документи</p>
 											<span class="close_button" @click="toggleClass()"></span>
 										</div>
 										<div class="chat_area">
-											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
+											<div class="incoming_container" v-for="(claim, index) in defect.claims" :key="index">
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">{{ claim.online_delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
+														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">

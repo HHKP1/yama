@@ -10,7 +10,7 @@
 					<a class="logo_link" href="/">
 						<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
 					</a>
-					<div class='nav_links' v-for="(item) in this.navItems" :key="item.id">
+					<div class='nav_links' v-for="(item) in navItems" :key="item.id">
 						<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 					</div>
 					<div class="nav_btn_block">
@@ -27,7 +27,7 @@
 							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
+								<p class="author_name" :title="me.first_name+' '+me.last_name+' '+me.patronymic">{{ me.first_name }}</p>
 							</div>
 						</div>
 					</div>
@@ -55,7 +55,7 @@
 							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">
 								<img src="./assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-								<p class="author_name" :title="this.me.first_name+' '+this.me.last_name+' '+this.me.patronymic">{{ this.me.first_name }}</p>
+								<p class="author_name" :title="me.first_name+' '+me.last_name+' '+me.patronymic">{{ me.first_name }}</p>
 							</div>
 						</div>
 						<FormInput
@@ -66,7 +66,7 @@
 						v-model="search"
 						type="search"
 						/>
-						<div class='nav_links' v-for="(item) in this.navItems" :key="item.id">
+						<div class='nav_links' v-for="(item) in navItems" :key="item.id">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
 						</div>
 						<div class="footer_logo_mb_nav">
@@ -154,36 +154,42 @@
 												</div>
 											</div>
 										</div>
-										<div class="hero-content">
+										<div class="hero-content" v-if="appsLoaded">
 											<div class="hero-content_block">
-												<div class="hero-item icon">
-												<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
-													alt="Facebook messenger">
-												</div>
-												<div class="hero-item_message" title="QR Code для входу">
-													<p class="message_title">UkrYama_bot</p>
-													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
-												</div>
-											</div>
-											<div class="hero-content_block">
-												<div class="hero-item icon">
-													<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
-												</div>
-												<div class="hero-item_message" title="QR Code для входу">
-													<p class="message_title">UkrYama_bot</p>
-													<div class="message_content">
-														<img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message">
+												<a :href="socials.facebook.link" target="_blank">
+													<div class="hero-item icon">
+														<img src="./assets/img/icons/uil_facebook-messenger-alt.svg"
+														alt="Facebook messenger">
 													</div>
-												</div>
+													<div class="hero-item_message" title="QR Code для входу у facebook">
+														<p class="message_title">UkrYama_bot</p>
+														<div class="message_content"><img :src="socials.facebook.qrCode" alt="QR Code" class="qr_message"></div>
+													</div>
+												</a>
 											</div>
 											<div class="hero-content_block">
-												<div class="hero-item icon">
-													<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+												<a :href="socials.telegram.link" target="_blank">
+													<div class="hero-item icon">
+														<img src="./assets/img/icons/uil_telegram-alt.svg" alt="Telegram messenger">
+													</div>
+													<div class="hero-item_message" title="QR Code для входу">
+														<p class="message_title">UkrYama_bot</p>
+														<div class="message_content">
+															<img :src="socials.telegram.qrCode" alt="QR Code" class="qr_message">
+														</div>
+													</div>
+												</a>
+											</div>
+											<div class="hero-content_block">
+												<a :href="socials.viber.link">
+													<div class="hero-item icon">
+														<img src="./assets/img/icons/la_viber.svg" alt="Viber messenger">
+													</div>
+													<div class="hero-item_message" title="QR Code для входу">
+														<p class="message_title">UkrYama_bot</p>
+													<div class="message_content"><img :src="socials.viber.qrCode" alt="QR Code" class="qr_message"></div>
 												</div>
-												<div class="hero-item_message" title="QR Code для входу">
-													<p class="message_title">UkrYama_bot</p>
-													<div class="message_content"><img src="./assets/img/icons/qr_message.svg" alt="QR Code" class="qr_message"></div>
-												</div>
+												</a>
 											</div>
 										</div>
 									</div>
@@ -778,6 +784,8 @@ export default {
 			isExpand: false,
 			apiURL: '/routes/95a4b653d1/api',
 			apiURLv2: '/routes/00d3928bf3/api',
+			apiSocials: '/routes/7a65157215/api',
+			socials: {},
 			search: '',
 			prefix: '',
 			selfFilters: false,
@@ -808,6 +816,7 @@ export default {
 	created() {
 		Vue.prototype.$API = this;
 		this.startTimer();
+		this.loadSocials();
 	},
 	mounted() {
 		this.$API.title = "Аплікація";
@@ -912,6 +921,20 @@ export default {
 				headers: headers,
 			}, raw);
 		},
+		apiGetSocials: async function(endpoint){
+			let headers={
+				'Accept': 'application/json'
+			};
+			// if(auth)
+			// 	headers["Authorization"]=`Bearer ${this.token}`;
+			let response = await fetch(this.apiSocials + endpoint, {
+				method: 'GET',
+				headers: headers,
+			});
+			// console.log(response);
+			let data = await response.json();
+			return data;
+		},
 		apiGETv3: async function(endpoint){
 			let headers={
 				'Accept': 'application/json'
@@ -925,6 +948,19 @@ export default {
 			// console.log(response);
 			let data = await response.json();
 			return data;
+		},
+		async loadSocials(){
+			try{
+				let resp = await this.apiGetSocials('/social_urls');
+				// if (this.status[this.status.length-1].status == "ok") {
+				this.socials = resp;
+				this.$eventBus.$emit('setSocials', this.socials);
+				// console.log(this.me);
+				// }
+				this.profileLoaded = true;
+			}catch(e) {
+				console.log(e);
+			}
 		},
 		async loadProfile() {
 			try{
@@ -1011,15 +1047,9 @@ export default {
 					status: state.status
 				}
 			})
-		}
+		},
 	},
-	watch: {
-		// window(){
-		// 	if(window.innerHeight > window.innerWidth){
-		// 		document.getElementsByTagName("body")[0].style.transform = "rotate(90deg)";
-		// 	}
-		// }
-	},
+	watch: {},
 	beforeDestroy () {
 		window.removeEventListener('scroll', this.onScroll)
 	},

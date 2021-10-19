@@ -875,6 +875,7 @@
 
 	.qr_message{
 		object-fit: cover;
+		width: 100%;
 	}
 
 	.hero-item:hover + .hero-item_message{
