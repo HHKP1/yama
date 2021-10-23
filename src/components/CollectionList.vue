@@ -35,7 +35,7 @@
 						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
 							<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 							<div class="defect_image">
-								<img class="card_image" :src="card.photo[0].url" alt="">
+								<img class="card_image" loading="eager" :src="card.photo[0].url" alt="">
 								<p class="defect_date">{{ new Date(card.photo[0].timestamp) | moment("DD.MM.YY в HH:mm") }}</p>
 								<div class="defect_color" v-for="img in arrMarkers" :key="img.id">
 									<img class="type_marker" v-if="img.name===card.defect_type" style="margin:0 20px;" :src="img.icon" alt="Type marker">

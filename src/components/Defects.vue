@@ -387,6 +387,8 @@ export default {
 			selfFilters: false,
 			periodStart: '',
 			periodEnd: '',
+			page: 1,
+			limit: 100,
 			pendingUpdate: null,
 			dateRangeFilterShown: false,
 			appsUpdateInterval: null,
@@ -678,6 +680,9 @@ export default {
 		// 		this.loadDefects(true);
 		// 	}
 		// }
+		page(){
+			this.loadDefects()
+		}
 	},
 	beforeDestroy() {
 		this.$API.appsFilter.searchAddressFilter=this.searchAddressFilter;

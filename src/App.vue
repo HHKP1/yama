@@ -131,10 +131,10 @@
 						<div class="head-container">
 							<div class="main-hero head-hero">
 								<div class="hero-title">
-									<p class="hero-item"><strong
+									<h1 class="hero-item"><strong
 											style="font:900 24px 'Montserrat';color:var(--button-default)">УкрЯма</strong> –
 										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
-										розвивається</p>
+										розвивається</h1>
 								</div>
 								<button class="btn custom_button hero-btn">Додати дефект</button>
 							</div>

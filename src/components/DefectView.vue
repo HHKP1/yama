@@ -48,7 +48,7 @@
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='lighting'">Освітлення</h3>
 												<h3 class="defect_detail_title" v-if="defect.defect_type=='hatch'">Люк</h3>
 												<div class="shovel_status" style="width:0;" v-for="img in arrMarkers" :key="img.id">
-													<img class="type_marker_df" v-if="img.name===defect.defect_type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
+													<img class="type_marker_df" loading="eager" v-if="img.name===defect.defect_type" style="margin:0 20px;" :src="img.icon" alt="Type marker">
 												</div>
 												<!-- <p class="defect_description">{{ defect.comment }}</p> -->
 											</div>
@@ -82,7 +82,7 @@
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
 															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 															<div class="defect_image_detail">
-																<img class="card_image_detail" :src="p.url" alt="">
+																<img class="card_image_detail" loading="eager" :src="p.url" alt="">
 															</div>
 														</div>
 													</div>
@@ -93,7 +93,7 @@
 													<p class="author_item">Дата розміщення</p>
 													<div class="author_info">
 														<div class="author_content">
-															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 															<p class="date_placement">{{ defect.added | moment("DD.MM.YY в HH:mm") }}</p>
 														</div>
 													</div>
@@ -104,7 +104,7 @@
 													<p class="author_item">Автор</p>
 													<div class="author_info">
 														<div class="author_content">
-															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/carbon_user-avatar.svg" loading="eager" alt="User avatar" class="author_icon">
 															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
 														</div>
 														<button v-if="this.$API.loggedIn" @click="isCommentsMd = 3" class="author_chat underline-btn">Написати автору</button>
@@ -116,7 +116,7 @@
 													<p class="author_item">Адреса</p>
 													<div class="author_info">
 														<div class="author_content">
-															<img src="../assets/img/icons/feather_map-pin.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/feather_map-pin.svg" loading="eager" alt="User avatar" class="author_icon">
 															<p class="author_name">{{ defect.address }}</p>
 														</div>
 													</div>
@@ -326,30 +326,30 @@
 											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
 												<div class="author_content">
 													<div class="author_chat_info">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
 													<p class="message_content">{{ claim.comment }}</p>
 													<div class="doc_images">
-														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
-														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" loading="eager" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" title="Завантажити документ" loading="eager" src="../assets/img/icons/feather_download.svg" alt="feather download">
 													</div>
 												</div>
 											</div>
 											<div class="incoming_container" v-for="(replay, index) in defect.replies" :key="index">
 												<div class="author_content">
 													<div class="author_chat_info">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">{{ replay.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
 													<p class="message_content">{{ replay.comment }}</p>
 													<div class="doc_images" v-for="(url, index) in replay.urls" :key="index">
-														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
-														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img loading="eager" class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" loading="eager" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
 													</div>
 												</div>
 											</div>
@@ -496,19 +496,19 @@
 													<div class="progress_icons_block">
 														<div class="progress_icons">
 															<div class="progress_indicator">
-																<img title="Дивитись документи" @click="isCommentsMd = 4" src="../assets/img/icons/mdi_camera-plus-outline.svg" class="progress_icon" alt="">
+																<img title="Дивитись документи" loading="eager" @click="isCommentsMd = 4" src="../assets/img/icons/mdi_camera-plus-outline.svg" class="progress_icon" alt="">
 															</div>
-															<img src="../assets/img/icons/arrow_down.svg" alt="">
+															<img src="../assets/img/icons/arrow_down.svg" loading="eager" alt="">
 														</div>
 													</div>
 													<div class="progress_info_block">
 														<div class="progress_info_item">
-															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 															<p class="author_chat message_date">{{ defect.added | moment("DD.MM.YY в HH:mm") }}</p>
 														</div>
 														<p class="progress_title">Дефект додано</p>
 														<div class="doc_images">
-														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" loading="eager" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
 													</div>
 													</div>
 												</div>
@@ -518,14 +518,14 @@
 													<div class="progress_icons_block">
 														<div class="progress_icons">
 																<div class="progress_indicator">
-																	<img title="Дивитись коментарі" style="cursor:pointer;" @click="isCommentsMd = 3" src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
+																	<img title="Дивитись коментарі" loading="eager" style="cursor:pointer;" @click="isCommentsMd = 3" src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
 																</div>
-															<img src="../assets/img/icons/arrow_down.svg" alt="">
+															<img src="../assets/img/icons/arrow_down.svg" loading="eager" alt="">
 														</div>
 													</div>
 													<div class="progress_info_block" v-for="date in defect.comments" :key="date.id">
 														<div class="progress_info_item_reverse">
-															<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 															<p class="author_chat message_date">{{ date.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 														</div>
 														<p v-if="!defect.comments" class="progress_title_reverse">Коментарі: <strong style="font: 700 1rem 'Montserrat-Bold';color:red;">0</strong></p>
@@ -539,98 +539,23 @@
 													<div class="progress_icons_block">
 													<div class="progress_icons">
 														<div class="progress_indicator">
-															<img title="Дивитись документи" @click="isCommentsMd = 4" src="../assets/img/icons/mdi_file-check-outline.svg" class="progress_icon" alt="">
+															<img title="Дивитись документи" loading="eager" @click="isCommentsMd = 4" src="../assets/img/icons/mdi_file-check-outline.svg" class="progress_icon" alt="">
 														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
+														<img src="../assets/img/icons/arrow_down.svg" loading="eager" alt="">
 													</div>
 													</div>
 													<div class="progress_info_block">
 													<div class="progress_info_item">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">{{ replay.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 													<p class="progress_title">Відповідь отримано</p>
 													<div class="doc_images" v-for="(url, index) in replay.urls" :key="index">
-														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img class="doc_icon" loading="eager" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
 													</div>
 													</div>
 												</div>
 											</div>
-											<!-- <div class="progress_item">
-												<div class="progress_content reverse">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
-														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item_reverse">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title_reverse">Коментарі</p>
-													</div>
-												</div>
-											</div>
-											<div class="progress_item">
-												<div class="progress_content">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
-														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title">Реакція на відповідь</p>
-													</div>
-												</div>
-											</div>
-											<div class="progress_item">
-												<div class="progress_content reverse">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/si-glyph_arrow-reload.svg" class="progress_icon" alt="">
-														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item_reverse">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title_reverse">Дані оновлено</p>
-													</div>
-												</div>
-											</div>
-											<div class="progress_item">
-												<div class="progress_content">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/bx_bx-traffic-cone.svg" class="progress_icon" alt="">
-														</div>
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title">Дефект усунуто</p>
-													</div>
-												</div>
-											</div> -->
 										</div>
 									</div>
 									<div class="defect_description_info_tab" :class="{openActive: isCommentsMd === 3}">
@@ -643,7 +568,7 @@
 											</div>
 											<div class="author_info_chat">
 												<div class="author_content">
-													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+													<img src="../assets/img/icons/carbon_user-avatar.svg" loading="eager" alt="User avatar" class="author_icon">
 													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
 												</div>
 											</div>
@@ -659,7 +584,7 @@
 											<div class="incoming_container">
 												<div class="author_content">
 													<div class="author_chat_info">
-														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+														<img src="../assets/img/icons/carbon_user-avatar.svg" loading="eager" alt="User avatar" class="author_icon">
 														<p class="author_name">{{ comment.author.name }}</p>
 													</div>
 													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
@@ -678,30 +603,30 @@
 											<div class="incoming_container" v-for="claim in defect.claims" :key="claim.id">
 												<div class="author_content">
 													<div class="author_chat_info">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
 													<p class="message_content">{{ claim.comment }}</p>
 													<div class="doc_images">
-														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
-														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+														<a @click.prevent="openClaim(`${claim.url}`)"><img class="doc_icon" loading="eager" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" title="Завантажити документ" loading="eager" src="../assets/img/icons/feather_download.svg" alt="feather download">
 													</div>
 												</div>
 											</div>
 											<div class="incoming_container" v-for="(replay, index) in defect.replies" :key="index">
 												<div class="author_content">
 													<div class="author_chat_info">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
+														<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
 														<p class="author_chat message_date">{{ replay.upload_timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
 													<p class="message_content">{{ replay.comment }}</p>
 													<div class="doc_images" v-for="(url, index) in replay.urls" :key="index">
-														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img class="doc_icon" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
-														<img class="doc_icon" title="Завантажити документ" src="../assets/img/icons/feather_download.svg" alt="feather download">
+														<a v-if="replay.urls.length>0" @click.prevent="openClaim(`${url}`)"><img class="doc_icon" loading="eager" src="../assets/img/icons/carbon_document-pdf.svg" alt="document pdf"></a>
+														<img class="doc_icon" title="Завантажити документ" loading="eager" src="../assets/img/icons/feather_download.svg" alt="feather download">
 													</div>
 												</div>
 											</div>
@@ -908,7 +833,7 @@
 													<p class="author_item">Автор</p>
 													<div class="author_info">
 														<div class="author_content">
-															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/carbon_user-avatar.svg" loading="eager" alt="User avatar" class="author_icon">
 															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
 														</div>
 														<button v-if="this.$API.loggedIn" @click="isComments = 2" class="author_chat underline-btn">Написати автору</button>
@@ -920,7 +845,7 @@
 													<p class="author_item">Адреса</p>
 													<div class="author_info">
 														<div class="author_content">
-															<img src="../assets/img/icons/feather_map-pin.svg" alt="User avatar" class="author_icon">
+															<img src="../assets/img/icons/feather_map-pin.svg" loading="eager" alt="User avatar" class="author_icon">
 															<p class="author_name">{{ defect.address }}</p>
 														</div>
 													</div>
@@ -1017,81 +942,6 @@
 													</div>
 												</div>
 											</div>
-											<!-- <div class="progress_item">
-												<div class="progress_content reverse">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/bx_bx-comment-detail.svg" class="progress_icon" alt="">
-														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item_reverse">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title_reverse">Коментарі</p>
-													</div>
-												</div>
-											</div>
-											<div class="progress_item">
-												<div class="progress_content">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/mdi_file-document-edit-outline.svg" class="progress_icon" alt="">
-														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title">Реакція на відповідь</p>
-													</div>
-												</div>
-											</div>
-											<div class="progress_item">
-												<div class="progress_content reverse">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/si-glyph_arrow-reload.svg" class="progress_icon" alt="">
-														</div>
-														<img src="../assets/img/icons/arrow_down.svg" alt="">
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item_reverse">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title_reverse">Дані оновлено</p>
-													</div>
-												</div>
-											</div>
-											<div class="progress_item">
-												<div class="progress_content">
-													<div class="progress_icons_block">
-													<div class="progress_icons">
-														<div class="progress_indicator">
-															<img src="../assets/img/icons/bx_bx-traffic-cone.svg" class="progress_icon" alt="">
-														</div>
-													</div>
-													</div>
-													<div class="progress_info_block">
-													<div class="progress_info_item">
-														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">23.04.2021</p>
-													</div>
-													<p class="progress_title">Дефект усунуто</p>
-													</div>
-												</div>
-											</div> -->
 										</div>
 									</div>
 									<div class="defect_description_info_mb" :class="{open: isComments === 2}" @click="toggleClass()">
@@ -1331,8 +1181,8 @@ export default {
 			try{
 				let result = await this.$API.apiGET("/defect?id="+id);
 				this.defect=result;
-				this.$API2.queryCheck.push(this.defect.id);
-				this.$API2.queryStr=this.defect.id;
+				this.$API2.queryCheck.push(this.$route.path);
+				this.$API2.queryStr=this.$route.path;
 				this.ogImage=this.defect.photos[0].url;
 				this.isActive=false;
 				this.appsLoaded=true;
