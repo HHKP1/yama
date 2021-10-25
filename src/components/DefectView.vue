@@ -2010,7 +2010,7 @@ export default {
 		margin: 65px 0 0;
 	}
 	.btn_outline{
-		max-width: 141px;
+		max-width: 150px;
 	}
 	.defect_status_item{
 		background: var(--status-color);
