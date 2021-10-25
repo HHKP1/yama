@@ -114,7 +114,7 @@
 												</div>
 												<div class="defect_info">
 													<div class="defect_status">
-														<div class="status_item">
+														<div class="status_item_mb">
 															<span v-if="card.status=='new'">Новий</span>
 															<span v-if="card.status=='approved'">Погоджений</span>
 															<span v-if="card.status=='sent'">Відправлений</span>

@@ -10,7 +10,6 @@
   "dependencies": {
     "@googlemaps/markerclustererplus": "^1.0.3",
     "core-js": "^3.6.5",
-    "materialize-css": "^1.0.0-rc.2",
     "vue": "^2.6.10",
     "vue-carousel": "^0.18.0",
     "vue-cookies": "^1.7.4",

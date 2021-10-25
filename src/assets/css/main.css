@@ -257,6 +257,32 @@
 		color: red;
 	}
 
+	.btn, .btn-flat, .btn-large, .btn-small {
+		border: none;
+		border-radius: 2px;
+		display: inline-block;
+		height: 36px;
+		line-height: 36px;
+		padding: 0 16px;
+		text-transform: uppercase;
+		vertical-align: middle;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.btn, .btn-large, .btn-small {
+		text-decoration: none;
+		color: var(--color-white);
+		text-align: center;
+		letter-spacing: .5px;
+		transition: background-color .2s ease-out;
+		cursor: pointer;
+		outline: none;
+	}
+
+	.btn-floating:hover, .btn-large:hover, .btn-small:hover, .btn:hover, .z-depth-1-half {
+		box-shadow: 0 3px 3px 0 rgb(0 0 0 / 14%), 0 1px 7px 0 rgb(0 0 0 / 12%), 0 3px 1px -1px rgb(0 0 0 / 20%);
+	}
+
 	.velmld-overlay{
 		z-index: 1 !important;
 	}
@@ -292,6 +318,14 @@
 		#nav_mb{
 			position: fixed;
 			background: var(--color-white);
+		}
+		.status_item_mb {
+			background: var(--status-color);
+			border-radius: 4px;
+			color: var(--color-white);
+			padding: 0 4px;
+			font-size: 0.7rem;
+			margin: 4px 0;
 		}
 	}
 	@media screen and (max-width: 850px){
@@ -673,8 +707,12 @@
 		text-transform: none;
 		max-width: 155px;
 		width: 100%;
-		margin:10px 0;
+		margin: 10px 0;
 		border-radius: 4px;
+		padding: 10px 0;
+		color: var(--color-white);
+		border: none;
+		cursor: pointer;
 	}
 	.custom_button_nav:hover{
 		background-color: var(--button-hover);
@@ -1875,7 +1913,7 @@
 		margin: 65px 0 0;
 	}
 	.btn_outline{
-		max-width: 141px;
+		max-width: 150px;
 	}
 	.defect_status_item{
 		background: var(--status-color);
@@ -1902,6 +1940,7 @@
 	.defect_filters{
 		flex: 1 1 40%;
 		max-width: 300px;
+		margin: 8px 4px;
 	}
 	.defect_filters_mb{
 		flex: 1 1 40%;

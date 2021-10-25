@@ -113,6 +113,7 @@ export default {
 	.input-field > label{
 		font-size: .9rem;
 		padding: 0 6px 0 6px;
+		position: absolute;
 	}
 	select {
 		display: flex;

@@ -17,7 +17,7 @@
 						<FormInput
 						title=""
 						label=""
-						placeholder="Пошук за адресою або номером заяви"
+						placeholder="Пошук за адресою або номером"
 						class="form-control"
 						v-model="search"
 						type="search"
@@ -61,7 +61,7 @@
 						<FormInput
 						title=""
 						label=""
-						placeholder="Пошук за адресою або номером заяви"
+						placeholder="Пошук за адресою або номером"
 						class="form-control form-control_top"
 						v-model="search"
 						type="search"
@@ -107,7 +107,7 @@
 						<FormInput
 						title=""
 						label=""
-						placeholder="Пошук за адресою або номером заяви"
+						placeholder="Пошук за адресою або номером"
 						class="form-control form-control_top"
 						v-model="search"
 						type="search"
@@ -1346,8 +1346,12 @@ export default {
 		text-transform: none;
 		max-width: 155px;
 		width: 100%;
-		margin:10px 0;
+		margin: 10px 0;
 		border-radius: 4px;
+		padding: 10px 0;
+		color: var(--color-white);
+		border: none;
+		cursor: pointer;
 	}
 	.custom_button_nav:hover{
 		background-color: var(--button-hover);

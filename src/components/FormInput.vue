@@ -76,10 +76,10 @@ export default {
 };
 </script>
 <style scoped>
-@import "~materialize-css/dist/css/materialize.css";
-	/* .input-field > label{
-		font-size: .9rem !important;
-	} */
+/* @import "~materialize-css/dist/css/materialize.css"; */
+	.input-field > label{
+		position: absolute;
+	}
 	.close_icon{
 		position:absolute;
 		right:10%;
@@ -97,7 +97,7 @@ export default {
 	.input-field > input{
 		font-size: .9rem !important;
 		font-family: "Montserrat", Arial, sans-serif !important;
-		padding: 6px 50px 6px 6px;
+		padding: 10px 50px 10px 6px;
 	}
 	.input-field > input:not([type="date"]):not([type="text"]){
 		position: relative;
@@ -137,8 +137,8 @@ export default {
 	}
 	.input-field{
 		position: relative;
-		margin-top: .9rem !important;
-		margin-bottom: .9rem !important;
+		/* margin-top: .9rem !important; */
+		/* margin-bottom: .9rem !important; */
 	}
 	.input-field>label.active{
 		display: block;
@@ -192,23 +192,29 @@ export default {
 		max-width: 350px !important;
 	}
 	.retail-input{
-		border: 1px solid #34B76C;
+		/* border: 1px solid #34B76C;
 		-webkit-box-shadow: 0 1px 0 0 #26a69a;
-		box-shadow: 0 0 1px 1px #26a69a;
+		box-shadow: 0 0 1px 1px #26a69a; */
 	}
 	.form-input{
 		border-radius: 4px !important;
 		max-width: 350px;
-		height: 1.5rem !important;
+		/* height: 1.5rem !important; */
 		/*max-height: 60px;*/
+		flex-wrap: wrap;
+		border: 1px solid var(--color-gray-light);
+		padding: 10px 50px 10px 6px;
+		border-radius: 4px;
+		font-size: 0.9rem;
+		width: 100%;
 	}
 	.full_width{
 		width: 100%;
 	}
 	.input-field {
 		position: relative;
-		margin-top: .5rem;
-		margin-bottom: .5rem;
+		/* margin-top: .5rem; */
+		/* margin-bottom: .5rem; */
 	}
 	.input-field .helper-text::after {
 		opacity: 1;
@@ -234,7 +240,7 @@ export default {
 	}
 	.form-control{
 		flex-flow: row wrap;
-		flex: 0 0 50%;
+		flex: 0 0 60%;
 		display: flex;
 		/* padding: 0 0 0 80px; */
 		justify-content: center;

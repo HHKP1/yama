@@ -21,7 +21,7 @@
 									class="form-control"
 								/>
 								<div class="input-field form-control">
-									<label>Дата розміщення</label>
+									<label style="position:absolute;left:0">Дата розміщення</label>
 									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;">
 										<div class="form__wrapper interval table-sort__select">
 											<div class="select" style="text-align: left;font-size: .9rem;" title="Фільтрація по даті розміщення">
@@ -76,8 +76,8 @@
 									class="form-control"
 								/>
 								<div class="input_group">
-									<p>
-										<label for="customcheck">
+									<p style="width:100%">
+										<label style="display:flex" for="customcheck">
 											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
 											<span class="custom_checkbox">Показувати тільки мої дефекти</span>
 										</label>
