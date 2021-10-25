@@ -168,8 +168,9 @@ export default {
 					urls.push(value)
 				}
 			});
-			let currentUrl = urls.filter(a => a);
-			let href = currentUrl[0][0].$el.parentElement.href;
+			// let currentUrl = urls.filter(a => a);
+			// let href = currentUrl[0][0].$el.parentElement.href;
+			let href = window.location.protocol + "//" + window.location.host + window.location.pathname + "#/" + marker.id;
 			link=href;
 			let lk = `<a style="text-decoration: underline;max-width:120px;align-self: center;color: #039be5!important;background-color: transparent;-webkit-text-decoration-skip: objects;-webkit-tap-highlight-color: transparent;" id="lnk" href="${link}">${link}</a>`;
 			// console.log(lk);
