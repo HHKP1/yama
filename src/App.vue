@@ -1176,7 +1176,7 @@ export default {
 			max-width: 100vw !important;
 		}
 		.content_view{
-			flex: 0 0 65%;
+			flex: 0 0 60%;
 		}
 		.hero-item_sm_al{
 			font: 500 1.3rem 'Montserrat';
