@@ -8,7 +8,7 @@
 			<mq-layout mq="md+" v-if="$mq == 'md' || $mq == 'lg'">
 				<div id="nav">
 					<a class="logo_link" href="/">
-						<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+						<img id="logo" src="./assets/img/logo_ukr_yama.webp" alt="Logo">
 					</a>
 					<div class='nav_links' v-for="(item) in navItems" :key="item.id">
 						<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
@@ -662,7 +662,7 @@
 					<div id="footer_nav">
 						<div class="footer_logo">
 							<a href="/">
-								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+								<img id="logo" src="./assets/img/logo_ukr_yama.webp" alt="Logo">
 							</a>
 							<p class="trade_mark" v-html="htmlEntities"></p>
 							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
@@ -678,7 +678,7 @@
 					<div id="footer_nav">
 						<div class="footer_logo_sm_al">
 							<a href="/">
-								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+								<img id="logo" src="./assets/img/logo_ukr_yama.webp" alt="Logo">
 							</a>
 							<p class="trade_mark_sm_al" v-html="htmlEntities"></p>
 							<p class="trade_mark_sm_al">{{ new Date() | moment("YYYY") }}</p>
@@ -694,7 +694,7 @@
 					<div id="footer_nav_mb">
 						<div class="footer_logo_mb">
 							<a href="/">
-								<img id="logo" src="./assets/img/logo_ukr_yama.png" alt="Logo">
+								<img id="logo" src="./assets/img/logo_ukr_yama.webp" alt="Logo">
 							</a>
 							<p class="trade_mark" v-html="htmlEntities"></p>
 							<p class="trade_mark">{{ new Date() | moment("YYYY") }}</p>
@@ -744,7 +744,7 @@ export default {
 				{ property: 'og:site_name', content: 'УкрЯма' },
 				{ property: 'fb:app_id', content: "366159005244899" },
 				{ property: 'og:url', content: 'https://tala.cloudi.es/routes/9373315876/front/#/' },
-				{ property: 'og:image', content: 'https://tala.cloudi.es/routes/9373315876/front/img/head_bg.13640de2.png' },
+				{ property: 'og:image', content: 'https://tala.cloudi.es/routes/9373315876/front/img/head_bg.webp' },
 				{ property: 'og:type', content: 'website' },
 				{ name: 'robots', content: 'index,follow' }
 			]

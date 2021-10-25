@@ -143,7 +143,6 @@ export default {
 	/* margin: 0 4px; */
 	will-change: transform;
 	background-clip: text;
-	background-image: url('../assets/img/ukrainian-pattern.svg');
 	background-size:cover;
 }
 .title_ltr_mb{
@@ -153,7 +152,6 @@ export default {
 	/* margin: 0 4px; */
 	will-change: transform;
 	background-clip: text;
-	background-image: url('../assets/img/ukrainian-pattern.svg');
 	background-size:cover;
 }
 </style>
