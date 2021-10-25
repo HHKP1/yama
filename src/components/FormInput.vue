@@ -233,6 +233,13 @@ export default {
 			font-size: 16px !important;
 		}
 	}
+	@media screen and (min-width:850px){
+		.input-field {
+			position: relative;
+			margin-top: .7rem;
+			margin-bottom: .7rem;
+		}
+	}
 	@media all and (min-width: 1020px) {
 		.input-field .helper-text{
 			font-size: 16px !important;

@@ -110,7 +110,7 @@
 									class="form-control"
 								/>
 								<div class="input-field form-control">
-									<label>Дата розміщення</label>
+									<label style="position:absolute;left:0;">Дата розміщення</label>
 									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;position:relative">
 										<div class="form__wrapper interval table-sort__select">
 											<div class="select" style="text-align: left;font-size: .9rem;" title="Фільтрація по даті розміщення">
