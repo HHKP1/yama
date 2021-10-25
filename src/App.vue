@@ -1161,6 +1161,9 @@ export default {
 	}
 
 	@media screen and (max-width: 850px){
+		.footer-outline_button, .custom_button{
+			font: 700 .6rem 'Montserrat' !important;
+		}
 		#nav_sm_al {
 			padding: 5px 15px;
 			display: flex;
@@ -1296,7 +1299,6 @@ export default {
 	.custom_button {
 		font: 700 1.1rem 'Montserrat';
 		background-color: var(--button-default);
-		font-size: .9rem;
 		font-weight: bold;
 		text-transform: none;
 		max-width: 340px;
