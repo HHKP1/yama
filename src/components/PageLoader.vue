@@ -101,6 +101,7 @@ export default {
 	height: 30px;
 	margin-right: 10px;
 	will-change: transform;
+	border-radius: 50%;
 }
 .circle:first-child {
 	background: blue;
