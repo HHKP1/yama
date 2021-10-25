@@ -111,7 +111,7 @@
 								/>
 								<div class="input-field form-control">
 									<label>Дата розміщення</label>
-									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;">
+									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;position:relative">
 										<div class="form__wrapper interval table-sort__select">
 											<div class="select" style="text-align: left;font-size: .9rem;" title="Фільтрація по даті розміщення">
 												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
@@ -197,13 +197,14 @@
 							<div class="defect_filters_mb">
 								<div class="filters_block_mb" :class="{expand: isExpand}">
 									<div class="input-field form-control">
-											<label>Дата розміщення</label>
-											<div class="flex-inline" style="flex-wrap: wrap;padding: 10px 6px;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;">
+											<label style="position:absolute">Дата розміщення</label>
+											<div class="flex-inline" style="flex-wrap: wrap;padding: 10px 6px;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;margin:8px 0;max-height:35px">
 												<div class="form__wrapper interval table-sort__select">
 													<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
 														<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
 															<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
 																<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
+																<img class="calendar_icon" src="../assets/img/calendar.png" alt="">
 																<span class="calendar__icon" v-if="periodShow == ''"></span>
 															</p>
 														</div>
@@ -258,8 +259,8 @@
 									class="form-control"
 								/>
 									<div class="input_group">
-										<p>
-											<label for="customcheck">
+										<p style="width: 100%;">
+											<label style="display: flex" for="customcheck">
 												<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
 												<span class="custom_checkbox">Показувати тільки мої дефекти</span>
 											</label>
@@ -756,7 +757,7 @@ export default {
 
 	.calendar {
 		position: absolute;
-		top: 30px;
+		/* top: 30px; */
 		left: 0;
 		padding: 10px;
 		border: 1px solid var(--color-gray-light);

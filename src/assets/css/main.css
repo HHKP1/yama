@@ -1368,6 +1368,8 @@
 			transform: translate(14px, -6px);
 			font-size: 0.8rem !important;
 			z-index: 1;
+			position: absolute;
+			left: 0;
 		}
 		.input-field > label.active {
 			display: block;
@@ -1923,6 +1925,16 @@
 		font-size: .8rem;
 		margin: 18px 4px;
 	}
+	.filter_title_mb {
+		text-align: left;
+		background: var(--color-red);
+		color: #fff;
+		padding: 8px 6px 12px;
+		border-radius: 4px;
+		flex: 0 0 100%;
+		display: flex;
+		justify-content: space-between;
+	}
 	.filter_title_mb::after{
 		content: '';
 		background: url(../../assets/img/icons/arrow_Stroke.svg) no-repeat center left;
@@ -2262,6 +2274,7 @@
 	}
 	.form-control{
 		cursor: pointer;
+		position: relative;
 	}
 	.form-control > select{
 		flex-flow: row wrap;
