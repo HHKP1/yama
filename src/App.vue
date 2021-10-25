@@ -640,8 +640,8 @@
 							</div>
 						</div>
 						<div class="button_container">
-							<button class="btn footer-outline_button">Допомогти проєкту</button>
-							<button class="btn custom_button footer-btn">Додати дефект</button>
+							<button class="btn footer-outline_button_sm_album">Допомогти проєкту</button>
+							<button class="btn custom_button_sm_album footer-btn">Додати дефект</button>
 						</div>
 					</div>
 				</mq-layout>
@@ -1161,8 +1161,37 @@ export default {
 	}
 
 	@media screen and (max-width: 850px){
-		.footer-outline_button, .custom_button{
+		.footer-outline_button_sm_album, .custom_button_sm_album{
 			font: 700 .6rem 'Montserrat' !important;
+		}
+		.footer-outline_button_sm_album{
+			font: 700 .9rem 'Montserrat';
+			background-color: var(--button-outline);
+			font-weight: bold;
+			text-transform: none;
+			max-width: 240px;
+			width: 100%;
+			color: var(--color-gray);
+			border: 1px solid var(--color-gray);
+			margin:5px 0;
+			border-radius: 4px;
+		}
+		.footer-outline_button_sm_album:hover{
+			font: 700 .9rem 'Montserrat';
+			background-color: var(--button-outline);
+			font-weight: bold;
+			text-transform: none;
+			max-width: 240px;
+			width: 100%;
+			color: var(--color-gray-light);
+			border: 1px solid var(--color-gray-light);
+			margin:5px 0;
+			border-radius: 4px;
+		}
+		.footer-outline_button_sm_album:focus{
+			color: var(--color-gray);
+			border: 1px solid var(--color-gray);
+			background-color: var(--button-outline);
 		}
 		#nav_sm_al {
 			padding: 5px 15px;
@@ -1297,7 +1326,7 @@ export default {
 	}
 
 	.custom_button {
-		font: 700 1.1rem 'Montserrat';
+		font: 700 .9rem 'Montserrat';
 		background-color: var(--button-default);
 		font-weight: bold;
 		text-transform: none;
@@ -1310,6 +1339,22 @@ export default {
 		background-color: var(--button-hover);
 	}
 	.custom_button:focus{
+		background-color: var(--button-default);
+	}
+	.custom_button_sm_album {
+		font: 700 .9rem 'Montserrat';
+		background-color: var(--button-default);
+		font-weight: bold;
+		text-transform: none;
+		max-width: 340px;
+		width: 100%;
+		margin:10px 0;
+		border-radius: 4px;
+	}
+	.custom_button_sm_album:hover{
+		background-color: var(--button-hover);
+	}
+	.custom_button_sm_album:focus{
 		background-color: var(--button-default);
 	}
 	.custom_button_share {
@@ -1341,9 +1386,8 @@ export default {
 		justify-content: center;
 	}
 	.custom_button_nav {
-		font: 700 1.1rem 'Montserrat';
+		font: 700 .9rem 'Montserrat';
 		background-color: var(--button-default);
-		font-size: .9rem;
 		font-weight: bold;
 		text-transform: none;
 		max-width: 155px;

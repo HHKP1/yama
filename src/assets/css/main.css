@@ -1017,6 +1017,9 @@
 			width: 100%;
 			max-width: 250px;
 		}
+		.form-control{
+			max-height: 35px;
+		}
 	}
 	@media all and (max-width:769px){
 		#nav_mb {
