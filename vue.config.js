@@ -15,5 +15,5 @@ module.exports = {
 	// assetsDir: './assets/',
 	// lintOnSave: false,
 	productionSourceMap: false,
-	runtimeCompiler: true
+	runtimeCompiler: true,
 }
