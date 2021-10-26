@@ -128,7 +128,7 @@
 			<section class="main">
 				<mq-layout mq="md+">
 					<div class="header">
-						<img src="./assets/img/head_bg.png" class="header_bg" alt="Main background image">
+						<img src="./assets/img/head_bg.webp" class="header_bg" alt="Main background image">
 						<div class="head-container">
 							<div class="main-hero head-hero">
 								<div class="hero-title">
@@ -201,7 +201,7 @@
 				</mq-layout>
 				<mq-layout mq="sm_album">
 					<div class="header">
-						<img src="./assets/img/head_bg.png" class="header_bg" alt="Main background image">
+						<img src="./assets/img/head_bg.webp" class="header_bg" alt="Main background image">
 						<div class="head-container">
 							<div class="main-hero head-hero">
 								<div class="hero-title">

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+  <g id="calendar" transform="translate(-2335 -914)">
+    <rect id="Rectangle_11" data-name="Rectangle 11" width="52" height="52" transform="translate(2335 914)" fill="none"/>
+    <g id="Path_23" data-name="Path 23" transform="translate(2340 920)" fill="none">
+      <path d="M7,0H34a7,7,0,0,1,7,7V33a7,7,0,0,1-7,7H7a7,7,0,0,1-7-7V7A7,7,0,0,1,7,0Z" stroke="none"/>
+      <path d="M 7 5 C 5.897201538085938 5 5 5.897201538085938 5 7 L 5 33 C 5 34.10279846191406 5.897201538085938 35 7 35 L 34 35 C 35.10279846191406 35 36 34.10279846191406 36 33 L 36 7 C 36 5.897201538085938 35.10279846191406 5 34 5 L 7 5 M 7 0 L 34 0 C 37.86598968505859 0 41 3.134010314941406 41 7 L 41 33 C 41 36.86598968505859 37.86598968505859 40 34 40 L 7 40 C 3.134010314941406 40 0 36.86598968505859 0 33 L 0 7 C 0 3.134010314941406 3.134010314941406 0 7 0 Z" stroke="none" fill="#c4c8cb"/>
+    </g>
+    <path id="Path_24" data-name="Path 24" d="M0,0H36" transform="translate(2342.5 934.5)" fill="none" stroke="#c4c8cb" stroke-width="5"/>
+    <line id="Line_5" data-name="Line 5" y2="8" transform="translate(2352.5 918.5)" fill="none" stroke="#c4c8cb" stroke-linecap="round" stroke-width="5"/>
+    <path id="Path_22" data-name="Path 22" d="M0,0V7.5" transform="translate(2369.5 919)" fill="none" stroke="#c4c8cb" stroke-linecap="round" stroke-width="5"/>
+  </g>
+</svg>

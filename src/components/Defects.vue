@@ -28,7 +28,7 @@
 												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
 													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
 														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
-														<img class="calendar_icon" src="../assets/img/calendar.png" alt="">
+														<img class="calendar_icon" src="../assets/img/icons/calendar.svg" alt="">
 														<span class="calendar__icon" v-if="periodShow == ''"></span>
 													</p>
 												</div>
@@ -117,7 +117,7 @@
 												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
 													<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
 														<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
-														<img class="calendar_icon" src="../assets/img/calendar.png" alt="">
+														<img class="calendar_icon" src="../assets/img/icons/calendar.svg" alt="">
 														<span class="calendar__icon" v-if="periodShow == ''"></span>
 													</p>
 												</div>
@@ -204,7 +204,7 @@
 														<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
 															<p class="select-item_choosen__option placeholder-form" v-bind:class="{'arrow_animation': dateRangeFilterShown}">
 																<span>{{ periodShow.length>0?periodShow:"Дата розміщення" }}</span>
-																<img class="calendar_icon" src="../assets/img/calendar.png" alt="">
+																<img class="calendar_icon" src="../assets/img/icons/calendar.svg" alt="">
 																<span class="calendar__icon" v-if="periodShow == ''"></span>
 															</p>
 														</div>
@@ -708,7 +708,7 @@ export default {
         color: rgba(0, 0, 0, 0);
         opacity: 1;
         /*display: block;*/
-        background: url(../assets/img/calendar.png) no-repeat center;
+        background: url(../assets/img/icons/calendar.svg) no-repeat center;
         background-size: 2% 2%;
         width: 20px;
         height: 20px;
