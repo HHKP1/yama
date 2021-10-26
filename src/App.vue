@@ -128,7 +128,7 @@
 			<section class="main">
 				<mq-layout mq="md+">
 					<div class="header">
-						<img src="./assets/img/head_bg.webp" class="header_bg" alt="Main background image">
+						<img src="./assets/img/head_bg.png" class="header_bg" alt="Main background image">
 						<div class="head-container">
 							<div class="main-hero head-hero">
 								<div class="hero-title">
@@ -201,7 +201,7 @@
 				</mq-layout>
 				<mq-layout mq="sm_album">
 					<div class="header">
-						<img src="./assets/img/head_bg.webp" class="header_bg" alt="Main background image">
+						<img src="./assets/img/head_bg.png" class="header_bg" alt="Main background image">
 						<div class="head-container">
 							<div class="main-hero head-hero">
 								<div class="hero-title">
@@ -746,7 +746,7 @@ export default {
 				{ property: 'og:site_name', content: 'УкрЯма' },
 				{ property: 'fb:app_id', content: "366159005244899" },
 				{ property: 'og:url', content: 'https://tala.cloudi.es/routes/9373315876/front/#/' },
-				{ property: 'og:image', content: 'https://tala.cloudi.es/routes/9373315876/front/img/head_bg.webp' },
+				{ property: 'og:image', content: 'https://tala.cloudi.es/routes/9373315876/front/img/head_bg.png' },
 				{ property: 'og:type', content: 'website' },
 				{ name: 'robots', content: 'index,follow' }
 			]
