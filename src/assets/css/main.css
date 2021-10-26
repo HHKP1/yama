@@ -7,8 +7,8 @@
 	}
 	
 	@font-face {
-		font-family: 'Montserrat-Black';
-		src: url("../font/Montserrat-Black.ttf") format("truetype");
+		font-family: 'Montserrat';
+		src: url("../font/Montserrat.ttf") format("truetype");
 		font-display: swap;
 	} */
 
@@ -1532,7 +1532,7 @@
 	}
 
 	.hero-item .code {
-		font: 900 1.5rem 'Montserrat-Black';
+		font: 900 1.5rem 'Montserrat';
 	}
 
 	.help-tips {
@@ -1577,7 +1577,7 @@
 		background-color: var(--background-color-prefooter);
 	}
 	.counter-check{
-		font: 900 2.1rem 'Montserrat-Black';
+		font: 900 2.1rem 'Montserrat';
 		color: var(--color-red);
 	}
 	.counter-title{

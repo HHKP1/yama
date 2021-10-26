@@ -719,12 +719,12 @@ import './assets/css/main.css';
 import PageLoader from './components/PageLoader';
 import FormInput from './components/FormInput';
 import Defects from './components/Defects';
-import VueCookies from 'vue-cookies';
+// import VueCookies from 'vue-cookies';
 import VueMeta from 'vue-meta';
 
 const OFFSET = 60;
 
-Vue.use(VueCookies);
+// Vue.use(VueCookies);
 Vue.use(VueMeta);
 // import defectCards from './mock_data';
 
