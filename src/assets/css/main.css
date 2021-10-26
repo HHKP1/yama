@@ -1532,7 +1532,7 @@
 	}
 
 	.hero-item .code {
-		font: 900 1.5rem 'Montserrat';
+		font: 900 1.5rem 'Montserrat-Black';
 	}
 
 	.help-tips {
@@ -1577,7 +1577,7 @@
 		background-color: var(--background-color-prefooter);
 	}
 	.counter-check{
-		font: 900 2.1rem 'Montserrat';
+		font: 900 2.1rem 'Montserrat-Black';
 		color: var(--color-red);
 	}
 	.counter-title{
