@@ -611,8 +611,9 @@
 						<Defects />
 						<transition name="fade-loader">
 							<div class="content_view">
-							<router-view>
-							</router-view>
+							<keep-alive include="[CollectionList, DefectView]">
+								<router-view/>
+							</keep-alive>
 							</div>
 						</transition>
 					</div>
