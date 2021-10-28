@@ -17,11 +17,11 @@ import DefectSortedGrid from './components/DefectSortedGrid.vue';
 // import PageLoader from './components/PageLoader.vue';
 
 // Pages
-import Defects from './components/Defects.vue';
-// import CollectionList from './components/CollectionList.vue';
-// import DefectView from './components/DefectView.vue';
-import GoogleMap from './components/GoogleMap.vue';
-import NotFoundPage from './components/404.vue';
+const Defects = () => import(/*webpackChunkName: 'defects'*/ './components/Defects.vue');
+const CollectionList = () => import(/*webpackChunkName: 'collectionlist'*/ '@/components/CollectionList.vue');
+const DefectView = () => import(/*webpackChunkName: 'defectview'*/ './components/DefectView.vue');
+const GoogleMap = () => import(/*webpackChunkName: 'googlemap'*/ './components/GoogleMap.vue');
+// const NotFoundPage = () => import(/*webpackChunkName: 'notfoundpage'*/' ./components/404.vue');
 
 // Register Components
 Vue.component('Defects', Defects);
@@ -57,11 +57,14 @@ Vue.use(VueMq, { breakpoints: { sm: 450, sm_album: 850, md: 1135, lg: Infinity }
 Vue.use(VueGoogleMaps, { load: { key: GOOGLE_API_KEY, region: 'UA', language: 'uk-UA' }, libraries: 'places', installComponents: true });
 
 const routes = [
-	{ path: '/', component: () => import(/* webpackPrefetch: true */ './components/CollectionList'), props: true },
-	{ path: '/collections', component: () => import(/* webpackPrefetch: true */ './components/CollectionList'), props: true },
-	{ path: '/collections', component: () => import(/* webpackPrefetch: true */ './components/GoogleMap'), name: 'GoogleMap', props: true },
-	{ path: '/:id', component: () => import(/* webpackPrefetch: true */ './components/DefectView'), props: true },
-	{ path: '/404', component: NotFoundPage },
+	{ path: '/', component: CollectionList, props: true },
+	{ path: '/collections',
+		component: CollectionList,
+		props: true
+	},
+	{ path: '/collections', component: GoogleMap, name: 'GoogleMap', props: true },
+	{ path: '/:id', component: DefectView, props: true },
+	// { path: '/404', component: NotFoundPage },
 ]
 
 const router = new VueRouter({

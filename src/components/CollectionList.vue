@@ -245,7 +245,7 @@ import customMarkers from '../assets/js/typeIcons';
 // import defectCards from './mock_data';
 
 export default {
-	name: 'collectionList',
+	name: 'collectionlist',
 	components: {
 		VueElementLoading,
 		GoogleMap,
