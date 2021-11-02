@@ -165,8 +165,8 @@
 									class="form-control"
 								/>
 								<div class="input_group">
-									<p>
-										<label for="customcheck">
+									<p style="width:100%">
+										<label style="display: flex;" for="customcheck">
 											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
 											<span class="custom_checkbox">Показувати тільки мої дефекти</span>
 										</label>

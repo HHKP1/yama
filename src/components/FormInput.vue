@@ -137,8 +137,7 @@ export default {
 	}
 	.input-field{
 		position: relative;
-		/* margin-top: .9rem !important; */
-		/* margin-bottom: .9rem !important; */
+		margin-top: .9rem !important;
 	}
 	.input-field>label.active{
 		display: block;
