@@ -135,6 +135,7 @@ export default {
 		right: 10px;
 		/* background: url('../assets/img/icons/cross.svg') no-repeat right; */
 	}
+
 	.input-field{
 		position: relative;
 		margin-top: .9rem !important;
