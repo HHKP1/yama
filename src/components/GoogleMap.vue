@@ -9,6 +9,7 @@
 			</div>
 		</div> -->
 		<div class="popup_wrapper" :class="{open: showGMap}">
+			<vue-element-loading :active="isActive" size="60" :isActiveDelay="true" duration="1" spinner="spinner" color="#FF6700"/>
 			<div id="gmap-popup" class="popup-map" v-show="showGMap" style="display:flex;flex-direction:column;justify-content:space-between;">
 					<div>
 						<div class="flex-column margin-bottom-16" id="map-wrap">
@@ -60,6 +61,7 @@ import customMarkers from '../assets/js/markerIcons';
 import authorIcon from '../assets/img/icons/carbon_user-avatar.svg';
 import dateIcon from '../assets/img/icons/bx_bx-time-five.svg';
 import locationIcon from '../assets/img/icons/feather_map-pin.svg';
+import VueElementLoading from 'vue-element-loading';
 
 const moment = require('moment');
 require('moment/locale/uk');
@@ -79,7 +81,9 @@ export default {
 		// defectId: { type: String, required: false },
 		// mapTitle: { type: String, required: true },
 	},
-	components: {},
+	components: {
+		VueElementLoading,
+	},
 	data() {
 		return {
 			isActive: false,
@@ -124,6 +128,7 @@ export default {
 	mounted() {
 		this.$API.title = "Мапа";
 		this.$API.page = "GoogleMap";
+		this.isActive=true;
 		this.$forceUpdate(this.markers);
 		if(this.orgN!=this.$API2.orgInfo){
 			this.$eventBus.$emit('orgN', this.orgN);
@@ -139,11 +144,13 @@ export default {
 			}
 		},
 		loadMarkers() {
-			this.isActive=true;
 			this.statusNewWaitEvent=true;
-			if(this.arrMarkers.length < 0) return true;
-			else
+			if(this.arrMarkers.length < 0) {
+				this.isActive=true;
+				return true;
+			}else{
 				this.markers=[];
+			}
 			this.arrMarkers.forEach((l, i) => {
 				if (l == null) return;
 				// console.log(l);

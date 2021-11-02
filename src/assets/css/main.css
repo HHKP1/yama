@@ -284,7 +284,7 @@
 	}
 
 	.velmld-overlay{
-		z-index: 1 !important;
+		z-index: 999 !important;
 	}
 
 	#app {
