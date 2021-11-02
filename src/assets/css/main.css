@@ -329,6 +329,11 @@
 		}
 	}
 	@media screen and (max-width: 850px){
+		.input-field {
+			position: relative;
+			margin-top: .7rem;
+			margin-bottom: .7rem;
+		}
 		#nav_sm_al {
 		    padding: 5px 15px;
 		    display: flex;
@@ -1018,7 +1023,7 @@
 			max-width: 250px;
 		}
 		.form-control{
-			/* max-height: 35px; */
+			max-height: 35px;
 		}
 	}
 	@media all and (max-width:769px){

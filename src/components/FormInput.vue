@@ -76,7 +76,6 @@ export default {
 };
 </script>
 <style scoped>
-/* @import "~materialize-css/dist/css/materialize.css"; */
 	.input-field > label{
 		position: absolute;
 	}
@@ -138,7 +137,7 @@ export default {
 
 	.input-field{
 		position: relative;
-		margin-top: .9rem !important;
+		margin-top: .5rem;
 	}
 	.input-field>label.active{
 		display: block;
@@ -191,16 +190,16 @@ export default {
 		box-sizing: border-box !important;
 		max-width: 350px !important;
 	}
-	.retail-input{
+	/* .retail-input{ */
 		/* border: 1px solid #34B76C;
 		-webkit-box-shadow: 0 1px 0 0 #26a69a;
 		box-shadow: 0 0 1px 1px #26a69a; */
-	}
+	/* } */
 	.form-input{
 		border-radius: 4px !important;
 		max-width: 350px;
 		/* height: 1.5rem !important; */
-		/*max-height: 60px;*/
+		max-height: 35px;
 		flex-wrap: wrap;
 		border: 1px solid var(--color-gray-light);
 		padding: 10px 50px 10px 6px;
@@ -211,11 +210,11 @@ export default {
 	.full_width{
 		width: 100%;
 	}
-	.input-field {
+	/* .input-field {
 		position: relative;
-		/* margin-top: .5rem; */
-		/* margin-bottom: .5rem; */
-	}
+		margin-top: .9rem;
+		margin-bottom: .9rem;
+	} */
 	.input-field .helper-text::after {
 		opacity: 1;
 		position: absolute;
@@ -231,6 +230,11 @@ export default {
 	@media all and (min-width: 450px) {
 		.input-field .helper-text{
 			font-size: 16px !important;
+		}
+		.input-field {
+			position: relative;
+			margin-top: .7rem;
+			margin-bottom: .7rem;
 		}
 	}
 	@media screen and (min-width:850px){

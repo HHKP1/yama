@@ -111,7 +111,7 @@
 								/>
 								<div class="input-field form-control">
 									<label style="position:absolute;left:0;">Дата розміщення</label>
-									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;position:relative">
+									<div class="flex-inline" style="flex-wrap: wrap;border: 1px solid var(--color-gray-light);padding: 10px 50px 10px 6px;border-radius: 4px;font-size: 0.9rem;margin:8px 0;position:relative">
 										<div class="form__wrapper interval table-sort__select">
 											<div class="select" style="text-align: left;font-size: .9rem;" title="Фільтрація по даті розміщення">
 												<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
@@ -198,7 +198,7 @@
 								<div class="filters_block_mb" :class="{expand: isExpand}">
 									<div class="input-field form-control">
 											<label style="position:absolute">Дата розміщення</label>
-											<div class="flex-inline" style="flex-wrap: wrap;padding: 10px 6px;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;margin:8px 0;max-height:35px">
+											<div class="flex-inline" style="flex-wrap: wrap;padding: 10px 6px;border: 1px solid var(--color-gray-light);border-radius: 4px;font-size: 0.9rem;margin:8px 0 0 0;max-height:35px">
 												<div class="form__wrapper interval table-sort__select">
 													<div class="select" style="text-align: left;font-size: .9rem;" title="Фильтрация по дате создания заявки">
 														<div class="select-item_choosen" @click="dateRangeFilterShown=!dateRangeFilterShown">
