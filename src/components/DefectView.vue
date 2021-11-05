@@ -292,14 +292,14 @@
 											<div class="author_info_chat">
 												<div class="author_content">
 													<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-													<p class="author_name" :title="this.$API.me.first_name+' '+this.$API.me.last_name+' '+this.$API.me.patronymic">{{ this.$API.me.first_name }}</p>
+													<p class="author_name" :title="$API.me.first_name+' '+$API.me.last_name+' '+$API.me.patronymic">{{ $API.me.first_name }}</p>
 												</div>
 											</div>
 											<FormInput
 												title=""
 												label=""
 												placeholder="залишити коментар"
-												class="form-control"
+												class="form-control chat_icon"
 												v-model="comment"
 											/>
 										</div>
@@ -576,7 +576,7 @@
 												title=""
 												label=""
 												placeholder="залишити коментар"
-												class="form-control"
+												class="form-control chat_icon"
 												v-model="comment"
 											/>
 										</div>
@@ -964,7 +964,7 @@
 												title=""
 												label=""
 												placeholder="залишити коментар"
-												class="form-control"
+												class="form-control chat_icon"
 												v-model="comment"
 											/>
 										</div>

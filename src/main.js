@@ -17,10 +17,10 @@ import DefectSortedGrid from './components/DefectSortedGrid.vue';
 // import PageLoader from './components/PageLoader.vue';
 
 // Pages
-const Defects = () => import(/*webpackChunkName: 'defects'*/ './components/Defects.vue');
-const CollectionList = () => import(/*webpackChunkName: 'collectionlist'*/ '@/components/CollectionList.vue');
-const DefectView = () => import(/*webpackChunkName: 'defectview'*/ './components/DefectView.vue');
-const GoogleMap = () => import(/*webpackChunkName: 'googlemap'*/ './components/GoogleMap.vue');
+const Defects = () => import(/*webpackChunkName: 'defects'*/ '@/components/Defects.vue').then(m => m.default || m);
+const CollectionList = () => import(/*webpackChunkName: 'collectionlist'*/ '@/components/CollectionList.vue').then(m => m.default || m);
+const DefectView = () => import(/*webpackChunkName: 'defectview'*/ '@/components/DefectView.vue').then(m => m.default || m);
+const GoogleMap = () => import(/*webpackChunkName: 'googlemap'*/ '@/components/GoogleMap.vue').then(m => m.default || m);
 // const NotFoundPage = () => import(/*webpackChunkName: 'notfoundpage'*/' ./components/404.vue');
 
 // Register Components

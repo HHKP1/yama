@@ -20,7 +20,6 @@
 						placeholder="Пошук за адресою або номером"
 						class="form-control"
 						v-model="search"
-						type="search"
 						/>
 						<button class="btn custom_button_nav">Додати дефект</button>
 						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 8px;width:120px;">
@@ -1048,4 +1047,18 @@ export default {
 </script>
 
 <style>
+	.close_icon{
+		position:absolute;
+		right:15%;
+		top:25%;
+		z-index:99;
+		transition:all 0.4s ease-out;
+	}
+	.close_icon img{
+		width: 18px;
+		height: 18px;
+	}
+	.close_icon:hover{
+		transform: scale(1.2);
+	}
 </style>

@@ -8,7 +8,7 @@
 			:data-length="dataLength"
 			:data-success="dataSuccess"
 			:data-error="dataError"
-			:class="{'retail-input': 'retail-input', 'form-input': 'form-input'}"
+			:class="{'retail-input': 'retail-input', 'form-input': 'form-input', 'chat_icon': 'chat_icon'}"
 			@input="$emit('input', $event.target.value)">
 			<!-- <span :class="{ 'prefix': 'prefix' }">{{ prefix }}</span> -->
 			<!-- <label :for="id">{{label}}</label> -->
@@ -81,7 +81,7 @@ export default {
 	}
 	.close_icon{
 		position:absolute;
-		right:10%;
+		right:15%;
 		top:25%;
 		z-index:99;
 		transition:all 0.4s ease-out;
@@ -98,14 +98,14 @@ export default {
 		font-family: "Montserrat", Arial, sans-serif !important;
 		padding: 10px 50px 10px 6px;
 	}
-	.input-field > input:not([type="date"]):not([type="text"]){
+	.input-field > input:not([type="date"]){
 		position: relative;
 		top: 0;
 		right: 0;
 		cursor: pointer;
 		background: url(../assets/img/search_icon.png) no-repeat 95% 60%;
 	}
-	.input-field > input:not([type="date"]):not([placeholder="Пошук дефектів за адресою"]):not([type="search"]){
+	.input-field > input[class='chat_icon'], input:not([type="date"]):not([type="text"]):not([placeholder="Пошук дефектів за адресою"]):not([type="search"]){
 		position: relative;
 		top: 0;
 		right: 0;
