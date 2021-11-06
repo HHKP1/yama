@@ -75,7 +75,7 @@
 									v-model="selectedStatus"
 									class="form-control"
 								/>
-								<div class="input_group">
+								<div class="input_group" v-if="$API.loggedIn">
 									<p style="width:100%">
 										<label style="display:flex" for="customcheck">
 											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
@@ -164,7 +164,7 @@
 									v-model="selectedStatus"
 									class="form-control"
 								/>
-								<div class="input_group">
+								<div class="input_group" v-if="$API.loggedIn">
 									<p style="width:100%">
 										<label style="display: flex;" for="customcheck">
 											<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
@@ -258,7 +258,7 @@
 									v-model="selectedStatus"
 									class="form-control"
 								/>
-									<div class="input_group">
+									<div class="input_group" v-if="$API.loggedIn">
 										<p style="width: 100%;">
 											<label style="display: flex" for="customcheck">
 												<input type="checkbox" id="customcheck" @click="selfFilters = !selfFilters" v-model="selfFilters" class="filled-in"/>
