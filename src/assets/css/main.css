@@ -2354,9 +2354,9 @@
 		/* padding: 0 0 0 80px; */
 		justify-content: center;
 	}
-	.search_field > .form-input{
+	/* .search_field > .form-input{
 		max-width: 280px !important;
-	}
+	} */
 	.form-control > select{
 		flex-flow: row wrap;
 		flex: 1 1 50%;
@@ -3609,6 +3609,14 @@ a {
     	justify-content: space-between;
     	align-items: center;
 	}
+	.search_field {
+		flex-flow: row wrap;
+		flex: 0 0 60%;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		max-width: 320px;
+	}
 }
 @media all and (min-width:968px){
 	.progress_container{
@@ -3618,6 +3626,14 @@ a {
 	}
 	.nav_links > a{
 		font: 700 .6rem 'Montserrat';
+	}
+	.search_field {
+		flex-flow: row wrap;
+		flex: 0 0 60%;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		max-width: 240px;
 	}
 }
 @media all and (min-width:1080px){
@@ -3634,6 +3650,14 @@ a {
 	}
 	.custom_button_nav {
 		font: 700 0.9rem 'Montserrat';
+	}
+	.search_field {
+		flex-flow: row wrap;
+		flex: 0 0 60%;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		max-width: 290px;
 	}
 }
 .progress_container > *:nth-of-type(odd){
