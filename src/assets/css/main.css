@@ -3603,11 +3603,37 @@ a {
 	overflow: auto;
 	margin: 8px 0;
 }
+@media all and (min-width:768px){
+	.author_info_chat_mb{
+		display: flex;
+    	justify-content: space-between;
+    	align-items: center;
+	}
+}
 @media all and (min-width:968px){
 	.progress_container{
 		padding: 12px 0;
 		max-height: 550px;
 		overflow: auto;
+	}
+	.nav_links > a{
+		font: 700 .6rem 'Montserrat';
+	}
+}
+@media all and (min-width:1080px){
+	.nav_links > a{
+		font: 700 .6rem 'Montserrat';
+	}
+	.custom_button_nav {
+		font: 700 0.6rem 'Montserrat';
+	}
+}
+@media all and (min-width:1280px){
+	.nav_links > a{
+		font: 700 .9rem 'Montserrat';
+	}
+	.custom_button_nav {
+		font: 700 0.9rem 'Montserrat';
 	}
 }
 .progress_container > *:nth-of-type(odd){
