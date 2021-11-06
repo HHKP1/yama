@@ -18,7 +18,7 @@
 						title=""
 						label=""
 						placeholder="Пошук за адресою або номером"
-						class="form-control"
+						class="search_field"
 						v-model="search"
 						/>
 						<button class="btn custom_button_nav">Додати дефект</button>
@@ -61,7 +61,7 @@
 						title=""
 						label=""
 						placeholder="Пошук за адресою або номером"
-						class="form-control form-control_top"
+						class="form-control form-control_top search_field"
 						v-model="search"
 						type="search"
 						/>
@@ -107,7 +107,7 @@
 						title=""
 						label=""
 						placeholder="Пошук за адресою або номером"
-						class="form-control form-control_top"
+						class="form-control form-control_top search_field"
 						v-model="search"
 						type="search"
 						/>
@@ -1045,7 +1045,6 @@ export default {
 	},
 }
 </script>
-
 <style>
 	.close_icon{
 		position:absolute;

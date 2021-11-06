@@ -76,6 +76,13 @@ export default {
 };
 </script>
 <style scoped>
+	.search_field{
+		flex-flow: row wrap;
+		flex: 0 0 45%;
+		display: flex;
+		/* padding: 0 0 0 80px; */
+		justify-content: center;
+	}
 	.input-field > label{
 		position: absolute;
 	}
@@ -252,6 +259,13 @@ export default {
 	.form-control{
 		flex-flow: row wrap;
 		flex: 0 0 60%;
+		display: flex;
+		/* padding: 0 0 0 80px; */
+		justify-content: center;
+	}
+	.search_field{
+		flex-flow: row wrap;
+		flex: 0 0 45%;
 		display: flex;
 		/* padding: 0 0 0 80px; */
 		justify-content: center;
