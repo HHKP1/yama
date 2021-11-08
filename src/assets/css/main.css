@@ -279,6 +279,29 @@
 		outline: none;
 	}
 
+	.question_block{
+		display: none;
+	}
+
+	.help-tips:hover + .question_block {
+		display: flex !important;
+		flex-flow: column;
+		position: absolute;
+		background-color: var(--background-color-normal);
+		border-radius: 4px;
+		filter: drop-shadow(1px 1px 3px var(--color-gray-light));
+		width: 180px;
+		max-width: 180px;
+		padding: 16px 14px;
+		left: 80px;
+		top: 55px;
+		z-index: 5;
+	}
+
+	.question_tips{
+		font: 500 .9rem 'Montserrat';
+	}
+
 	.btn-floating:hover, .btn-large:hover, .btn-small:hover, .btn:hover, .z-depth-1-half {
 		box-shadow: 0 3px 3px 0 rgb(0 0 0 / 14%), 0 1px 7px 0 rgb(0 0 0 / 12%), 0 3px 1px -1px rgb(0 0 0 / 20%);
 	}

@@ -152,6 +152,12 @@
 												<div class="help-tips"
 													style="border-radius:100%;background: var(--background-color-normal)" title="Є питання?">
 												</div>
+												<div class="question_block" v-if="appsLoaded">
+													<p class="question_tips">
+														Для авторизації - скопіюйте цей <b>{{ authCode[authCode.length-1].code }}</b> код в обраний вами чатбот,
+														та відправте як повідомлення.
+													</p>
+												</div>
 											</div>
 										</div>
 										<div class="hero-content" v-if="appsLoaded">
