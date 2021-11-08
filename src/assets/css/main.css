@@ -299,7 +299,8 @@
 	}
 
 	.question_tips{
-		font: 500 .9rem 'Montserrat';
+		font: 500 1rem 'Montserrat';
+		text-align: left;
 	}
 
 	.btn-floating:hover, .btn-large:hover, .btn-small:hover, .btn:hover, .z-depth-1-half {
