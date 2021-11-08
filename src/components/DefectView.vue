@@ -82,12 +82,18 @@
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
 															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 															<div class="defect_image_detail">
-																<img class="card_image_detail" loading="eager" :src="p.url" alt="">
+																<img class="card_image_detail" @click="openGallery(idx)" loading="eager" :src="p.url" alt="">
 															</div>
 														</div>
 													</div>
 												</slide>
 											</carousel>
+											<LightBox
+												:media="media"
+												ref="lightbox"
+												:show-caption="true"
+												:show-light-box="false"
+											></LightBox>
 											<div class="defect_detail_info">
 												<div class="info_item">
 													<p class="author_item">Дата розміщення</p>
@@ -434,12 +440,18 @@
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
 															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 															<div class="defect_image_detail">
-																<img class="card_image_detail" :src="p.url" alt="">
+																<img class="card_image_detail" @click="openGallery(idx)" :src="p.url" alt="">
 															</div>
 														</div>
 													</div>
 												</slide>
 											</carousel>
+											<LightBox
+												:media="media"
+												ref="lightbox"
+												:show-caption="true"
+												:show-light-box="false"
+											></LightBox>
 											<div class="defect_detail_info">
 												<div class="info_item">
 													<p class="author_item">Дата розміщення</p>
@@ -817,17 +829,23 @@
 												<p class="defect_description">Фото</p>
 											</div>
 											<carousel ref="carousel" :paginationEnabled="false" :perPage="2" :navigationEnabled="true" :navigationNextLabel="'&gt;'" :navigationPrevLabel="'&lt;'" class="VueCarousel_detail_photo">
-												<slide v-for="p in defect.photos" :key="p.id" class="VueCarousel-slide_defect">
+												<slide v-for="(p, idx) in defect.photos" :key="idx" class="VueCarousel-slide_defect">
 													<div class="defect_card_detail_mb">
 														<div class="my-container" style="width: 100%;display: flex;height: 100%;">
 															<vue-element-loading :active="isActive" size="60" duration="1" spinner="spinner" color="#FF6700"/>
 															<div class="defect_image_detail_mb">
-																<img class="card_image_detail" :src="p.url" alt="">
+																<img class="card_image_detail" @click="openGallery(idx)" :src="p.url" alt="">
 															</div>
 														</div>
 													</div>
 												</slide>
 											</carousel>
+											<LightBox
+												:media="media"
+												ref="lightbox"
+												:show-caption="true"
+												:show-light-box="false"
+											></LightBox>
 											<div class="defect_detail_info">
 												<div class="info_item">
 													<p class="author_item">Автор</p>
@@ -1037,10 +1055,12 @@
 </template>
 
 <script>
+// import Vue from 'vue';
 import { Carousel, Slide } from 'vue-carousel';
 import VueElementLoading from 'vue-element-loading';
 import DefectSortedGrid from '../components/DefectSortedGrid';
 import customMarkers from '../assets/js/typeIcons';
+import LightBox from 'vue-image-lightbox/src/components/LightBox';
 // import Pagination from './components/Pagination.vue';
 
 // import defectCards from './mock_data';
@@ -1051,7 +1071,8 @@ export default {
 		VueElementLoading,
 		Carousel,
 		Slide,
-		DefectSortedGrid
+		DefectSortedGrid,
+		LightBox
 	},
 	data() {
 		return {
@@ -1186,6 +1207,9 @@ export default {
 			this.$route.params.id=id;
 			this.loadDefect(id);
 		},
+		openGallery(index) {
+			this.$refs.lightbox.showImage(index)
+		}
 	},
 	computed: {
 		//API Data
@@ -1228,6 +1252,14 @@ export default {
 				'justify-content': 'flex-end',
 				'max-width': '316px'
 			}
+		},
+		media(){
+			return this.defect.photos.map(i => {
+				return {
+					thumb: i.url,
+					src: i.url,
+				}
+			})
 		}
 	},
 	watch: {

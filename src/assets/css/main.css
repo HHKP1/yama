@@ -3643,6 +3643,10 @@ a {
 	.custom_button_nav {
 		font: 700 0.6rem 'Montserrat';
 	}
+	.logout {
+		font: 400 0.9rem Montserrat;
+		cursor: pointer;
+	}
 }
 @media all and (min-width:1280px){
 	.nav_links > a{

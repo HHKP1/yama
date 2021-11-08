@@ -9,6 +9,7 @@ import VueMq from 'vue-mq';
 // import VueAxios from 'vue-axios';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import GmapCluster from 'vue2-google-maps/dist/components/cluster';
+import VueLazyload from 'vue-lazyload';
 
 // Components
 import FormInput from './components/FormInput';
@@ -31,7 +32,7 @@ Vue.component('DefectSortedGrid', DefectSortedGrid);
 // Vue.component('PageLoader', PageLoader);
 Vue.component('GmapCluster', GmapCluster);
 Vue.component('GoogleMap', GoogleMap);
-Vue.component('infoWindow', VueGoogleMaps.InfoWindow)
+Vue.component('infoWindow', VueGoogleMaps.InfoWindow);
 
 // Uses
 const moment = require('moment');
@@ -48,7 +49,9 @@ Vue.use(Meta, {
 	// ssrAttribute: 'data-vue-meta-server-rendered',
 	tagIDKeyName: 'vmid',
 	refreshOnceOnNavigation: true
-})
+});
+
+Vue.use(VueLazyload);
 
 // Vue.use(VueAxios, axios);
 // Vue.use(gsap);
