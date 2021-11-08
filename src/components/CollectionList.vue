@@ -20,16 +20,16 @@
 					/> -->
 				</div>
 				<transition name="loader-map">
-				<GoogleMap :defectMarkers="dfCard" v-show="this.$API2.showMap" mapTitle="Map"/>
+				<GoogleMap :defectMarkers="dfCard" v-show="$API2.showMap" mapTitle="Map"/>
 				</transition>
 				<div class="grid-container_overlay">
-					<div class="carousel_overlay" v-if="this.$API2.orgInfo.length==0 && !this.$API2.showMap">
+					<div class="carousel_overlay" v-if="$API2.orgInfo.length==0 && !$API2.showMap">
 						<p class="empty_message">По цьому запиту немає дефектів</p>
 					</div>
 				</div>
 					<div class="grid-block">
 				<transition name="fade-loader">
-						<div class="grid-container" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
+						<div class="grid-container" v-if="!$API2.showMap && $API2.orgInfo.length>0">
 					<div class="defect_card" v-for='card in paginate' :key='card.id'>
 					<router-link :to="'/'+card.id">
 						<div class="my-container" style="width: 100%;display: block;height: 100%;" @click="listClick($event, '/'+card.id )">
@@ -70,7 +70,7 @@
 					</div>
 			</div>
 			<!-- <Pagination :data="dfCard" :perPage="8" :currentPage="currentPage" :totalPages="dfCard.length" :total="0"/> -->
-			<div class="card_pagination" v-if="!this.$API2.showMap">
+			<div class="card_pagination" v-if="!$API2.showMap">
 				<div class="pagination_control">
 					<ul class="pagination">
 						<li v-for="pageNumber in totalPages" :key="pageNumber" class="waves-effect" @click="setPage(pageNumber)" :class="{active: currentPage === pageNumber, last: (pageNumber == totalPages && Math.abs(pageNumber - currentPage) > 3), first:(pageNumber == 1 && Math.abs(pageNumber - currentPage) > 3)}">
