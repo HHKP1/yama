@@ -115,7 +115,7 @@ export default {
 			statusNewWaitEvent: false,
 		};
 	},
-	async created() {
+	created() {
 		this.$eventBus.$on('orgInfo', async (event) => {
 			// console.log(Array.from(event).length);
 			if(event){
@@ -129,7 +129,7 @@ export default {
 		this.$API.title = "Мапа";
 		this.$API.page = "GoogleMap";
 		this.isActive=true;
-		this.$forceUpdate(this.markers);
+		// this.$forceUpdate(this.markers);
 		if(this.orgN!=this.$API2.orgInfo){
 			this.$eventBus.$emit('orgN', this.orgN);
 		}
@@ -147,7 +147,7 @@ export default {
 			this.statusNewWaitEvent=true;
 			if(this.arrMarkers.length < 0) {
 				this.isActive=true;
-				return true;
+				return;
 			}else{
 				this.markers=[];
 			}

@@ -1,6 +1,7 @@
 export default [
 	{ name: 'Snow', icon: require('../img/st1234/badroad.webp') },
 	{ name: 'badroad_inprogress', icon: require('../img/st1234/badroad_inprogress.webp') },
+	{ name: 'NoFinish', icon: require('../img/st1234/badroad_inprogress.webp') },
 	{ name: 'ruined', icon: require('../img/st1234/destroyed_inprogress.webp') },
 	{ name: 'ruined_inprogress', icon: require('../img/st1234/destroyed_inprogress.webp') },
 	{ name: 'hole', icon: require('../img/st1234/holeonroad_inprogress.webp') },
