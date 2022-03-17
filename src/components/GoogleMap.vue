@@ -239,7 +239,7 @@ export default {
 					lng: m.location[0],
 					area: m.address,
 					status: m.case_status.current.status,
-					author: m.case_status.current.author.name,
+					author: m.case_status.current.author.pseudo,
 					type: m.defect_type,
 					id: m.id,
 					photo: m.photos[0].url,

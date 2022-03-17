@@ -19,7 +19,7 @@
 			<mq-layout mq="md+">
 			<transition name="fade-loader">
 			<div class="defect_content_ht" v-if="appsLoaded">
-								<router-link class="defect_links" to="/collections">
+								<router-link class="defect_links" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
 								<DefectSortedGrid :defect="defect" v-if="$mq == 'lg'" />
@@ -111,7 +111,7 @@
 													<div class="author_info">
 														<div class="author_content">
 															<img src="../assets/img/icons/carbon_user-avatar.svg" loading="eager" alt="User avatar" class="author_icon">
-															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
+															<p class="author_name">{{ defect.case_status.current.author.pseudo }}</p>
 														</div>
 														<button v-if="this.$API.loggedIn" @click="isCommentsMd = 3" class="author_chat underline-btn">Написати автору</button>
 													</div>
@@ -314,7 +314,7 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ comment.author.name }}</p>
+														<p class="author_name">{{ comment.author.pseudo }}</p>
 													</div>
 													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 												</div>
@@ -377,7 +377,7 @@
 			<mq-layout mq="sm_album">
 			<transition name="fade-loader">
 			<div class="defect_content_ht" v-if="appsLoaded">
-								<router-link class="defect_links" to="/collections">
+								<router-link class="defect_links" to="/">
 									<p>&lt; Назад до повного списку</p>
 								</router-link>
 								<DefectSortedGrid :defect="defect" />
@@ -469,7 +469,7 @@
 													<div class="author_info">
 														<div class="author_content">
 															<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
+															<p class="author_name">{{ defect.case_status.current.author.pseudo }}</p>
 														</div>
 														<button v-if="this.$API.loggedIn" @click="isCommentsMd = 3" class="author_chat underline-btn">Написати автору</button>
 													</div>
@@ -597,7 +597,7 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/carbon_user-avatar.svg" loading="eager" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ comment.author.name }}</p>
+														<p class="author_name">{{ comment.author.pseudo }}</p>
 													</div>
 													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 												</div>
@@ -852,7 +852,7 @@
 													<div class="author_info">
 														<div class="author_content">
 															<img src="../assets/img/icons/carbon_user-avatar.svg" loading="eager" alt="User avatar" class="author_icon">
-															<p class="author_name">{{ defect.case_status.current.author.name }}</p>
+															<p class="author_name">{{ defect.case_status.current.author.pseudo }}</p>
 														</div>
 														<button v-if="this.$API.loggedIn" @click="isComments = 2" class="author_chat underline-btn">Написати автору</button>
 													</div>
@@ -991,7 +991,7 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/carbon_user-avatar.svg" alt="User avatar" class="author_icon">
-														<p class="author_name">{{ comment.author.name }}</p>
+														<p class="author_name">{{ comment.author.pseudo }}</p>
 													</div>
 													<p class="author_chat message_date">{{ comment.timestamp | moment("DD.MM.YY в HH:mm") }}</p>
 												</div>
@@ -1222,7 +1222,7 @@ export default {
 					photo: card.photos,
 					status: card.case_status.current.status,
 					comments: card.comments,
-					// author: card.comments[0].author.name,
+					// author: card.comments[0].author.pseudo,
 					defect_type: card.defect_type,
 					// region_id: card.photos[0].region_id,
 					map: card.map_url

@@ -471,6 +471,7 @@ export default {
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
+				console.log(result);
 				if(!this.isActive)
 					this.isActive=true;
 				this.orgInfo = result;
@@ -550,8 +551,9 @@ export default {
 		appListFilter(app) {
 			let show = true;
 
+			console.log(app, this.searchAddressFilter)
 			if(this.searchAddressFilter.length > 0) {
-				show = app.address && app.address.toLowerCase().includes(this.searchAddressFilter.toLowerCase());
+				show = app.address && app.address.includes(this.searchAddressFilter);
 			}
 			if(!show) return false;
 
