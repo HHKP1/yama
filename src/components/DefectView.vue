@@ -333,7 +333,8 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
+														<p v-if="claim.delivery" class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
+														<p v-else class="author_chat message_date">{{ claim.formed_ts | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
@@ -616,7 +617,8 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" loading="eager" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
+														<p v-if="claim.delivery" class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
+														<p v-else class="author_chat message_date">{{ claim.formed_ts | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">
@@ -1011,7 +1013,8 @@
 												<div class="author_content">
 													<div class="author_chat_info">
 														<img src="../assets/img/icons/bx_bx-time-five.svg" alt="User avatar" class="author_icon">
-														<p class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
+														<p v-if="claim.delivery" class="author_chat message_date">{{ claim.delivery.started | moment("DD.MM.YY в HH:mm") }}</p>
+														<p v-else class="author_chat message_date">{{ claim.formed_ts | moment("DD.MM.YY в HH:mm") }}</p>
 													</div>
 												</div>
 												<div class="doc_box">

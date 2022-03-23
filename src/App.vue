@@ -21,7 +21,9 @@
 						class="search_field"
 						v-model="search"
 						/>
-						<button class="btn custom_button_nav">Додати дефект</button>
+						<button @click="addDefectLink('https://t.me/ukryama_bot')" class="btn custom_button_nav">
+							Додати дефект
+						</button>
 						<div v-if="loggedIn" class="author_info_chat" style="margin: 4px 8px;width:120px;">
 							<span class="logout" @click="logout">Вийти</span>
 							<div class="author_content">
@@ -136,7 +138,7 @@
 										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
 										розвивається</h1>
 								</div>
-								<button class="btn custom_button hero-btn">Додати дефект</button>
+								<button class="btn custom_button hero-btn" @click="addDefectLink('https://t.me/ukryama_bot')">Додати дефект</button>
 							</div>
 							<div class="main-hero" v-if="!loggedIn">
 								<div class="hero-title">
@@ -215,7 +217,7 @@
 										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
 										розвивається</p>
 								</div>
-								<button class="btn custom_button hero-btn">Додати дефект</button>
+								<button class="btn custom_button hero-btn" @click="addDefectLink('https://t.me/ukryama_bot')">Додати дефект</button>
 							</div>
 							<div class="main-hero" v-if="!loggedIn">
 								<div class="hero-title">
@@ -289,7 +291,7 @@
 										це інструмент громадського контролю за утриманням доріг, який ефективно працює та
 										розвивається</p>
 								</div>
-								<button class="btn custom_button hero-btn_mb">Додати дефект</button>
+								<button class="btn custom_button hero-btn_mb" @click="addDefectLink('https://t.me/ukryama_bot')">Додати дефект</button>
 							</div>
 							<div class="main-hero" v-if="!loggedIn">
 								<div class="hero-title">
@@ -353,17 +355,17 @@
 				<mq-layout mq="md+">
 					<div class="main-counter">
 						<div class="counter-item">
-							<span class="counter-check">2500</span>
+							<span class="counter-check">{{ stats.added }}</span>
 							<p class="counter-title">зареєстровано в УкрЯмі</p>
 						</div>
 						<span class="counter-separator"></span>
 						<div class="counter-item">
-							<span class="counter-check">500</span>
+							<span class="counter-check">{{ stats.sent }}</span>
 							<p class="counter-title">надіслано в поліцію</p>
 						</div>
 						<span class="counter-separator"></span>
 						<div class="counter-item">
-							<span class="counter-check">25700</span>
+							<span class="counter-check">{{ stats.fixed }}</span>
 							<p class="counter-title">виправлено</p>
 						</div>
 					</div>
@@ -416,7 +418,7 @@
 						<div class="container_steps">
 							<div class="step_item">
 								<div class="step_icon">
-									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
+									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" @click="addDefectLink('https://t.me/ukryama_bot')" title="Додати дефект" alt="Picture of deffect">
 								</div>
 								<p class="step_description">Додати дефект</p>
 								<div class="arrow_forward">
@@ -484,7 +486,7 @@
 						<div class="container_steps">
 							<div class="step_item">
 								<div class="step_icon">
-									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
+									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" @click="addDefectLink('https://t.me/ukryama_bot')" title="Додати дефект" alt="Picture of deffect">
 								</div>
 								<p class="step_description">Додати дефект</p>
 								<div class="arrow_forward">
@@ -552,7 +554,7 @@
 						<div class="container_steps_mb">
 							<div class="step_item_mb">
 								<div class="step_icon">
-									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" title="Додати дефект" alt="Picture of deffect">
+									<img src="./assets/img/icons/mdi_camera-plus-outline.svg" @click="addDefectLink('https://t.me/ukryama_bot')" title="Додати дефект" alt="Picture of deffect">
 								</div>
 								<p class="step_description_mb">Додати дефект</p>
 							</div>
@@ -640,7 +642,7 @@
 						</div>
 						<div class="button_container">
 							<button class="btn footer-outline_button">Допомогти проєкту</button>
-							<button class="btn custom_button footer-btn">Додати дефект</button>
+							<button class="btn custom_button footer-btn" @click="addDefectLink('https://t.me/ukryama_bot')">Додати дефект</button>
 						</div>
 					</div>
 				</mq-layout>
@@ -808,6 +810,7 @@ export default {
 			apiURLv2: '/routes/00d3928bf3/api',
 			apiSocials: '/routes/7a65157215/api',
 			socials: {},
+			stats: {},
 			search: '',
 			prefix: '',
 			selfFilters: false,
@@ -839,6 +842,7 @@ export default {
 		Vue.prototype.$API = this;
 		this.startTimer();
 		this.loadSocials();
+		this.loadStats();
 	},
 	mounted() {
 		this.$API.title = "Аплікація";
@@ -851,6 +855,7 @@ export default {
 		this.lastScrollPosition = window.pageYOffset;
 		window.addEventListener('scroll', this.onScroll);
 		// const $APP_ID = '366159005244899';
+		console.log(this.stats)
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {
@@ -964,6 +969,19 @@ export default {
 				console.log(e);
 			}
 		},
+		async loadStats(){
+			try{
+				let resp = await this.apiGET('/stats');
+				// if (this.status[this.status.length-1].status == "ok") {
+				this.stats = resp;
+				this.$eventBus.$emit('setStats', this.stats);
+				// console.log(this.me);
+				// }
+				this.profileLoaded = true;
+			}catch(e) {
+				console.log(e);
+			}
+		},
 		async loadProfile() {
 			try{
 				let resp = await this.apiGET('/me');
@@ -1028,7 +1046,10 @@ export default {
 			}
 			this.showNavbar = window.pageYOffset < this.lastScrollPosition
 			this.lastScrollPosition = window.pageYOffset
-		}
+		},
+		addDefectLink(url) {
+			window.open(url, "_new");
+		},
 	},
 	computed: {
 		//API Data

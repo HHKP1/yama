@@ -471,10 +471,10 @@ export default {
 			try{
 				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
-				console.log(result);
 				if(!this.isActive)
 					this.isActive=true;
 				this.orgInfo = result;
+				this.orgInfo.reverse();
 				if(!this.appsLoaded)
 					this.appsLoaded = true;
 				this.btnActive=false;
@@ -551,15 +551,22 @@ export default {
 		appListFilter(app) {
 			let show = true;
 
-			console.log(app, this.searchAddressFilter)
-			if(this.searchAddressFilter.length > 0) {
-				show = app.address && app.address.includes(this.searchAddressFilter);
-			}
+			// if(this.searchAddressFilter.length > 0) {
+			// 	// let addressSplit = app.address.split(" ");
+			// 	// console.log(addressSplit)
+			// 	show = app.address && app.address
+			// 		.split(" ")
+			// 		.forEach(addr => {
+			// 			if(addr.toString() == this.searchAddressFilter){
+			// 				return true;
+			// 			}
+			// 		})
+			// }
 			if(!show) return false;
 
-			if(this.periodStart.length > 0 && this.periodEnd.length > 0) {
-				show = app.added >= Date.parse(this.periodStart) && app.added <= Date.parse(this.periodEnd) + 86400000;
-			}
+			// if(this.periodStart.length > 0 && this.periodEnd.length > 0) {
+			// 	show = app.added >= Date.parse(this.periodStart) && app.added <= Date.parse(this.periodEnd) + 86400000;
+			// }
 			if(!show) return false;
 
 			return true;

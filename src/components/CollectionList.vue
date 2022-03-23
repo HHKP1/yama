@@ -9,7 +9,7 @@
 							</div>
 				</div>
 				<div class="sorted_item">
-					<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
+					<p class="sorted_title">Показані новіщі дефекти  (за замовчуванням)</p>
 					<!-- <FormSelect
 						label=""
 						placeholder=""
@@ -93,7 +93,7 @@
 							</div>
 				</div>
 				<div class="sorted_item">
-					<p class="sorted_title">Показані останні дефекти зі змінами (за замовчуванням)</p>
+					<p class="sorted_title">Показані новіщі дефекти  (за замовчуванням)</p>
 					<!-- <FormSelect
 						label=""
 						placeholder=""
@@ -178,7 +178,7 @@
 								<p class="empty_message">По цьому запиту немає дефектів</p>
 							</div>
 						</div>
-								<p class="sorted_title_mb">Показані останні дефекти зі змінами (за замовчуванням)</p>
+								<p class="sorted_title_mb">Показані новіщі дефекти  (за замовчуванням)</p>
 								<div class="grid-container_mb" v-if="!this.$API2.showMap && this.$API2.orgInfo.length>0">
 									<div class="defect_card" v-for='card in paginate' :key='card.id'>
 										<router-link :to="'/'+card.id">
