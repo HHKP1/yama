@@ -820,7 +820,7 @@ export default {
 			user: {},
 			me: {},
 			page: '',
-			listType: 'ruined',
+			// listType: 'ruined',
 			sort_by: '',
 			showNavbar: true,
 			lastScrollPosition: 0,
@@ -855,7 +855,6 @@ export default {
 		this.lastScrollPosition = window.pageYOffset;
 		window.addEventListener('scroll', this.onScroll);
 		// const $APP_ID = '366159005244899';
-		console.log(this.stats)
 	},
 	methods: {
 		abortableFetch(request, opts, raw = false) {

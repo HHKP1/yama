@@ -84,8 +84,8 @@
 									</p>
 								</div>
 								<button :key="dfCard.id" class="btn outline_button" v-if="!queryCheck.some(o => queryStr.includes(o))" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
-								<button class="btn custom_button" @click="loadDefects()">Показати</button>
-								<button class="btn custom_button" @click="resetFilters(true)">Скинути всі фільтри</button>
+								<button class="btn custom_button" @click="loadDefects(true)">Показати</button>
+								<button class="btn custom_button" @click="resetFilters($event)">Скинути фільтри</button>
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
@@ -173,8 +173,8 @@
 									</p>
 								</div>
 								<button :key="dfCard.id" class="btn outline_button" v-if="!queryCheck.some(o => queryStr.includes(o))" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
-								<button class="btn custom_button" @click="loadDefects()">Показати</button>
-								<button class="btn custom_button" @click="resetFilters(true)">Скинути всі фільтри</button>
+								<button class="btn custom_button" @click="loadDefects(true)">Показати</button>
+								<button class="btn custom_button" @click="resetFilters($event)">Скинути фільтри</button>
 			</div>
 			<!-- <GoogleMap modalTitle="Google" :defectId="defectID.defID" v-if="showMap"/> -->
 		</mq-layout>
@@ -267,8 +267,8 @@
 										</p>
 									</div>
 									<button :key="dfCard.id" class="btn outline_button" v-if="!queryCheck.some(o => queryStr.includes(o))" @click="showMap = !showMap">{{ !showMap?'Показати на мапі':'Згорнути мапу' }}</button>
-									<button class="btn custom_button" :class="{active: btnActive}" @click="loadDefects()">Показати</button>
-									<button class="btn custom_button" @click="resetFilters(true)">Скинути всі фільтри</button>
+									<button class="btn custom_button" :class="{active: btnActive}" @click="loadDefects(true)">Показати</button>
+									<button class="btn custom_button" @click="resetFilters($event)">Скинути фільтри</button>
 								</div>
 							</div>
 						</div>
@@ -395,6 +395,7 @@ export default {
 			appsUpdateInterval: null,
 			queryCheck: [],
 			queryStr: '',
+			loadPars: {},
 		}
 	},
 	async created() {
@@ -413,18 +414,18 @@ export default {
 	mounted() {
 		this.$API.title = "Дефекти";
 		this.$API.page = "defects";
-		// console.log(this.$route);
+		// console.log(this.$route.query);
 
-		this.searchAddressFilter=this.$API.appsFilter.searchAddressFilter;
-		this.search_by_date=this.$API.appsFilter.search_by_date;
-		this.search_by_type=this.$API.appsFilter.search_by_type;
-		this.sort_by=this.$API.appsFilter.sort_by;
-		this.selectedRegion=this.$API.appsFilter.selectedRegion;
-		this.selectedLocationType=this.$API.appsFilter.selectedLocationType;
-		this.selectedStatus=this.$API.appsFilter.selectedStatus;
-		this.selectedType=this.$API.appsFilter.selectedType;
-		this.periodStart=this.$API.appsFilter.periodStart;
-		this.periodEnd=this.$API.appsFilter.periodEnd;
+		// this.searchAddressFilter=this.$API.appsFilter.searchAddressFilter;
+		// this.search_by_date=this.$API.appsFilter.search_by_date;
+		// this.search_by_type=this.$API.appsFilter.search_by_type;
+		// this.sort_by=this.$API.appsFilter.sort_by;
+		// this.selectedRegion=this.$API.appsFilter.selectedRegion;
+		// this.selectedLocationType=this.$API.appsFilter.selectedLocationType;
+		// this.selectedStatus=this.$API.appsFilter.selectedStatus;
+		// this.selectedType=this.$API.appsFilter.selectedType;
+		// this.periodStart=this.$API.appsFilter.periodStart;
+		// this.periodEnd=this.$API.appsFilter.periodEnd;
 
 		// this.$cookies.set('yamasession', '77d89dff-1fd7-4d0c-83ab-81b5204b342a')
 
@@ -437,21 +438,22 @@ export default {
 		// 		this.$API.appsFilters[key] = value;
 		// 	}
 		// });
-		this.loadDefects(true);
+		// this.loadDefects(true);
+		// if(this.$route.query){
+		// 	this.loadPars = this.$route.query;
+		// }
 	},
 	methods: {
-		resetFilters() {
+		resetFilters(e) {
 			this.resetApps();
-			this.searchAddressFilter='';
-			this.search_by_date='';
-			this.search_by_type='';
-			this.sort_by='';
-			this.selectedRegion='';
-			this.selectedLocationType='';
-			this.selectedStatus='';
-			this.selectedType='';
-			this.periodStart='';
-			this.periodEnd='';
+			window.location.hash = '#/';
+			this.searchAddressFilter = '';
+			this.selectedRegion = '';
+			this.selectedLocationType = '';
+			this.selectedStatus = '';
+			this.selectedType = '';
+			this.periodStart = '';
+			this.periodEnd = '';
 		},
 		listClick(e, url) {
 			if(e && (e.which == 2 || e.button == 4)) {
@@ -469,7 +471,7 @@ export default {
 			if(!this.appsLoaded)
 				this.appsLoaded=true;
 			try{
-				this.pendingUpdate = this.$API.apiGETv2("/defects?" + this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
+				this.pendingUpdate = this.$API.apiGETv2("/defects?" + await this.appQuery() + (!this.appsLoaded?'&forceUpdate=true':''));
 				let result = await this.pendingUpdate.ready;
 				if(!this.isActive)
 					this.isActive=true;
@@ -546,6 +548,27 @@ export default {
 				loadingParams.address = this.searchAddressFilter;
 			if(this.selectedRegion)
 				loadingParams.region = this.selectedRegion;
+			if(this.loadPars){
+				this.loadPars = this.$route.query;
+				let keys = Object.keys(this.loadPars)
+				for(let key of keys){
+					if(key ?? key == 'status')
+						this.selectedStatus = this.loadPars.status || '';
+					if(key ?? key == 'since')
+						this.periodStart = this.loadPars.since || '';
+					if(key ?? key == 'to')
+						this.periodEnd = this.loadPars.to || '';
+					if(key ?? key == 'type')
+						this.selectedType = this.loadPars.type || '';
+					if(key ?? key == 'location')
+						this.selectedLocationType = this.loadPars.location || '';
+					if(key ?? key == 'address')
+						this.searchAddressFilter = this.loadPars.address || '';
+					if(key ?? key == 'region')
+						this.selectedRegion = this.loadPars.region || '';
+					return Object.keys(this.loadPars).map(key => key + '=' + this.loadPars[key]).join('&');
+				}
+			}
 			return Object.keys(loadingParams).map(key => key + '=' + loadingParams[key]).join('&');
 		},
 		appListFilter(app) {
@@ -685,13 +708,13 @@ export default {
 			this.isActive=true;
 		},
 		// '$route.query'(query){
-		// 	console.log(Object.keys(query).length);
-		// 	if(Object.keys(query).length===0){
-		// 		this.loadDefects(true);
+		// 	// let key = Object.keys(query);
+		// 	if(Object.keys(query).length){
+		// 		this.loadPars = this.$route.query;
 		// 	}
-		// }
+		// },
 		page(){
-			this.loadDefects()
+			this.loadDefects(true)
 		}
 	},
 	beforeDestroy() {
@@ -772,7 +795,7 @@ export default {
 		border: 1px solid var(--color-gray-light);
 		border-radius: 4px;
 		background-color: var(--background-color-normal);
-		z-index: 2;
+		z-index: 100;
 		overflow: hidden;
 		/* height: 330px; */
 		max-width: 350px;
