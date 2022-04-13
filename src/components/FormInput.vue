@@ -128,7 +128,7 @@ export default {
 		color: var(--color-gray) !important;
 	}
 	input[type="text"]::-webkit-input-placeholder{
-		text-indent: 4% !important;
+		/* text-indent: 4% !important; */
 		font-size: 12px;
 		opacity: 1;
 	}
@@ -211,8 +211,18 @@ export default {
 		border: 1px solid var(--color-gray-light);
 		padding: 10px 50px 10px 6px;
 		border-radius: 4px;
-		font-size: 0.9rem;
+		font-size: 0.7rem;
 		width: 100%;
+	}
+	@media all and (max-width:680px){
+		.search_field{
+			min-width:280px;
+			font-size: 0.65em;
+		}
+		.input{
+			font-size: 0.7em;
+			padding: 10px 45px 10px 6px;
+		}
 	}
 	.full_width{
 		width: 100%;

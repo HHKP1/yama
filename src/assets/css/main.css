@@ -2855,7 +2855,7 @@
 }
 
 .nav_links-container.open{
-	transform:translateX(25%);
+	transform:translateX(15%);
 	align-items:flex-start;
 	padding: 20px;
 }

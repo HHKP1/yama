@@ -65,7 +65,6 @@
 						placeholder="Пошук за адресою або номером"
 						class="form-control form-control_top search_field"
 						v-model="search"
-						type="search"
 						/>
 						<div class='nav_links' v-for="(item) in navItems" :key="item.id">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
@@ -111,7 +110,6 @@
 						placeholder="Пошук за адресою або номером"
 						class="form-control form-control_top search_field"
 						v-model="search"
-						type="search"
 						/>
 						<div class='nav_links_sm_al' v-for="(item) in this.navItems" :key="item.id">
 							<router-link :to='{path: item.path}'>{{ item.text }}</router-link>
@@ -376,17 +374,17 @@
 				<mq-layout mq="sm_album">
 					<div class="main-counter">
 						<div class="counter-item">
-							<span class="counter-check">2500</span>
+							<span class="counter-check">{{ stats.added }}</span>
 							<p class="counter-title">зареєстровано в УкрЯмі</p>
 						</div>
 						<span class="counter-separator"></span>
 						<div class="counter-item">
-							<span class="counter-check">500</span>
+							<span class="counter-check">{{ stats.sent }}</span>
 							<p class="counter-title">надіслано в поліцію</p>
 						</div>
 						<span class="counter-separator"></span>
 						<div class="counter-item">
-							<span class="counter-check">25700</span>
+							<span class="counter-check">{{ stats.fixed }}</span>
 							<p class="counter-title">виправлено</p>
 						</div>
 					</div>
@@ -397,15 +395,15 @@
 				<mq-layout mq="sm">
 					<div class="main-counter_mb">
 						<div class="counter-item_mb">
-							<span class="counter-check">2500</span>
+							<span class="counter-check">{{ stats.added }}</span>
 							<p class="counter-title">зареєстровано в УкрЯмі</p>
 						</div>
 						<div class="counter-item_mb">
-							<span class="counter-check">500</span>
+							<span class="counter-check">{{ stats.sent }}</span>
 							<p class="counter-title">надіслано в поліцію</p>
 						</div>
 						<div class="counter-item_mb">
-							<span class="counter-check">25700</span>
+							<span class="counter-check">{{ stats.fixed }}</span>
 							<p class="counter-title">виправлено</p>
 						</div>
 					</div>
@@ -1084,6 +1082,11 @@ export default {
 		top:25%;
 		z-index:99;
 		transition:all 0.4s ease-out;
+	}
+	@media all and (max-width:687px){
+		.close_icon{
+			top:5% !important;
+		}
 	}
 	.close_icon img{
 		width: 18px;
