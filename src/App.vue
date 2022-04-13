@@ -1085,7 +1085,7 @@ export default {
 	}
 	@media all and (max-width:687px){
 		.close_icon{
-			top:5% !important;
+			top:25% !important;
 		}
 	}
 	.close_icon img{
