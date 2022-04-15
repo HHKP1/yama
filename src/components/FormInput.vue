@@ -92,10 +92,12 @@ export default {
 		top:25%;
 		z-index:99;
 		transition:all 0.4s ease-out;
+		cursor: pointer;
 	}
 	.close_icon img{
 		width: 18px;
 		height: 18px;
+		cursor: pointer;
 	}
 	.close_icon:hover{
 		transform: scale(1.2);

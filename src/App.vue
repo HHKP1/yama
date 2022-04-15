@@ -1082,6 +1082,7 @@ export default {
 		top:25%;
 		z-index:99;
 		transition:all 0.4s ease-out;
+		cursor: pointer;
 	}
 	@media all and (max-width:687px){
 		.close_icon{
