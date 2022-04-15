@@ -226,7 +226,7 @@ export default {
 		flex-flow: row wrap;
 		flex: 1 1 50%;
 		display: flex;
-		cursor: pointer;
+		cursor: text;
 	}
 	.input-field > label:not(.label-icon).active {
 		color: #34B76C;

@@ -2368,7 +2368,7 @@
 		font: 500 1.6rem 'Montserrat';
 	}
 	.form-control{
-		cursor: pointer;
+		cursor: text;
 		position: relative;
 	}
 	.search_field{
@@ -2882,7 +2882,9 @@ a {
 	justify-content: space-between;
 	align-items: center;
 }
-
+.select-item_choosen__option > span {
+	color: var(--color-gray)
+}
 .custom_button {
 	font: 700 .9rem 'Montserrat';
 	background-color: var(--button-default);

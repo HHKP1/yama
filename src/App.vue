@@ -17,7 +17,7 @@
 						<FormInput
 						title=""
 						label=""
-						placeholder="Пошук за адресою або номером"
+						placeholder="адреса або номер"
 						class="search_field"
 						v-model="search"
 						/>
@@ -62,7 +62,7 @@
 						<FormInput
 						title=""
 						label=""
-						placeholder="Пошук за адресою або номером"
+						placeholder="адреса або номер"
 						class="form-control form-control_top search_field"
 						v-model="search"
 						/>
@@ -107,7 +107,7 @@
 						<FormInput
 						title=""
 						label=""
-						placeholder="Пошук за адресою або номером"
+						placeholder="адреса або номер"
 						class="form-control form-control_top search_field"
 						v-model="search"
 						/>

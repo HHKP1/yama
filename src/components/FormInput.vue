@@ -109,7 +109,7 @@ export default {
 		position: relative;
 		top: 0;
 		right: 0;
-		cursor: pointer;
+		cursor: text;
 		background: url(../assets/img/search_icon.png) no-repeat 95% 60%;
 	}
 	.input-field > input[class='chat_icon'], input:not([type="date"]):not([type="text"]):not([placeholder="Пошук дефектів за адресою"]):not([type="search"]){
@@ -134,7 +134,7 @@ export default {
 	}
 	input[type="text"]::-webkit-input-placeholder{
 		text-indent: 4% !important;
-		font-size: 12px;
+		font-size: .9rem;
 		opacity: 1;
 		position: relative;
 		top: 0px;
@@ -206,7 +206,7 @@ export default {
 		border-radius: 4px !important;
 		max-width: 350px;
 		/* height: 1.5rem !important; */
-		max-height: 35px;
+		/* max-height: 35px; */
 		flex-wrap: wrap;
 		border: 1px solid var(--color-gray-light);
 		padding: 10px 50px 10px 6px;
@@ -217,10 +217,10 @@ export default {
 	@media all and (max-width:680px){
 		.search_field{
 			min-width:280px;
-			font-size: 0.65em;
+			font-size: 0.9em;
 		}
-		.input{
-			font-size: 0.7em;
+		.input.input-field > input{
+			font-size: 0.9em;
 			padding: 10px 45px 10px 6px;
 		}
 	}
