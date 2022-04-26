@@ -1127,6 +1127,7 @@ export default {
 				this.me = await e;
 			}
 		})
+		this.$API2.loadDefects(true)
 		this.id = this.$route.params.id;
 		this.loadDefect(this.id);
 	},
