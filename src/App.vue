@@ -666,7 +666,7 @@
 						</div>
 						<div class="button_container_mb">
 							<button class="btn outline_button footer-btn_mb">Допомогти проєкту</button>
-							<button class="btn custom_button footer-btn_mb">Додати дефект</button>
+							<button class="btn custom_button footer-btn_mb" @click="addDefectLink('https://t.me/ukryama_bot')">Додати дефект</button>
 						</div>
 					</div>
 				</mq-layout>
